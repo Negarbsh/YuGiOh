@@ -19,6 +19,11 @@ public class FileHandler {
     public static void loadThings() {
         CardLoader.loadCsv();
         loadUsers();
+        loadAssets();
+    }
+
+    private static void loadAssets() {
+        PreCard.setCardsPictures();
     }
 
     private static void loadUsers() {

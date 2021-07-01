@@ -1,6 +1,7 @@
 package com.mygdx.game.java.view;
 
 import com.mygdx.game.java.controller.RelatedToMenuController;
+import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.view.Menus.*;
 import com.mygdx.game.java.view.exceptions.InvalidCommand;
 import com.mygdx.game.java.view.exceptions.MenuNavigationError;

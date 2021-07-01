@@ -1,8 +1,13 @@
 package com.mygdx.game.java.model.card;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 @Getter
@@ -12,9 +17,11 @@ public abstract class PreCard {
     protected CardType cardType;    // monster or trap or spell
     protected String description;
     protected int price;
+    protected static HashMap<String, Texture> cardsPictures;
 
     static {
         allPreCards = new ArrayList<>();
+        cardsPictures = new HashMap<>();
     }
 
     public static ArrayList<PreCard> getAllPreCards() {
@@ -48,4 +55,18 @@ public abstract class PreCard {
     public int hashCode() {
         return Objects.hash(name);
     }
+
+
+    public static void setCardsPictures() {
+        FileHandle[] allCardPics = Gdx.files.internal("Cards").list();
+        for (FileHandle cardPic : allCardPics) {
+            cardsPictures.put(cardPic.name(), new Texture(cardPic));
+        }
+    }
+
+    public static Texture getCardPic(String cardName) {
+        String alterName = cardName.replace(" ", "");
+        return cardsPictures.getOrDefault(alterName, null);
+    }
+
 }
