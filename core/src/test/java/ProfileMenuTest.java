@@ -1,15 +1,15 @@
-//fully tested profile menu main.java.controller
+//fully tested profile menu com.mygdx.game.java.controller
 
 
-import main.java.controller.ProfileMenuController;
-import main.java.view.exceptions.*;
-import main.java.model.User;
+import com.mygdx.game.java.controller.ProfileMenuController;
+import com.mygdx.game.java.view.exceptions.*;
+import com.mygdx.game.java.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
-public class ProfileMenuTest {  //main.java.controller
+public class ProfileMenuTest {  //com.mygdx.game.java.controller
 
     @Test
     @DisplayName("change nickname")

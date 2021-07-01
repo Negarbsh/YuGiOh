@@ -1,6 +1,6 @@
-//import main.java.controller.ImportExportController;
-//import main.java.view.exceptions.InvalidName;
-//import main.java.model.card.CardLoader;
+//import com.mygdx.game.java.controller.ImportExportController;
+//import com.mygdx.game.java.view.exceptions.InvalidName;
+//import com.mygdx.game.java.model.card.CardLoader;
 //import org.junit.jupiter.api.Assertions;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.DisplayName;

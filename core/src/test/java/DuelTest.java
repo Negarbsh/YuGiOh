@@ -1,6 +1,6 @@
-import main.java.controller.LoginMenuController;
-import main.java.controller.game.DuelMenuController;
-import main.java.model.User;
+import com.mygdx.game.java.controller.LoginMenuController;
+import com.mygdx.game.java.controller.game.DuelMenuController;
+import com.mygdx.game.java.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.function.Executable;

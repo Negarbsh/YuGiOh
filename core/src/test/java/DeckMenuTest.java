@@ -1,19 +1,19 @@
-//3 methods of deck menu main.java.controller tested
+//3 methods of deck menu com.mygdx.game.java.controller tested
 
-import main.java.controller.DeckMenuController;
-import main.java.controller.ShopMenuController;
-import main.java.model.Deck;
-import main.java.model.User;
-import main.java.model.card.CardLoader;
-import main.java.model.card.PreCard;
+import com.mygdx.game.java.controller.DeckMenuController;
+import com.mygdx.game.java.controller.ShopMenuController;
+import com.mygdx.game.java.model.Deck;
+import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.model.card.CardLoader;
+import com.mygdx.game.java.model.card.PreCard;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
-import main.java.view.exceptions.*;
+import com.mygdx.game.java.view.exceptions.*;
 
-public class DeckMenuTest {  //main.java.controller
+public class DeckMenuTest {  //com.mygdx.game.java.controller
     User user;
 
     @BeforeEach

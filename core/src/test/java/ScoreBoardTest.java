@@ -1,6 +1,6 @@
-import main.java.controller.ScoreBoardMenuController;
-import main.java.model.User;
-import main.java.model.card.CardLoader;
+import com.mygdx.game.java.controller.ScoreBoardMenuController;
+import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.model.card.CardLoader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

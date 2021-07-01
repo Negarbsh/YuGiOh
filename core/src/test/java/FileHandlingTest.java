@@ -1,5 +1,5 @@
-import main.java.controller.FileHandler;
-import main.java.model.User;
+import com.mygdx.game.java.controller.FileHandler;
+import com.mygdx.game.java.model.User;
 import org.junit.jupiter.api.Test;
 
 public class FileHandlingTest {

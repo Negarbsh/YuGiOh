@@ -1,4 +1,4 @@
-sourceCompatibility = 1.8
+sourceCompatibility = 11
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sourceSets.main.java.srcDirs = [ "src/" ]
@@ -15,6 +15,15 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.opencsv/opencsv
     implementation group: 'com.opencsv', name: 'opencsv', version: '3.7'
+}
+
+tasks.withType(Test){
+    scanForTestClasses = false
+    include "**/*Test.class"
+}
+
+test {
+    useJUnitPlatform()
 }
 
 

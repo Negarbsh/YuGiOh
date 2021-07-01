@@ -77,3 +77,12 @@ dependencies {
     // https://mvnrepository.com/artifact/com.opencsv/opencsv
     implementation group: 'com.opencsv', name: 'opencsv', version: '3.7'
 }
+
+tasks.withType(Test){
+    scanForTestClasses = false
+    include "**/*Test.class"
+}
+
+test {
+    useJUnitPlatform()
+}

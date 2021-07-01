@@ -16,7 +16,7 @@
         "name": "234",
         "mainCards": [
           {
-            "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
             "INSTANCE": {
               "level": 4,
               "defense": 1000,
@@ -31,7 +31,7 @@
             }
           },
           {
-            "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
             "INSTANCE": {
               "level": 4,
               "defense": 1000,
@@ -46,7 +46,7 @@
             }
           },
           {
-            "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
             "INSTANCE": {
               "level": 3,
               "defense": 1400,
@@ -61,7 +61,7 @@
             }
           },
           {
-            "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
             "INSTANCE": {
               "level": 3,
               "defense": 1400,
@@ -76,7 +76,7 @@
             }
           },
           {
-            "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
             "INSTANCE": {
               "level": 3,
               "defense": 1400,
@@ -91,7 +91,7 @@
             }
           },
           {
-            "CLASSNAME": "main.java.model.card.spelltrap.PreSpellTrapCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
             "INSTANCE": {
               "status": "UNLIMITED",
               "icon": "NORMAL",
@@ -102,7 +102,7 @@
             }
           },
           {
-            "CLASSNAME": "main.java.model.card.spelltrap.PreSpellTrapCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
             "INSTANCE": {
               "status": "UNLIMITED",
               "icon": "NORMAL",
@@ -113,7 +113,7 @@
             }
           },
           {
-            "CLASSNAME": "main.java.model.card.spelltrap.PreSpellTrapCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
             "INSTANCE": {
               "status": "UNLIMITED",
               "icon": "NORMAL",
@@ -132,7 +132,7 @@
       "name": "234",
       "mainCards": [
         {
-          "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
           "INSTANCE": {
             "level": 4,
             "defense": 1000,
@@ -147,7 +147,7 @@
           }
         },
         {
-          "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
           "INSTANCE": {
             "level": 4,
             "defense": 1000,
@@ -162,7 +162,7 @@
           }
         },
         {
-          "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
           "INSTANCE": {
             "level": 3,
             "defense": 1400,
@@ -177,7 +177,7 @@
           }
         },
         {
-          "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
           "INSTANCE": {
             "level": 3,
             "defense": 1400,
@@ -192,7 +192,7 @@
           }
         },
         {
-          "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
           "INSTANCE": {
             "level": 3,
             "defense": 1400,
@@ -207,7 +207,7 @@
           }
         },
         {
-          "CLASSNAME": "main.java.model.card.spelltrap.PreSpellTrapCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
           "INSTANCE": {
             "status": "UNLIMITED",
             "icon": "NORMAL",
@@ -218,7 +218,7 @@
           }
         },
         {
-          "CLASSNAME": "main.java.model.card.spelltrap.PreSpellTrapCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
           "INSTANCE": {
             "status": "UNLIMITED",
             "icon": "NORMAL",
@@ -229,7 +229,7 @@
           }
         },
         {
-          "CLASSNAME": "main.java.model.card.spelltrap.PreSpellTrapCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
           "INSTANCE": {
             "status": "UNLIMITED",
             "icon": "NORMAL",
@@ -260,7 +260,7 @@
         "name": "234",
         "mainCards": [
           {
-            "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
             "INSTANCE": {
               "level": 4,
               "defense": 1000,
@@ -275,7 +275,7 @@
             }
           },
           {
-            "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
             "INSTANCE": {
               "level": 4,
               "defense": 1000,
@@ -290,7 +290,7 @@
             }
           },
           {
-            "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
             "INSTANCE": {
               "level": 3,
               "defense": 1400,
@@ -305,7 +305,7 @@
             }
           },
           {
-            "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
             "INSTANCE": {
               "level": 3,
               "defense": 1400,
@@ -320,7 +320,7 @@
             }
           },
           {
-            "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
             "INSTANCE": {
               "level": 3,
               "defense": 1400,
@@ -335,7 +335,7 @@
             }
           },
           {
-            "CLASSNAME": "main.java.model.card.spelltrap.PreSpellTrapCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
             "INSTANCE": {
               "status": "UNLIMITED",
               "icon": "NORMAL",
@@ -346,7 +346,7 @@
             }
           },
           {
-            "CLASSNAME": "main.java.model.card.spelltrap.PreSpellTrapCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
             "INSTANCE": {
               "status": "UNLIMITED",
               "icon": "NORMAL",
@@ -357,7 +357,7 @@
             }
           },
           {
-            "CLASSNAME": "main.java.model.card.spelltrap.PreSpellTrapCard",
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
             "INSTANCE": {
               "status": "UNLIMITED",
               "icon": "NORMAL",
@@ -376,7 +376,7 @@
       "name": "234",
       "mainCards": [
         {
-          "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
           "INSTANCE": {
             "level": 4,
             "defense": 1000,
@@ -391,7 +391,7 @@
           }
         },
         {
-          "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
           "INSTANCE": {
             "level": 4,
             "defense": 1000,
@@ -406,7 +406,7 @@
           }
         },
         {
-          "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
           "INSTANCE": {
             "level": 3,
             "defense": 1400,
@@ -421,7 +421,7 @@
           }
         },
         {
-          "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
           "INSTANCE": {
             "level": 3,
             "defense": 1400,
@@ -436,7 +436,7 @@
           }
         },
         {
-          "CLASSNAME": "main.java.model.card.monster.PreMonsterCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
           "INSTANCE": {
             "level": 3,
             "defense": 1400,
@@ -451,7 +451,7 @@
           }
         },
         {
-          "CLASSNAME": "main.java.model.card.spelltrap.PreSpellTrapCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
           "INSTANCE": {
             "status": "UNLIMITED",
             "icon": "NORMAL",
@@ -462,7 +462,7 @@
           }
         },
         {
-          "CLASSNAME": "main.java.model.card.spelltrap.PreSpellTrapCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
           "INSTANCE": {
             "status": "UNLIMITED",
             "icon": "NORMAL",
@@ -473,7 +473,7 @@
           }
         },
         {
-          "CLASSNAME": "main.java.model.card.spelltrap.PreSpellTrapCard",
+          "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
           "INSTANCE": {
             "status": "UNLIMITED",
             "icon": "NORMAL",
