@@ -1,6 +1,8 @@
 package com.mygdx.game.java.model;
 
 import com.mygdx.game.java.controller.game.DuelMenuController;
+import com.mygdx.game.java.view.Constants;
+import com.mygdx.game.java.view.PositionCalculator;
 import lombok.Getter;
 import lombok.Setter;
 import com.mygdx.game.java.model.Enums.Phase;
@@ -94,10 +96,6 @@ public class Board {
 
     public boolean isMonsterZoneFull() {
         return getFirstEmptyCardInUse(true) == null;
-    }
-
-    public boolean isSpellTrapZoneFull() {
-        return getFirstEmptyCardInUse(false) == null;
     }
 
     public CardInUse getFirstEmptyCardInUse(boolean isMonster) {
@@ -220,10 +218,23 @@ public class Board {
         return toReturn;
     }
 
+    /*
+    This function is called when we want to show the board for the first time in the duelScreen.
+    It sets the showing position of cells
+     */
+    public void setupEntities(boolean isMyOwnerCurrent) {
+        for (int i = 0; i < 5; i++) {
+            float[] monsterPosition = PositionCalculator.getCardInUsePosition(i, true, isMyOwnerCurrent);
+            float[] spellPosition = PositionCalculator.getCardInUsePosition(i, false, isMyOwnerCurrent);
+            spellTrapZone[i].set(spellPosition[0], spellPosition[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
+            monsterZone[i].set(monsterPosition[0], monsterPosition[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
+        }
+    }
+
+
     @Override
     public String toString() {
-//        if (com.mygdx.game.java.controller == null) return myTurnString();
-        if (controller.getRoundController().getCurrentPlayer() == this.owner) //todo: fine?
+        if (controller.getRoundController().getCurrentPlayer() == this.owner)
             return myTurnString();
         else
             return rivalTurnString();

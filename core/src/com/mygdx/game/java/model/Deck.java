@@ -5,11 +5,11 @@ import com.mygdx.game.java.model.card.CardType;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.model.card.spelltrap.CardStatus;
 import com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard;
-import com.mygdx.game.java.view.Print;
 import com.mygdx.game.java.view.exceptions.BeingFull;
 import com.mygdx.game.java.view.exceptions.InvalidName;
 import com.mygdx.game.java.view.exceptions.NotExisting;
 import com.mygdx.game.java.view.exceptions.OccurrenceException;
+import com.mygdx.game.java.view.messageviewing.Print;
 import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
 
 import java.util.ArrayList;

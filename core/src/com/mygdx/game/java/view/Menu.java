@@ -1,12 +1,12 @@
 package com.mygdx.game.java.view;
 
 import com.mygdx.game.java.controller.RelatedToMenuController;
-import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.view.Menus.*;
 import com.mygdx.game.java.view.exceptions.InvalidCommand;
 import com.mygdx.game.java.view.exceptions.MenuNavigationError;
 import com.mygdx.game.java.view.exceptions.NeedToLogin;
 import com.mygdx.game.java.view.exceptions.WrongMenu;
+import com.mygdx.game.java.view.messageviewing.Print;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;

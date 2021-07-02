@@ -3,8 +3,8 @@ package com.mygdx.game.java.controller;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.model.card.PreCard;
-import com.mygdx.game.java.view.Print;
 import com.mygdx.game.java.view.exceptions.*;
+import com.mygdx.game.java.view.messageviewing.Print;
 import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
 
 import java.util.ArrayList;

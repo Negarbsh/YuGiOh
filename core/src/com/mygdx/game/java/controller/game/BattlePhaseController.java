@@ -56,7 +56,7 @@ public class BattlePhaseController {
             MonsterCardInUse preyCard = (MonsterCardInUse) selectController.getTheCardInUse();
             if (preyCard != null)
                 battleController = new BattleController(attacker, preyCard, this);
-            else    Print.print(Print.cancelBattle);
+            else Print.print(Print.cancelBattle);
         }
     }
 

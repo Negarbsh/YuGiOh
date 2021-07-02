@@ -1,5 +1,6 @@
 package com.mygdx.game.java.model;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.monster.MonsterCardType;
@@ -53,6 +54,14 @@ public class Hand {
         if (index > 0 && index <= cardsInHand.size())
             return cardsInHand.get(index - 1);
         else throw new InvalidSelection();
+    }
+
+    public Table getHandTable(){
+        Table table = new Table();
+        for (Card card : cardsInHand) {
+//            table.add(card); todo: why error?
+        }
+        return table;
     }
 
     @Override

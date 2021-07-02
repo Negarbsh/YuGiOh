@@ -10,6 +10,7 @@ import com.mygdx.game.java.view.MenuName;
 import com.mygdx.game.java.view.exceptions.*;
 import com.mygdx.game.java.view.messageviewing.Print;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -241,7 +242,7 @@ public class DuelMenu {
     }
 
     public static void showException(Exception exception) {
-        com.mygdx.game.java.view.Print.print(exception.getMessage());
+        Print.print(exception.getMessage());
     }
 
     public static void showTemporaryTurnChange(String name, Board newCurrentBoard, Board newRivalBoard) {

@@ -1,6 +1,5 @@
 package com.mygdx.game.java.view.messageviewing;
 
-import com.mygdx.game.java.view.Print;
 
 public enum Winner {
     AGAINST_A_WINS("your opponent’s monster is destroyed and your opponent" +

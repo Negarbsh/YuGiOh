@@ -3,6 +3,7 @@
 package com.mygdx.game.java.controller.game;
 
 import com.mygdx.game.java.controller.LoginMenuController;
+import com.mygdx.game.java.view.messageviewing.Print;
 import lombok.Getter;
 import com.mygdx.game.java.model.CardAddress;
 import com.mygdx.game.java.model.Deck;
@@ -17,7 +18,6 @@ import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.monster.MonsterManner;
 import com.mygdx.game.java.model.watchers.Watcher;
 import com.mygdx.game.java.view.Menus.DuelMenu;
-import com.mygdx.game.java.view.Print;
 import com.mygdx.game.java.view.exceptions.*;
 
 import java.util.ArrayList;

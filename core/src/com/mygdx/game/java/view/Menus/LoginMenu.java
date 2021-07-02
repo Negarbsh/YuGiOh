@@ -8,7 +8,7 @@ import com.mygdx.game.java.view.exceptions.InvalidCommand;
 import com.mygdx.game.java.view.exceptions.LoginError;
 import com.mygdx.game.java.view.exceptions.WrongMenu;
 import com.mygdx.game.java.view.MenuName;
-import com.mygdx.game.java.view.Print;
+import com.mygdx.game.java.view.messageviewing.Print;
 
 import java.util.regex.Matcher;
 

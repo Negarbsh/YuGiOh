@@ -2,9 +2,9 @@
 package com.mygdx.game.java.model;
 
 import com.mygdx.game.java.controller.FileHandler;
+import com.mygdx.game.java.view.messageviewing.Print;
 import lombok.Setter;
 import com.mygdx.game.java.model.card.PreCard;
-import com.mygdx.game.java.view.Print;
 import com.mygdx.game.java.view.SuccessMessages;
 
 import java.util.ArrayList;

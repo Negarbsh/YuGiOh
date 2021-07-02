@@ -5,10 +5,11 @@ import com.mygdx.game.java.model.GraveYard;
 import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
 import com.mygdx.game.java.model.watchers.Watcher;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 @Getter
-public abstract class Card {
+public abstract class Card extends Button {
     public String name;
     public Card instance;
     public PreCard preCardInGeneral;

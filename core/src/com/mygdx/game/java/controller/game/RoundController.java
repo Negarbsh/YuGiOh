@@ -1,5 +1,6 @@
 package com.mygdx.game.java.controller.game;
 
+import com.mygdx.game.java.view.messageviewing.Print;
 import lombok.Getter;
 import lombok.Setter;
 import com.mygdx.game.java.model.Board;
@@ -13,7 +14,6 @@ import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
 import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.model.card.cardinusematerial.SpellTrapCardInUse;
 import com.mygdx.game.java.view.Menus.DuelMenu;
-import com.mygdx.game.java.view.Print;
 import com.mygdx.game.java.view.exceptions.*;
 
 @Getter

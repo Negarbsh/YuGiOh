@@ -4,7 +4,8 @@ import com.mygdx.game.java.controller.DeckMenuController;
 import com.mygdx.game.java.controller.RelatedToMenuController;
 import com.mygdx.game.java.view.exceptions.*;
 import com.mygdx.game.java.view.MenuName;
-import com.mygdx.game.java.view.Print;
+import com.mygdx.game.java.view.messageviewing.Print;
+
 
 public class DeckMenu {
     public static void checkMenuCommands(String command) throws InvalidCommand, WrongMenu {

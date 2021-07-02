@@ -1,8 +1,8 @@
 package com.mygdx.game.java.model.card.cardinusematerial;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.java.controller.game.DuelMenuController;
+import com.mygdx.game.java.view.Constants;
 import lombok.Getter;
 import lombok.Setter;
 import com.mygdx.game.java.model.Board;
@@ -18,7 +18,7 @@ import java.util.Collections;
 
 @Getter
 @Setter
-public abstract class CardInUse {
+public abstract class CardInUse extends Rectangle {
     public ArrayList<Watcher> watchersOfCardInUse;
     public Card thisCard;
     public Player ownerOfCard;
@@ -27,6 +27,7 @@ public abstract class CardInUse {
     protected Board board;
 
     public CardInUse(Board board) {
+//        super(x, y, Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
         this.board = board;
         this.ownerOfCard = board.getOwner();
     }

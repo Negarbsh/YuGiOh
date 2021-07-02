@@ -5,7 +5,7 @@ import lombok.Setter;
 import com.mygdx.game.java.model.Board;
 import com.mygdx.game.java.model.CardState;
 import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
-import com.mygdx.game.java.view.Print;
+import com.mygdx.game.java.view.messageviewing.Print;
 import com.mygdx.game.java.view.messageviewing.Winner;
 
 @Getter
