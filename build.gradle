@@ -76,6 +76,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.opencsv/opencsv
     implementation group: 'com.opencsv', name: 'opencsv', version: '3.7'
+
+    compile "commons-io:commons-io:2.4+"
 }
 
 tasks.withType(Test){

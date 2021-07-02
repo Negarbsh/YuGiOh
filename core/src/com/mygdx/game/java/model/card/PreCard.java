@@ -3,7 +3,7 @@ package com.mygdx.game.java.model.card;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mygdx.game.java.model.Reader;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public abstract class PreCard {
 
     public static PreCard findCard(String name) {
         for (PreCard preCard : allPreCards) {
-            if ((preCard.getName().toUpperCase()).equals(name.toUpperCase())) //todo: check
+            if ((preCard.getName()).equalsIgnoreCase(name))
                 return preCard;
         }
         return null;
@@ -58,9 +58,20 @@ public abstract class PreCard {
 
 
     public static void setCardsPictures() {
-        FileHandle[] allCardPics = Gdx.files.internal("Cards").list();
-        for (FileHandle cardPic : allCardPics) {
-            cardsPictures.put(cardPic.name(), new Texture(cardPic));
+        addCardPics(new String[]{"Cards/Monsters", "Cards/SpellTrap"});
+//        addCardPics("Cards/SpellTrap");
+    }
+
+    private static void addCardPics(String[] folderPath) {
+//        Reader.figureCatalog(folderPath);
+        for (String s : folderPath) {
+            for (FileHandle cardPic : Reader.readDirectoryCatalog(s)) {
+                try {
+                    cardsPictures.put(cardPic.name().replace(".jpg", ""), new Texture(cardPic));
+                } catch (Exception e) {
+                    System.out.println(cardPic + "\t\t" + cardPic.name());  //TODO remove catch
+                }
+            }
         }
     }
 

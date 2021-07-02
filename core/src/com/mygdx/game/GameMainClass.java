@@ -1,16 +1,18 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.java.view.Main;
 
-public class GameMainClass extends ApplicationAdapter {
+public class GameMainClass extends Game {
 	SpriteBatch batch;
 	Texture img;
 	
 	@Override
 	public void create () {
+		Main.main(new String[]{});
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 	}
