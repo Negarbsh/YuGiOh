@@ -37,4 +37,9 @@ public class ShopCard extends ImageButton {
         super(imageUp, imageDown, imageChecked);
         this.preCard = preCard;
     }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+    }
 }

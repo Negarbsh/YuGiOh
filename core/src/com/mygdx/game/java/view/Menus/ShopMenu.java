@@ -4,13 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.RelatedToMenuController;
@@ -33,7 +37,6 @@ public class ShopMenu implements Screen {
     User user;
     Table shopTable, buyTable;
     PreCard selected;
-//    Texture cardPic;
     TextButton buyButton;
     Label descriptLabel;
     Image selectedImage;
@@ -67,30 +70,34 @@ public class ShopMenu implements Screen {
     @Override
     public void show() {
         shopTable = new Table();
-        shopTable.setBounds(0, 300, 1024, 724);
+        shopTable.setBounds(0, 400, 1024, 624);
+        shopTable.align(Align.center);
         controller.createShopTable(shopTable);
 
 
         //TODO change is disabled style
+        //buy table
         buyTable = new Table();
-        buyTable.setBounds(0, 0, 1024, 300);
-        buyTable.add(selectedImage);
-        buyButton = new TextButton("buy", mainClass.skin);
+        buyTable.setBounds(0, 0, 1024, 400);
+
+        selectedImage = new Image();
+
+        descriptLabel = new Label("", mainClass.skin);
+        descriptLabel.setFontScale(1.5f);
+        descriptLabel.setWrap(true);
+
+        buyButton = new TextButton("buy", mainClass.skin, "menu-item-maroon");
         buyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                controller.sellCard(selected);
+                if (selected != null)
+                    controller.sellCard(selected);
             }
         });
-        buyButton.setDisabled(true);
-        buyTable.add(buyButton);
-
-
-        descriptLabel = new Label("", mainClass.skin);
-        descriptLabel.setX(230f);
-        descriptLabel.setY(425f);
-        descriptLabel.setFontScale(0.5f);
-        buyTable.add(descriptLabel);
+        buyButton.setTouchable(Touchable.disabled);
+        buyTable.add(selectedImage).size(200, 300).padRight(10).padLeft(7);
+        buyTable.add(descriptLabel).prefWidth(600).padRight(7);
+        buyTable.add(buyButton).size(100, 50).padTop(30);
 
         stage.addActor(new Wallpaper(1, 0, 0, 1024, 1024));
         stage.addActor(shopTable);
@@ -107,19 +114,18 @@ public class ShopMenu implements Screen {
         stage.draw();
     }
 
-    public void updateSelected(ShopCard shopCard) {
-//        selected = shopCard.preCard;
-//        cardPic = PreCard.getCardPic(selected.getName());
+    public void updateSelected(PreCard preCard) {
+        selected = preCard;
         descriptLabel.setText("description: " + selected.getDescription() + "\n\nprice: " +
                 selected.getPrice());
-        buyButton.setDisabled(false);
-        selectedImage = new Image(PreCard.getCardPic(shopCard.preCard.getName()));
+        buyButton.setTouchable(Touchable.enabled);
+        selectedImage.setDrawable(new TextureRegionDrawable(new TextureRegion(PreCard.getCardPic(preCard.getName()))));
     }
 
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height);
     }
 
     @Override
