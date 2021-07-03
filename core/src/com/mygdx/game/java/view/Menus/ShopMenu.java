@@ -2,6 +2,7 @@ package com.mygdx.game.java.view.Menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -39,6 +40,7 @@ public class ShopMenu implements Screen {
     ShopMenuController controller;
     User user;
     Table shopTable, buyTable;
+    @Getter Sound coinShake;
     @Getter(AccessLevel.PUBLIC) @Setter(AccessLevel.PUBLIC) PreCard selected;
     @Getter TextButton buyButton;
     @Getter Label descriptLabel;
@@ -65,6 +67,7 @@ public class ShopMenu implements Screen {
     }
 
     public ShopMenu(GameMainClass gameMainClass, User user) {
+        setSounds();
         this.mainClass = gameMainClass;
         this.user = user;
         controller = new ShopMenuController(user, this);
@@ -141,5 +144,9 @@ public class ShopMenu implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    private void setSounds() {
+        coinShake = Gdx.audio.newSound(Gdx.files.internal("sounds/coins-shake.ogg"));
     }
 }

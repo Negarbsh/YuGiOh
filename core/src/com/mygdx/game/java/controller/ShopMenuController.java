@@ -14,7 +14,6 @@ import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.view.Menus.ShopMenu;
 import com.mygdx.game.java.view.exceptions.InvalidName;
 import com.mygdx.game.java.view.exceptions.NotEnoughMoney;
-import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +21,7 @@ import java.util.Collections;
 public class ShopMenuController {
 
     ShopMenu shopMenu;
-    private User user;
+    private final User user;
     ShopCard shopCard;
 
     public ShopMenuController(User user, ShopMenu shopMenu) {
@@ -38,7 +37,7 @@ public class ShopMenuController {
             shopCard.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    shopMenu.updateSelected(preCard);
+                    updateSelected(preCard);
                     System.out.println("click");
                 }
             });
@@ -69,7 +68,6 @@ public class ShopMenuController {
         if (!user.getCardTreasury().containsKey(cardName) &&
                 preCard.getPrice() > user.getBalance()) throw new NotEnoughMoney();
         return true;
-//        sellCard(preCard);
     }
 
     public void sellCard(PreCard preCard) {
@@ -78,18 +76,20 @@ public class ShopMenuController {
         else price = preCard.getPrice();
         user.decreaseBalance(price);
         user.addPreCardToTreasury(preCard);
-
+        shopMenu.getCoinShake().play();
     }
 
     private void checkBuyPossibility() {
-
+        if (shopMenu.getSelected().getPrice() > user.getBalance())
+            shopMenu.getBuyButton().setTouchable(Touchable.disabled);
+        else
+            shopMenu.getBuyButton().setTouchable(Touchable.enabled);
     }
 
     public void updateSelected(PreCard preCard) {
         shopMenu.setSelected(preCard);
         shopMenu.getDescriptLabel().setText("description: " + preCard.getDescription() +
                 "\n\nprice: " + preCard.getPrice());
-        shopMenu.getBuyButton().setTouchable(Touchable.enabled);
         shopMenu.getSelectedImage().setDrawable(new TextureRegionDrawable(new TextureRegion(
                 PreCard.getCardPic(preCard.getName()))));
         checkBuyPossibility();
