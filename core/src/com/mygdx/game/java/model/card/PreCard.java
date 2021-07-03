@@ -1,6 +1,5 @@
 package com.mygdx.game.java.model.card;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.java.model.Reader;
@@ -76,6 +75,8 @@ public abstract class PreCard {
     }
 
     public static Texture getCardPic(String cardName) {
+        if (cardName.startsWith("Call"))
+            return cardsPictures.getOrDefault(cardName, null);
         String alterName = cardName.replace(" ", "");
         return cardsPictures.getOrDefault(alterName, null);
     }

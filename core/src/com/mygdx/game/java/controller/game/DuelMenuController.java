@@ -310,12 +310,12 @@ public class DuelMenuController {
         } else throw new NoSelectedCard();
     }
 
-    private boolean canSeeCard(Player player, Card card) {
+    private boolean canSeeCard(Player viewer, Card card) {
         CardInUse cardInUse = getRoundController().findCardsCell(card);
         if (cardInUse == null) {
-            return player.getHand().doesContainCard(card);
+            return viewer.getHand().doesContainCard(card);
         } else {
-            if (cardInUse.getBoard().getOwner() == player) return true;
+            if (cardInUse.getBoard().getOwner() == viewer) return true;
             return cardInUse.isFaceUp();
         }
     }

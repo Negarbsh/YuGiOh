@@ -3,12 +3,14 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.java.view.Main;
 
 public class GameMainClass extends Game {
 	SpriteBatch batch;
 	Texture img;
+	public Skin skin;
 	
 	@Override
 	public void create () {

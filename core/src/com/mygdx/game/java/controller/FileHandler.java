@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.model.Wallpaper;
 import com.mygdx.game.java.model.card.CardLoader;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.model.card.PreCardAdapter;
@@ -24,6 +25,7 @@ public class FileHandler {
 
     private static void loadAssets() {
         PreCard.setCardsPictures();
+        Wallpaper.setAllWallpapers();
     }
 
     private static void loadUsers() {
