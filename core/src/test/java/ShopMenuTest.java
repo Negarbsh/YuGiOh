@@ -8,7 +8,7 @@ import org.junit.jupiter.api.function.Executable;
 public class ShopMenuTest {
     @Test
     public void wrongCardName() throws NotEnoughMoney, InvalidName {
-        ShopMenuController.checkBuying("wrong name");
+//        ShopMenuController.checkBuying("wrong name");
         Assertions.assertThrows(InvalidName.class, new Executable() {
             @Override
             public void execute() throws Throwable {

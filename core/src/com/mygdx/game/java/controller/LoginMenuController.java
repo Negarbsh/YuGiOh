@@ -53,7 +53,7 @@ public class LoginMenuController {
     private static void setUserInClasses(User user) {
         ProfileMenuController.setUser(user);
         DeckMenuController.setUser(user);
-        ShopMenuController.setUser(user);
+//        ShopMenuController.setUser(user);
 
     }
 

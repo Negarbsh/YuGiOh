@@ -1,9 +1,13 @@
 package com.mygdx.game.java.view.Menus;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -29,8 +33,10 @@ public class ShopMenu implements Screen {
     User user;
     Table shopTable, buyTable;
     PreCard selected;
-    Texture cardPic;
+//    Texture cardPic;
     TextButton buyButton;
+    Label descriptLabel;
+    Image selectedImage;
 
     {
         this.stage = new Stage(new StretchViewport(1024, 1024));
@@ -62,10 +68,15 @@ public class ShopMenu implements Screen {
     public void show() {
         shopTable = new Table();
         shopTable.setBounds(0, 300, 1024, 724);
+        controller.createShopTable(shopTable);
+
+
+        //TODO change is disabled style
         buyTable = new Table();
         buyTable.setBounds(0, 0, 1024, 300);
+        buyTable.add(selectedImage);
         buyButton = new TextButton("buy", mainClass.skin);
-        buyButton.addListener(new ClickListener(){
+        buyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 controller.sellCard(selected);
@@ -75,27 +86,35 @@ public class ShopMenu implements Screen {
         buyTable.add(buyButton);
 
 
+        descriptLabel = new Label("", mainClass.skin);
+        descriptLabel.setX(230f);
+        descriptLabel.setY(425f);
+        descriptLabel.setFontScale(0.5f);
+        buyTable.add(descriptLabel);
+
+        stage.addActor(new Wallpaper(1, 0, 0, 1024, 1024));
         stage.addActor(shopTable);
         stage.addActor(buyTable);
-        stage.addActor(new Wallpaper(1, 0, 0, 1024, 1024));
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void render(float delta) {
-        drawSelected();
+        Gdx.gl.glClearColor(0.61f, 0.4f, 0.2f, 1f);
+        Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        stage.act(delta);
+        stage.draw();
     }
 
     public void updateSelected(ShopCard shopCard) {
-        selected = shopCard.preCard;
-        cardPic = PreCard.getCardPic(selected.getName());
+//        selected = shopCard.preCard;
+//        cardPic = PreCard.getCardPic(selected.getName());
+        descriptLabel.setText("description: " + selected.getDescription() + "\n\nprice: " +
+                selected.getPrice());
         buyButton.setDisabled(false);
+        selectedImage = new Image(PreCard.getCardPic(shopCard.preCard.getName()));
     }
-
-    private void drawSelected() {
-        if (selected != null)
-            stage.getBatch().draw(cardPic, 50, 40, 30, 70);
-    }
-
 
 
     @Override

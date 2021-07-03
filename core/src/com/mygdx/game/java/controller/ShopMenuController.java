@@ -37,6 +37,7 @@ public class ShopMenuController {
                     shopMenu.updateSelected(shopCard);
                 }
             });
+            table.add(shopCard);
         }
 
     }
@@ -70,6 +71,5 @@ public class ShopMenuController {
         else price = preCard.getPrice();
         user.decreaseBalance(price);
         user.addPreCardToTreasury(preCard);
-        new SuccessfulAction("card " + preCard.getName(), "is sold");
     }
 }

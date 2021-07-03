@@ -63,7 +63,7 @@ public class DeckMenuTest {  //com.mygdx.game.java.controller
     @Test
     @DisplayName("add card")
     public void addCard() throws AlreadyExistingError, NotExisting, NotEnoughMoney, InvalidName, BeingFull, OccurrenceException, InvalidCommand {
-        ShopMenuController.setUser(user);
+//        ShopMenuController.setUser(user);
         Assertions.assertNotNull(PreCard.findCard("Horn Imp"));
         PreCard preCard = PreCard.findCard("Horn Imp");
         user.addPreCardToTreasury(preCard);
