@@ -75,12 +75,14 @@ public abstract class PreCard {
     }
 
     public static Texture getCardPic(String cardName) {
-        for (String s : cardsPictures.keySet()) {
-            System.out.println(s);
-        }
-        if (cardName.startsWith("Call"))
-            return cardsPictures.getOrDefault(cardName, null);
-        String alterName = cardName.replace(" ", "").replace("-", "");
+//        for (String s : cardsPictures.keySet()) {
+//            System.out.println(s);
+//        }
+//        if (cardName.startsWith("Call")) {
+//            System.out.println("why");
+//        }
+//            return cardsPictures.getOrDefault(cardName, null);
+        String alterName = cardName.replace(" ", "").replace("-", "").replace("'", "");
         return cardsPictures.getOrDefault(alterName, null);
     }
 

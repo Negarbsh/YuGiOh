@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.java.model.ButtonUtils;
 import com.mygdx.game.java.model.ShopCard;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.model.card.PicPreCardState;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.view.Menus.ShopMenu;
 import com.mygdx.game.java.view.exceptions.InvalidName;
@@ -28,16 +29,19 @@ public class ShopMenuController {
 
     public void createShopTable(Table table) {
         ArrayList<PreCard> allCards = PreCard.getAllPreCards();
-
+        int count = 0;
         for (PreCard preCard : allCards) {
             shopCard = ButtonUtils.createShopCards(preCard);
             shopCard.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    shopMenu.updateSelected(shopCard);
+                    shopMenu.updateSelected(preCard);
+                    System.out.println("click");
                 }
             });
-            table.add(shopCard);
+            table.add(shopCard).size(PicPreCardState.SHOP_SHOW.width, PicPreCardState.SHOP_SHOW.height).padRight(5).padBottom(5);
+            count++;
+            if (count % 12 == 0) table.row();
         }
 
     }
@@ -71,5 +75,6 @@ public class ShopMenuController {
         else price = preCard.getPrice();
         user.decreaseBalance(price);
         user.addPreCardToTreasury(preCard);
+
     }
 }
