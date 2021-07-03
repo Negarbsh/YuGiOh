@@ -16,7 +16,7 @@ public class Wallpaper extends Actor {
 
 
     public Wallpaper(int id, float x, float y, float width, float height) {
-        if (id == 6)    needColor = true;
+        if (id == 1)    needColor = true;
         picture = allWallpapers.get(id);
         this.x = x;
         this.y = y;

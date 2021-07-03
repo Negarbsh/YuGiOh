@@ -44,8 +44,8 @@ public class Menu {
             ProfileMenu.checkMenuCommands(command.substring(8));
         else if (command.startsWith("deck "))
             DeckMenu.checkMenuCommands(command.substring(5));
-        else if (command.startsWith("shop "))
-            ShopMenu.checkMenuCommands(command.substring(5));
+//        else if (command.startsWith("shop "))
+//            ShopMenu.checkMenuCommands(command.substring(5));
         else if (command.startsWith("duel ")) {
             try {
                 DuelMenu.checkMenuCommands(command.substring(5));

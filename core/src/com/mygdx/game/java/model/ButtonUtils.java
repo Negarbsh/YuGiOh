@@ -13,9 +13,15 @@ public class ButtonUtils {
     }
 
     public static ShopCard createShopCards(PreCard preCard) {
-        ShopCard shopCard = new ShopCard(new TextureRegionDrawable(new TextureRegion(
-                PreCard.getCardPic(preCard.getName()))), preCard);
+        try {
+            ShopCard shopCard = new ShopCard(new TextureRegionDrawable(new TextureRegion(
+                    PreCard.getCardPic(preCard.getName()))), preCard);
+            return shopCard;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(preCard.getName());
+        }
 
-        return shopCard;
+        return null;
     }
 }
