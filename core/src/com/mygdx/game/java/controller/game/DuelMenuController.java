@@ -3,6 +3,7 @@
 package com.mygdx.game.java.controller.game;
 
 import com.mygdx.game.java.controller.LoginMenuController;
+import com.mygdx.game.java.view.Menus.DuelScreen;
 import com.mygdx.game.java.view.messageviewing.Print;
 import lombok.Getter;
 import com.mygdx.game.java.model.CardAddress;
@@ -47,6 +48,8 @@ public class DuelMenuController {
     private RoundController roundController;
     private int numOfRounds;
     boolean hasSecondPlayerTurnStarted = false;
+
+    private DuelScreen duelScreen;
 
     private DuelMenuController(User firstUser, User secondUser, int numOfRounds) throws NumOfRounds {
         setFirstUser(firstUser);

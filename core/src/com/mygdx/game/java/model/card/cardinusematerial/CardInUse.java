@@ -1,6 +1,7 @@
 package com.mygdx.game.java.model.card.cardinusematerial;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.view.Constants;
 import lombok.Getter;
@@ -18,7 +19,7 @@ import java.util.Collections;
 
 @Getter
 @Setter
-public abstract class CardInUse extends Rectangle {
+public abstract class CardInUse  {
     public ArrayList<Watcher> watchersOfCardInUse;
     public Card thisCard;
     public Player ownerOfCard;
@@ -26,8 +27,10 @@ public abstract class CardInUse extends Rectangle {
     private boolean isFaceUp;
     protected Board board;
 
+    private ImageButton imageButton;
+    private ImageButton.ImageButtonStyle style;
+
     public CardInUse(Board board) {
-//        super(x, y, Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
         this.board = board;
         this.ownerOfCard = board.getOwner();
     }
@@ -93,7 +96,7 @@ public abstract class CardInUse extends Rectangle {
         if (board.getMyPhase() == Phase.END || board.getMyPhase() == Phase.END_RIVAL) {
             isPositionChanged = false;
         }
-        Collections.sort(watchersOfCardInUse);
+        Collections.sort(watchersOfCardInUse);//todo what is the error
     }
 
     //used in showing the board
