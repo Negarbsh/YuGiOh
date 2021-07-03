@@ -29,6 +29,9 @@ import com.mygdx.game.java.view.exceptions.NotEnoughMoney;
 import com.mygdx.game.java.view.exceptions.WrongMenu;
 import com.mygdx.game.java.view.MenuName;
 import com.mygdx.game.java.view.messageviewing.Print;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 public class ShopMenu implements Screen {
     Stage stage;
@@ -36,10 +39,10 @@ public class ShopMenu implements Screen {
     ShopMenuController controller;
     User user;
     Table shopTable, buyTable;
-    PreCard selected;
-    TextButton buyButton;
-    Label descriptLabel;
-    Image selectedImage;
+    @Getter(AccessLevel.PUBLIC) @Setter(AccessLevel.PUBLIC) PreCard selected;
+    @Getter TextButton buyButton;
+    @Getter Label descriptLabel;
+    @Getter Image selectedImage;
 
     {
         this.stage = new Stage(new StretchViewport(1024, 1024));
@@ -112,14 +115,6 @@ public class ShopMenu implements Screen {
 
         stage.act(delta);
         stage.draw();
-    }
-
-    public void updateSelected(PreCard preCard) {
-        selected = preCard;
-        descriptLabel.setText("description: " + selected.getDescription() + "\n\nprice: " +
-                selected.getPrice());
-        buyButton.setTouchable(Touchable.enabled);
-        selectedImage.setDrawable(new TextureRegionDrawable(new TextureRegion(PreCard.getCardPic(preCard.getName()))));
     }
 
 
