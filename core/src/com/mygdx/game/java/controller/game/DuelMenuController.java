@@ -20,6 +20,7 @@ import com.mygdx.game.java.model.card.monster.MonsterManner;
 import com.mygdx.game.java.model.watchers.Watcher;
 import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.exceptions.*;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,6 +29,7 @@ import java.util.Objects;
 
 
 @Getter
+@Setter
 public class DuelMenuController {
     private static boolean isAnyGameRunning = false;
 
@@ -51,7 +53,9 @@ public class DuelMenuController {
 
     private DuelScreen duelScreen;
 
-    private DuelMenuController(User firstUser, User secondUser, int numOfRounds) throws NumOfRounds {
+
+    //todo: made public for test! make it private
+    public DuelMenuController(User firstUser, User secondUser, int numOfRounds) throws NumOfRounds {
         setFirstUser(firstUser);
         setSecondUser(secondUser);
         setNumOfRounds(numOfRounds);
@@ -109,7 +113,7 @@ public class DuelMenuController {
 
     public void runMatch() throws InvalidDeck, NoActiveDeck, InvalidName {
         this.roundController = new RoundController(this.firstUser, this.secondUser, this, 0);
-        playHeadOrTails();
+//        playHeadOrTails(); todo: remove the comment
         for (int i = 0; i < numOfRounds; i++) {
             runOneRound(i);
             if (checkMatchFinished()) break;

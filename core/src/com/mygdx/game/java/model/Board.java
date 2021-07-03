@@ -3,7 +3,6 @@ package com.mygdx.game.java.model;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.java.controller.game.DuelMenuController;
-import com.mygdx.game.java.view.Constants;
 import com.mygdx.game.java.view.PositionCalculator;
 import lombok.Getter;
 import lombok.Setter;
@@ -238,6 +237,9 @@ public class Board {
 
     }
 
+    public Table getTable(){
+        return table; //todo: table isn't created actually
+    }
 
     @Override
     public String toString() {
