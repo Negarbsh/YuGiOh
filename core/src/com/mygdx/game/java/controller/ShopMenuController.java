@@ -1,8 +1,11 @@
 package com.mygdx.game.java.controller;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.java.model.ButtonUtils;
 import com.mygdx.game.java.model.ShopCard;
 import com.mygdx.game.java.model.User;
@@ -76,5 +79,19 @@ public class ShopMenuController {
         user.decreaseBalance(price);
         user.addPreCardToTreasury(preCard);
 
+    }
+
+    private void checkBuyPossibility() {
+
+    }
+
+    public void updateSelected(PreCard preCard) {
+        shopMenu.setSelected(preCard);
+        shopMenu.getDescriptLabel().setText("description: " + preCard.getDescription() +
+                "\n\nprice: " + preCard.getPrice());
+        shopMenu.getBuyButton().setTouchable(Touchable.enabled);
+        shopMenu.getSelectedImage().setDrawable(new TextureRegionDrawable(new TextureRegion(
+                PreCard.getCardPic(preCard.getName()))));
+        checkBuyPossibility();
     }
 }
