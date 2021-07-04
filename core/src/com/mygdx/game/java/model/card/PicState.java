@@ -8,7 +8,7 @@ public enum PicState {
     SHOP_SHOW(50, 70),
     HAND_SHOW(5, 5),
     HAND_SHOW_RIVAL(5, 5),
-    DECK_ICON(50,50);
+    DECK_ICON(30,30);
 
     public float width;
     public float height;

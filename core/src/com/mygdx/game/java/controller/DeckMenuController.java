@@ -1,13 +1,13 @@
 package com.mygdx.game.java.controller;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Null;
 import com.mygdx.game.java.model.ButtonUtils;
@@ -27,7 +27,8 @@ import java.util.Objects;
 public class DeckMenuController {
     User user;
     DeckPreview deckPreview;
-    @Getter DeckImageButton selectedDeck;
+    @Getter
+    DeckImageButton selectedDeck;
     ButtonGroup allDecksGroup;
 
     public DeckMenuController(DeckPreview deckPreview, User user) {
@@ -40,25 +41,21 @@ public class DeckMenuController {
             throw new AlreadyExistingError("deck", "name", deckName);
         else {
             user.addDeck(new Deck(deckName));
-            new SuccessfulAction("deck", "created");
         }
     }
 
     public void deleteDeck(Deck deck) {
-            if (user.getActiveDeck() == null || user.getActiveDeck() == deck)
-                user.setActiveDeck(null);
+        if (user.getActiveDeck() == null || user.getActiveDeck() == deck)
+            user.setActiveDeck(null);
 
-            user.removeDeck(deck);
+        selectedDeck = null;
+        deckPreview.getDescriptLabel().setText("");
+        user.removeDeck(deck);
     }
 
-    public void chooseActiveDeck(String deckName) throws NotExisting {
-        Deck targetDeck = user.findDeckByName(deckName);
-        if (targetDeck == null)
-            throw new NotExisting("deck", deckName);
-        else {
-            user.setActiveDeck(targetDeck);
-            new SuccessfulAction("deck", "activated");
-        }
+    public void chooseActiveDeck() {
+        if (selectedDeck.getDeck() != null)
+            user.setActiveDeck(selectedDeck.getDeck());
     }
 
     public void addCardToDeck(String command, boolean side) throws NotExisting, BeingFull, OccurrenceException, InvalidCommand {   //if it is side deck the boolean should be true
@@ -139,28 +136,37 @@ public class DeckMenuController {
         ArrayList<Deck> usersDecks = user.getDecks();
         table.align(Align.left);
         allDecksGroup = new ButtonGroup();
-        for (Deck userDeck : usersDecks) {
-            DeckImageButton deckIcon = ButtonUtils.createDeckButtons(userDeck,
-                    user.getActiveDeck() == userDeck, deckPreview.getMainClass().skin);
-
-            deckIcon.getImageButton().addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    updateSelected(deckIcon);
-                }
-            });
-
-            addDragAndDrop(deckIcon);
-            allDecksGroup.add(deckIcon.getImageButton());
-            table.add(deckIcon).padLeft(10);
-        }
         allDecksGroup.setMinCheckCount(0);
         allDecksGroup.setMaxCheckCount(1);
+        for (Deck userDeck : usersDecks) {
+            addDeckIcon(userDeck, table);
+        }
+    }
+
+    public void addDeckIcon(Deck deck, Table table) {
+        DeckImageButton deckIcon = ButtonUtils.createDeckButtons(deck,
+                user.getActiveDeck() == deck, deckPreview.getMainClass().skin);
+
+        deckIcon.getImageButton().addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                updateSelected(deckIcon);
+            }
+        });
+
+        addDragAndDrop(deckIcon);
+        allDecksGroup.add(deckIcon.getImageButton());
+        table.add(deckIcon).padLeft(10);
     }
 
     private void updateSelected(DeckImageButton deckButton) {
-        if (selectedDeck != deckButton)
+        if (selectedDeck != deckButton) {
             selectedDeck = deckButton;
+            deckPreview.getDescriptLabel().setText(String.format(
+                    "name of deck: %s\n\nnumber of main cards: %d\nnumber of side cards: %d",
+                    deckButton.getDeck().getName(), deckButton.getDeck().getNumOfMainCards(),
+                    deckButton.getDeck().getSideCards().size()));
+        }
     }
 
     public void addDragAndDrop(DeckImageButton deckImageButton) {
@@ -168,7 +174,7 @@ public class DeckMenuController {
         DragAndDrop dragAndDrop = new DragAndDrop();
         dragAndDrop.addSource(new DragAndDrop.Source(deckImageButton) {
             @Null
-            public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
+            public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
                 updateSelected(deckImageButton);
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
                 payload.setObject(deckImageButton);
@@ -178,16 +184,16 @@ public class DeckMenuController {
             }
         });
         dragAndDrop.addTarget(new DragAndDrop.Target(deckPreview.getTrashcan()) {
-            public boolean drag (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+            public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
                 getActor().setColor(Color.SKY);
                 return true;
             }
 
-            public void reset (DragAndDrop.Source source, DragAndDrop.Payload payload) {
+            public void reset(DragAndDrop.Source source, DragAndDrop.Payload payload) {
                 getActor().setColor(Color.WHITE);
             }
 
-            public void drop (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+            public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
                 deleteDeck(deckImageButton.getDeck());
                 deckPreview.getMyDecks().removeActor(deckImageButton);
                 allDecksGroup.remove(deckImageButton.getImageButton());

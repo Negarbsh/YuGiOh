@@ -15,9 +15,11 @@ import lombok.Getter;
 
 public class DeckImageButton extends Table {
     static TextureRegionDrawable normalDeck, activeDeck;
+    static DeckImageButton activeDeckIcon;
     @Getter Deck deck;
     @Getter ImageButton imageButton;
     Label label;
+    boolean isActiveDeck;
     Skin skin;
 
     public DeckImageButton(Deck deck, boolean isActiveDeck, Skin skin) {
@@ -28,6 +30,11 @@ public class DeckImageButton extends Table {
         else imageButton = new ImageButton(normalDeck);
         this.add(imageButton).size(PicState.DECK_ICON.width, PicState.DECK_ICON.height).row();
         this.add(label);
+        label.setFontScale(0.7f);
+        this.isActiveDeck = isActiveDeck;
+        if (isActiveDeck) {
+            setActive();
+        }
     }
 
     private void createActive() {
@@ -46,5 +53,19 @@ public class DeckImageButton extends Table {
     public DeckImageButton clone() {
         return new DeckImageButton(deck,
                 imageButton.getImage().getDrawable()==activeDeck, skin);
+    }
+
+    public void setActive() {
+        isActiveDeck = true;
+        imageButton.getStyle().imageUp = activeDeck;
+        deActiveDeck();
+        activeDeckIcon = this;
+    }
+
+    public static void deActiveDeck() {
+        if (activeDeckIcon != null) {
+            activeDeckIcon.getImageButton().getStyle().imageUp = normalDeck;
+        }
+        activeDeckIcon = null;
     }
 }

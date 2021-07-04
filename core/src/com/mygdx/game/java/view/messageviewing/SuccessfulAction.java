@@ -1,7 +1,12 @@
 package com.mygdx.game.java.view.messageviewing;
 
+import lombok.Getter;
+
 public class SuccessfulAction {
+    @Getter String message;
     public SuccessfulAction(String subject, String verb) {
-        Print.print(String.format("%s %s successfully!", subject, verb));
+
+        message = String.format("%s %s successfully!", subject, verb);
     }
+
 }

@@ -46,22 +46,6 @@ public class ShopMenu implements Screen {
         this.stage = new Stage(new StretchViewport(1024, 1024));
     }
 
-
-    public void checkMenuCommands(String command) throws InvalidCommand, WrongMenu {
-        if (RelatedToMenuController.isMenuFalse(MenuName.SHOP))
-            throw new WrongMenu();
-        if (command.startsWith("buy ")) {
-            String cardName = command.substring(4);
-            try {
-                controller.checkBuying(cardName);
-            } catch (InvalidName | NotEnoughMoney exception) {
-                System.out.println(exception.getMessage());
-            }
-        } else if (command.equals("show --all")) {
-            Print.print(ShopMenuController.showAllCards());
-        } else throw new InvalidCommand();
-    }
-
     public ShopMenu(GameMainClass gameMainClass, User user) {
         setSounds();
         this.mainClass = gameMainClass;
@@ -139,7 +123,7 @@ public class ShopMenu implements Screen {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
     }
 
     private void setSounds() {
