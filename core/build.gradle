@@ -6,12 +6,12 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 eclipse.project.name = appName + "-core"
 
 dependencies {
-    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
+//    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
     compileOnly 'org.projectlombok:lombok:1.18.4'
     annotationProcessor 'org.projectlombok:lombok:1.18.4'
     implementation 'com.google.code.gson:gson:2.8.7'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 
     // https://mvnrepository.com/artifact/com.opencsv/opencsv
     implementation group: 'com.opencsv', name: 'opencsv', version: '3.7'

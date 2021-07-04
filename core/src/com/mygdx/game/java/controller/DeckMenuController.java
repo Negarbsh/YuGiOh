@@ -1,23 +1,41 @@
 package com.mygdx.game.java.controller;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Null;
+import com.mygdx.game.java.model.ButtonUtils;
 import com.mygdx.game.java.model.Deck;
+import com.mygdx.game.java.model.DeckImageButton;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.model.card.PreCard;
+import com.mygdx.game.java.view.Menus.DeckPreview;
 import com.mygdx.game.java.view.exceptions.*;
 import com.mygdx.game.java.view.messageviewing.Print;
 import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class DeckMenuController {
-    private static User user;
+    User user;
+    DeckPreview deckPreview;
+    @Getter DeckImageButton selectedDeck;
+    ButtonGroup allDecksGroup;
 
-    public static void setUser(User user) {
-        DeckMenuController.user = user;
+    public DeckMenuController(DeckPreview deckPreview, User user) {
+        this.user = user;
+        this.deckPreview = deckPreview;
     }
 
-    public static void createDeck(String deckName) throws AlreadyExistingError {
+    public void createDeck(String deckName) throws AlreadyExistingError {
         if (user.findDeckByName(deckName) != null)
             throw new AlreadyExistingError("deck", "name", deckName);
         else {
@@ -26,19 +44,14 @@ public class DeckMenuController {
         }
     }
 
-    public static void deleteDeck(String deckName) throws NotExisting {
-        Deck targetDeck = user.findDeckByName(deckName);
-        if (targetDeck == null)
-            throw new NotExisting("deck", deckName);
-        else {
-            if (user.getActiveDeck() == targetDeck)
+    public void deleteDeck(Deck deck) {
+            if (user.getActiveDeck() == null || user.getActiveDeck() == deck)
                 user.setActiveDeck(null);
 
-            user.removeDeck(targetDeck);
-        }
+            user.removeDeck(deck);
     }
 
-    public static void chooseActiveDeck(String deckName) throws NotExisting {
+    public void chooseActiveDeck(String deckName) throws NotExisting {
         Deck targetDeck = user.findDeckByName(deckName);
         if (targetDeck == null)
             throw new NotExisting("deck", deckName);
@@ -48,7 +61,7 @@ public class DeckMenuController {
         }
     }
 
-    public static void addCardToDeck(String command, boolean side) throws NotExisting, BeingFull, OccurrenceException, InvalidCommand {   //if it is side deck the boolean should be true
+    public void addCardToDeck(String command, boolean side) throws NotExisting, BeingFull, OccurrenceException, InvalidCommand {   //if it is side deck the boolean should be true
         ArrayList<String> names = analyseCardCommand(command);
         String cardName = names.get(0);
         String deckName = names.get(1);
@@ -63,7 +76,7 @@ public class DeckMenuController {
         }
     }
 
-    public static void removeCardFromDeck(String command, boolean side) throws NotExisting, InvalidCommand {
+    public void removeCardFromDeck(String command, boolean side) throws NotExisting, InvalidCommand {
         ArrayList<String> names = analyseCardCommand(command);
         String cardName = names.get(0);
         String deckName = names.get(1);
@@ -79,7 +92,7 @@ public class DeckMenuController {
             targetDeck.removeCard(targetPreCard, side);
     }
 
-    private static ArrayList<String> analyseCardCommand(String command) throws InvalidCommand {
+    private ArrayList<String> analyseCardCommand(String command) throws InvalidCommand {
         ArrayList<String> names = new ArrayList<>();
         String cardName = (RelatedToMenuController.
                 getCommandString(command, "--card ([^-]+)"));
@@ -93,7 +106,7 @@ public class DeckMenuController {
         return names;
     }
 
-    public static void showAllDecks() {
+    public void showAllDecks() {
         Print.print("Decks:\nActive deck:");
         Deck activeDeck = user.getActiveDeck();
         if (activeDeck != null) {
@@ -107,7 +120,7 @@ public class DeckMenuController {
         }
     }
 
-    public static void showDeck(String command, boolean side) throws NotExisting {
+    public void showDeck(String command, boolean side) throws NotExisting {
         String deckName = Objects.requireNonNull(RelatedToMenuController.
                 getCommandString(command, "--deck-name ([^-]+)")).trim();
         Deck targetDeck = user.findDeckByName(deckName);
@@ -117,8 +130,105 @@ public class DeckMenuController {
         targetDeck.showDeck(side);
     }
 
-    public static void showCards() {
+    public void showCards() {
         Print.print(user.getMyCardsForPrint());
     }
 
+
+    public void createDecksTable(Table table) {
+        ArrayList<Deck> usersDecks = user.getDecks();
+        table.align(Align.left);
+        allDecksGroup = new ButtonGroup();
+        for (Deck userDeck : usersDecks) {
+            DeckImageButton deckIcon = ButtonUtils.createDeckButtons(userDeck,
+                    user.getActiveDeck() == userDeck, deckPreview.getMainClass().skin);
+
+            deckIcon.getImageButton().addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    updateSelected(deckIcon);
+                }
+            });
+
+            addDragAndDrop(deckIcon);
+            allDecksGroup.add(deckIcon.getImageButton());
+            table.add(deckIcon).padLeft(10);
+        }
+        allDecksGroup.setMinCheckCount(0);
+        allDecksGroup.setMaxCheckCount(1);
+    }
+
+    private void updateSelected(DeckImageButton deckButton) {
+        if (selectedDeck != deckButton)
+            selectedDeck = deckButton;
+    }
+
+    public void addDragAndDrop(DeckImageButton deckImageButton) {
+
+        DragAndDrop dragAndDrop = new DragAndDrop();
+        dragAndDrop.addSource(new DragAndDrop.Source(deckImageButton) {
+            @Null
+            public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
+                updateSelected(deckImageButton);
+                DragAndDrop.Payload payload = new DragAndDrop.Payload();
+                payload.setObject(deckImageButton);
+
+                payload.setDragActor(deckImageButton.clone());
+                return payload;
+            }
+        });
+        dragAndDrop.addTarget(new DragAndDrop.Target(deckPreview.getTrashcan()) {
+            public boolean drag (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+                getActor().setColor(Color.SKY);
+                return true;
+            }
+
+            public void reset (DragAndDrop.Source source, DragAndDrop.Payload payload) {
+                getActor().setColor(Color.WHITE);
+            }
+
+            public void drop (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+                deleteDeck(deckImageButton.getDeck());
+                deckPreview.getMyDecks().removeActor(deckImageButton);
+                allDecksGroup.remove(deckImageButton.getImageButton());
+            }
+        });
+    }
+
+//    private void addDragAndDrop(DeckImageButton deckImageButton) {
+//        DragAndDrop dragAndDrop = new DragAndDrop();
+//        dragAndDrop.addSource(new DragAndDrop.Source(deckImageButton) {
+//            @Null
+//            public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
+//                DragAndDrop.Payload payload = new DragAndDrop.Payload();
+//                payload.setObject("Some payload!");
+//
+//                payload.setDragActor(getActor());
+//
+//                Label validLabel = new Label("Some payload!", deckPreview.getMainClass().skin);
+//                validLabel.setColor(0, 1, 0, 1);
+//                payload.setValidDragActor(validLabel);
+////
+////                Label invalidLabel = new Label("Some payload!", mainClass.skin);
+////                invalidLabel.setColor(1, 0, 0, 1);
+////                payload.setInvalidDragActor(invalidLabel);
+//
+//                return payload;
+//            }
+//        });
+//        dragAndDrop.addTarget(new DragAndDrop.Target(validTargetImage) {
+//            public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+//                getActor().setColor(Color.GREEN);
+//                return true;
+//            }
+//
+//            public void reset(DragAndDrop.Source source, DragAndDrop.Payload payload) {
+//                getActor().setColor(Color.WHITE);
+//            }
+//
+//            public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+//                System.out.println("Accepted: " + payload.getObject() + " " + x + ", " + y);
+//            }
+//        });
+//    }
 }

@@ -1,6 +1,7 @@
 package com.mygdx.game.java.model;
 
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.java.model.card.CardType;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.model.card.spelltrap.CardStatus;
@@ -11,6 +12,8 @@ import com.mygdx.game.java.view.exceptions.NotExisting;
 import com.mygdx.game.java.view.exceptions.OccurrenceException;
 import com.mygdx.game.java.view.messageviewing.Print;
 import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,8 +21,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Deck {
-    private String name;
+public class Deck{
+    @Getter @Setter private String name;
     private ArrayList<PreCard> mainCards;
     private ArrayList<PreCard> sideCards;
 
@@ -31,15 +34,12 @@ public class Deck {
 
     public Deck(String name) {
         this.name = name;
+        setName(name);
     }
 
     public static boolean isDeckInvalid(Deck deck) {
         return deck.mainCards.size() < 8;
         //todo: the number should be 40. I just wanted to run!
-    }
-
-    public String getName() {
-        return name;
     }
 
     public ArrayList<PreCard> getMainCards() {
@@ -48,10 +48,6 @@ public class Deck {
 
     public ArrayList<PreCard> getSideCards() {
         return sideCards;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getNumOfMainCards() {
@@ -184,7 +180,7 @@ public class Deck {
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        Deck newDeck = new Deck(this.name);
+        Deck newDeck = new Deck(getName());
         newDeck.mainCards = new ArrayList<>(this.mainCards);
         newDeck.sideCards = new ArrayList<>(this.sideCards);
         return newDeck;

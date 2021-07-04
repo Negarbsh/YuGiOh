@@ -4,7 +4,6 @@ import com.mygdx.game.java.controller.game.RoundController;
 import com.mygdx.game.java.model.card.PreCard;
 
 public class Player {
-    //TODO clone the deck when game is started
 
     private final String name;
     private int lifePoint;

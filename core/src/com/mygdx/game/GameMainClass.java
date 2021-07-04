@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.java.controller.FileHandler;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.Main;
+import com.mygdx.game.java.view.Menus.DeckPreview;
 import com.mygdx.game.java.view.Menus.ShopMenu;
 
 public class GameMainClass extends Game {
@@ -20,7 +21,8 @@ public class GameMainClass extends Game {
 	public void create () {
 		skin = new Skin(Gdx.files.internal("orange/skin/uiskin.json"));
 		FileHandler.loadThings();
-		setScreen(new ShopMenu(this, User.getUserByName("ali")));
+		setScreen(new DeckPreview(this, User.getUserByName("akbar")));
+//		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 //		Main.main(new String[]{});
 //		batch = new SpriteBatch();
 //		img = new Texture("badlogic.jpg");

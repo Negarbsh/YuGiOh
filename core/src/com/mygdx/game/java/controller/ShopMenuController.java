@@ -7,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.java.model.ButtonUtils;
-import com.mygdx.game.java.model.ShopCard;
+import com.mygdx.game.java.model.ShopImageButtons;
 import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.model.card.PicPreCardState;
+import com.mygdx.game.java.model.card.PicState;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.view.Menus.ShopMenu;
 import com.mygdx.game.java.view.exceptions.InvalidName;
@@ -22,7 +22,7 @@ public class ShopMenuController {
 
     ShopMenu shopMenu;
     private final User user;
-    ShopCard shopCard;
+    ShopImageButtons shopImageButtons;
 
     public ShopMenuController(User user, ShopMenu shopMenu) {
         this.user = user;
@@ -33,17 +33,19 @@ public class ShopMenuController {
         ArrayList<PreCard> allCards = PreCard.getAllPreCards();
         int count = 0;
         for (PreCard preCard : allCards) {
-            shopCard = ButtonUtils.createShopCards(preCard);
-            shopCard.addListener(new ClickListener() {
+            shopImageButtons = ButtonUtils.createShopCards(preCard);
+            shopImageButtons.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     updateSelected(preCard);
-                    System.out.println("click");
                 }
             });
-            table.add(shopCard).size(PicPreCardState.SHOP_SHOW.width, PicPreCardState.SHOP_SHOW.height).padRight(5).padBottom(5);
+            table.add(shopImageButtons).size(PicState.SHOP_SHOW.width, PicState.SHOP_SHOW.height).padRight(5).padBottom(5);
             count++;
-            if (count % 12 == 0) table.row();
+            if (count % 12 == 0) {
+                count = 0;
+                table.row();
+            }
         }
 
     }
@@ -77,6 +79,7 @@ public class ShopMenuController {
         user.decreaseBalance(price);
         user.addPreCardToTreasury(preCard);
         shopMenu.getCoinShake().play();
+        setDescription(preCard);
     }
 
     private void checkBuyPossibility() {
@@ -87,11 +90,22 @@ public class ShopMenuController {
     }
 
     public void updateSelected(PreCard preCard) {
-        shopMenu.setSelected(preCard);
+        if (preCard != shopMenu.getSelected()) {
+            shopMenu.setSelected(preCard);
+            shopMenu.getSelectedImage().setDrawable(new TextureRegionDrawable(new TextureRegion(
+                    PreCard.getCardPic(preCard.getName()))));
+            checkBuyPossibility();
+            setDescription(preCard);
+        }
+    }
+
+    private void setDescription(PreCard preCard) {
+        //the num of this card that user has
+        int numOfCard = 0;
+        if (user.getCardTreasury().containsKey(preCard.getName()))
+            numOfCard = user.getCardTreasury().get(preCard.getName());
+
         shopMenu.getDescriptLabel().setText("description: " + preCard.getDescription() +
-                "\n\nprice: " + preCard.getPrice());
-        shopMenu.getSelectedImage().setDrawable(new TextureRegionDrawable(new TextureRegion(
-                PreCard.getCardPic(preCard.getName()))));
-        checkBuyPossibility();
+                "\n\nprice: " + preCard.getPrice() + "\n\nyour stock of this card: " + numOfCard);
     }
 }
