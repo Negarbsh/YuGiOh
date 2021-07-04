@@ -1,27 +1,27 @@
 package com.mygdx.game.java.view;
 
-import java.net.PortUnreachableException;
-
 public class Constants {
-    //todo: I just made sth up! Check what they should be
-    public final static float DUEL_SCREEN_WIDTH = 500;
-    public final static float DUEL_SCREEN_HEIGHT = 300;
+    //TODO THE HEIGHT SUM IS FINE BUT IM NOT SURE ABOUT THE WIDTH!
+    public final static float DUEL_SCREEN_WIDTH = 1024;
+    public final static float DUEL_SCREEN_HEIGHT = 1024;
 
-    public final static float CARD_IN_HAND_WIDTH = 50;
-    public final static float CARD_IN_HAND_HEIGHT = 60;
-    public final static float HAND_GAP_BETWEEN_CELLS = 10;
+    public final static float CARD_IN_HAND_WIDTH = 80;
+    public final static float CARD_IN_HAND_HEIGHT = 160;
+    public final static float HAND_GAP_BETWEEN_CELLS = 20;
 
-    public final static float CARD_IN_USE_WIDTH = 30;
-    public final static float CARD_IN_USE_HEIGHT = 50;
+    public final static float CARD_IN_USE_WIDTH = 60;
+    public final static float CARD_IN_USE_HEIGHT = 120;
 
-    public final static float HAND_BOARD_DISTANCE = 10;
+    public final static float HAND_BOARD_DISTANCE = 20;
 
-    public final static float PHASE_VIEWER_WIDTH = 10;
+    //side info table
+//    public final static float SIDE_INFO_WIDTH = DUEL_SCREEN_WIDTH - 6 * CARD_IN_HAND_WIDTH - 7 * HAND_GAP_BETWEEN_CELLS;
 
-    public final static float SIDE_INFO_WIDTH = DUEL_SCREEN_WIDTH - 6 * CARD_IN_HAND_WIDTH - 7 * HAND_GAP_BETWEEN_CELLS - PHASE_VIEWER_WIDTH;
-    public final static float SELECTED_CARD_PICTURE_HEIGHT = 70;
-    public final static float AVATAR_HEIGHT = 60;
-    public final static float CARD_DESCRIPTION_HEIGHT = DUEL_SCREEN_HEIGHT - 2 * AVATAR_HEIGHT - SELECTED_CARD_PICTURE_HEIGHT;
+    public final static float SIDE_INFO_WIDTH = 200;
+    public final static float SELECTED_CARD_IMAGE_HEIGHT = 200;
+    public final static float AVATAR_HEIGHT = 200;
+    public final static float CARD_DESCRIPTION_HEIGHT = 200;
+    public final static float SIDE_INFO_LABELS_HEIGHT = DUEL_SCREEN_HEIGHT - (2 * AVATAR_HEIGHT - SELECTED_CARD_IMAGE_HEIGHT - CARD_DESCRIPTION_HEIGHT) / 5;
 
-
+    public static final float LP_BAR_WIDTH = 2 * SIDE_INFO_WIDTH / 3;
 }

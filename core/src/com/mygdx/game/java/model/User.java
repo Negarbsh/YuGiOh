@@ -1,6 +1,9 @@
 
 package com.mygdx.game.java.model;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.java.controller.FileHandler;
 import com.mygdx.game.java.view.messageviewing.Print;
 import lombok.Setter;
@@ -22,7 +25,10 @@ public class User implements Comparable<User> {
     private final ArrayList<Deck> decks;
     private int balance;
     private Deck activeDeck;
+    private Image avatar;
+
     private static ArrayList<User> allUsers;
+
 
     static {
         allUsers = new ArrayList<>();
@@ -40,6 +46,7 @@ public class User implements Comparable<User> {
         this.score = 0;
         this.balance = 100000; //todo I'm not sure!
         allUsers.add(this);
+        setAvatar(null);
         FileHandler.saveUsers();
     }
 
@@ -76,6 +83,17 @@ public class User implements Comparable<User> {
             previousUser = user;
         }
         return scoreBoard.toString();
+    }
+
+    public void setAvatar(Image image) {
+//        avatar = Objects.requireNonNullElseGet(image, () -> new Image(new Texture(Gdx.files.internal("default_avatar"))));
+        if (image == null) avatar = new Image(new Texture(Gdx.files.internal("default_avatar.png")));
+        else avatar = image;
+    }
+
+    public Image getAvatar() {
+        if (avatar == null) setAvatar(null);
+        return avatar;
     }
 
     public String getUsername() {
@@ -184,7 +202,7 @@ public class User implements Comparable<User> {
 
     public void removeDeck(Deck deck) {
         decks.remove(deck);
-        if (activeDeck.getName().equals(deck.getName()))    activeDeck = null;
+        if (activeDeck.getName().equals(deck.getName())) activeDeck = null;
         Print.print(SuccessMessages.removeDeck);
         FileHandler.saveUsers();
     }
@@ -203,4 +221,5 @@ public class User implements Comparable<User> {
         }
         return cards.toString();
     }
+
 }

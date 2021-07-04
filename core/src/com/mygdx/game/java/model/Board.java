@@ -232,7 +232,6 @@ public class Board {
 //            spellTrapZone[i].set(spellPosition[0], spellPosition[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
 //            monsterZone[i].set(monsterPosition[0], monsterPosition[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
             //todo: we should make the zone images:)
-            Actor actor =new Actor();
         }
 
     }

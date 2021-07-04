@@ -112,8 +112,8 @@ public class DuelMenuController {
     /*match actions*/
 
     public void runMatch() throws InvalidDeck, NoActiveDeck, InvalidName {
-        this.roundController = new RoundController(this.firstUser, this.secondUser, this, 0);
-//        playHeadOrTails(); todo: remove the comment
+        this.roundController = getProperRoundController(0);
+//        playHeadOrTails(); todo: remove the comment just commented for test
         for (int i = 0; i < numOfRounds; i++) {
             runOneRound(i);
             if (checkMatchFinished()) break;
@@ -124,9 +124,13 @@ public class DuelMenuController {
         announceWinnerOfMatch();
     }
 
+    public RoundController getProperRoundController(int roundIndex) throws InvalidDeck, InvalidName, NoActiveDeck {
+        return new RoundController(this.firstUser, this.secondUser, this, roundIndex);
+    }
+
     private void runOneRound(int roundIndex) throws InvalidName, NoActiveDeck, InvalidDeck {
         if (roundIndex != 0)
-            this.roundController = new RoundController(this.firstUser, this.secondUser, this, roundIndex);
+            this.roundController = getProperRoundController(roundIndex);
         nextPhase();
 
         Watcher.roundController = this.roundController;

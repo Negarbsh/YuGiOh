@@ -58,30 +58,18 @@ public abstract class PreCard {
 
     public static void setCardsPictures() {
         addCardPics(new String[]{"Cards/Monsters", "Cards/SpellTrap"});
-//        addCardPics("Cards/SpellTrap");
     }
 
     private static void addCardPics(String[] folderPath) {
 //        Reader.figureCatalog(folderPath);
         for (String s : folderPath) {
             for (FileHandle cardPic : Reader.readDirectoryCatalog(s)) {
-                try {
-                    cardsPictures.put(cardPic.name().replace(".jpg", ""), new Texture(cardPic));
-                } catch (Exception e) {
-                    System.out.println(cardPic + "\t\t" + cardPic.name());  //TODO remove catch
-                }
+                cardsPictures.put(cardPic.name().replace(".jpg", ""), new Texture(cardPic));
             }
         }
     }
 
     public static Texture getCardPic(String cardName) {
-//        for (String s : cardsPictures.keySet()) {
-//            System.out.println(s);
-//        }
-//        if (cardName.startsWith("Call")) {
-//            System.out.println("why");
-//        }
-//            return cardsPictures.getOrDefault(cardName, null);
         String alterName = cardName.replace(" ", "").replace("-", "").replace("'", "");
         return cardsPictures.getOrDefault(alterName, null);
     }

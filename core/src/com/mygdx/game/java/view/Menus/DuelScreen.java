@@ -1,19 +1,24 @@
 package com.mygdx.game.java.view.Menus;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Board;
+import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.Hand;
 import com.mygdx.game.java.model.Player;
+import com.mygdx.game.java.model.Wallpaper;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.view.Constants;
@@ -41,8 +46,14 @@ public class DuelScreen implements Screen {
     private Table rivalBoardTable;
 
     private Table sideInfoTable;//contains myAvatar, selectedCard description, selectedCard Image and rival avatar.
+    private ProgressBar myLifePoint;
+    private ProgressBar rivalLifePoint;
+    private Label myLPLabel;
+    private Label rivalLPLabel;
 
-    private Skin faltEarthSkin;
+    private TextButton phaseButton;
+
+    private Skin flatEarthSkin;
 
 
     public DuelScreen(Player myPlayer, Player rival, DuelMenuController controller, GameMainClass gameMainClass) {
@@ -55,50 +66,163 @@ public class DuelScreen implements Screen {
         this.myHand = myPlayer.getHand();
         this.rivalHand = rival.getHand();
         this.stage = new Stage(new ExtendViewport(Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT)); //todo: fine?
-//        batch = stage.getBatch();
     }
 
     @Override
     public void show() {
-        faltEarthSkin = gameMainClass.skin;
-        myBoard.setupEntities(true);
-        rivalBoard.setupEntities(false);
-        myHandTable = myHand.getHandTable();
-        rivalHandTable = rivalHand.getHandTable();
-        myBoardTable = myBoard.getTable();
-        rivalBoardTable = rivalBoard.getTable();//todo: create the table fields in hand and board
-
-        stage.addActor(myBoardTable);
-        stage.addActor(myHandTable);
-        stage.addActor(rivalBoardTable);
-        stage.addActor(rivalHandTable);
-
+        stage.addActor(new Wallpaper(2, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
+        flatEarthSkin = gameMainClass.skin;
         createSideBar();
+        createBoards();
+        createHands();
+        createSettings();
     }
 
+    private void createSettings() {
+        //todo
+    }
+
+    private void createHands() {
+//todo
+//        myHandTable = myHand.getHandTable();
+//        rivalHandTable = rivalHand.getHandTable();
+//        stage.addActor(myHandTable);
+//        stage.addActor(rivalHandTable);
+    }
+
+    private void createBoards() {
+        //todo
+        //        myBoard.setupEntities(true);
+//        rivalBoard.setupEntities(false);
+//        myBoardTable = myBoard.getTable();
+//        rivalBoardTable = rivalBoard.getTable();//todo: create the table fields in hand and board
+//
+//        stage.addActor(myBoardTable);
+//        stage.addActor(rivalBoardTable);
+    }
+
+
+    /*rival names
+        rival lp
+        rival avatar
+
+        selected card image
+        selected card description
+        phase button
+
+       my avatar
+       my lp
+       my names
+     */
     private void createSideBar() {
         sideInfoTable = new Table();
-        sideInfoTable.setSkin(faltEarthSkin);
+        sideInfoTable.setSkin(flatEarthSkin);
         sideInfoTable.setBounds(0, 0, Constants.SIDE_INFO_WIDTH, Constants.DUEL_SCREEN_HEIGHT);
+        sideInfoTable.padBottom(20); //what is it!?
 
-        Label rivalAvatar = getAvatarLabel(faltEarthSkin, rival);
-        Label myAvatar = getAvatarLabel(faltEarthSkin, myPlayer);
+        Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGB565);
+        bgPixmap.setColor(new Color(0.501f, 0.250f, 0.250f, 1f));
+        bgPixmap.fill();
+        TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
+        sideInfoTable.setBackground(textureRegionDrawableBg);
+        sideInfoTable.align(Align.center);
+
+        Label rivalNames = getNamesLabel(flatEarthSkin, rival);
+        Label myNames = getNamesLabel(flatEarthSkin, myPlayer);
+
+
+        handleMyLifePointInfo();
+        handleRivalLifePointInfo();
+
+        Image rivalAvatar = rival.getAvatar();
+        rivalAvatar.setHeight(Constants.AVATAR_HEIGHT);
+        Image myAvatar = myPlayer.getAvatar();
+        myAvatar.setHeight(Constants.AVATAR_HEIGHT);
+
         Image selectedCardImage = getSelectedCardImage();
+        selectedCardImage.setHeight(Constants.SELECTED_CARD_IMAGE_HEIGHT);
         Label selectedDescription = getSelectedCardDescription();
+        selectedDescription.setHeight(Constants.CARD_DESCRIPTION_HEIGHT);
+
+        createNextPhaseBtn();
+
+        sideInfoTable.add(rivalNames).prefWidth(Constants.SIDE_INFO_WIDTH);
+//        sideInfoTable.row().prefHeight(Constants.SIDE_INFO_LABELS_HEIGHT);
+        sideInfoTable.row();
+
+        sideInfoTable.add(rivalLifePoint).prefWidth(Constants.LP_BAR_WIDTH);
+        sideInfoTable.row();
+        sideInfoTable.add(rivalLPLabel).prefWidth(Constants.SIDE_INFO_WIDTH - Constants.LP_BAR_WIDTH);
+//        sideInfoTable.row().prefHeight(Constants.AVATAR_HEIGHT);
+        sideInfoTable.row();
 
         sideInfoTable.add(rivalAvatar).prefWidth(Constants.SIDE_INFO_WIDTH);
-        sideInfoTable.add(myAvatar).prefWidth(Constants.SIDE_INFO_WIDTH);
-        sideInfoTable.add(selectedCardImage).prefWidth(Constants.SIDE_INFO_WIDTH);
-        sideInfoTable.add(selectedDescription).prefWidth(Constants.SIDE_INFO_WIDTH);
+//        sideInfoTable.row().prefHeight(Constants.SELECTED_CARD_IMAGE_HEIGHT);
+        sideInfoTable.row().height(Constants.SELECTED_CARD_IMAGE_HEIGHT);
 
+//       selectedCardImage.setHeight(Constants.SELECTED_CARD_IMAGE_HEIGHT);
+        sideInfoTable.add(selectedCardImage).prefWidth(Constants.SIDE_INFO_WIDTH);
+//        sideInfoTable.row().prefHeight(Constants.CARD_DESCRIPTION_HEIGHT);
+        sideInfoTable.row();
+
+        sideInfoTable.add(selectedDescription).prefWidth(Constants.SIDE_INFO_WIDTH);
+//        sideInfoTable.row().prefHeight(Constants.SIDE_INFO_LABELS_HEIGHT);
+        sideInfoTable.row();
+
+        sideInfoTable.add(phaseButton).prefWidth(Constants.SIDE_INFO_WIDTH);
+//        sideInfoTable.row().prefHeight(Constants.AVATAR_HEIGHT);
+        sideInfoTable.row();
+
+        sideInfoTable.add(myAvatar).prefWidth(Constants.SIDE_INFO_WIDTH);
+//        sideInfoTable.row().prefHeight(Constants.SIDE_INFO_LABELS_HEIGHT);
+        sideInfoTable.row();
+
+        sideInfoTable.add(myLifePoint).prefWidth(Constants.LP_BAR_WIDTH);
+        sideInfoTable.row();
+        sideInfoTable.add(myLPLabel).prefWidth(Constants.SIDE_INFO_WIDTH - Constants.LP_BAR_WIDTH);
+//        sideInfoTable.row().prefHeight(Constants.SIDE_INFO_LABELS_HEIGHT);
+        sideInfoTable.row();
+
+        sideInfoTable.add(myNames).prefWidth(Constants.SIDE_INFO_WIDTH);
         stage.addActor(sideInfoTable);
+    }
+
+    private void createNextPhaseBtn() {
+        phaseButton = new TextButton("Next Phase >>", flatEarthSkin);
+        phaseButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                controller.nextPhase();
+            }
+        });
+        phaseButton.setHeight(Constants.SIDE_INFO_LABELS_HEIGHT);
+    }
+
+    private void handleRivalLifePointInfo() {
+        rivalLifePoint = new ProgressBar(0, 8000, 50, false, flatEarthSkin);
+        rivalLifePoint.setColor(0.128f, 0.128f, 0, 1);
+        rivalLifePoint.setValue(8000);
+        rivalLPLabel = new Label("LP: " + (int) rivalLifePoint.getValue(), flatEarthSkin);
+    }
+
+    private void handleMyLifePointInfo() {
+        myLifePoint = new ProgressBar(0, 8000, 50, false, flatEarthSkin);
+        myLifePoint.setColor(0.128f, 0.128f, 0, 1);
+        myLifePoint.setValue(8000);
+        myLPLabel = new Label("LP: " + (int) myLifePoint.getValue(), flatEarthSkin);
     }
 
     private Label getSelectedCardDescription() {
         if (controller.getRoundController().isAnyCardSelected()) {
             Card selectedCard = controller.getRoundController().getSelectedCard();
-            return new Label(selectedCard.getPreCardInGeneral().getDescription(), sideInfoTable.getSkin());
-        } else return new Label("No card is selected!", sideInfoTable.getSkin());
+            Label label = new Label(selectedCard.getPreCardInGeneral().getDescription(), sideInfoTable.getSkin());
+            label.setAlignment(Align.center);
+            return label;
+        }
+        Label label = new Label("No card is selected!", sideInfoTable.getSkin());
+        label.setAlignment(Align.center);
+        return label;
     }
 
     private Image getSelectedCardImage() {
@@ -109,12 +233,23 @@ public class DuelScreen implements Screen {
         return new Image(texture);
     }
 
-    private Label getAvatarLabel(Skin skin, Player myPlayer) {
-        return new Label("Name: " + myPlayer.getName() + " - LifePoint: " + myPlayer.getLifePoint(), skin);
+    private Label getNamesLabel(Skin skin, Player player) {
+        Label label = new Label("Username: " + player.getOwner().getUsername() + "\nNickname: " + player.getName(), skin);
+        label.setAlignment(Align.center);
+        label.setHeight(Constants.SIDE_INFO_LABELS_HEIGHT);
+        label.setColor(1, 1, 1, 1);
+        return label;
     }
 
     @Override
     public void render(float delta) {
+        Phase currentPhase = controller.getCurrentPhase();
+        if (currentPhase != null) phaseButton.setText(currentPhase.toString() + " - Next Phase >>");
+        myLifePoint.setValue(myPlayer.getLifePoint());
+        myLPLabel.setText("LP: " + myPlayer.getLifePoint());
+        rivalLifePoint.setValue(rival.getLifePoint());
+        rivalLPLabel.setText("LP: " + rival.getLifePoint());
+        //todo update lifepoint bars and labels
         //todo: update entities
 //        myBoard.draw(batch, true);
 //        rivalBoard.draw(batch, false);
