@@ -84,8 +84,8 @@ public class DuelScreen implements Screen {
 
     private void createSettingsBar() {
         settingsBar = new Table();
-        settingsBar.setBounds();
-        //todo
+//        settingsBar.setBounds();
+        //todo continue from here!
     }
 
     private void createHands() {

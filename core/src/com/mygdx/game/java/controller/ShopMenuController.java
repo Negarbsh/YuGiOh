@@ -38,7 +38,7 @@ public class ShopMenuController {
             shopImageButtons.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    shopMenu.updateSelected(preCard);
+                    updateSelected(preCard);
                     System.out.println("click");
                 }
             });
