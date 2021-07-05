@@ -3,6 +3,7 @@
 package com.mygdx.game.java.controller.game;
 
 import com.mygdx.game.java.controller.LoginMenuController;
+import com.mygdx.game.java.view.Menus.DuelScreen;
 import com.mygdx.game.java.view.messageviewing.Print;
 import lombok.Getter;
 import com.mygdx.game.java.model.CardAddress;
@@ -19,6 +20,7 @@ import com.mygdx.game.java.model.card.monster.MonsterManner;
 import com.mygdx.game.java.model.watchers.Watcher;
 import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.exceptions.*;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +29,7 @@ import java.util.Objects;
 
 
 @Getter
+@Setter
 public class DuelMenuController {
     private static boolean isAnyGameRunning = false;
 
@@ -48,7 +51,11 @@ public class DuelMenuController {
     private int numOfRounds;
     boolean hasSecondPlayerTurnStarted = false;
 
-    private DuelMenuController(User firstUser, User secondUser, int numOfRounds) throws NumOfRounds {
+    private DuelScreen duelScreen;
+
+
+    //todo: made public for test! make it private
+    public DuelMenuController(User firstUser, User secondUser, int numOfRounds) throws NumOfRounds {
         setFirstUser(firstUser);
         setSecondUser(secondUser);
         setNumOfRounds(numOfRounds);
@@ -105,8 +112,8 @@ public class DuelMenuController {
     /*match actions*/
 
     public void runMatch() throws InvalidDeck, NoActiveDeck, InvalidName {
-        this.roundController = new RoundController(this.firstUser, this.secondUser, this, 0);
-        playHeadOrTails();
+        this.roundController = getProperRoundController(0);
+//        playHeadOrTails(); todo: remove the comment just commented for test
         for (int i = 0; i < numOfRounds; i++) {
             runOneRound(i);
             if (checkMatchFinished()) break;
@@ -117,9 +124,13 @@ public class DuelMenuController {
         announceWinnerOfMatch();
     }
 
+    public RoundController getProperRoundController(int roundIndex) throws InvalidDeck, InvalidName, NoActiveDeck {
+        return new RoundController(this.firstUser, this.secondUser, this, roundIndex);
+    }
+
     private void runOneRound(int roundIndex) throws InvalidName, NoActiveDeck, InvalidDeck {
         if (roundIndex != 0)
-            this.roundController = new RoundController(this.firstUser, this.secondUser, this, roundIndex);
+            this.roundController = getProperRoundController(roundIndex);
         nextPhase();
 
         Watcher.roundController = this.roundController;

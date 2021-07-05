@@ -1,0 +1,28 @@
+
+mySkin1.png
+size: 1024, 1024
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+label back ground
+  rotate: false
+  xy: 1, 210
+  size: 820, 661
+  orig: 820, 661
+  offset: 0, 0
+  index: -1
+button-maroon
+  rotate: false
+  xy: 823, 821
+  size: 50, 50
+  split: 5, 5, 5, 5
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+font-export
+  rotate: false
+  xy: 1, 100
+  size: 107, 108
+  orig: 107, 108
+  offset: 0, 0
+  index: -1

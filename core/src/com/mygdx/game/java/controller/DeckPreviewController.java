@@ -100,7 +100,7 @@ public class DeckPreviewController {
 
     public void addDeckIcon(Deck deck, Table table) {
         DeckImageButton deckIcon = ButtonUtils.createDeckButtons(deck,
-                user.getActiveDeck() == deck, deckPreview.getMainClass().skin);
+                user.getActiveDeck() == deck, deckPreview.getMainClass().orangeSkin);
 
         deckIcon.getImageButton().addListener(new ClickListener() {
             @Override

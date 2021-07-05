@@ -1,0 +1,33 @@
+{
+"com.badlogic.gdx.graphics.g2d.BitmapFont": {
+	"font-export": {
+		"file": "font-export.fnt"
+	}
+},
+"com.badlogic.gdx.graphics.Color": {
+	"RGBA_178_250_208_255": {
+		"r": 0.70144427,
+		"g": 0.9833331,
+		"b": 0.8179423,
+		"a": 1
+	},
+	"RGBA_98_0_255_255": {
+		"r": 0.38777685,
+		"g": 0,
+		"b": 1,
+		"a": 1
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
+	"default": {
+		"font": "font-export",
+		"fontColor": "RGBA_98_0_255_255",
+		"background": "label back ground"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle": {
+	"default": {
+		"label": "default"
+	}
+}
+}

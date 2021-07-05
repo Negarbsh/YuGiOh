@@ -54,15 +54,15 @@ public class DeckMenu implements Screen {
         treasuryTable.align(Align.center);
         controller.createDeckTable(treasuryTable);
 
-        messageBar = ButtonUtils.createMessageBar("", mainClass.skin.getFont("font-title"), 1f);
+        messageBar = ButtonUtils.createMessageBar("", mainClass.orangeSkin.getFont("font-title"), 1f);
         messageBar.setBounds(100, 0, 824, 65);
 
         mainDeck = new Table();
         controller.createDecks(mainDeck, false);
-        mainDeckBar = ButtonUtils.createScroller(30, 100, 754, 100, sideDeck, mainClass.skin);
+        mainDeckBar = ButtonUtils.createScroller(30, 100, 754, 100, sideDeck, mainClass.orangeSkin);
         mainDeckBar.setBounds(30, 100, 954, 100);
 
-        mainAdd = ButtonUtils.createTextButton("add", mainClass.skin);
+        mainAdd = ButtonUtils.createTextButton("add", mainClass.orangeSkin);
         mainAdd.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -80,10 +80,10 @@ public class DeckMenu implements Screen {
 
         sideDeck = new Table();
         controller.createDecks(sideDeck, true);
-        sideDeckBar = ButtonUtils.createScroller(30, 300, 754, 70, mainDeck, mainClass.skin);
+        sideDeckBar = ButtonUtils.createScroller(30, 300, 754, 70, mainDeck, mainClass.orangeSkin);
         sideDeckBar.setBounds(30, 300, 954, 70);
 
-        sideAdd = ButtonUtils.createTextButton("add", mainClass.skin);
+        sideAdd = ButtonUtils.createTextButton("add", mainClass.orangeSkin);
         sideAdd.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

@@ -68,11 +68,11 @@ public class ShopMenu implements Screen {
 
         selectedImage = new Image();
 
-        descriptLabel = new Label("", mainClass.skin);
+        descriptLabel = new Label("", mainClass.orangeSkin);
         descriptLabel.setFontScale(1.5f);
         descriptLabel.setWrap(true);
 
-        buyButton = new TextButton("buy", mainClass.skin, "menu-item-maroon");
+        buyButton = new TextButton("buy", mainClass.orangeSkin, "menu-item-maroon");
         buyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

@@ -1,6 +1,9 @@
 
 package com.mygdx.game.java.model;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.java.controller.FileHandler;
 import com.mygdx.game.java.view.messageviewing.Print;
 import lombok.Setter;
@@ -21,6 +24,7 @@ public class User implements Comparable<User> {
     private final HashMap<String, Integer> cardTreasury;   //shows how many cards do we have of each type
     private final ArrayList<Deck> decks;
     private int balance;
+    private Image avatar;
     private String activeDeck;
     private static ArrayList<User> allUsers;
 
@@ -40,6 +44,7 @@ public class User implements Comparable<User> {
         this.score = 0;
         this.balance = 100000; //todo I'm not sure!
         allUsers.add(this);
+        setAvatar(null);
         FileHandler.saveUsers();
     }
 
@@ -76,6 +81,17 @@ public class User implements Comparable<User> {
             previousUser = user;
         }
         return scoreBoard.toString();
+    }
+
+    public void setAvatar(Image image) {
+//        avatar = Objects.requireNonNullElseGet(image, () -> new Image(new Texture(Gdx.files.internal("default_avatar"))));
+        if (image == null) avatar = new Image(new Texture(Gdx.files.internal("defaultAvatar.png")));
+        else avatar = image;
+    }
+
+    public Image getAvatar() {
+        if (avatar == null) setAvatar(null);
+        return avatar;
     }
 
     public String getUsername() {
@@ -206,4 +222,5 @@ public class User implements Comparable<User> {
         }
         return cards.toString();
     }
+
 }

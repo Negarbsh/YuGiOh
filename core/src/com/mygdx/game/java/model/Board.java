@@ -1,7 +1,8 @@
 package com.mygdx.game.java.model;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.java.controller.game.DuelMenuController;
-import com.mygdx.game.java.view.Constants;
 import com.mygdx.game.java.view.PositionCalculator;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,10 +37,13 @@ public class Board {
     private Phase myPhase;
     private DuelMenuController controller;
 
+    private Table table;
+
     {
         monsterZone = new MonsterCardInUse[5];
         spellTrapZone = new SpellTrapCardInUse[5];
         freeBuiltInWatchers = new ArrayList<>();
+        table = new Table();
     }
 
     public Board(Player owner, DuelMenuController controller) {
@@ -47,7 +51,6 @@ public class Board {
         this.controller = controller;
         newCells();
         graveYard = new GraveYard(this);
-
     }
 
 
@@ -226,11 +229,16 @@ public class Board {
         for (int i = 0; i < 5; i++) {
             float[] monsterPosition = PositionCalculator.getCardInUsePosition(i, true, isMyOwnerCurrent);
             float[] spellPosition = PositionCalculator.getCardInUsePosition(i, false, isMyOwnerCurrent);
-            spellTrapZone[i].set(spellPosition[0], spellPosition[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
-            monsterZone[i].set(monsterPosition[0], monsterPosition[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
+//            spellTrapZone[i].set(spellPosition[0], spellPosition[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
+//            monsterZone[i].set(monsterPosition[0], monsterPosition[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
+            //todo: we should make the zone images:)
         }
+
     }
 
+    public Table getTable(){
+        return table; //todo: table isn't created actually
+    }
 
     @Override
     public String toString() {

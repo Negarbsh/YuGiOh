@@ -84,7 +84,6 @@ public class DuelMenu {
             else
                 throw new InvalidCommand();
         } catch (Exception exception) {
-//            if (exception instanceof InvalidCommand) throw new InvalidCommand();
             showException(exception);
         }
     }
@@ -157,36 +156,19 @@ public class DuelMenu {
 
     }
 
-//    public static boolean askToSelectRitualMonsterCard() { //returns true if the process if cancelled
-//        Print.print("Please select a card for ritual summon and summon it.");
-//        boolean isFine = false;
+//    public static ArrayList<String> getTributeAddresses() {
+//        Print.print("Enter the tribute addresses." +
+//                " Note that the sum of their levels should be equal to the ritual monster's level.\n" +
+//                "Enter \"End\" when you were done");
+//        ArrayList<String> addresses = new ArrayList<>();
+//        String command;
 //        do {
-//            String command = scanner.nextLine();
-//            if (command.equals("cancel")) return true;
-//            if (command.startsWith("select "))
-//                try {
-//                    duelMenuController.selectCard(command.substring(7));
-//                    isFine = true;
-//                } catch (InvalidSelection | NoCardFound exception) {
-//                    showException(exception);
-//                }
-//        } while (!isFine);
-//        return false;
+//            command = scanner.nextLine();
+//            if (command.equals("cancel")) return null;
+//            addresses.add(command);
+//        } while (!command.equals("End"));
+//        return addresses;
 //    }
-
-    public static ArrayList<String> getTributeAddresses() {
-        Print.print("Enter the tribute addresses." +
-                " Note that the sum of their levels should be equal to the ritual monster's level.\n" +
-                "Enter \"End\" when you were done");
-        ArrayList<String> addresses = new ArrayList<>();
-        String command;
-        do {
-            command = scanner.nextLine();
-            if (command.equals("cancel")) return null;
-            addresses.add(command);
-        } while (!command.equals("End"));
-        return addresses;
-    }
 
     //returns true if it's cancelled
     public static boolean forceGetCommand(String commandToForceEnter, String messageToShow) {
