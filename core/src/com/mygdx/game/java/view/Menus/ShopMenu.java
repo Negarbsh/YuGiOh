@@ -2,9 +2,8 @@ package com.mygdx.game.java.view.Menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -13,13 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.RelatedToMenuController;
 import com.mygdx.game.java.controller.ShopMenuController;
-import com.mygdx.game.java.model.ShopCard;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.model.Wallpaper;
 import com.mygdx.game.java.model.card.PreCard;
@@ -39,6 +36,7 @@ public class ShopMenu implements Screen {
     ShopMenuController controller;
     User user;
     Table shopTable, buyTable;
+    @Getter Sound coinShake;
     @Getter(AccessLevel.PUBLIC) @Setter(AccessLevel.PUBLIC) PreCard selected;
     @Getter TextButton buyButton;
     @Getter Label descriptLabel;
@@ -48,23 +46,8 @@ public class ShopMenu implements Screen {
         this.stage = new Stage(new StretchViewport(1024, 1024));
     }
 
-
-    public void checkMenuCommands(String command) throws InvalidCommand, WrongMenu {
-        if (RelatedToMenuController.isMenuFalse(MenuName.SHOP))
-            throw new WrongMenu();
-        if (command.startsWith("buy ")) {
-            String cardName = command.substring(4);
-            try {
-                controller.checkBuying(cardName);
-            } catch (InvalidName | NotEnoughMoney exception) {
-                System.out.println(exception.getMessage());
-            }
-        } else if (command.equals("show --all")) {
-            Print.print(ShopMenuController.showAllCards());
-        } else throw new InvalidCommand();
-    }
-
     public ShopMenu(GameMainClass gameMainClass, User user) {
+        setSounds();
         this.mainClass = gameMainClass;
         this.user = user;
         controller = new ShopMenuController(user, this);
@@ -140,6 +123,10 @@ public class ShopMenu implements Screen {
 
     @Override
     public void dispose() {
+        stage.dispose();
+    }
 
+    private void setSounds() {
+        coinShake = Gdx.audio.newSound(Gdx.files.internal("sounds/coins-shake.ogg"));
     }
 }

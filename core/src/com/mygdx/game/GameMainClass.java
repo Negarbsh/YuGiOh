@@ -2,16 +2,26 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.java.controller.FileHandler;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.Menus.DuelScreen;
 import com.mygdx.game.java.view.exceptions.NumOfRounds;
+import com.mygdx.game.java.view.Main;
+import com.mygdx.game.java.view.Menus.DeckPreview;
+import com.mygdx.game.java.view.Menus.ShopMenu;
 
 public class GameMainClass extends Game {
-    //	SpriteBatch batch;
+//	SpriteBatch batch;
 //	Texture img;
+
+    public Skin skin;
+    public Skin skin2;
+    public Screen lastScreen;
     public Skin flatEarthSkin;
     public Skin orangeSkin;
 
@@ -19,6 +29,9 @@ public class GameMainClass extends Game {
     public void create() {
         flatEarthSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
         orangeSkin = new Skin(Gdx.files.internal("orange/skin/uiskin.json"));
+        skin = new Skin(Gdx.files.internal("orange/skin/uiskin.json"));
+        skin2 = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
+
         FileHandler.loadThings();
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
         User ali = User.getUserByName("ali");
@@ -38,7 +51,18 @@ public class GameMainClass extends Game {
         }
         DuelScreen duelScreen = new DuelScreen(duelMenuController.getRoundController().getCurrentPlayer(), duelMenuController.getRoundController().getRival(), duelMenuController, this);
         setScreen(duelScreen);
+        //		setScreen(new DeckPreview(this, User.getUserByName("akbar")));
+
     }
+
+
+	@Override
+	public void setScreen(Screen screen) {
+		if (lastScreen != null)	lastScreen.dispose();
+		else lastScreen = screen;
+		super.setScreen(screen);
+	}
+
 
     @Override
     public void render() {
@@ -53,5 +77,5 @@ public class GameMainClass extends Game {
     public void dispose() {
 //		batch.dispose();
 //		img.dispose();
-    }
+	}
 }

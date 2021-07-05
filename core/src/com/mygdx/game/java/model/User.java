@@ -24,11 +24,8 @@ public class User implements Comparable<User> {
     private final HashMap<String, Integer> cardTreasury;   //shows how many cards do we have of each type
     private final ArrayList<Deck> decks;
     private int balance;
-    private Deck activeDeck;
-    private Image avatar;
-
+    private String activeDeck;
     private static ArrayList<User> allUsers;
-
 
     static {
         allUsers = new ArrayList<>();
@@ -117,6 +114,9 @@ public class User implements Comparable<User> {
     }
 
     public Deck findDeckByName(String name) {
+        if (name == null)
+            return null;
+
         for (Deck deck : decks) {
             if (deck.equalNames(name))
                 return deck;
@@ -134,7 +134,7 @@ public class User implements Comparable<User> {
     }
 
     public Deck getActiveDeck() {
-        return findDeckByName(activeDeck.getName());
+        return findDeckByName(activeDeck);
     }
 
     public static ArrayList<User> getAllUsers() {
@@ -184,7 +184,7 @@ public class User implements Comparable<User> {
 
     public void setActiveDeck(Deck deck) {
         if (this.decks.contains(deck)) {
-            this.activeDeck = deck;
+            this.activeDeck = deck.getName();
         }
     }
 
@@ -202,7 +202,7 @@ public class User implements Comparable<User> {
 
     public void removeDeck(Deck deck) {
         decks.remove(deck);
-        if (activeDeck.getName().equals(deck.getName())) activeDeck = null;
+        if (this.getActiveDeck() == deck)    activeDeck = null;
         Print.print(SuccessMessages.removeDeck);
         FileHandler.saveUsers();
     }

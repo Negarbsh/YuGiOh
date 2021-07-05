@@ -3,6 +3,7 @@ package com.mygdx.game.java.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.mygdx.game.java.model.DeckImageButton;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.model.Wallpaper;
 import com.mygdx.game.java.model.card.CardLoader;
@@ -26,6 +27,7 @@ public class FileHandler {
     private static void loadAssets() {
         PreCard.setCardsPictures();
         Wallpaper.setAllWallpapers();
+        DeckImageButton.setDeckImages();
     }
 
     private static void loadUsers() {
@@ -41,7 +43,6 @@ public class FileHandler {
             Type type = new TypeToken<ArrayList<User>>() {
             }.getType();
             User.setAllUsers(gsonExt.fromJson(json, type));
-
         } catch (IOException e) {
             e.printStackTrace();
         }

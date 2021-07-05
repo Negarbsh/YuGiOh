@@ -1,13 +1,41 @@
 package com.mygdx.game.java.view.Menus;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.DeckMenuController;
 import com.mygdx.game.java.controller.RelatedToMenuController;
+import com.mygdx.game.java.model.ButtonUtils;
+import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.exceptions.*;
 import com.mygdx.game.java.view.MenuName;
 import com.mygdx.game.java.view.messageviewing.Print;
+import lombok.Getter;
 
 
-public class DeckMenu {
+public class DeckMenu implements Screen {
+    Stage stage;
+    @Getter
+    GameMainClass mainClass;
+    DeckMenuController controller;
+    User user;
+
+    {
+        stage = new Stage(new StretchViewport(1024, 1024));
+    }
+
+    public DeckMenu(GameMainClass mainClass, User user, DeckMenuController controller) {
+        this.user = user;
+        this.mainClass = mainClass;
+        this.controller = controller;
+    }
+
+
     public static void checkMenuCommands(String command) throws InvalidCommand, WrongMenu {
         final String createDeck = "create ";
         final String deleteDeck = "delete ";
@@ -17,34 +45,39 @@ public class DeckMenu {
         final String showAllCards = "show --cards";
         final String showDeck = "show "; // conflict with upper ones
         final String removeCard = "deck rm-card "; //check to see its side or main deck
-
-        if (RelatedToMenuController.isMenuFalse(MenuName.DECK)) {
-            throw new WrongMenu();
-        } else try {
-            if (command.startsWith(createDeck))
-                DeckMenuController.createDeck(command.substring(createDeck.length()));
-            else if (command.startsWith(deleteDeck))
-                DeckMenuController.deleteDeck(command.substring(deleteDeck.length()));
-            else if (command.startsWith(activeDeck))
-                DeckMenuController.chooseActiveDeck(command.substring(activeDeck.length()));
-            else if (command.startsWith(addCard)) {
-                DeckMenuController.addCardToDeck(command.substring(addCard.length()),
-                        RelatedToMenuController.getCommandString(command, "--side") != null);
-            } else if (command.startsWith(showAllDecks))
-                DeckMenuController.showAllDecks();
-            else if (command.startsWith(showAllCards))
-                DeckMenuController.showCards();
-            else if (command.startsWith(showDeck)) {
-                DeckMenuController.showDeck(command.substring(showDeck.length()),
-                        RelatedToMenuController.getCommandString(command, "--side") != null);
-            } else if (command.startsWith(removeCard)) {
-                DeckMenuController.removeCardFromDeck(command.substring(removeCard.length()),
-                        RelatedToMenuController.getCommandString(command, "--side") != null);
-            } else
-                throw new InvalidCommand();
-        } catch (AlreadyExistingError | NotExisting | BeingFull | OccurrenceException exception) {
-            Print.print(exception.getMessage());
-        }
     }
 
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void render(float delta) {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+    }
 }
