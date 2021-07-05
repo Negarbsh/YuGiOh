@@ -12,11 +12,13 @@ import com.mygdx.game.java.view.exceptions.NumOfRounds;
 public class GameMainClass extends Game {
     //	SpriteBatch batch;
 //	Texture img;
-    public Skin skin;
+    public Skin flatEarthSkin;
+    public Skin orangeSkin;
 
     @Override
     public void create() {
-        skin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
+        flatEarthSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
+        orangeSkin = new Skin(Gdx.files.internal("orange/skin/uiskin.json"));
         FileHandler.loadThings();
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
         User ali = User.getUserByName("ali");

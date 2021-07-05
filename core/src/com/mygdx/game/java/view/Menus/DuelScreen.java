@@ -1,5 +1,6 @@
 package com.mygdx.game.java.view.Menus;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -50,8 +51,10 @@ public class DuelScreen implements Screen {
     private ProgressBar rivalLifePoint;
     private Label myLPLabel;
     private Label rivalLPLabel;
-
     private TextButton phaseButton;
+
+    private  Table settingsBar; //it includes the settings button (pause and stuff) and a message label (when we want to tell the user to do sth! or show a message)
+    private Label messageLabel;
 
     private Skin flatEarthSkin;
 
@@ -71,14 +74,17 @@ public class DuelScreen implements Screen {
     @Override
     public void show() {
         stage.addActor(new Wallpaper(2, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
-        flatEarthSkin = gameMainClass.skin;
+        flatEarthSkin = gameMainClass.flatEarthSkin;
         createSideBar();
         createBoards();
         createHands();
-        createSettings();
+        createSettingsBar();
+        Gdx.input.setInputProcessor(stage);
     }
 
-    private void createSettings() {
+    private void createSettingsBar() {
+        settingsBar = new Table();
+        settingsBar.setBounds();
         //todo
     }
 
@@ -101,19 +107,7 @@ public class DuelScreen implements Screen {
 //        stage.addActor(rivalBoardTable);
     }
 
-
-    /*rival names
-        rival lp
-        rival avatar
-
-        selected card image
-        selected card description
-        phase button
-
-       my avatar
-       my lp
-       my names
-     */
+    //side bar stuff beginning
     private void createSideBar() {
         sideInfoTable = new Table();
         sideInfoTable.setSkin(flatEarthSkin);
@@ -127,8 +121,8 @@ public class DuelScreen implements Screen {
         sideInfoTable.setBackground(textureRegionDrawableBg);
         sideInfoTable.align(Align.center);
 
-        Label rivalNames = getNamesLabel(flatEarthSkin, rival);
-        Label myNames = getNamesLabel(flatEarthSkin, myPlayer);
+        Label rivalNames = getNamesLabel(rival);
+        Label myNames = getNamesLabel(myPlayer);
 
 
         handleMyLifePointInfo();
@@ -144,73 +138,68 @@ public class DuelScreen implements Screen {
         Label selectedDescription = getSelectedCardDescription();
         selectedDescription.setHeight(Constants.CARD_DESCRIPTION_HEIGHT);
 
-        createNextPhaseBtn();
+        createPhaseBtn();
+        addPreparedActorsToSideInfo(rivalNames, myNames, rivalAvatar, myAvatar, selectedCardImage, selectedDescription);
+        stage.addActor(sideInfoTable);
+    }
 
+    private void addPreparedActorsToSideInfo(Label rivalNames, Label myNames, Image rivalAvatar, Image myAvatar, Image selectedCardImage, Label selectedDescription) {
         sideInfoTable.add(rivalNames).prefWidth(Constants.SIDE_INFO_WIDTH);
-//        sideInfoTable.row().prefHeight(Constants.SIDE_INFO_LABELS_HEIGHT);
         sideInfoTable.row();
 
         sideInfoTable.add(rivalLifePoint).prefWidth(Constants.LP_BAR_WIDTH);
         sideInfoTable.row();
         sideInfoTable.add(rivalLPLabel).prefWidth(Constants.SIDE_INFO_WIDTH - Constants.LP_BAR_WIDTH);
-//        sideInfoTable.row().prefHeight(Constants.AVATAR_HEIGHT);
         sideInfoTable.row();
 
         sideInfoTable.add(rivalAvatar).prefWidth(Constants.SIDE_INFO_WIDTH);
-//        sideInfoTable.row().prefHeight(Constants.SELECTED_CARD_IMAGE_HEIGHT);
         sideInfoTable.row().height(Constants.SELECTED_CARD_IMAGE_HEIGHT);
 
-//       selectedCardImage.setHeight(Constants.SELECTED_CARD_IMAGE_HEIGHT);
         sideInfoTable.add(selectedCardImage).prefWidth(Constants.SIDE_INFO_WIDTH);
-//        sideInfoTable.row().prefHeight(Constants.CARD_DESCRIPTION_HEIGHT);
         sideInfoTable.row();
 
         sideInfoTable.add(selectedDescription).prefWidth(Constants.SIDE_INFO_WIDTH);
-//        sideInfoTable.row().prefHeight(Constants.SIDE_INFO_LABELS_HEIGHT);
         sideInfoTable.row();
 
         sideInfoTable.add(phaseButton).prefWidth(Constants.SIDE_INFO_WIDTH);
-//        sideInfoTable.row().prefHeight(Constants.AVATAR_HEIGHT);
         sideInfoTable.row();
 
         sideInfoTable.add(myAvatar).prefWidth(Constants.SIDE_INFO_WIDTH);
-//        sideInfoTable.row().prefHeight(Constants.SIDE_INFO_LABELS_HEIGHT);
         sideInfoTable.row();
 
         sideInfoTable.add(myLifePoint).prefWidth(Constants.LP_BAR_WIDTH);
         sideInfoTable.row();
         sideInfoTable.add(myLPLabel).prefWidth(Constants.SIDE_INFO_WIDTH - Constants.LP_BAR_WIDTH);
-//        sideInfoTable.row().prefHeight(Constants.SIDE_INFO_LABELS_HEIGHT);
         sideInfoTable.row();
 
         sideInfoTable.add(myNames).prefWidth(Constants.SIDE_INFO_WIDTH);
-        stage.addActor(sideInfoTable);
     }
 
-    private void createNextPhaseBtn() {
+    private void createPhaseBtn() {
         phaseButton = new TextButton("Next Phase >>", flatEarthSkin);
         phaseButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
                 controller.nextPhase();
+                Phase currentPhase = controller.getCurrentPhase();
+                if (currentPhase != null) phaseButton.setText(currentPhase.toString() + "\nNext Phase >>");
             }
         });
         phaseButton.setHeight(Constants.SIDE_INFO_LABELS_HEIGHT);
     }
 
     private void handleRivalLifePointInfo() {
-        rivalLifePoint = new ProgressBar(0, 8000, 50, false, flatEarthSkin);
+        rivalLifePoint = new ProgressBar(0, 8000, 100, false, flatEarthSkin);
         rivalLifePoint.setColor(0.128f, 0.128f, 0, 1);
         rivalLifePoint.setValue(8000);
-        rivalLPLabel = new Label("LP: " + (int) rivalLifePoint.getValue(), flatEarthSkin);
+        rivalLPLabel = new Label("Life Point: " + (int) rivalLifePoint.getValue(), flatEarthSkin);
     }
 
     private void handleMyLifePointInfo() {
         myLifePoint = new ProgressBar(0, 8000, 50, false, flatEarthSkin);
         myLifePoint.setColor(0.128f, 0.128f, 0, 1);
         myLifePoint.setValue(8000);
-        myLPLabel = new Label("LP: " + (int) myLifePoint.getValue(), flatEarthSkin);
+        myLPLabel = new Label("Life Point: " + (int) myLifePoint.getValue(), flatEarthSkin);
     }
 
     private Label getSelectedCardDescription() {
@@ -233,28 +222,25 @@ public class DuelScreen implements Screen {
         return new Image(texture);
     }
 
-    private Label getNamesLabel(Skin skin, Player player) {
-        Label label = new Label("Username: " + player.getOwner().getUsername() + "\nNickname: " + player.getName(), skin);
+    private Label getNamesLabel(Player player) {
+//        Skin skin = new Skin(Gdx.files.internal("handMadeLabelSkin/mySkin1.json"));
+        Label label = new Label("Username: " + player.getOwner().getUsername() + "\nNickname: " + player.getName(), flatEarthSkin);
+        label.setColor(0.6f, 0.298f, 0, 1);
         label.setAlignment(Align.center);
         label.setHeight(Constants.SIDE_INFO_LABELS_HEIGHT);
         label.setColor(1, 1, 1, 1);
         return label;
     }
+    //side bar stuff ending
 
     @Override
     public void render(float delta) {
-        Phase currentPhase = controller.getCurrentPhase();
-        if (currentPhase != null) phaseButton.setText(currentPhase.toString() + " - Next Phase >>");
         myLifePoint.setValue(myPlayer.getLifePoint());
-        myLPLabel.setText("LP: " + myPlayer.getLifePoint());
+        myLPLabel.setText("Life Point: " + myPlayer.getLifePoint());
         rivalLifePoint.setValue(rival.getLifePoint());
-        rivalLPLabel.setText("LP: " + rival.getLifePoint());
-        //todo update lifepoint bars and labels
+        rivalLPLabel.setText("Life Point: " + rival.getLifePoint());
+
         //todo: update entities
-//        myBoard.draw(batch, true);
-//        rivalBoard.draw(batch, false);
-//        myHand.draw(batch, true);
-//        rivalHand.draw(batch, false);
         //todo: update sideBar using the create sidebar function
         stage.act();
         stage.draw();
