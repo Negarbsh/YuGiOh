@@ -22,9 +22,9 @@ public class GameMainClass extends Game {
 
     @Override
     public void create() {
+
         flatEarthSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
         orangeSkin = new Skin(Gdx.files.internal("orange/skin/uiskin.json"));
-
         FileHandler.loadThings();
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 

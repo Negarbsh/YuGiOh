@@ -9,20 +9,22 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
-import com.mygdx.game.java.model.Board;
+import com.mygdx.game.java.model.*;
 import com.mygdx.game.java.model.Enums.Phase;
-import com.mygdx.game.java.model.Hand;
-import com.mygdx.game.java.model.Player;
-import com.mygdx.game.java.model.Wallpaper;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.view.Constants;
+
+
+//import java.awt.*;
 
 
 public class DuelScreen implements Screen {
@@ -53,7 +55,6 @@ public class DuelScreen implements Screen {
     private Label rivalLPLabel;
     private TextButton phaseButton;
 
-    private  Table settingsBar; //it includes the settings button (pause and stuff) and a message label (when we want to tell the user to do sth! or show a message)
     private Label messageLabel;
 
     private Skin flatEarthSkin;
@@ -78,14 +79,34 @@ public class DuelScreen implements Screen {
         createSideBar();
         createBoards();
         createHands();
-        createSettingsBar();
+        createSettingsButton();
         Gdx.input.setInputProcessor(stage);
     }
 
-    private void createSettingsBar() {
-        settingsBar = new Table();
-//        settingsBar.setBounds();
-        //todo continue from here!
+    private void createSettingsButton() {
+        ImageButton settingsButton = new ImageButton(new TextureRegionDrawable(new Texture(Gdx.files.internal("settingsButton.png")))
+                , new TextureRegionDrawable(new Texture(Gdx.files.internal("settingsButtonDown.png"))));
+        settingsButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                openSettingsWindow();
+            }
+        });
+        float radius = Constants.SETTING_BUTTON_RADIUS;
+        settingsButton.setBounds(Constants.DUEL_SCREEN_WIDTH - 2 * radius, Constants.DUEL_SCREEN_HEIGHT - 2 * radius, radius, radius);
+        stage.addActor(settingsButton);
+    }
+
+    private void openSettingsWindow() {
+        //todo
+        Dialog dialog = new Dialog("Settings", flatEarthSkin);
+        dialog.show(stage);
+    }
+
+    private void createMessageLabel(){
+        messageLabel = new Label("", flatEarthSkin);
+        messageLabel.setBounds(Constants.SIDE_INFO_WIDTH, Constants.DUEL_SCREEN_HEIGHT - Constants.UPPER_BAR_HEIGHT,
+                Constants.DUEL_SCREEN_WIDTH - Constants.SIDE_INFO_WIDTH - 3 * Constants.SETTING_BUTTON_RADIUS, Constants.UPPER_BAR_HEIGHT);
     }
 
     private void createHands() {
@@ -114,11 +135,7 @@ public class DuelScreen implements Screen {
         sideInfoTable.setBounds(0, 0, Constants.SIDE_INFO_WIDTH, Constants.DUEL_SCREEN_HEIGHT);
         sideInfoTable.padBottom(20); //what is it!?
 
-        Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGB565);
-        bgPixmap.setColor(new Color(0.501f, 0.250f, 0.250f, 1f));
-        bgPixmap.fill();
-        TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
-        sideInfoTable.setBackground(textureRegionDrawableBg);
+        setTheBackgroundColorFor(sideInfoTable);
         sideInfoTable.align(Align.center);
 
         Label rivalNames = getNamesLabel(rival);
@@ -141,6 +158,14 @@ public class DuelScreen implements Screen {
         createPhaseBtn();
         addPreparedActorsToSideInfo(rivalNames, myNames, rivalAvatar, myAvatar, selectedCardImage, selectedDescription);
         stage.addActor(sideInfoTable);
+    }
+
+    private void setTheBackgroundColorFor(Table table) {
+        Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGB565);
+        bgPixmap.setColor(new Color(0.501f, 0.250f, 0.250f, 1f));
+        bgPixmap.fill();
+        TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
+        table.setBackground(textureRegionDrawableBg);
     }
 
     private void addPreparedActorsToSideInfo(Label rivalNames, Label myNames, Image rivalAvatar, Image myAvatar, Image selectedCardImage, Label selectedDescription) {
@@ -206,6 +231,7 @@ public class DuelScreen implements Screen {
         if (controller.getRoundController().isAnyCardSelected()) {
             Card selectedCard = controller.getRoundController().getSelectedCard();
             Label label = new Label(selectedCard.getPreCardInGeneral().getDescription(), sideInfoTable.getSkin());
+//            Label label = ButtonUtils.createMessageBar(selectedCard.getPreCardInGeneral().getDescription(), gameMainClass.orangeSkin.getFont("font-title"));
             label.setAlignment(Align.center);
             return label;
         }
@@ -223,8 +249,9 @@ public class DuelScreen implements Screen {
     }
 
     private Label getNamesLabel(Player player) {
-//        Skin skin = new Skin(Gdx.files.internal("handMadeLabelSkin/mySkin1.json"));
         Label label = new Label("Username: " + player.getOwner().getUsername() + "\nNickname: " + player.getName(), flatEarthSkin);
+
+        label.setWidth(Constants.SIDE_INFO_WIDTH);
         label.setColor(0.6f, 0.298f, 0, 1);
         label.setAlignment(Align.center);
         label.setHeight(Constants.SIDE_INFO_LABELS_HEIGHT);
@@ -241,7 +268,6 @@ public class DuelScreen implements Screen {
         rivalLPLabel.setText("Life Point: " + rival.getLifePoint());
 
         //todo: update entities
-        //todo: update sideBar using the create sidebar function
         stage.act();
         stage.draw();
 

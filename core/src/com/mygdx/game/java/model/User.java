@@ -85,7 +85,7 @@ public class User implements Comparable<User> {
 
     public void setAvatar(Image image) {
 //        avatar = Objects.requireNonNullElseGet(image, () -> new Image(new Texture(Gdx.files.internal("default_avatar"))));
-        if (image == null) avatar = new Image(new Texture(Gdx.files.internal("default_avatar.png")));
+        if (image == null) avatar = new Image(new Texture(Gdx.files.internal("defaultAvatar.png")));
         else avatar = image;
     }
 

@@ -22,6 +22,8 @@ public class Constants {
     public final static float AVATAR_HEIGHT = 200;
     public final static float CARD_DESCRIPTION_HEIGHT = 200;
     public final static float SIDE_INFO_LABELS_HEIGHT = DUEL_SCREEN_HEIGHT - (2 * AVATAR_HEIGHT - SELECTED_CARD_IMAGE_HEIGHT - CARD_DESCRIPTION_HEIGHT) / 5;
-
     public static final float LP_BAR_WIDTH = 2 * SIDE_INFO_WIDTH / 3;
+
+    public static final float UPPER_BAR_HEIGHT = 150;
+    public static final float SETTING_BUTTON_RADIUS = 50;
 }
