@@ -59,7 +59,7 @@ public class DeckPreview implements Screen {
         myDecks.setBackground(background);
         myDecks.setBounds(30, 250, 340, 80);
         controller.createDecksTable(myDecks);
-        decksScroller = new ScrollPane(myDecks, mainClass.skin);
+        decksScroller = new ScrollPane(myDecks, mainClass.orangeSkin);
         decksScroller.setBounds(30, 290, 340, 80);
         decksScroller.setScrollingDisabled(false, true);
         myDecksBar = new Table();
@@ -67,15 +67,15 @@ public class DeckPreview implements Screen {
         myDecksBar.align(Align.top);
         myDecksBar.add(decksScroller).fill();
 
-        messageBar = ButtonUtils.createMessageBar("", mainClass.skin.getFont("font-title"));
+        messageBar = ButtonUtils.createMessageBar("", mainClass.orangeSkin.getFont("font-title"));
         messageBar.setBounds(50, 0, 300, 25);
 
         buttonsTable = new Table();
         buttonsTable.setBounds(300, 130, 100, 150);
         buttonsTable.defaults().padTop(5).size(80, 30);
-        deckName = ButtonUtils.createTextField("name:", mainClass.skin);
+        deckName = ButtonUtils.createTextField("name:", mainClass.orangeSkin);
         deckName.setWidth(50);
-        create = ButtonUtils.createTextButton("create", mainClass.skin);
+        create = ButtonUtils.createTextButton("create", mainClass.orangeSkin);
         create.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -93,7 +93,7 @@ public class DeckPreview implements Screen {
                 }
             }
         });
-        active = ButtonUtils.createTextButton("activate", mainClass.skin);
+        active = ButtonUtils.createTextButton("activate", mainClass.orangeSkin);
         active.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -105,7 +105,7 @@ public class DeckPreview implements Screen {
                 }
             }
         });
-        enter = ButtonUtils.createTextButton("enter", mainClass.skin);
+        enter = ButtonUtils.createTextButton("enter", mainClass.orangeSkin);
         enter.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -118,7 +118,7 @@ public class DeckPreview implements Screen {
         buttonsTable.add(active).row();
         buttonsTable.add(enter).row();
 
-        descriptLabel = new Label("", mainClass.skin);
+        descriptLabel = new Label("", mainClass.orangeSkin);
         descriptLabel.setWrap(true);
         descriptLabel.setBounds(50, 200, 300, 70);
 

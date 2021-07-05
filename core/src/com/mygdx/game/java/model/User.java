@@ -24,6 +24,7 @@ public class User implements Comparable<User> {
     private final HashMap<String, Integer> cardTreasury;   //shows how many cards do we have of each type
     private final ArrayList<Deck> decks;
     private int balance;
+    private Image avatar;
     private String activeDeck;
     private static ArrayList<User> allUsers;
 
