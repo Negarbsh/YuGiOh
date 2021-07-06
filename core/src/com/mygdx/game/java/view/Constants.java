@@ -8,6 +8,7 @@ public class Constants {
     public final static float CARD_IN_HAND_WIDTH = 80;
     public final static float CARD_IN_HAND_HEIGHT = 160;
     public final static float HAND_GAP_BETWEEN_CELLS = 20;
+    public final static float HAND_WIDTH = 700;
 
     public final static float CARD_IN_USE_WIDTH = 60;
     public final static float CARD_IN_USE_HEIGHT = 120;
@@ -26,4 +27,9 @@ public class Constants {
 
     public static final float UPPER_BAR_HEIGHT = 150;
     public static final float SETTING_BUTTON_RADIUS = 50;
+    public static final float DIALOG_HEIGHT = 200;
+    public static final float DIALOG_WIDTH = 200;
+
+    public final static float RIVAL_HAND_Y = DUEL_SCREEN_HEIGHT - UPPER_BAR_HEIGHT - CARD_IN_HAND_HEIGHT;
+
 }

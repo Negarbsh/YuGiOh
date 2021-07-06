@@ -61,7 +61,7 @@ public abstract class PreCard {
     }
 
     private static void addCardPics(String[] folderPath) {
-//        Reader.figureCatalog(folderPath);
+        Reader.figureCatalog(folderPath);
         for (String s : folderPath) {
             for (FileHandle cardPic : Reader.readDirectoryCatalog(s)) {
                 cardsPictures.put(cardPic.name().replace(".jpg", ""), new Texture(cardPic));

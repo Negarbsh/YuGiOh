@@ -36,6 +36,7 @@ public class Wallpaper extends Actor {
             allWallpapers = new HashMap<>();
             allWallpapers.put(1, new Texture(Gdx.files.internal("Wallpapers/shop-background.png")));
             allWallpapers.put(2, new Texture(Gdx.files.internal("Wallpapers/deck-background.png")));
+            allWallpapers.put(3, new Texture(Gdx.files.internal("Wallpapers/duel_background.png")));
         }
     }
 }

@@ -31,7 +31,7 @@ public class DuelScreen implements Screen {
     private final Stage stage;
     private final GameMainClass gameMainClass;
 
-    private DuelMenuController controller;
+    private final DuelMenuController controller;
 
     private final Hand myHand;
     private final Hand rivalHand;
@@ -74,11 +74,12 @@ public class DuelScreen implements Screen {
 
     @Override
     public void show() {
-        stage.addActor(new Wallpaper(2, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
+        stage.addActor(new Wallpaper(3, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
         flatEarthSkin = gameMainClass.flatEarthSkin;
         createSideBar();
         createBoards();
         createHands();
+        createMessageLabel();
         createSettingsButton();
         Gdx.input.setInputProcessor(stage);
     }
@@ -98,23 +99,47 @@ public class DuelScreen implements Screen {
     }
 
     private void openSettingsWindow() {
-        //todo
-        Dialog dialog = new Dialog("Settings", flatEarthSkin);
+        Dialog dialog = new Dialog("Settings", flatEarthSkin) {
+            @Override
+            protected void result(Object object) {
+                int decision = (int) object;
+                switch (decision) {
+                    case 1:
+                        controller.getRoundController().setTurnEnded(true);
+                        controller.getRoundController().setRoundEnded(true);
+                        DuelMenuController.endGame();
+                        break;
+                    case 2:
+                        controller.setGamePaused(true);
+                        break;
+                    case 3:
+                        controller.setGamePaused(false);
+                        break;
+                }
+            }
+        };
+        dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+        dialog.button("End Game", 1);
+        dialog.button("Pause", 2);
+        dialog.button("Resume", 3);
         dialog.show(stage);
     }
 
-    private void createMessageLabel(){
-        messageLabel = new Label("", flatEarthSkin);
+    private void createMessageLabel() {
+        messageLabel = new Label("YoGiOh!", flatEarthSkin);
         messageLabel.setBounds(Constants.SIDE_INFO_WIDTH, Constants.DUEL_SCREEN_HEIGHT - Constants.UPPER_BAR_HEIGHT,
                 Constants.DUEL_SCREEN_WIDTH - Constants.SIDE_INFO_WIDTH - 3 * Constants.SETTING_BUTTON_RADIUS, Constants.UPPER_BAR_HEIGHT);
     }
 
     private void createHands() {
-//todo
-//        myHandTable = myHand.getHandTable();
-//        rivalHandTable = rivalHand.getHandTable();
-//        stage.addActor(myHandTable);
-//        stage.addActor(rivalHandTable);
+        myHandTable = myHand.getHandTable(true);
+        rivalHandTable = rivalHand.getHandTable(false);
+        myHandTable.setBounds(Constants.SIDE_INFO_WIDTH, 0, Constants.HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
+        rivalHandTable.setBounds(Constants.SIDE_INFO_WIDTH, Constants.RIVAL_HAND_Y, Constants.HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
+        myHandTable.setColor(Color.BLUE);
+        rivalHandTable.setColor(Color.BLUE);
+        stage.addActor(myHandTable);
+        stage.addActor(rivalHandTable);
     }
 
     private void createBoards() {
