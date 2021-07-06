@@ -10,8 +10,6 @@ import com.mygdx.game.java.view.MenuName;
 import com.mygdx.game.java.view.exceptions.*;
 import com.mygdx.game.java.view.messageviewing.Print;
 
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -29,21 +27,21 @@ public class DuelMenu {
         if (RelatedToMenuController.isMenuFalse(MenuName.DUEL))
             throw new WrongMenu();
         if (command.contains("--new")) {
-            sendNewDuelRequest(command);
+//            sendNewDuelRequest(command);
         } else throw new InvalidCommand();
     }
 
-    private static void sendNewDuelRequest(String command) throws InvalidCommand, InvalidName, NumOfRounds, InvalidDeck, NoActiveDeck, InvalidThing {
-        if (duelMenuController == null || duelMenuController.getRoundController() == null) {
-            String secondUserName = getSecondUserNameInCommand(command);
-            int numOfRounds = getNumOfRounds(command);
-            duelMenuController = DuelMenuController.newDuel(secondUserName, numOfRounds);
-            while (duelMenuController != null && duelMenuController.isIsAnyGameRunning()) {
-                duelMenuController.runMatch();
-            }
-            duelMenuController = null;
-        }
-    }
+//    private static void sendNewDuelRequest(String command) throws InvalidCommand, InvalidName, NumOfRounds, InvalidDeck, NoActiveDeck, InvalidThing {
+//        if (duelMenuController == null || duelMenuController.getRoundController() == null) {
+//            String secondUserName = getSecondUserNameInCommand(command);
+//            int numOfRounds = getNumOfRounds(command);
+//            duelMenuController = DuelMenuController.newDuel(secondUserName, numOfRounds);
+//            while (duelMenuController != null && duelMenuController.isIsAnyGameRunning()) {
+//                duelMenuController.runMatch();
+//            }
+//            duelMenuController = null;
+//        }
+//    }
 
     public static void checkCommandsInRound() {
         try {
@@ -51,7 +49,7 @@ public class DuelMenu {
             if (command.equals("select -d"))
                 duelMenuController.deselectCard();
             else if (command.startsWith("select "))
-                duelMenuController.selectCard(command.substring(7));
+                duelMenuController.selectCardByAddress(command.substring(7));
             else if (command.equals("summon"))
                 duelMenuController.summonMonster(false);
             else if (command.equals("set"))
@@ -225,6 +223,7 @@ public class DuelMenu {
 
     public static void showException(Exception exception) {
         Print.print(exception.getMessage());
+        duelMenuController.getTurnScreen().showMessage(exception.getMessage());
     }
 
     public static void showTemporaryTurnChange(String name, Board newCurrentBoard, Board newRivalBoard) {

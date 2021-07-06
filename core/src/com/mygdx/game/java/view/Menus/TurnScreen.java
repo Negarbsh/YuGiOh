@@ -9,8 +9,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -22,12 +20,13 @@ import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.view.Constants;
+import lombok.Getter;
 
 
 //import java.awt.*;
 
-
-public class DuelScreen implements Screen {
+@Getter
+public class TurnScreen implements Screen {
     private final Stage stage;
     private final GameMainClass gameMainClass;
 
@@ -54,13 +53,15 @@ public class DuelScreen implements Screen {
     private Label myLPLabel;
     private Label rivalLPLabel;
     private TextButton phaseButton;
+    private Image selectedCardImage;
+    private Label selectedDescription;
 
     private Label messageLabel;
 
     private Skin flatEarthSkin;
 
 
-    public DuelScreen(Player myPlayer, Player rival, DuelMenuController controller, GameMainClass gameMainClass) {
+    public TurnScreen(Player myPlayer, Player rival, DuelMenuController controller, GameMainClass gameMainClass) {
         this.controller = controller;
         this.gameMainClass = gameMainClass;
         this.myPlayer = myPlayer;
@@ -126,9 +127,11 @@ public class DuelScreen implements Screen {
     }
 
     private void createMessageLabel() {
-        messageLabel = new Label("YoGiOh!", flatEarthSkin);
+        messageLabel = ButtonUtils.createMessageBar("YoGiOh!", gameMainClass.orangeSkin.getFont("font-title"), 0.9f);
+        messageLabel.setColor(0.98f, 0.68f, 0.52f, 1);
         messageLabel.setBounds(Constants.SIDE_INFO_WIDTH, Constants.DUEL_SCREEN_HEIGHT - Constants.UPPER_BAR_HEIGHT,
                 Constants.DUEL_SCREEN_WIDTH - Constants.SIDE_INFO_WIDTH - 3 * Constants.SETTING_BUTTON_RADIUS, Constants.UPPER_BAR_HEIGHT);
+        stage.addActor(messageLabel);
     }
 
     private void createHands() {
@@ -144,7 +147,6 @@ public class DuelScreen implements Screen {
 
     private void createBoards() {
         //todo
-        //        myBoard.setupEntities(true);
 //        rivalBoard.setupEntities(false);
 //        myBoardTable = myBoard.getTable();
 //        rivalBoardTable = rivalBoard.getTable();//todo: create the table fields in hand and board
@@ -175,14 +177,18 @@ public class DuelScreen implements Screen {
         Image myAvatar = myPlayer.getAvatar();
         myAvatar.setHeight(Constants.AVATAR_HEIGHT);
 
-        Image selectedCardImage = getSelectedCardImage();
-        selectedCardImage.setHeight(Constants.SELECTED_CARD_IMAGE_HEIGHT);
-        Label selectedDescription = getSelectedCardDescription();
-        selectedDescription.setHeight(Constants.CARD_DESCRIPTION_HEIGHT);
+        handleSelectedCard();
 
         createPhaseBtn();
         addPreparedActorsToSideInfo(rivalNames, myNames, rivalAvatar, myAvatar, selectedCardImage, selectedDescription);
         stage.addActor(sideInfoTable);
+    }
+
+    private void handleSelectedCard() {
+        selectedCardImage = getSelectedCardImage();
+        selectedCardImage.setHeight(Constants.SELECTED_CARD_IMAGE_HEIGHT);
+        selectedDescription = getSelectedCardDescription();
+        selectedDescription.setHeight(Constants.CARD_DESCRIPTION_HEIGHT);
     }
 
     private void setTheBackgroundColorFor(Table table) {
@@ -324,4 +330,7 @@ public class DuelScreen implements Screen {
     }
 
 
+    public void showMessage(String message) {
+        messageLabel.setText(message);
+    }
 }
