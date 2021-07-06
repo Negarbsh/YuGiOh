@@ -5,12 +5,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.java.controller.FileHandler;
+import com.mygdx.game.java.controller.LoginMenuController;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.Menus.DeckPreview;
+import com.mygdx.game.java.view.Menus.DuelMenuScreen;
 import com.mygdx.game.java.view.Menus.ShopMenu;
 import com.mygdx.game.java.view.Menus.TurnScreen;
+import com.mygdx.game.java.view.exceptions.LoginError;
 import com.mygdx.game.java.view.exceptions.NumOfRounds;
 
 public class GameMainClass extends Game {
@@ -30,9 +33,18 @@ public class GameMainClass extends Game {
         FileHandler.loadThings();
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
-        preformDuelScreenTest();
+//        preformDuelScreenTest();
 //        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
+        User ali = User.getUserByName("ali");
+        User akbar = User.getUserByName("akbar");
 
+        try {
+            LoginMenuController.login("ali","234");
+        } catch (LoginError loginError) {
+            loginError.printStackTrace();
+        }
+
+        setScreen(new DuelMenuScreen(ali,this));
     }
 
     private void preformDuelScreenTest() {
@@ -47,7 +59,7 @@ public class GameMainClass extends Game {
         akbar.setActiveDeck(akbar.getDecks().get(0));
         DuelMenuController duelMenuController = null;
         try {
-            duelMenuController = new DuelMenuController(ali, akbar, 1);
+            duelMenuController = new DuelMenuController(ali, akbar, 1,this);
         } catch (NumOfRounds numOfRounds) {
             numOfRounds.printStackTrace();
         }

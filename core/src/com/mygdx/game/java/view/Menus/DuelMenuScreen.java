@@ -53,6 +53,9 @@ public class DuelMenuScreen implements Screen {
         roundLabel = new Label("num of round", gameMainClass.flatEarthSkin);
         roundTextField = new TextField("", gameMainClass.flatEarthSkin);
 
+        resultLabel = new Label("", gameMainClass.flatEarthSkin);
+        resultLabel.setBounds(100,50, 100,500);
+
         table.add(rivalUserLabel);
         table.add(usernameTextField).width(300).height(60).row();
         table.add(roundLabel);
@@ -62,22 +65,23 @@ public class DuelMenuScreen implements Screen {
         button.padTop(20);
         table.add(button);
 
-
-
-
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
-                    try{
-                        DuelMenuController.newDuel(usernameTextField.getText(),Integer.parseInt(roundTextField.getText()));
 
-                    }catch (Exception e){
-                        roundLabel = new Label(e.getMessage(), gameMainClass.flatEarthSkin);
-                        stage.addActor(roundLabel);
+                    try{
+                        DuelMenuController.startNewDuel(usernameTextField.getText(),Integer.parseInt(roundTextField.getText()),gameMainClass);
+
+                    }catch(NumberFormatException e){
+                        resultLabel.setText("please enter a valid number");
+                    } catch (Exception e){
+                        resultLabel.setText(e.getMessage());
                     }
             }
         });
+
+        stage.addActor(resultLabel);
         Gdx.input.setInputProcessor(stage);
     }
 
