@@ -47,7 +47,7 @@ public class DrawPhaseController {
                 }
                 PreCard preCard = deck.getMainCards().remove(0);
                 Card card = preCard.newCard();
-                this.hand.addCard(card);
+                this.hand.addCard(card, this.roundController.getDuelMenuController());
             }
             roundController.updateBoards();
         }

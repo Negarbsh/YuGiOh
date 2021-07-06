@@ -204,7 +204,6 @@ public class User implements Comparable<User> {
     public void removeDeck(Deck deck) {
         decks.remove(deck);
         if (this.getActiveDeck() == deck)    activeDeck = null;
-        Print.print(SuccessMessages.removeDeck);
         FileHandler.saveUsers();
     }
 

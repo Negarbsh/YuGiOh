@@ -82,7 +82,7 @@ public class DeckPreview implements Screen {
                 String text = deckName.getText().trim();
                 if (!text.equals("name:") && !text.equals("")) {
                     try {
-                        controller.createDeck(text);
+                        controller.createDeck(text, myDecks);
                         messageBar.setText(new SuccessfulAction("deck", "created").getMessage());
                         messageBar.setColor(Color.GREEN);
                     } catch (AlreadyExistingError alreadyExistingError) {

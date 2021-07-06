@@ -9,8 +9,8 @@ import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.Menus.DeckPreview;
-import com.mygdx.game.java.view.Menus.DuelMenuScreen;
-import com.mygdx.game.java.view.Menus.DuelScreen;
+import com.mygdx.game.java.view.Menus.ShopMenu;
+import com.mygdx.game.java.view.Menus.TurnScreen;
 import com.mygdx.game.java.view.exceptions.NumOfRounds;
 
 public class GameMainClass extends Game {
@@ -30,9 +30,8 @@ public class GameMainClass extends Game {
         FileHandler.loadThings();
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
-//        preformDuelScreenTest();
+        preformDuelScreenTest();
 //        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
-        setScreen(new DuelMenuScreen( User.getUserByName("akbar"),this));
 
     }
 
@@ -59,8 +58,8 @@ public class GameMainClass extends Game {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        DuelScreen duelScreen = new DuelScreen(duelMenuController.getRoundController().getCurrentPlayer(), duelMenuController.getRoundController().getRival(), duelMenuController, this);
-        setScreen(duelScreen);
+        TurnScreen turnScreen = new TurnScreen(duelMenuController.getRoundController().getCurrentPlayer(), duelMenuController.getRoundController().getRival(), duelMenuController, this);
+        setScreen(turnScreen);
     }
 
 

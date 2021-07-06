@@ -36,11 +36,13 @@ public class DeckPreviewController {
         this.deckPreview = deckPreview;
     }
 
-    public void createDeck(String deckName) throws AlreadyExistingError {
+    public void createDeck(String deckName, Table table) throws AlreadyExistingError {
         if (user.findDeckByName(deckName) != null)
             throw new AlreadyExistingError("deck", "name", deckName);
         else {
-            user.addDeck(new Deck(deckName));
+            Deck newDeck = new Deck(deckName);
+            user.addDeck(newDeck);
+            addDeckIcon(newDeck, table);
         }
     }
 
