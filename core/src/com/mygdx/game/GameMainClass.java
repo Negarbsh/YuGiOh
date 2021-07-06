@@ -5,13 +5,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.java.controller.FileHandler;
+import com.mygdx.game.java.controller.LoginMenuController;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.view.Menus.DeckPreview;
-import com.mygdx.game.java.view.Menus.ShopMenu;
-import com.mygdx.game.java.view.Menus.TurnScreen;
-import com.mygdx.game.java.view.exceptions.NumOfRounds;
+import com.mygdx.game.java.view.exceptions.*;
 
 public class GameMainClass extends Game {
 //	SpriteBatch batch;
@@ -43,23 +41,35 @@ public class GameMainClass extends Game {
         ali.addDeck(alis);
         akbar.addDeck(akbars);
 
+        try {
+            LoginMenuController.login("ali", "234");
+        } catch (LoginError loginError) {
+            loginError.printStackTrace();
+        }
+
         ali.setActiveDeck(ali.getDecks().get(0));
         akbar.setActiveDeck(akbar.getDecks().get(0));
-        DuelMenuController duelMenuController = null;
+
         try {
-            duelMenuController = new DuelMenuController(ali, akbar, 1);
-        } catch (NumOfRounds numOfRounds) {
-            numOfRounds.printStackTrace();
+            DuelMenuController.startNewDuel("akbar", 1, this);
+        } catch (InvalidName | NumOfRounds | InvalidDeck | NoActiveDeck | InvalidThing ex) {
+            ex.printStackTrace();
         }
-        try {
-            if (duelMenuController != null)
-//            duelMenuController.runMatch();
-                duelMenuController.setRoundController(duelMenuController.getProperRoundController(0));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        TurnScreen turnScreen = new TurnScreen(duelMenuController.getRoundController().getCurrentPlayer(), duelMenuController.getRoundController().getRival(), duelMenuController, this);
-        setScreen(turnScreen);
+//        DuelMenuController duelMenuController = null;
+//        try {
+//            duelMenuController = new DuelMenuController(ali, akbar, 1,this);
+//        } catch (NumOfRounds numOfRounds) {
+//            numOfRounds.printStackTrace();
+//        }
+//        try {
+//            if (duelMenuController != null)
+////            duelMenuController.runMatch();
+////                duelMenuController.setRoundController(duelMenuController.getProperRoundController(0));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        TurnScreen turnScreen = new TurnScreen(duelMenuController.getRoundController().getCurrentPlayer(), duelMenuController.getRoundController().getRival(), duelMenuController, this);
+//        setScreen(turnScreen);
     }
 
 
