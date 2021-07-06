@@ -31,7 +31,7 @@ public class DuelScreen implements Screen {
     private final Stage stage;
     private final GameMainClass gameMainClass;
 
-    private DuelMenuController controller;
+    private final DuelMenuController controller;
 
     private final Hand myHand;
     private final Hand rivalHand;
@@ -79,6 +79,7 @@ public class DuelScreen implements Screen {
         createSideBar();
         createBoards();
         createHands();
+        createMessageLabel();
         createSettingsButton();
         Gdx.input.setInputProcessor(stage);
     }
@@ -104,14 +105,14 @@ public class DuelScreen implements Screen {
     }
 
     private void createMessageLabel(){
-        messageLabel = new Label("", flatEarthSkin);
+        messageLabel = new Label("YoGiOh!", flatEarthSkin);
         messageLabel.setBounds(Constants.SIDE_INFO_WIDTH, Constants.DUEL_SCREEN_HEIGHT - Constants.UPPER_BAR_HEIGHT,
                 Constants.DUEL_SCREEN_WIDTH - Constants.SIDE_INFO_WIDTH - 3 * Constants.SETTING_BUTTON_RADIUS, Constants.UPPER_BAR_HEIGHT);
     }
 
     private void createHands() {
 //todo
-//        myHandTable = myHand.getHandTable();
+        myHandTable = myHand.getHandTableVisible();
 //        rivalHandTable = rivalHand.getHandTable();
 //        stage.addActor(myHandTable);
 //        stage.addActor(rivalHandTable);
