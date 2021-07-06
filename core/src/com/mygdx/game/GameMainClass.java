@@ -29,8 +29,8 @@ public class GameMainClass extends Game {
         FileHandler.loadThings();
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
-//        preformDuelScreenTest();
-        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
+        preformDuelScreenTest();
+//        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
 
     }
 

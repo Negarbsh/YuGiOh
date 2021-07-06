@@ -26,4 +26,6 @@ public class Constants {
 
     public static final float UPPER_BAR_HEIGHT = 150;
     public static final float SETTING_BUTTON_RADIUS = 50;
+    public static final float DIALOG_HEIGHT = 200;
+    public static final float DIALOG_WIDTH = 200;
 }

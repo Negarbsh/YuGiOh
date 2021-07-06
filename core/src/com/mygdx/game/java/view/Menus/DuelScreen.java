@@ -74,7 +74,7 @@ public class DuelScreen implements Screen {
 
     @Override
     public void show() {
-        stage.addActor(new Wallpaper(2, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
+        stage.addActor(new Wallpaper(3, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
         flatEarthSkin = gameMainClass.flatEarthSkin;
         createSideBar();
         createBoards();
@@ -100,7 +100,25 @@ public class DuelScreen implements Screen {
 
     private void openSettingsWindow() {
         //todo
-        Dialog dialog = new Dialog("Settings", flatEarthSkin);
+        Dialog dialog = new Dialog("Settings", flatEarthSkin){
+            @Override
+            protected void result(Object object) {
+                int decision = (int) object;
+                switch (decision){
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                }
+                System.out.println(object);
+            }
+        };
+        dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+        dialog.button("End Game", 1);
+        dialog.button("Pause",2);
+        dialog.button("Resume",3);
         dialog.show(stage);
     }
 
