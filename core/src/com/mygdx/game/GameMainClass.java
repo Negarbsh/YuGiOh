@@ -9,6 +9,7 @@ import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.Menus.DeckPreview;
+import com.mygdx.game.java.view.Menus.DuelMenuScreen;
 import com.mygdx.game.java.view.Menus.DuelScreen;
 import com.mygdx.game.java.view.exceptions.NumOfRounds;
 
@@ -29,8 +30,9 @@ public class GameMainClass extends Game {
         FileHandler.loadThings();
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
-        preformDuelScreenTest();
+//        preformDuelScreenTest();
 //        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
+        setScreen(new DuelMenuScreen( User.getUserByName("akbar"),this));
 
     }
 

@@ -4,7 +4,6 @@ MagnumShield.jpg
 ClosedForest.jpg
 Raigeki.jpg
 ChangeOfHeart.jpg
-.DS_Store
 Umiiruka.jpg
 SwordOfDarkDestruction.jpg
 WallOfRevealingLight.jpg
