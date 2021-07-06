@@ -52,6 +52,7 @@ public class DuelMenuController {
     boolean hasSecondPlayerTurnStarted = false;
 
     private DuelScreen duelScreen;
+    private boolean isGamePaused = false;
 
 
     //todo: made public for test! make it private
@@ -103,6 +104,10 @@ public class DuelMenuController {
         }
     }
 
+    public static void endGame() {
+        isAnyGameRunning = false;
+    }
+
 //    public static void main(String[] args) {
 //        ArrayList<PreCard> hello = new ArrayList<>(Arrays.asList(PreCard.findCard("Command Knight"), PreCard.findCard("Command Knight")));
 //        System.out.println(Collections.frequency(hello, PreCard.findCard("Command Knight")));
@@ -114,7 +119,7 @@ public class DuelMenuController {
     public void runMatch() throws InvalidDeck, NoActiveDeck, InvalidName {
         this.roundController = getProperRoundController(0);
 //        playHeadOrTails(); todo: remove the comment just commented for test
-        for (int i = 0; i < numOfRounds; i++) {
+        for (int i = 0; i < numOfRounds && isAnyGameRunning; i++) {
             runOneRound(i);
             if (checkMatchFinished()) break;
             exchangeCardInDecks(roundController.getCurrentPlayer());
@@ -136,7 +141,8 @@ public class DuelMenuController {
         Watcher.roundController = this.roundController;
         while (!roundController.isRoundEnded()) {
             while (!roundController.isTurnEnded()) {
-                DuelMenu.checkCommandsInRound();
+                if (!isGamePaused)
+                    DuelMenu.checkCommandsInRound();
             }
             swapPlayers();
             if (!hasSecondPlayerTurnStarted) {
@@ -308,7 +314,7 @@ public class DuelMenuController {
         if (roundController != null && roundController.isAnyCardSelected()) {
             Card card = roundController.getSelectedCard();
             if (!canSeeCard(roundController.getCurrentPlayer(), card)) {
-                Print.print("You can't com.mygdx.game.java.view this card!");
+                Print.print("You can't view this card!");
                 return;
             }
             MonsterCardInUse monsterCardInUse = (MonsterCardInUse) roundController.getSelectedCardInUse();
@@ -336,6 +342,7 @@ public class DuelMenuController {
     }
 
     public void nextPhase() {
+        if (isGamePaused) return;
         if (currentPhase != null) {
             this.currentPhase = currentPhase.goToNextGamePhase();
             switch (Objects.requireNonNull(currentPhase)) {

@@ -54,7 +54,8 @@ public class Hand {
             this.cardsInHand.add(card);
             CardImageButton cardImageVisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
             handTableVisible.add(cardImageVisible);
-            CardImageButton cardImageInvisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
+            CardImageButton cardImageInvisible = CardImageButton.getNewImageButton(null, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
+            handTableInvisible.add(cardImageInvisible);
             //todo: add the listener in the duel screen when we want to add the card.
             //after you  added the card, add the click listener to the imageButton of the
             // currently added card, so that it displays the info of the card
@@ -86,8 +87,9 @@ public class Hand {
         else throw new InvalidSelection();
     }
 
-    public Table getHandTableVisible() {
-        return handTableVisible;
+    public Table getHandTable(boolean isVisible) {
+        if(isVisible)return handTableVisible;
+        else return handTableInvisible;
     }
 
     @Override
