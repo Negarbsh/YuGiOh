@@ -30,7 +30,7 @@ public class ShopMenuController {
         ArrayList<PreCard> allCards = PreCard.getAllPreCards();
         int count = 0;
         for (PreCard preCard : allCards) {
-            customImageButton = ButtonUtils.createCustomCards(preCard);
+            customImageButton = ButtonUtils.createCustomCards(preCard.getName());
             customImageButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {

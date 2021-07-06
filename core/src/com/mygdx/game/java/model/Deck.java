@@ -50,6 +50,11 @@ public class Deck{
         return sideCards;
     }
 
+    public ArrayList<PreCard> getAppropriateDeck(boolean side) {
+        if (side) return sideCards;
+        return mainCards;
+    }
+
     public int getNumOfMainCards() {
         return mainCards.size();
     }
@@ -96,10 +101,6 @@ public class Deck{
 
     //start
     public List<PreCard> showDeck(boolean side, CardType cardType) {
-//        Print.print(this.getName());
-//        if (side)
-//            Print.print("Side deck:");
-//        else Print.print("Main deck");
         return sortAndFilter(side, cardType);
     }
 
@@ -116,48 +117,26 @@ public class Deck{
         return preCards.stream()
                 .filter(p -> p.getCardType().equals(cardType)).
                         collect(Collectors.toList());
-//        Print.print("Monsters:");
-//        for (PreCard preCard : monsterCards) {
-//            Print.print("\t" + preCard.toString());
-//        }
-//        if (monsterCards.isEmpty()) Print.print("\tEmpty!");
-//
-//        List<PreCard> spellTrapCards = preCards.stream()
-//                .filter(p -> p.getCardType().equals(CardType.MONSTER)).
-//                        collect(Collectors.toList());
-//        Print.print("Spell and Traps:");
-//        for (PreCard preCard : spellTrapCards) {
-//            Print.print("\t" + preCard.toString());
-//        }
-//        if (spellTrapCards.isEmpty()) Print.print("\tEmpty!");
-//
     }
     //the end
 
     public void removeCard(PreCard preCard, boolean side) {
-        String mainOrSide;
         if (side) {
             sideCards.remove(preCard);
-            mainOrSide = "side";
         } else {
             mainCards.remove(preCard);
-            mainOrSide = "main";
         }
-        new SuccessfulAction("card", "removed from" + mainOrSide + " deck");
     }
 
     public void addCard(String name, boolean side) throws BeingFull, OccurrenceException {
-        String mainOrSide;
         if (side) {
             if (sideCards.size() >= 15) {
                 throw new BeingFull("side deck");
             }
-            mainOrSide = "side";
         } else {
             if (mainCards.size() >= 40) {
                 throw new BeingFull("main deck");
             }
-            mainOrSide = "main";
         }
 
         PreCard preCard = PreCard.findCard(name);

@@ -74,4 +74,8 @@ public abstract class PreCard {
         return cardsPictures.getOrDefault(alterName, null);
     }
 
+    public String getOtherDescripts() {
+        return "name: " + name;
+    }
+
 }

@@ -16,6 +16,7 @@ import com.mygdx.game.java.view.exceptions.*;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -23,7 +24,8 @@ public class DeckMenuController {
     User user;
     DeckMenu deckMenu;
     Deck thisDeck;
-    @Getter CustomImageButton selectedCard;
+    @Getter
+    CustomImageButton selectedCard;
     ArrayList<CustomImageButton> mainDeck;
     ArrayList<CustomImageButton> sideDeck;
 
@@ -38,42 +40,50 @@ public class DeckMenuController {
         thisDeck = deck;
     }
 
-    public void addCardToDeck(CustomImageButton customButton, boolean side) throws BeingFull, OccurrenceException, ButtonCantDoAction {   //if it is side deck the boolean should be true
+    public void addCardToDeck(CustomImageButton customButton, Table table, boolean side) throws BeingFull, OccurrenceException, ButtonCantDoAction, NoSelectedCard {   //if it is side deck the boolean should be true
+        if (customButton == null)
+            throw new NoSelectedCard();
         if (getAppropriateList(!side).contains(customButton)) {
             throw new ButtonCantDoAction();
         }
 
         thisDeck.addCard(customButton.preCard.getName(), side);
+        CustomImageButton newCustomButton = ButtonUtils.createCustomCards(customButton.preCard.getName());
+        addCardToDeckGraphically(newCustomButton, table, side);
+        getAppropriateList(side).add(newCustomButton);
+        FileHandler.saveUsers();
     }
 
-    public void removeCardFromDeck(String command, boolean side) throws NotExisting, InvalidCommand {
-        ArrayList<String> names = analyseCardCommand(command);
-        String cardName = names.get(0);
-        String deckName = names.get(1);
-        Deck targetDeck = user.findDeckByName(deckName);
-        PreCard targetPreCard = PreCard.findCard(cardName);
-        if (targetDeck == null)
-            throw new NotExisting("deck", deckName);
-        else if (side && !targetDeck.getSideCards().contains(targetPreCard))
-            throw new NotExisting("card", cardName);
-        else if (!side && !targetDeck.getMainCards().contains(targetPreCard))
-            throw new NotExisting("card", cardName);
-        else
-            targetDeck.removeCard(targetPreCard, side);
+    public void removeCardFromDeck(CustomImageButton customImageButton, Table table, boolean side) throws ButtonCantDoAction, NoSelectedCard, NotExisting {
+        if (customImageButton == null)
+            throw new NoSelectedCard();
+        if (!thisDeck.getAppropriateDeck(side).contains(customImageButton.preCard))
+            throw new NotExisting("card", customImageButton.preCard.getName());
+        if (getAppropriateList(!side).contains(customImageButton))
+            throw new ButtonCantDoAction();
+
+
+        thisDeck.removeCard(customImageButton.preCard, side);
+        removeCardFromDeckGraphically(customImageButton, table, side);
+        FileHandler.saveUsers();
     }
 
-    private ArrayList<String> analyseCardCommand(String command) throws InvalidCommand {
-        ArrayList<String> names = new ArrayList<>();
-        String cardName = (RelatedToMenuController.
-                getCommandString(command, "--card ([^-]+)"));
-        String deckName = (RelatedToMenuController.
-                getCommandString(command, "--deck ([^-]+)"));
-        if (deckName == null || cardName == null) throw new InvalidCommand();
-        cardName = cardName.trim();
-        deckName = deckName.trim();
-        names.add(cardName);
-        names.add(deckName);
-        return names;
+    private void addCardToDeckGraphically(CustomImageButton customButton, Table table, boolean side) {
+        table.add(customButton).size(PicState.SHOP_SHOW.width, PicState.SHOP_SHOW.height)
+                .padRight(-25).padBottom(5);
+        customButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                updateSelected(customButton);
+            }
+        });
+    }
+
+    private void removeCardFromDeckGraphically(CustomImageButton customButton, Table table, boolean side) {
+        table.removeActor(customButton);
+        table.pack();
+        getAppropriateList(side).remove(customButton);
+        selectedCard = null;
     }
 
     private ArrayList<CustomImageButton> getAppropriateList(boolean side) {
@@ -89,16 +99,8 @@ public class DeckMenuController {
 
         table.align(Align.left);
         for (PreCard preCard : allDeckValues) {
-            CustomImageButton customImageButton = ButtonUtils.createCustomCards(preCard);
-            table.add(customImageButton).size(PicState.SHOP_SHOW.width, PicState.SHOP_SHOW.height)
-                    .padRight(-25).padBottom(5);
-            getAppropriateList(side).add(customImageButton);
-            customImageButton.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    updateSelected(customImageButton);
-                }
-            });
+            CustomImageButton customImageButton = ButtonUtils.createCustomCards(preCard.getName());
+            addCardToDeckGraphically(customImageButton, table, side);
         }
     }
 
@@ -108,7 +110,7 @@ public class DeckMenuController {
 
         for (String cardName : myTreasury) {
             PreCard preCard = PreCard.findCard(cardName);
-            CustomImageButton customImageButton = ButtonUtils.createCustomCards(preCard);
+            CustomImageButton customImageButton = ButtonUtils.createCustomCards(cardName);
             customImageButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -130,7 +132,7 @@ public class DeckMenuController {
             selectedCard = customImageButton;
             deckMenu.getSelectedImage().setDrawable(new TextureRegionDrawable(new TextureRegion(
                     PreCard.getCardPic(customImageButton.preCard.getName()))));
-//            setDescription(customImageButton.preCard);
+            setDescription(customImageButton.preCard);
         }
     }
 
@@ -141,6 +143,10 @@ public class DeckMenuController {
             numOfCard = user.getCardTreasury().get(preCard.getName());
 
         deckMenu.getDescriptLabel().setText("description: " + preCard.getDescription() +
-                "\n\nprice: " + preCard.getPrice() + "\n\nyour stock of this card: " + numOfCard);
+                "\n\nyour stock of this card: " + numOfCard);
+
+        deckMenu.getOtherDescriptions().setText(preCard.getOtherDescripts() + "\nin main cards: " +
+                Collections.frequency(thisDeck.getMainCards(), preCard) + "\nin side cards: " +
+                Collections.frequency(thisDeck.getSideCards(), preCard));
     }
 }
