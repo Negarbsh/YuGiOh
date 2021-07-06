@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
-import com.mygdx.game.java.controller.DeckMenuController;
+import com.mygdx.game.java.controller.DeckPreviewController;
 import com.mygdx.game.java.model.ButtonUtils;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.exceptions.AlreadyExistingError;
@@ -23,7 +23,7 @@ public class DeckPreview implements Screen {
     Stage stage;
     @Getter
     GameMainClass mainClass;
-    DeckMenuController controller;
+    DeckPreviewController controller;
     User user;
     @Getter
     Table myDecks, myDecksBar;
@@ -45,7 +45,7 @@ public class DeckPreview implements Screen {
         background = ButtonUtils.makeDrawable("Sleeve/50021.png");
         this.user = user;
         this.mainClass = mainClass;
-        controller = new DeckMenuController(this, user);
+        controller = new DeckPreviewController(this, user);
     }
 
 
@@ -67,7 +67,7 @@ public class DeckPreview implements Screen {
         myDecksBar.align(Align.top);
         myDecksBar.add(decksScroller).fill();
 
-        messageBar = ButtonUtils.createMessageBar("", mainClass.orangeSkin.getFont("font-title"));
+        messageBar = ButtonUtils.createMessageBar("", mainClass.orangeSkin.getFont("font-title"), 0.4f);
         messageBar.setBounds(50, 0, 300, 25);
 
         buttonsTable = new Table();
@@ -109,7 +109,9 @@ public class DeckPreview implements Screen {
         enter.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainClass.setScreen(new DeckMenu(mainClass, user, controller));
+                if (controller.getSelectedDeck() != null)
+                    mainClass.setScreen(new DeckMenu(mainClass, user,
+                            controller.getSelectedDeck().getDeck()));
             }
         });
 

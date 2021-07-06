@@ -1,72 +1,49 @@
 package com.mygdx.game.java.controller;
 
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Null;
-import com.mygdx.game.java.model.ButtonUtils;
-import com.mygdx.game.java.model.Deck;
-import com.mygdx.game.java.model.DeckImageButton;
-import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.model.*;
+import com.mygdx.game.java.model.card.CardType;
+import com.mygdx.game.java.model.card.PicState;
 import com.mygdx.game.java.model.card.PreCard;
-import com.mygdx.game.java.view.Menus.DeckPreview;
+import com.mygdx.game.java.view.Menus.DeckMenu;
 import com.mygdx.game.java.view.exceptions.*;
-import com.mygdx.game.java.view.messageviewing.Print;
 import lombok.Getter;
 
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Stream;
 
 public class DeckMenuController {
     User user;
-    DeckPreview deckPreview;
-    @Getter
-    DeckImageButton selectedDeck;
-    ButtonGroup allDecksGroup;
+    DeckMenu deckMenu;
+    Deck thisDeck;
+    @Getter CustomImageButton selectedCard;
+    ArrayList<CustomImageButton> mainDeck;
+    ArrayList<CustomImageButton> sideDeck;
 
-    public DeckMenuController(DeckPreview deckPreview, User user) {
+    {
+        mainDeck = new ArrayList<>();
+        sideDeck = new ArrayList<>();
+    }
+
+    public DeckMenuController(DeckMenu deckMenu, User user, Deck deck) {
         this.user = user;
-        this.deckPreview = deckPreview;
+        this.deckMenu = deckMenu;
+        thisDeck = deck;
     }
 
-    public void createDeck(String deckName) throws AlreadyExistingError {
-        if (user.findDeckByName(deckName) != null)
-            throw new AlreadyExistingError("deck", "name", deckName);
-        else {
-            user.addDeck(new Deck(deckName));
+    public void addCardToDeck(CustomImageButton customButton, boolean side) throws BeingFull, OccurrenceException, ButtonCantDoAction {   //if it is side deck the boolean should be true
+        if (getAppropriateList(!side).contains(customButton)) {
+            throw new ButtonCantDoAction();
         }
-    }
 
-    public void deleteDeck(Deck deck) {
-        if (user.getActiveDeck() == null || user.getActiveDeck() == deck)
-            user.setActiveDeck(null);
-
-        selectedDeck = null;
-        deckPreview.getDescriptLabel().setText("");
-        user.removeDeck(deck);
-    }
-
-    public void chooseActiveDeck() {
-        if (selectedDeck.getDeck() != null)
-            user.setActiveDeck(selectedDeck.getDeck());
-    }
-
-    public void addCardToDeck(String command, boolean side) throws NotExisting, BeingFull, OccurrenceException, InvalidCommand {   //if it is side deck the boolean should be true
-        ArrayList<String> names = analyseCardCommand(command);
-        String cardName = names.get(0);
-        String deckName = names.get(1);
-        Deck targetDeck = user.findDeckByName(deckName);
-        if (!user.getCardTreasury().containsKey(cardName) ||
-                user.getCardTreasury().get(cardName) == 0)
-            throw new NotExisting("card", cardName);
-        else if (targetDeck == null)
-            throw new NotExisting("deck", deckName);
-        else {
-            targetDeck.addCard(cardName, side);
-        }
+        thisDeck.addCard(customButton.preCard.getName(), side);
     }
 
     public void removeCardFromDeck(String command, boolean side) throws NotExisting, InvalidCommand {
@@ -99,138 +76,71 @@ public class DeckMenuController {
         return names;
     }
 
-    public void showAllDecks() {
-        Print.print("Decks:\nActive deck:");
-        Deck activeDeck = user.getActiveDeck();
-        if (activeDeck != null) {
-            Print.print(activeDeck.toString());
-        }
-
-        Print.print("Other decks:");
-        for (Deck deck : user.getDecks()) {
-            if (deck != activeDeck)
-                Print.print(deck.toString());
-        }
+    private ArrayList<CustomImageButton> getAppropriateList(boolean side) {
+        if (side) return sideDeck;
+        return mainDeck;
     }
 
-    public void showDeck(String command, boolean side) throws NotExisting {
-        String deckName = Objects.requireNonNull(RelatedToMenuController.
-                getCommandString(command, "--deck-name ([^-]+)")).trim();
-        Deck targetDeck = user.findDeckByName(deckName);
-        if (targetDeck == null)
-            throw new NotExisting("deck", deckName);
+    public void createDecks(Table table, boolean side) {
+        ArrayList<PreCard> allDeckValues = new ArrayList<>();
+        Stream.of(thisDeck.showDeck(side, CardType.MONSTER),
+                thisDeck.showDeck(side, CardType.SPELL), thisDeck.showDeck(side, CardType.TRAP)).
+                forEach(allDeckValues::addAll);
 
-        targetDeck.showDeck(side);
-    }
-
-    public void showCards() {
-        Print.print(user.getMyCardsForPrint());
-    }
-
-
-    public void createDecksTable(Table table) {
-        ArrayList<Deck> usersDecks = user.getDecks();
         table.align(Align.left);
-        allDecksGroup = new ButtonGroup();
-        allDecksGroup.setMinCheckCount(0);
-        allDecksGroup.setMaxCheckCount(1);
-        for (Deck userDeck : usersDecks) {
-            addDeckIcon(userDeck, table);
+        for (PreCard preCard : allDeckValues) {
+            CustomImageButton customImageButton = ButtonUtils.createCustomCards(preCard);
+            table.add(customImageButton).size(PicState.SHOP_SHOW.width, PicState.SHOP_SHOW.height)
+                    .padRight(-25).padBottom(5);
+            getAppropriateList(side).add(customImageButton);
+            customImageButton.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    updateSelected(customImageButton);
+                }
+            });
         }
     }
 
-    public void addDeckIcon(Deck deck, Table table) {
-        DeckImageButton deckIcon = ButtonUtils.createDeckButtons(deck,
-                user.getActiveDeck() == deck, deckPreview.getMainClass().orangeSkin);
+    public void createDeckTable(Table table) {
+        Set<String> myTreasury = user.getCardTreasury().keySet();
+        int count = 0;
 
-        deckIcon.getImageButton().addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                updateSelected(deckIcon);
+        for (String cardName : myTreasury) {
+            PreCard preCard = PreCard.findCard(cardName);
+            CustomImageButton customImageButton = ButtonUtils.createCustomCards(preCard);
+            customImageButton.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    updateSelected(customImageButton);
+                }
+            });
+            table.add(customImageButton).size(PicState.SHOP_SHOW.width, PicState.SHOP_SHOW.height)
+                    .padRight(5).padBottom(5);
+            count++;
+            if (count % 12 == 0) {
+                count -= 12;
+                table.row();
             }
-        });
-
-        addDragAndDrop(deckIcon);
-        allDecksGroup.add(deckIcon.getImageButton());
-        table.add(deckIcon).padLeft(10);
-    }
-
-    private void updateSelected(DeckImageButton deckButton) {
-        if (selectedDeck != deckButton) {
-            selectedDeck = deckButton;
-            deckPreview.getDescriptLabel().setText(String.format(
-                    "name of deck: %s\n\nnumber of main cards: %d\nnumber of side cards: %d",
-                    deckButton.getDeck().getName(), deckButton.getDeck().getNumOfMainCards(),
-                    deckButton.getDeck().getSideCards().size()));
         }
     }
 
-    public void addDragAndDrop(DeckImageButton deckImageButton) {
-
-        DragAndDrop dragAndDrop = new DragAndDrop();
-        dragAndDrop.addSource(new DragAndDrop.Source(deckImageButton) {
-            @Null
-            public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
-                updateSelected(deckImageButton);
-                DragAndDrop.Payload payload = new DragAndDrop.Payload();
-                payload.setObject(deckImageButton);
-
-                payload.setDragActor(deckImageButton.clone());
-                return payload;
-            }
-        });
-        dragAndDrop.addTarget(new DragAndDrop.Target(deckPreview.getTrashcan()) {
-            public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                getActor().setColor(Color.SKY);
-                return true;
-            }
-
-            public void reset(DragAndDrop.Source source, DragAndDrop.Payload payload) {
-                getActor().setColor(Color.WHITE);
-            }
-
-            public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                deleteDeck(deckImageButton.getDeck());
-                deckPreview.getMyDecks().removeActor(deckImageButton);
-                allDecksGroup.remove(deckImageButton.getImageButton());
-            }
-        });
+    public void updateSelected(CustomImageButton customImageButton) {
+        if (customImageButton != selectedCard) {
+            selectedCard = customImageButton;
+            deckMenu.getSelectedImage().setDrawable(new TextureRegionDrawable(new TextureRegion(
+                    PreCard.getCardPic(customImageButton.preCard.getName()))));
+//            setDescription(customImageButton.preCard);
+        }
     }
 
-//    private void addDragAndDrop(DeckImageButton deckImageButton) {
-//        DragAndDrop dragAndDrop = new DragAndDrop();
-//        dragAndDrop.addSource(new DragAndDrop.Source(deckImageButton) {
-//            @Null
-//            public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
-//                DragAndDrop.Payload payload = new DragAndDrop.Payload();
-//                payload.setObject("Some payload!");
-//
-//                payload.setDragActor(getActor());
-//
-//                Label validLabel = new Label("Some payload!", deckPreview.getMainClass().skin);
-//                validLabel.setColor(0, 1, 0, 1);
-//                payload.setValidDragActor(validLabel);
-////
-////                Label invalidLabel = new Label("Some payload!", mainClass.skin);
-////                invalidLabel.setColor(1, 0, 0, 1);
-////                payload.setInvalidDragActor(invalidLabel);
-//
-//                return payload;
-//            }
-//        });
-//        dragAndDrop.addTarget(new DragAndDrop.Target(validTargetImage) {
-//            public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-//                getActor().setColor(Color.GREEN);
-//                return true;
-//            }
-//
-//            public void reset(DragAndDrop.Source source, DragAndDrop.Payload payload) {
-//                getActor().setColor(Color.WHITE);
-//            }
-//
-//            public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-//                System.out.println("Accepted: " + payload.getObject() + " " + x + ", " + y);
-//            }
-//        });
-//    }
+    private void setDescription(PreCard preCard) {  //TODO
+        //the num of this card that user has
+        int numOfCard = 0;
+        if (user.getCardTreasury().containsKey(preCard.getName()))
+            numOfCard = user.getCardTreasury().get(preCard.getName());
+
+        deckMenu.getDescriptLabel().setText("description: " + preCard.getDescription() +
+                "\n\nprice: " + preCard.getPrice() + "\n\nyour stock of this card: " + numOfCard);
+    }
 }

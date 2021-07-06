@@ -54,43 +54,83 @@ public class Deck{
         return mainCards.size();
     }
 
+//    //start
+//    public void showDeck(boolean side) {
+//        Print.print(this.getName());
+//        if (side)
+//            Print.print("Side deck:");
+//        else Print.print("Main deck");
+//        sortAndFilter(side);
+//    }
+//
+//    private void sortAndFilter(boolean side) {   //TODO test
+//        ArrayList<PreCard> preCards;
+//        if (side) preCards = sideCards;
+//        else preCards = mainCards;
+//
+//        preCards.sort(Comparator.comparing(PreCard::getName));
+//        filterAndPrint(preCards);
+//    }
+//
+//    private void filterAndPrint(ArrayList<PreCard> preCards) {
+//        List<PreCard> monsterCards = preCards.stream()
+//                .filter(p -> p.getCardType().equals(CardType.MONSTER)).
+//                        collect(Collectors.toList());
+//        Print.print("Monsters:");
+//        for (PreCard preCard : monsterCards) {
+//            Print.print("\t" + preCard.toString());
+//        }
+//        if (monsterCards.isEmpty()) Print.print("\tEmpty!");
+//
+//        List<PreCard> spellTrapCards = preCards.stream()
+//                .filter(p -> p.getCardType().equals(CardType.MONSTER)).
+//                        collect(Collectors.toList());
+//        Print.print("Spell and Traps:");
+//        for (PreCard preCard : spellTrapCards) {
+//            Print.print("\t" + preCard.toString());
+//        }
+//        if (spellTrapCards.isEmpty()) Print.print("\tEmpty!");
+//
+//    }
+//    //the end
+
     //start
-    public void showDeck(boolean side) {
-        Print.print(this.getName());
-        if (side)
-            Print.print("Side deck:");
-        else Print.print("Main deck");
-        sortAndFilter(side);
+    public List<PreCard> showDeck(boolean side, CardType cardType) {
+//        Print.print(this.getName());
+//        if (side)
+//            Print.print("Side deck:");
+//        else Print.print("Main deck");
+        return sortAndFilter(side, cardType);
     }
 
-    private void sortAndFilter(boolean side) {   //TODO test
+    private List<PreCard> sortAndFilter(boolean side, CardType cardType) {   //TODO test
         ArrayList<PreCard> preCards;
         if (side) preCards = sideCards;
         else preCards = mainCards;
 
         preCards.sort(Comparator.comparing(PreCard::getName));
-        filterAndPrint(preCards);
+        return filterAndPrint(preCards, cardType);
     }
 
-    private void filterAndPrint(ArrayList<PreCard> preCards) {
-        List<PreCard> monsterCards = preCards.stream()
-                .filter(p -> p.getCardType().equals(CardType.MONSTER)).
+    private List<PreCard> filterAndPrint(ArrayList<PreCard> preCards, CardType cardType) {
+        return preCards.stream()
+                .filter(p -> p.getCardType().equals(cardType)).
                         collect(Collectors.toList());
-        Print.print("Monsters:");
-        for (PreCard preCard : monsterCards) {
-            Print.print("\t" + preCard.toString());
-        }
-        if (monsterCards.isEmpty()) Print.print("\tEmpty!");
-
-        List<PreCard> spellTrapCards = preCards.stream()
-                .filter(p -> p.getCardType().equals(CardType.MONSTER)).
-                        collect(Collectors.toList());
-        Print.print("Spell and Traps:");
-        for (PreCard preCard : spellTrapCards) {
-            Print.print("\t" + preCard.toString());
-        }
-        if (spellTrapCards.isEmpty()) Print.print("\tEmpty!");
-
+//        Print.print("Monsters:");
+//        for (PreCard preCard : monsterCards) {
+//            Print.print("\t" + preCard.toString());
+//        }
+//        if (monsterCards.isEmpty()) Print.print("\tEmpty!");
+//
+//        List<PreCard> spellTrapCards = preCards.stream()
+//                .filter(p -> p.getCardType().equals(CardType.MONSTER)).
+//                        collect(Collectors.toList());
+//        Print.print("Spell and Traps:");
+//        for (PreCard preCard : spellTrapCards) {
+//            Print.print("\t" + preCard.toString());
+//        }
+//        if (spellTrapCards.isEmpty()) Print.print("\tEmpty!");
+//
     }
     //the end
 
@@ -127,8 +167,6 @@ public class Deck{
                 sideCards.add(preCard);
             else
                 mainCards.add(preCard);
-
-            new SuccessfulAction("card", "added to " + mainOrSide + " deck");
         }
 
     }

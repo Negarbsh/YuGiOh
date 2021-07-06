@@ -37,7 +37,7 @@ public class ShopMenu implements Screen {
     User user;
     Table shopTable, buyTable;
     @Getter Sound coinShake;
-    @Getter(AccessLevel.PUBLIC) @Setter(AccessLevel.PUBLIC) PreCard selected;
+    @Getter @Setter PreCard selected;
     @Getter TextButton buyButton;
     @Getter Label descriptLabel;
     @Getter Image selectedImage;

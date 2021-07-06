@@ -8,6 +8,7 @@ import com.mygdx.game.java.controller.FileHandler;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.view.Menus.DeckPreview;
 import com.mygdx.game.java.view.Menus.DuelScreen;
 import com.mygdx.game.java.view.exceptions.NumOfRounds;
 
@@ -28,8 +29,8 @@ public class GameMainClass extends Game {
         FileHandler.loadThings();
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
-        preformDuelScreenTest();
-        //		setScreen(new DeckPreview(this, User.getUserByName("akbar")));
+//        preformDuelScreenTest();
+        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
 
     }
 

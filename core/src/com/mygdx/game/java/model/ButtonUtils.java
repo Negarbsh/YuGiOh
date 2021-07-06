@@ -6,6 +6,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
+import com.mygdx.game.java.model.card.PicState;
+import com.mygdx.game.java.model.card.PreCard;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -24,10 +29,20 @@ public class ButtonUtils {
 
     }
 
-    public static ShopImageButtons createShopCards(PreCard preCard) {
-        ShopImageButtons shopImageButtons = new ShopImageButtons(new TextureRegionDrawable(new TextureRegion(
+    public static CustomImageButton createCustomCards(PreCard preCard) {
+        CustomImageButton customImageButton = new CustomImageButton(new TextureRegionDrawable(new TextureRegion(
                 PreCard.getCardPic(preCard.getName()))), preCard);
-        return shopImageButtons;
+        return customImageButton;
+    }
+
+    public static Table createScroller(int x, int y, int width, int height, Table insideTable, Skin skin) {
+        ScrollPane scroller = new ScrollPane(insideTable, skin);
+        scroller.setBounds(x, y, width, height + 30);
+        scroller.setScrollingDisabled(false, true);
+        Table table = new Table();
+        table.align(Align.top);
+        table.add(scroller).fill().expandX();
+        return table;
     }
 
     public static DeckImageButton createDeckButtons(Deck deck, boolean isActiveDeck, Skin skin) {
@@ -38,14 +53,14 @@ public class ButtonUtils {
         return new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(path))));
     }
 
-    public static Label createMessageBar(String text, BitmapFont font) {
+    public static Label createMessageBar(String text, BitmapFont font, float scale) {
         if (font == null) return null;
         Label.LabelStyle style = new Label.LabelStyle();
         style.background = makeDrawable("Textures/message-bar.png");
         style.font = font;
         font.setColor(Color.BLACK);
         Label label = new Label(text, style);
-        label.setFontScale(0.4f);
+        label.setFontScale(scale);
         label.setAlignment(Align.center);
         return label;
     }
