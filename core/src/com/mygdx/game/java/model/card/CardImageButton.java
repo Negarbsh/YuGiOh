@@ -9,8 +9,9 @@ public class CardImageButton extends ImageButton {
     private final Card ownerCard;
 
     public static CardImageButton getNewImageButton(Card ownerCard, float width, float height) {
-        if (ownerCard == null) return null;
-        Drawable imageUp = new Image(PreCard.getCardPic(ownerCard.getName())).getDrawable();
+        Drawable imageUp;
+        if (ownerCard == null) imageUp = new Image(PreCard.getCardPic("Unknown")).getDrawable();
+        else imageUp = new Image(PreCard.getCardPic(ownerCard.getName())).getDrawable();
         return new CardImageButton(imageUp, ownerCard, width, height);
     }
 
@@ -21,7 +22,8 @@ public class CardImageButton extends ImageButton {
         setWidth(width);
         setHeight(height);
         this.ownerCard = ownerCard;
-        ownerCard.setCardImageButton(this);
+        if (ownerCard != null)
+            ownerCard.setCardImageButton(this);
     }
 
     public Card getOwnerCard() {
