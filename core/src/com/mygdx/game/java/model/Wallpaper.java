@@ -16,7 +16,7 @@ public class Wallpaper extends Actor {
 
 
     public Wallpaper(int id, float x, float y, float width, float height) {
-        if (id == 1)    needColor = true;
+        if (id == 3)    needColor = true;
         picture = allWallpapers.get(id);
         this.x = x;
         this.y = y;
@@ -27,7 +27,7 @@ public class Wallpaper extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (needColor)  batch.setColor(Color.LIGHT_GRAY);
+        if (needColor)  batch.setColor(Color.YELLOW);
         batch.draw(picture, x, y, width, height);
     }
 
