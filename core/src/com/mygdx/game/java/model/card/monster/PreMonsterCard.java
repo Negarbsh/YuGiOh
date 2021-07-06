@@ -44,4 +44,9 @@ public class PreMonsterCard extends PreCard {
     public String toString() {
         return name + " : " + "attack : " + attack + " defense : " + defense + " price : " + price + " \n\t" + description;
     }
+
+    @Override
+    public String getOtherDescripts() {
+        return "name: " + name +"\nattack: " + attack + "\ndefense: " + defense;
+    }
 }

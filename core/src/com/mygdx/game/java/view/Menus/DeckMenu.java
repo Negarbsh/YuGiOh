@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -29,11 +30,11 @@ public class DeckMenu implements Screen {
     DeckMenuController controller;
     User user;
     TextButton sideAdd, sideRemove, mainRemove, mainAdd;
-    Table treasuryTable, mainDeck, sideDeck, mainDeckBar, sideDeckBar;
+    Table treasuryTable, mainDeck, sideDeck, mainDeckBar, sideDeckBar, selectedTable;
     @Getter
     Image selectedImage;
     @Getter
-    Label descriptLabel, messageBar;
+    Label descriptLabel, messageBar, otherDescriptions;
 
     {
         stage = new Stage(new StretchViewport(1024, 1024));
@@ -47,63 +48,120 @@ public class DeckMenu implements Screen {
 
     @Override
     public void show() {
+        selectedTable = new Table();
+        selectedTable.setBounds(30, 360, 954, 180);
         selectedImage = new Image();
+        descriptLabel = new Label("", mainClass.orangeSkin);
+        descriptLabel.setFontScale(1.5f);
+        descriptLabel.setWrap(true);
+        descriptLabel.setAlignment(Align.topLeft);
+        otherDescriptions = new Label("", mainClass.orangeSkin);
+        otherDescriptions.setFontScale(1.5f);
+        otherDescriptions.setWrap(true);
+        otherDescriptions.setAlignment(Align.topLeft);
+        selectedTable.add(selectedImage).size(120, 180).padRight(10).padLeft(7);
+        selectedTable.add(descriptLabel).prefWidth(400).padRight(7);
+        selectedTable.add(otherDescriptions).prefWidth(210);
 
         treasuryTable = new Table();
-        treasuryTable.setBounds(0, 400, 1024, 624);
+        treasuryTable.setBounds(0, 570, 1024, 454);
         treasuryTable.align(Align.center);
         controller.createDeckTable(treasuryTable);
 
-        messageBar = ButtonUtils.createMessageBar("", mainClass.orangeSkin.getFont("font-title"), 1f);
+        messageBar = ButtonUtils.createMessageBar("", mainClass.orangeSkin.getFont("font-title"), 0.9f);
         messageBar.setBounds(100, 0, 824, 65);
 
         mainDeck = new Table();
         controller.createDecks(mainDeck, false);
-        mainDeckBar = ButtonUtils.createScroller(30, 100, 754, 100, sideDeck, mainClass.orangeSkin);
-        mainDeckBar.setBounds(30, 100, 954, 100);
+        mainDeckBar = ButtonUtils.createScroller(30, 100, 754, 100, mainDeck, mainClass.orangeSkin);
+        mainDeckBar.setBounds(30, 230, 954, 100);
 
         mainAdd = ButtonUtils.createTextButton("add", mainClass.orangeSkin);
         mainAdd.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 try {
-                    controller.addCardToDeck(controller.getSelectedCard(), false);
+                    controller.addCardToDeck(controller.getSelectedCard(), mainDeck, false);
                     messageBar.setText(new SuccessfulAction("card", "added to main deck").getMessage());
                     messageBar.setColor(Color.GREEN);
-                } catch (BeingFull | OccurrenceException | ButtonCantDoAction e) {
+                } catch (BeingFull | OccurrenceException | ButtonCantDoAction | NoSelectedCard e) {
                     messageBar.setText(e.getMessage());
                     messageBar.setColor(Color.RED);
                 }
             }
         });
-        mainDeckBar.add(mainAdd);
+
+        mainRemove = ButtonUtils.createTextButton("remove", mainClass.orangeSkin);
+        mainRemove.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                try {
+                    controller.removeCardFromDeck(controller.getSelectedCard(), mainDeck, false);
+                    messageBar.setText(new SuccessfulAction("card", "removed from side deck").getMessage());
+                    messageBar.setColor(Color.GREEN);
+                } catch (ButtonCantDoAction | NoSelectedCard e) {
+                    messageBar.setText(e.getMessage());
+                    messageBar.setColor(Color.RED);
+                } catch (NotExisting notExisting) {
+                    messageBar.setText(notExisting.getMessage() + " in main deck");
+                    messageBar.setColor(Color.RED);
+                }
+            }
+        });
+        Table table = new Table();
+        table.defaults().width(70);
+        table.add(mainAdd).padBottom(2).row();
+        table.add(mainRemove);
+        mainDeckBar.add(table);
 
         sideDeck = new Table();
         controller.createDecks(sideDeck, true);
-        sideDeckBar = ButtonUtils.createScroller(30, 300, 754, 70, mainDeck, mainClass.orangeSkin);
-        sideDeckBar.setBounds(30, 300, 954, 70);
+        sideDeckBar = ButtonUtils.createScroller(30, 300, 754, 70, sideDeck, mainClass.orangeSkin);
+        sideDeckBar.setBounds(30, 150, 954, 70);
 
-        sideAdd = ButtonUtils.createTextButton("add", mainClass.orangeSkin);
+        sideAdd = ButtonUtils.createTextButton("adds", mainClass.orangeSkin);
         sideAdd.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 try {
-                    controller.addCardToDeck(controller.getSelectedCard(), true);
+                    controller.addCardToDeck(controller.getSelectedCard(), sideDeck, true);
                     messageBar.setText(new SuccessfulAction("card", "added to side deck").getMessage());
                     messageBar.setColor(Color.GREEN);
-                } catch (BeingFull | OccurrenceException | ButtonCantDoAction e) {
+                } catch (BeingFull | OccurrenceException | ButtonCantDoAction | NoSelectedCard e) {
                     messageBar.setText(e.getMessage());
                     messageBar.setColor(Color.RED);
                 }
             }
         });
-        sideDeckBar.add(sideAdd);
+        sideRemove = ButtonUtils.createTextButton("removes", mainClass.orangeSkin);
+        sideRemove.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                try {
+                    controller.removeCardFromDeck(controller.getSelectedCard(), sideDeck, true);
+                    messageBar.setText(new SuccessfulAction("card", "removed from side deck").getMessage());
+                    messageBar.setColor(Color.GREEN);
+                } catch (ButtonCantDoAction | NoSelectedCard e) {
+                    messageBar.setText(e.getMessage());
+                    messageBar.setColor(Color.RED);
+                } catch (NotExisting notExisting) {
+                    messageBar.setText(notExisting.getMessage() + " in side deck");
+                    messageBar.setColor(Color.RED);
+                }
+            }
+        });
+        Table table2 = new Table();
+        table2.defaults().width(70);
+        table2.add(sideAdd).padBottom(2).row();
+        table2.add(sideRemove);
+        sideDeckBar.add(table2);
 
         stage.addActor(new Wallpaper(2, 0, 0, 1024, 1024));
         stage.addActor(messageBar);
         stage.addActor(treasuryTable);
         stage.addActor(mainDeckBar);
         stage.addActor(sideDeckBar);
+        stage.addActor(selectedTable);
         Gdx.input.setInputProcessor(stage);
     }
 

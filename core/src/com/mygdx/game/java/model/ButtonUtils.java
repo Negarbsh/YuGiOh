@@ -29,9 +29,9 @@ public class ButtonUtils {
 
     }
 
-    public static CustomImageButton createCustomCards(PreCard preCard) {
+    public static CustomImageButton createCustomCards(String preCardName) {
         CustomImageButton customImageButton = new CustomImageButton(new TextureRegionDrawable(new TextureRegion(
-                PreCard.getCardPic(preCard.getName()))), preCard);
+                PreCard.getCardPic(preCardName))), PreCard.findCard(preCardName));
         return customImageButton;
     }
 
