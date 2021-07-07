@@ -108,7 +108,6 @@ public class DuelMenuController {
 
     public static void endGame() {
         isAnyGameRunning = false;
-
     }
 
 
@@ -183,7 +182,6 @@ public class DuelMenuController {
         if (shouldSwap) {
             if (!hasSecondPlayerTurnStarted) {
                 hasSecondPlayerTurnStarted = true;
-                currentPhase = null;
             }
             roundController.swapPlayers();
         }

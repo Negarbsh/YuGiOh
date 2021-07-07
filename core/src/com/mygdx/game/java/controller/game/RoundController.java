@@ -147,7 +147,7 @@ public class RoundController {
             //todo select the card in board
         } else {
             if (selector.getHand().doesContainCard(card)) {
-                setSelectedCard(selectedCard);
+                setSelectedCard(card);
                 duelMenuController.getTurnScreen().handleSelectedCard();
             } else throw new InvalidSelection();
         }

@@ -24,8 +24,6 @@ import com.mygdx.game.java.view.Constants;
 import lombok.Getter;
 
 
-//import java.awt.*;
-
 @Getter
 public class TurnScreen implements Screen {
     private final Stage stage;
@@ -78,8 +76,9 @@ public class TurnScreen implements Screen {
 
     @Override
     public void show() {
-        stage.addActor(new Wallpaper(3, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
+        stage.addActor(new Wallpaper(4, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
         flatEarthSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
+        flatEarthSkin.getFont("font").getData().setScale(1.5f);
 
         createSideBar();
         createBoards();
@@ -151,6 +150,7 @@ public class TurnScreen implements Screen {
 
     private void createBoards() {
         //todo
+
 
 
 //        rivalBoard.setupEntities(false);
@@ -272,7 +272,7 @@ public class TurnScreen implements Screen {
             label.setAlignment(Align.center);
             return label;
         }
-        Label label = new Label("No card is selected!", sideInfoTable.getSkin());
+        Label label = new Label("No card is selected!\n", sideInfoTable.getSkin());
         label.setAlignment(Align.center);
         return label;
     }
