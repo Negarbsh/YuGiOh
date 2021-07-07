@@ -15,7 +15,8 @@ public enum MonsterType {
     INSECT,
     CYBERSE,
     FAIRY,
-    SEA_SERPENT;
+    SEA_SERPENT,
+    HAND_MADE;
 
 
     public static MonsterType getEnum(String name) {

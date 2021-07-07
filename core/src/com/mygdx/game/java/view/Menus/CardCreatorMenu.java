@@ -10,18 +10,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.CardCreatorController;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.model.card.CardType;
 import com.mygdx.game.java.view.exceptions.AlreadyExistingError;
+import com.mygdx.game.java.view.exceptions.CardCreatorException;
 import lombok.Getter;
 
+@Getter
 public class CardCreatorMenu implements Screen {
     Stage stage;
-    @Getter
     GameMainClass mainClass;
     CardCreatorController controller;
     User user;
@@ -30,7 +30,7 @@ public class CardCreatorMenu implements Screen {
     TextField attack, defense;
     SelectBox<String> cards, watchers;
     Table choosingTable;
-    TextButton calculate, buy;
+    TextButton create, buy;
 
     {
         stage = new Stage(new StretchViewport(600, 600));
@@ -102,7 +102,7 @@ public class CardCreatorMenu implements Screen {
         defense = new TextField("", mainClass.orangeSkin);
         finalResult = new Label("1234", mainClass.orangeSkin);
         TextButton add = new TextButton("add", mainClass.orangeSkin);
-        add.addListener(new ClickListener(){
+        add.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 try {
@@ -112,18 +112,30 @@ public class CardCreatorMenu implements Screen {
                 }
             }
         });
-        calculate = new TextButton("calculate", mainClass.orangeSkin);
+        create = new TextButton("create", mainClass.orangeSkin);
+        create.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                try {
+                    controller.doCardCreationChecks();
+                } catch (CardCreatorException e) {
+                    System.out.println(e.getMessage());
+                } catch (NumberFormatException numEx) {
+                    numEx.printStackTrace();
+                }
+            }
+        });
         buy = new TextButton("buy", mainClass.orangeSkin);
         choosingTable.add(cards).size(230, 30).padBottom(30).padRight(40);
         choosingTable.add(watchers).size(100, 30).padBottom(30).row();
         choosingTable.add(attackLabel).padTop(-10);
-        choosingTable.add(attack).size(80,30).padTop(-10).row();
+        choosingTable.add(attack).size(80, 30).padTop(-10).row();
         choosingTable.add(defenseLabel).padTop(-15);
-        choosingTable.add(defense).size(80,30).padTop(-15).row();
+        choosingTable.add(defense).size(80, 30).padTop(-15).row();
         choosingTable.add(chosenWatchers).height(120).padTop(-10).align(Align.center);
         choosingTable.add(add).padTop(-10).height(30).row();
         Table calculating = new Table();
-        calculating.add(calculate).padRight(10).height(30);
+        calculating.add(create).padRight(10).height(30);
         calculating.add(finalResult).height(30).width(120);
         choosingTable.add(calculating);
         choosingTable.add(buy);
