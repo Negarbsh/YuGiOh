@@ -10,6 +10,11 @@ import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.exceptions.*;
+import com.mygdx.game.java.view.Menus.CardCreatorMenu;
+import com.mygdx.game.java.view.Menus.DeckPreview;
+import com.mygdx.game.java.view.Menus.DuelScreen;
+import com.mygdx.game.java.view.Menus.ShopMenu;
+import com.mygdx.game.java.view.exceptions.NumOfRounds;
 
 public class GameMainClass extends Game {
 
@@ -26,8 +31,9 @@ public class GameMainClass extends Game {
         FileHandler.loadThings();
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
-        preformDuelScreenTest();
+//        preformDuelScreenTest();
 //        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
+        setScreen(new CardCreatorMenu(this, User.getUserByName("ali")));
 
     }
 
@@ -38,12 +44,6 @@ public class GameMainClass extends Game {
         Deck akbars = new Deck("akbars");
         ali.addDeck(alis);
         akbar.addDeck(akbars);
-
-        try {
-            LoginMenuController.login("ali", "234");
-        } catch (LoginError loginError) {
-            loginError.printStackTrace();
-        }
 
         ali.setActiveDeck(ali.getDecks().get(0));
         akbar.setActiveDeck(akbar.getDecks().get(0));

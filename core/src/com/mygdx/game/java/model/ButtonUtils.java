@@ -25,10 +25,6 @@ import java.awt.Container;
 
 public class ButtonUtils {
 
-    public static void a(ImageButton b, ImageButton.ImageButtonStyle c, PicState picState, PreCard preCard) {
-
-    }
-
     public static CustomImageButton createCustomCards(String preCardName) {
         CustomImageButton customImageButton = new CustomImageButton(new TextureRegionDrawable(new TextureRegion(
                 PreCard.getCardPic(preCardName))), PreCard.findCard(preCardName));
