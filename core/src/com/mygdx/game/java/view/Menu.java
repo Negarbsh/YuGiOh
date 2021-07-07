@@ -34,11 +34,11 @@ public class Menu {
 
     public static void checkMenuCommands() throws InvalidCommand, MenuNavigationError, WrongMenu, NeedToLogin {
         String command = scanner.nextLine();
-        if (command.startsWith("menu "))
-            RelatedToMenu.checkMenuCommands(command.substring(5));
+//        if (command.startsWith("menu "))
+//            RelatedToMenu.checkMenuCommands(command.substring(5));
 //        else if (command.startsWith("user ") && !command.equals("user logout"))
 //            LoginMenu.checkMenuCommands(command.substring(5));
-        else if (command.startsWith("scoreboard "))
+        if (command.startsWith("scoreboard "))
             ScoreboardMenu.checkMenuCommands(command.substring(11));
 //        else if (command.startsWith("profile "))
 //            ProfileMenu.checkMenuCommands(command.substring(8));

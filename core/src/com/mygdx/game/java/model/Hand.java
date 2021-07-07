@@ -1,6 +1,8 @@
 package com.mygdx.game.java.model;
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.CardImageButton;
@@ -32,14 +34,20 @@ public class Hand {
     public void addCard(Card card, DuelMenuController controller) {
         if (cardsInHand.size() < 6) {
             this.cardsInHand.add(card);
-
-            CardImageButton cardImageVisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller, true);
-            visibleTable.add(cardImageVisible).width(Constants.CARD_IN_HAND_WIDTH).pad(Constants.HAND_GAP_BETWEEN_CELLS);
-
-            CardImageButton cardImageInvisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller, false);
-            invisibleTable.add(cardImageInvisible).width(Constants.CARD_IN_HAND_WIDTH).pad(Constants.HAND_GAP_BETWEEN_CELLS);
+            makeInvisible(card, controller);
+            makeVisible(card, controller);
 
         }
+    }
+
+    public void makeVisible(Card card, DuelMenuController controller) {
+        CardImageButton cardImageVisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller, true);
+        visibleTable.add(cardImageVisible).width(Constants.CARD_IN_HAND_WIDTH).pad(Constants.HAND_GAP_BETWEEN_CELLS);
+    }
+
+    public void makeInvisible(Card card, DuelMenuController controller) {
+        CardImageButton cardImageInvisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller, false);
+        invisibleTable.add(cardImageInvisible).width(Constants.CARD_IN_HAND_WIDTH).pad(Constants.HAND_GAP_BETWEEN_CELLS);
     }
 
     public void removeCard(Card card) {
@@ -58,7 +66,9 @@ public class Hand {
 
     public Table getHandTable(boolean isVisible) {
         if (isVisible) return visibleTable;
-        else return invisibleTable;
+        else {
+            return invisibleTable;
+        }
     }
 
     @Override

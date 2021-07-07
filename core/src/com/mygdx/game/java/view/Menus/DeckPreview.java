@@ -68,7 +68,7 @@ public class DeckPreview implements Screen {
         myDecksBar.add(decksScroller).fill();
 
         messageBar = ButtonUtils.createMessageBar("", mainClass.orangeSkin.getFont("font-title"), 0.4f);
-        messageBar.setBounds(50, 0, 300, 25);
+        messageBar.setBounds(0, 0, 400, 28);
 
         buttonsTable = new Table();
         buttonsTable.setBounds(300, 130, 100, 150);

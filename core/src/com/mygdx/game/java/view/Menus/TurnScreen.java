@@ -31,8 +31,8 @@ public class TurnScreen implements Screen {
 
     private final DuelMenuController controller;
 
-    private final Hand myHand;
-    private final Hand rivalHand;
+    private static Hand myHand;
+    private static Hand rivalHand;
     private final Board myBoard;
     private final Board rivalBoard;
     private final Player myPlayer;
@@ -144,8 +144,9 @@ public class TurnScreen implements Screen {
         rivalHandTable.setBounds(Constants.SIDE_INFO_WIDTH, Constants.RIVAL_HAND_Y, Constants.HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
 //        myHandTable.setColor(Color.BLUE);
 //        rivalHandTable.setColor(Color.BLUE);
-        stage.addActor(rivalHandTable);
+
         stage.addActor(myHandTable);
+        stage.addActor(rivalHandTable);
     }
 
     private void createBoards() {
