@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.DeckMenuController;
-import com.mygdx.game.java.controller.DeckPreviewController;
 import com.mygdx.game.java.model.ButtonUtils;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
@@ -99,7 +98,7 @@ public class DeckMenu implements Screen {
                     controller.removeCardFromDeck(controller.getSelectedCard(), mainDeck, false);
                     messageBar.setText(new SuccessfulAction("card", "removed from side deck").getMessage());
                     messageBar.setColor(Color.GREEN);
-                } catch (ButtonCantDoAction | NoSelectedCard e) {
+                } catch (ButtonCantDoAction | NoSelectedCard | NotCorrectDeck e) {
                     messageBar.setText(e.getMessage());
                     messageBar.setColor(Color.RED);
                 } catch (NotExisting notExisting) {
@@ -141,7 +140,7 @@ public class DeckMenu implements Screen {
                     controller.removeCardFromDeck(controller.getSelectedCard(), sideDeck, true);
                     messageBar.setText(new SuccessfulAction("card", "removed from side deck").getMessage());
                     messageBar.setColor(Color.GREEN);
-                } catch (ButtonCantDoAction | NoSelectedCard e) {
+                } catch (ButtonCantDoAction | NoSelectedCard | NotCorrectDeck e) {
                     messageBar.setText(e.getMessage());
                     messageBar.setColor(Color.RED);
                 } catch (NotExisting notExisting) {

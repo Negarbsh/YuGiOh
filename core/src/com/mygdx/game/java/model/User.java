@@ -42,7 +42,7 @@ public class User implements Comparable<User> {
         this.password = password;
         this.nickName = nickName;
         this.score = 0;
-        this.balance = 100000; //todo I'm not sure!
+        this.balance = 10000; //todo I'm not sure!
         allUsers.add(this);
         setAvatar(null);
         FileHandler.saveUsers();

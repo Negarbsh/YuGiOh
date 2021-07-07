@@ -8,6 +8,7 @@ import com.mygdx.game.java.controller.FileHandler;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.view.Menus.CardCreatorMenu;
 import com.mygdx.game.java.view.Menus.DeckPreview;
 import com.mygdx.game.java.view.Menus.DuelScreen;
 import com.mygdx.game.java.view.Menus.ShopMenu;
@@ -30,8 +31,9 @@ public class GameMainClass extends Game {
         FileHandler.loadThings();
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
-        preformDuelScreenTest();
+//        preformDuelScreenTest();
 //        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
+        setScreen(new CardCreatorMenu(this, User.getUserByName("ali")));
 
     }
 

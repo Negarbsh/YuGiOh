@@ -59,7 +59,7 @@ public class DeckPreview implements Screen {
         myDecks.setBackground(background);
         myDecks.setBounds(30, 250, 340, 80);
         controller.createDecksTable(myDecks);
-        decksScroller = new ScrollPane(myDecks, mainClass.orangeSkin);
+        decksScroller = new ScrollPane(myDecks, mainClass.orangeSkin, "android-no-bg");
         decksScroller.setBounds(30, 290, 340, 80);
         decksScroller.setScrollingDisabled(false, true);
         myDecksBar = new Table();

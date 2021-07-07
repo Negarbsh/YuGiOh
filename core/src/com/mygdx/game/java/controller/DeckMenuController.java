@@ -51,20 +51,22 @@ public class DeckMenuController {
         CustomImageButton newCustomButton = ButtonUtils.createCustomCards(customButton.preCard.getName());
         addCardToDeckGraphically(newCustomButton, table, side);
         getAppropriateList(side).add(newCustomButton);
+        updateSelected(null);
         FileHandler.saveUsers();
     }
 
-    public void removeCardFromDeck(CustomImageButton customImageButton, Table table, boolean side) throws ButtonCantDoAction, NoSelectedCard, NotExisting {
+    public void removeCardFromDeck(CustomImageButton customImageButton, Table table, boolean side) throws ButtonCantDoAction, NoSelectedCard, NotExisting, NotCorrectDeck {
         if (customImageButton == null)
             throw new NoSelectedCard();
-        if (!thisDeck.getAppropriateDeck(side).contains(customImageButton.preCard))
-            throw new NotExisting("card", customImageButton.preCard.getName());
+        if (!getAppropriateList(side).contains(customImageButton))
+            throw new NotCorrectDeck(side);
         if (getAppropriateList(!side).contains(customImageButton))
             throw new ButtonCantDoAction();
 
 
         thisDeck.removeCard(customImageButton.preCard, side);
         removeCardFromDeckGraphically(customImageButton, table, side);
+        updateSelected(null);
         FileHandler.saveUsers();
     }
 
@@ -83,7 +85,6 @@ public class DeckMenuController {
         table.removeActor(customButton);
         table.pack();
         getAppropriateList(side).remove(customButton);
-        selectedCard = null;
     }
 
     private ArrayList<CustomImageButton> getAppropriateList(boolean side) {
@@ -109,7 +110,6 @@ public class DeckMenuController {
         int count = 0;
 
         for (String cardName : myTreasury) {
-            PreCard preCard = PreCard.findCard(cardName);
             CustomImageButton customImageButton = ButtonUtils.createCustomCards(cardName);
             customImageButton.addListener(new ClickListener() {
                 @Override
@@ -128,15 +128,24 @@ public class DeckMenuController {
     }
 
     public void updateSelected(CustomImageButton customImageButton) {
-        if (customImageButton != selectedCard) {
-            selectedCard = customImageButton;
+        if (customImageButton == null) {
+            setDescription(null);
+            deckMenu.getSelectedImage().setDrawable(null);
+        }
+        else if (customImageButton != selectedCard) {
             deckMenu.getSelectedImage().setDrawable(new TextureRegionDrawable(new TextureRegion(
                     PreCard.getCardPic(customImageButton.preCard.getName()))));
             setDescription(customImageButton.preCard);
         }
+        selectedCard = customImageButton;
     }
 
-    private void setDescription(PreCard preCard) {  //TODO
+    private void setDescription(PreCard preCard) {
+        if (preCard == null) {
+            deckMenu.getDescriptLabel().setText("");
+            deckMenu.getOtherDescriptions().setText("");
+            return;
+        }
         //the num of this card that user has
         int numOfCard = 0;
         if (user.getCardTreasury().containsKey(preCard.getName()))
