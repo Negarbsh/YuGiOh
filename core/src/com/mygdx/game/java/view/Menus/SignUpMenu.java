@@ -16,6 +16,8 @@ import com.mygdx.game.java.controller.LoginMenuController;
 import com.mygdx.game.java.model.ButtonUtils;
 import com.mygdx.game.java.model.Wallpaper;
 import com.mygdx.game.java.view.exceptions.AlreadyExistingError;
+import com.mygdx.game.java.view.exceptions.EmptyFieldException;
+import com.mygdx.game.java.view.exceptions.LoginError;
 
 
 public class SignUpMenu implements Screen {
@@ -65,9 +67,9 @@ public class SignUpMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 try {
-                    controller.createUser(usernameTextField.getText(), passwordTextField.getText(),
-                            nicknameTextField.getText());
-                } catch (AlreadyExistingError loginError) {
+                    controller.createUser(usernameTextField.getText(), nicknameTextField.getText(),
+                            passwordTextField.getText());
+                } catch (AlreadyExistingError | EmptyFieldException loginError) {
                     messageBar.setText(loginError.getMessage());
                     messageBar.setColor(Color.RED);
                     //TODO set screen

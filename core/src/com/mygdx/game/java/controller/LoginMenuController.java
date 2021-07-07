@@ -1,6 +1,7 @@
 package com.mygdx.game.java.controller;
 
 import com.mygdx.game.java.view.exceptions.AlreadyExistingError;
+import com.mygdx.game.java.view.exceptions.EmptyFieldException;
 import com.mygdx.game.java.view.exceptions.LoginError;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
@@ -8,10 +9,11 @@ import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
 public class LoginMenuController {
     User user;
 
-    public void createUser(String username, String nickname, String password) throws AlreadyExistingError {
+    public void createUser(String username, String nickname, String password) throws AlreadyExistingError, EmptyFieldException {
+        if (username.equals("") || password.equals("") || nickname.equals(""))
+            throw new EmptyFieldException();
         if (hasNoCreatingError(username, nickname)) {
             new User(username, password, nickname);
-            new SuccessfulAction("user", "created");
         }
     }
 
