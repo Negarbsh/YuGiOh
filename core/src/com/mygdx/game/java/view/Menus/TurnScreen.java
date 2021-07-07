@@ -152,7 +152,6 @@ public class TurnScreen implements Screen {
         //todo
 
 
-
 //        rivalBoard.setupEntities(false);
 //        myBoardTable = myBoard.getTable();
 //        rivalBoardTable = rivalBoard.getTable();//todo: create the table fields in hand and board
@@ -220,6 +219,7 @@ public class TurnScreen implements Screen {
         sideInfoTable.add(selectedCardImage).prefWidth(Constants.SIDE_INFO_WIDTH);
         sideInfoTable.row();
 
+        selectedDescription.setWrap(true);
         sideInfoTable.add(selectedDescription).prefWidth(Constants.SIDE_INFO_WIDTH);
         sideInfoTable.row();
 
@@ -296,6 +296,19 @@ public class TurnScreen implements Screen {
         return label;
     }
     //side bar stuff ending
+
+    public void updateSelectedCard() {
+        Texture texture;
+        Card selectedCard = controller.getRoundController().getSelectedCard();
+        if (selectedCard == null) texture = PreCard.getCardPic("Unknown");
+        else texture = PreCard.getCardPic(selectedCard.getName());
+        selectedCardImage.setDrawable(new Image(texture).getDrawable());
+
+        String description = "";
+        if (selectedCard == null) description = "No card is selected!";
+        else description = selectedCard.getPreCardInGeneral().getDescription();
+        selectedDescription.setText(description);
+    }
 
     @Override
     public void render(float delta) {

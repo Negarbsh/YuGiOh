@@ -148,7 +148,7 @@ public class RoundController {
         } else {
             if (selector.getHand().doesContainCard(card)) {
                 setSelectedCard(card);
-                duelMenuController.getTurnScreen().handleSelectedCard();
+                duelMenuController.getTurnScreen().updateSelectedCard();
             } else throw new InvalidSelection();
         }
     }
@@ -157,7 +157,7 @@ public class RoundController {
     public void deselectCard() {
         this.selectedCard = null;
         isSelectedCardFromRivalBoard = false; //todo: why do we need this thing?
-        duelMenuController.getTurnScreen().handleSelectedCard();
+        duelMenuController.getTurnScreen().updateSelectedCard();
 
     }
 
