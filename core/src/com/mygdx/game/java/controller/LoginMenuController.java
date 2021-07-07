@@ -1,7 +1,5 @@
 package com.mygdx.game.java.controller;
 
-import com.mygdx.game.java.view.Menus.LoginMenu;
-import com.mygdx.game.java.view.Menus.LoginMenu2;
 import com.mygdx.game.java.view.exceptions.AlreadyExistingError;
 import com.mygdx.game.java.view.exceptions.LoginError;
 import com.mygdx.game.java.model.User;

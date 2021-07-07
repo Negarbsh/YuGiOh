@@ -5,14 +5,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.java.controller.FileHandler;
-import com.mygdx.game.java.controller.LoginMenuController;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.view.Menus.LoginMenu2;
+import com.mygdx.game.java.view.Menus.ProfileMenu;
 import com.mygdx.game.java.view.Menus.SignUpMenu;
 import com.mygdx.game.java.view.exceptions.*;
-import com.mygdx.game.java.view.Menus.CardCreatorMenu;
 import com.mygdx.game.java.view.exceptions.NumOfRounds;
 
 public class GameMainClass extends Game {
@@ -33,8 +31,9 @@ public class GameMainClass extends Game {
 //        preformDuelScreenTest();
 //        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
 //        setScreen(new CardCreatorMenu(this, User.getUserByName("ali")));
-//        setScreen(new LoginMenu2(this));
-        setScreen(new SignUpMenu(this));
+//        setScreen(new LoginMenu(this));
+//        setScreen(new SignUpMenu(this));
+        setScreen(new ProfileMenu(this, User.getUserByName("akbar")));
 
     }
 

@@ -40,8 +40,8 @@ public class Menu {
 //            LoginMenu.checkMenuCommands(command.substring(5));
         else if (command.startsWith("scoreboard "))
             ScoreboardMenu.checkMenuCommands(command.substring(11));
-        else if (command.startsWith("profile "))
-            ProfileMenu.checkMenuCommands(command.substring(8));
+//        else if (command.startsWith("profile "))
+//            ProfileMenu.checkMenuCommands(command.substring(8));
 //        else if (command.startsWith("deck "))
 //            DeckMenu.checkMenuCommands(command.substring(5));
 //        else if (command.startsWith("shop "))
