@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.java.controller.FileHandler;
 import com.mygdx.game.java.model.User;
@@ -14,12 +15,17 @@ public class GameMainClass extends Game {
     public Skin orangeSkin;
     public Skin flatEarthSkin;
     public Skin flatEarthSkin2;
+    public Music gameMusic;
 
     public Screen lastScreen;
 
+
     @Override
     public void create() {
-
+        gameMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/pain.wav"));
+        gameMusic.setLooping(true);
+        gameMusic.setVolume(0.1f);
+        gameMusic.play();
         flatEarthSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
         orangeSkin = new Skin(Gdx.files.internal("orange/skin/uiskin.json"));
         flatEarthSkin2 = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
@@ -27,13 +33,13 @@ public class GameMainClass extends Game {
         FileHandler.loadThings();
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
-        preformDuelScreenTest();
+//        preformDuelScreenTest();
 //        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
 //        setScreen(new CardCreatorMenu(this, User.getUserByName("ali")));
 //        setScreen(new LoginMenu(this));
 //        setScreen(new SignUpMenu(this));
 //        setScreen(new ProfileMenu(this, User.getUserByName("akbar")));
-//        setScreen(new RelatedToMenu(this));
+        setScreen(new RelatedToMenu(this));
 
     }
 

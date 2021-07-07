@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -66,9 +67,19 @@ public class ProfileMenu implements Screen {
         table.add(changeNickname).row();
         table.add(changePassword).row();
 
+        ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
+        back.setBounds(25,950,70,50);
+        back.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainClass.setScreen(new MainMenu(mainClass, user));
+            }
+        });
+
         stage.addActor(new Wallpaper(1, 0, 0, 1024, 1024));
         stage.addActor(messageBar);
         stage.addActor(table);
+        stage.addActor(back);
         Gdx.input.setInputProcessor(stage);
     }
 

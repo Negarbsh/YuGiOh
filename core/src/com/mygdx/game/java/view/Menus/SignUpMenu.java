@@ -25,7 +25,7 @@ public class SignUpMenu implements Screen {
     LoginMenuController controller;
     GameMainClass mainClass;
     Stage stage;
-    TextButton buttonRegister, buttonBack;
+    TextButton buttonRegister;
     Label usernameLabel, passwordLabel, nicknameLabel, messageBar;
     TextField usernameTextField, passwordTextField, nicknameTextField;
     Table table;
@@ -83,10 +83,19 @@ public class SignUpMenu implements Screen {
         table.add(buttonRegister).colspan(2).width(250).align(Align.center).padTop(70f);
         table.row();
 
+        ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
+        back.setBounds(25,950,70,50);
+        back.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainClass.setScreen(new RelatedToMenu(mainClass));
+            }
+        });
+
         stage.addActor(new Wallpaper(1, 0,0, 1024, 1024));
         stage.addActor(messageBar);
         stage.addActor(table);
-//        stage.addActor(mainClass.createBackButton(new MainMenu(mainClass)));
+        stage.addActor(back);
         Gdx.input.setInputProcessor(stage);
     }
 

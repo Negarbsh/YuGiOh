@@ -124,12 +124,23 @@ public class DeckPreview implements Screen {
         descriptLabel.setWrap(true);
         descriptLabel.setBounds(50, 200, 300, 70);
 
+        ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
+        back.setBounds(3,374,28,20);
+        back.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainClass.setScreen(new MainMenu(mainClass, user));
+            }
+        });
+
+
 
         stage.addActor(decksScroller);
         stage.addActor(buttonsTable);
         stage.addActor(trashcan);
         stage.addActor(messageBar);
         stage.addActor(descriptLabel);
+        stage.addActor(back);
         Gdx.input.setInputProcessor(stage);
     }
 

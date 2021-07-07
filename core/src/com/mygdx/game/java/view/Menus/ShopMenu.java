@@ -7,10 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -85,9 +82,19 @@ public class ShopMenu implements Screen {
         buyTable.add(descriptLabel).prefWidth(600).padRight(7);
         buyTable.add(buyButton).size(100, 50).padTop(30);
 
+        ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
+        back.setBounds(25,950,70,50);
+        back.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainClass.setScreen(new MainMenu(mainClass, user));
+            }
+        });
+
         stage.addActor(new Wallpaper(1, 0, 0, 1024, 1024));
         stage.addActor(shopTable);
         stage.addActor(buyTable);
+        stage.addActor(back);
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -124,6 +131,7 @@ public class ShopMenu implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        coinShake.dispose();
     }
 
     private void setSounds() {

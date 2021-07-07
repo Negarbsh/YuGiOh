@@ -155,12 +155,22 @@ public class DeckMenu implements Screen {
         table2.add(sideRemove);
         sideDeckBar.add(table2);
 
+        ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
+        back.setBounds(25,950,70,50);
+        back.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainClass.setScreen(new DeckPreview(mainClass, user));
+            }
+        });
+
         stage.addActor(new Wallpaper(2, 0, 0, 1024, 1024));
         stage.addActor(messageBar);
         stage.addActor(treasuryTable);
         stage.addActor(mainDeckBar);
         stage.addActor(sideDeckBar);
         stage.addActor(selectedTable);
+        stage.addActor(back);
         Gdx.input.setInputProcessor(stage);
     }
 
