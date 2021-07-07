@@ -51,18 +51,12 @@ public class RoundController {
         this.duelMenuController = duelMenuController;
         currentPlayer = new Player(firstUser, this);
         currentPlayer.getBoard().setMyPhase(Phase.END_RIVAL);
+
         rival = new Player(secondUser, this);
         rival.getBoard().setMyPhase(Phase.END);
-//        currentPhase = Phase.DRAW;
-//        duelMenuController.setDrawPhase(new DrawPhaseController(this, true));
+
         this.roundIndex = roundIndex;
         this.currentPhase = currentPhase; //actually it keeps the reference to the phase of duelController
-    }
-
-    public void setCurrentPhase(Phase currentPhase) {
-        this.currentPhase = currentPhase;
-//        if (currentPhase == Phase.END) setTurnEnded(true);
-
     }
 
     public void setTurnEnded(boolean isTurnEnded) {
@@ -74,7 +68,7 @@ public class RoundController {
         Player hold = this.currentPlayer;
         this.currentPlayer = rival;
         this.rival = hold;
-        setTurnEnded(false); //todo: why needed?
+//        setTurnEnded(false);
     }
 
     public void updateBoards() {
@@ -86,7 +80,7 @@ public class RoundController {
         if (rival.getLifePoint() <= 0) {
             setRoundWinner(RoundResult.CURRENT_WON);
         }
-        showBoard(); //todo: check with hasti
+        showBoard();
         currentPlayer.getBoard().updateAfterAction();
         rival.getBoard().updateAfterAction();
     }
@@ -150,17 +144,21 @@ public class RoundController {
     public void selectCard(Card card, Player selector) throws InvalidSelection {
         CardInUse cardInUse = findCardsCell(card);
         if (cardInUse != null) {
-
+            //todo select the card in board
         } else {
             if (selector.getHand().doesContainCard(card)) {
                 setSelectedCard(selectedCard);
+                duelMenuController.getTurnScreen().handleSelectedCard();
             } else throw new InvalidSelection();
         }
     }
 
+
     public void deselectCard() {
         this.selectedCard = null;
         isSelectedCardFromRivalBoard = false; //todo: why do we need this thing?
+        duelMenuController.getTurnScreen().handleSelectedCard();
+
     }
 
     public String showGraveYard(boolean ofCurrentPlayer) {

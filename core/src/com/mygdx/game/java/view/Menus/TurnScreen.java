@@ -53,7 +53,10 @@ public class TurnScreen implements Screen {
     private ProgressBar rivalLifePoint;
     private Label myLPLabel;
     private Label rivalLPLabel;
+
     private TextButton phaseButton;
+    private boolean isBeginningOfGame = true;
+
     private Image selectedCardImage;
     private Label selectedDescription;
 
@@ -187,7 +190,7 @@ public class TurnScreen implements Screen {
         stage.addActor(sideInfoTable);
     }
 
-    private void handleSelectedCard() {
+    public void handleSelectedCard() {
         selectedCardImage = getSelectedCardImage();
         selectedCardImage.setHeight(Constants.SELECTED_CARD_IMAGE_HEIGHT);
         selectedDescription = getSelectedCardDescription();
@@ -250,14 +253,14 @@ public class TurnScreen implements Screen {
     private void handleRivalLifePointInfo() {
         rivalLifePoint = new ProgressBar(0, 8000, 100, false, flatEarthSkin);
         rivalLifePoint.setColor(0.128f, 0.128f, 0, 1);
-        rivalLifePoint.setValue(8000);
+        rivalLifePoint.setValue(rival.getLifePoint());
         rivalLPLabel = new Label("Life Point: " + (int) rivalLifePoint.getValue(), flatEarthSkin);
     }
 
     private void handleMyLifePointInfo() {
         myLifePoint = new ProgressBar(0, 8000, 50, false, flatEarthSkin);
         myLifePoint.setColor(0.128f, 0.128f, 0, 1);
-        myLifePoint.setValue(8000);
+        myLifePoint.setValue(myPlayer.getLifePoint());
         myLPLabel = new Label("Life Point: " + (int) myLifePoint.getValue(), flatEarthSkin);
     }
 

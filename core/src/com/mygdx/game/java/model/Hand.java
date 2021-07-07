@@ -1,30 +1,23 @@
 package com.mygdx.game.java.model;
 
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.CardImageButton;
-import com.mygdx.game.java.model.card.monster.Monster;
-import com.mygdx.game.java.model.card.monster.MonsterCardType;
-import com.mygdx.game.java.model.card.monster.PreMonsterCard;
 import com.mygdx.game.java.view.Constants;
 import com.mygdx.game.java.view.exceptions.InvalidSelection;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Hand {
     private final ArrayList<Card> cardsInHand;
-    private final HashMap<Card, ImageButton> cardImageButtons;
-    private final Table handTableVisible;
-    private final Table handTableInvisible;
+    private final Table visibleTable;
+    private final Table invisibleTable;
 
     {
-        this.handTableVisible = new Table();
-        this.handTableInvisible = new Table();
+        this.visibleTable = new Table();
+        this.invisibleTable = new Table();
         this.cardsInHand = new ArrayList<>();
-        this.cardImageButtons = new HashMap<>();
     }
 
 
@@ -36,46 +29,23 @@ public class Hand {
         return cardsInHand.contains(card);
     }
 
-
-    //returns the monsters of the desired type in the hand. for example, ritual monster
-    public ArrayList<Monster> getMonstersOfType(MonsterCardType monsterCardType) {
-        ArrayList<Monster> monsters = new ArrayList<>();
-        for (Card card : cardsInHand) {
-            if (card instanceof Monster) {
-                PreMonsterCard preMonsterCard = (PreMonsterCard) (card.getPreCardInGeneral());
-                if (preMonsterCard.getMonsterCardType().equals(monsterCardType)) monsters.add((Monster) card);
-            }
-        }
-        return monsters;
-    }
-
     public void addCard(Card card, DuelMenuController controller) {
-        if (cardsInHand.size() <= 5) {
+        if (cardsInHand.size() < 6) {
             this.cardsInHand.add(card);
-            CardImageButton cardImageVisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller);
-            handTableVisible.add(cardImageVisible).width(Constants.CARD_IN_HAND_WIDTH).pad(Constants.HAND_GAP_BETWEEN_CELLS);
-            CardImageButton cardImageInvisible = CardImageButton.getNewImageButton(null, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller);
-            handTableInvisible.add(cardImageInvisible).width(Constants.CARD_IN_HAND_WIDTH);
-            //todo: add the listener in the duel screen when we want to add the card.
-            //after you  added the card, add the click listener to the imageButton of the
-            // currently added card, so that it displays the info of the card
-//            imageButton.addListener(new ClickListener(){
-//                @Override
-//                public void clicked(InputEvent event, float x, float y) {
-//                    super.clicked(event, x, y);
 
-//                }
-//            });
-            this.cardImageButtons.put(card, cardImageVisible);
+            CardImageButton cardImageVisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller, true);
+            visibleTable.add(cardImageVisible).width(Constants.CARD_IN_HAND_WIDTH).pad(Constants.HAND_GAP_BETWEEN_CELLS);
+
+            CardImageButton cardImageInvisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller, false);
+            invisibleTable.add(cardImageInvisible).width(Constants.CARD_IN_HAND_WIDTH).pad(Constants.HAND_GAP_BETWEEN_CELLS);
+
         }
-        //todo: else throw something
     }
 
     public void removeCard(Card card) {
         this.cardsInHand.remove(card);
-        ImageButton imageButton = this.cardImageButtons.get(card);
-        handTableVisible.removeActor(imageButton);
-        this.cardImageButtons.remove(card);
+        this.invisibleTable.removeActor(card.getInvisibleImageButton());
+        this.visibleTable.removeActor(card.getVisibleImageButton());
     }
 
 
@@ -87,8 +57,8 @@ public class Hand {
     }
 
     public Table getHandTable(boolean isVisible) {
-        if(isVisible)return handTableVisible;
-        else return handTableInvisible;
+        if (isVisible) return visibleTable;
+        else return invisibleTable;
     }
 
     @Override

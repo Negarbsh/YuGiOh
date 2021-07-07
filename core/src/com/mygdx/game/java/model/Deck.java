@@ -1,7 +1,6 @@
 package com.mygdx.game.java.model;
 
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.java.model.card.CardType;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.model.card.spelltrap.CardStatus;
@@ -10,8 +9,6 @@ import com.mygdx.game.java.view.exceptions.BeingFull;
 import com.mygdx.game.java.view.exceptions.InvalidName;
 import com.mygdx.game.java.view.exceptions.NotExisting;
 import com.mygdx.game.java.view.exceptions.OccurrenceException;
-import com.mygdx.game.java.view.messageviewing.Print;
-import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,7 +35,7 @@ public class Deck{
     }
 
     public static boolean isDeckInvalid(Deck deck) {
-        return deck.mainCards.size() < 8;
+        return deck.mainCards.size() < 6;
         //todo: the number should be 40. I just wanted to run!
     }
 

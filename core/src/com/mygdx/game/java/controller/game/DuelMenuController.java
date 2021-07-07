@@ -26,7 +26,6 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Objects;
 
 
 @Getter
@@ -58,6 +57,10 @@ public class DuelMenuController {
     private boolean isGamePaused = false;
     private GameMainClass gameMainClass;
 
+    {
+        this.roundsWinner = new ArrayList<>();
+        this.usersLP = new ArrayList<>();
+    }
 
     //todo: made public for test! make it private
     private DuelMenuController(User firstUser, User secondUser, int numOfRounds, GameMainClass gameMainClass) throws NumOfRounds {
@@ -65,8 +68,6 @@ public class DuelMenuController {
         setFirstUser(firstUser);
         setSecondUser(secondUser);
         setNumOfRounds(numOfRounds);
-        this.roundsWinner = new ArrayList<>();
-        this.usersLP = new ArrayList<>();
         for (int i = 0; i < numOfRounds; i++) {
             usersLP.add(new HashMap<>());
         }
@@ -109,6 +110,7 @@ public class DuelMenuController {
 
     public static void endGame() {
         isAnyGameRunning = false;
+
     }
 
 
@@ -159,10 +161,10 @@ public class DuelMenuController {
 
     private void runOneRound(int roundIndex) throws InvalidName, NoActiveDeck, InvalidDeck {
         this.roundController = getProperRoundController(roundIndex);
-        nextPhase();
+//        nextPhase();
         Watcher.roundController = this.roundController;
 
-        changeTurn(false);
+        changeTurn(false); //here it actually doesn't change, just starts the first turn
 //        while (true) {
 //            if (roundController.isTurnEnded())
 //                changeTurnScreen();
@@ -190,6 +192,7 @@ public class DuelMenuController {
 
         this.turnScreen = new TurnScreen(roundController.getCurrentPlayer(), roundController.getRival(), this, gameMainClass);
         gameMainClass.setScreen(turnScreen);
+        roundController.setTurnEnded(false);
     }
 
 
@@ -408,6 +411,7 @@ public class DuelMenuController {
             this.currentPhase = Phase.DRAW;
             this.drawPhaseController = new DrawPhaseController(roundController, true);
             drawPhaseController.run();
+
         } else {
             this.currentPhase = currentPhase.goToNextGamePhase();
             switch (currentPhase) {
@@ -439,51 +443,51 @@ public class DuelMenuController {
         }
     }
 
-
-    public void oldNextPhase() {
-        if (isGamePaused) return;
-        if (currentPhase != null) {
-            this.currentPhase = currentPhase.goToNextGamePhase();
-            switch (Objects.requireNonNull(currentPhase)) {
-                case DRAW:
-//                    if(!hasSecondPlayerTurnStarted){
-//                        this.drawPhaseController = new DrawPhaseController(roundController, true);
-//                        hasSecondPlayerTurnStarted = true;
-//                    }
-                    this.drawPhaseController = new DrawPhaseController(roundController, false);
-                    break;
-                case STANDBY:
-                    this.standByPhaseController = new StandByPhaseController(roundController);
-                    break;
-                case MAIN_1:
-                    //in case MAIN_2 the controller is the same as MAIN_1
-                    this.mainPhaseController = new MainPhaseController(roundController);
-                    break;
-                case BATTLE:
-                    if (!canHaveBattlePhase) {
-                        canHaveBattlePhase = true;
-                        nextPhase();
-                        return;
-                    } else this.battlePhaseController = new BattlePhaseController(roundController);
-                    break;
-                case END:
-                    this.roundController.setTurnEnded(true);
-                    DuelMenu.showPhase(currentPhase.toString()); //can be commented
-                    roundController.updateAfterChangePhase();
-                    return;
-                case MAIN_2:
-                    break;
-            }
-        } else { //current phase was null
-            this.currentPhase = Phase.DRAW;
-            this.drawPhaseController = new DrawPhaseController(roundController, true);
-        }
-//        roundController.setCurrentPhase(currentPhase);
-
-        DuelMenu.showPhase(currentPhase.toString()); //can be commented!
-        roundController.updateAfterChangePhase();
-        if (currentPhase == Phase.DRAW) drawPhaseController.run();
-    }
+//
+//    public void oldNextPhase() {
+//        if (isGamePaused) return;
+//        if (currentPhase != null) {
+//            this.currentPhase = currentPhase.goToNextGamePhase();
+//            switch (Objects.requireNonNull(currentPhase)) {
+//                case DRAW:
+////                    if(!hasSecondPlayerTurnStarted){
+////                        this.drawPhaseController = new DrawPhaseController(roundController, true);
+////                        hasSecondPlayerTurnStarted = true;
+////                    }
+//                    this.drawPhaseController = new DrawPhaseController(roundController, false);
+//                    break;
+//                case STANDBY:
+//                    this.standByPhaseController = new StandByPhaseController(roundController);
+//                    break;
+//                case MAIN_1:
+//                    //in case MAIN_2 the controller is the same as MAIN_1
+//                    this.mainPhaseController = new MainPhaseController(roundController);
+//                    break;
+//                case BATTLE:
+//                    if (!canHaveBattlePhase) {
+//                        canHaveBattlePhase = true;
+//                        nextPhase();
+//                        return;
+//                    } else this.battlePhaseController = new BattlePhaseController(roundController);
+//                    break;
+//                case END:
+//                    this.roundController.setTurnEnded(true);
+//                    DuelMenu.showPhase(currentPhase.toString()); //can be commented
+//                    roundController.updateAfterChangePhase();
+//                    return;
+//                case MAIN_2:
+//                    break;
+//            }
+//        } else { //current phase was null
+//            this.currentPhase = Phase.DRAW;
+//            this.drawPhaseController = new DrawPhaseController(roundController, true);
+//        }
+////        roundController.setCurrentPhase(currentPhase);
+//
+//        DuelMenu.showPhase(currentPhase.toString()); //can be commented!
+//        roundController.updateAfterChangePhase();
+//        if (currentPhase == Phase.DRAW) drawPhaseController.run();
+//    }
 
     public boolean askToEnterSummon() {
         return DuelMenu.forceGetCommand("summon", "you should ritual summon right now");

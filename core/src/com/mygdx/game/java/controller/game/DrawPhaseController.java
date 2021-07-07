@@ -12,22 +12,25 @@ public class DrawPhaseController {
     public static boolean canDraw = true;
     private final RoundController roundController;
     private final int numOfCardsToAdd;
-    private final Deck deck;
-    private final boolean isBeginningOfGame;
-    private final Hand hand;
+    private final Deck myDeck;
+    private final Hand myHand;
 
-    public DrawPhaseController(RoundController gamePlay, boolean isFirstTurnOfPlayer) {
-        this.roundController = gamePlay;
-        this.deck = gamePlay.getCurrentPlayer().getDeck();
-        this.isBeginningOfGame = isFirstTurnOfPlayer;
-        if (isFirstTurnOfPlayer) this.numOfCardsToAdd = 5;
+    private final boolean isBeginningOfGame;
+
+    public DrawPhaseController(RoundController roundController, boolean isBeginningOfGame) {
+        this.roundController = roundController;
+        this.myDeck = roundController.getCurrentPlayer().getDeck();
+        this.isBeginningOfGame = isBeginningOfGame;
+        if (isBeginningOfGame) this.numOfCardsToAdd = 5;
         else this.numOfCardsToAdd = 1;
-        this.hand = gamePlay.getCurrentPlayer().getHand();
+        this.myHand = roundController.getCurrentPlayer().getHand();
     }
 
     public void run() {
         if (isBeginningOfGame) {
-            Collections.shuffle(this.deck.getMainCards());
+            Collections.shuffle(myDeck.getMainCards());
+            Collections.shuffle(roundController.getRival().getDeck().getMainCards());
+            addRivalCardsToHand();
         }
         boolean isLost = checkLoss();
         if (isLost) {
@@ -38,6 +41,23 @@ public class DrawPhaseController {
         }
     }
 
+    private void addRivalCardsToHand() {
+        Deck rivalDeck = roundController.getRival().getDeck();
+        Hand rivalHand = roundController.getRival().getHand();
+        for (int i = 0; i < numOfCardsToAdd; i++) {
+            if (checkLoss()) {
+                roundController.setRoundWinner(RoundResult.CURRENT_WON);
+                return;
+            }
+            if (rivalHand.getCardsInHand().size() < 6) {
+                PreCard preCard = rivalDeck.getMainCards().get(i);
+                Card card = preCard.newCard();
+                rivalHand.addCard(card, this.roundController.getDuelMenuController());
+            }
+        }
+        roundController.updateBoards();
+    }
+
     private void addCardsFromDeckToHand() {
         if (canDraw) {
             for (int i = 0; i < numOfCardsToAdd; i++) {
@@ -45,16 +65,18 @@ public class DrawPhaseController {
                     roundController.setRoundWinner(RoundResult.RIVAL_WON);
                     return;
                 }
-                PreCard preCard = deck.getMainCards().remove(0);
-                Card card = preCard.newCard();
-                this.hand.addCard(card, this.roundController.getDuelMenuController());
+                if (this.myHand.getCardsInHand().size() < 6) {
+                    PreCard preCard = myDeck.getMainCards().remove(0);
+                    Card card = preCard.newCard();
+                    this.myHand.addCard(card, this.roundController.getDuelMenuController());
+                }
             }
             roundController.updateBoards();
         }
     }
 
     public boolean checkLoss() {
-        return deck.getMainCards().isEmpty();
+        return myDeck.getMainCards().isEmpty();
     }
 
 
