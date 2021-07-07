@@ -4,8 +4,6 @@ import com.mygdx.game.java.controller.LoginMenuController;
 
 public class MainMenu {
 
-    public static void logout() {
-        LoginMenuController.logout();
-    }
+
 
 }

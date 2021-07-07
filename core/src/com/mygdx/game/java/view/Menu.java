@@ -36,12 +36,12 @@ public class Menu {
         String command = scanner.nextLine();
         if (command.startsWith("menu "))
             RelatedToMenu.checkMenuCommands(command.substring(5));
-        else if (command.startsWith("user ") && !command.equals("user logout"))
-            LoginMenu.checkMenuCommands(command.substring(5));
+//        else if (command.startsWith("user ") && !command.equals("user logout"))
+//            LoginMenu.checkMenuCommands(command.substring(5));
         else if (command.startsWith("scoreboard "))
             ScoreboardMenu.checkMenuCommands(command.substring(11));
-        else if (command.startsWith("profile "))
-            ProfileMenu.checkMenuCommands(command.substring(8));
+//        else if (command.startsWith("profile "))
+//            ProfileMenu.checkMenuCommands(command.substring(8));
 //        else if (command.startsWith("deck "))
 //            DeckMenu.checkMenuCommands(command.substring(5));
 //        else if (command.startsWith("shop "))
@@ -52,10 +52,11 @@ public class Menu {
             } catch (Exception e) {
                 Print.print(e.getMessage());
             }
-        } else if (command.equals("user logout"))
-            MainMenu.logout();
-        else if (command.equals("exit program"))
-            LoginMenu.checkMenuCommands(command);
+        }
+//        else if (command.equals("user logout"))
+//            MainMenu.logout();
+//        else if (command.equals("exit program"))
+//            LoginMenu.checkMenuCommands(command);
         else if (command.startsWith("import card")) {
 
         } else

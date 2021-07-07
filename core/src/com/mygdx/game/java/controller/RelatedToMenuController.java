@@ -26,23 +26,23 @@ public class RelatedToMenuController {
         Print.print("_______________________________");
     }
 
-    public static void enterMenu(String name) throws InvalidCommand, MenuNavigationError, NeedToLogin {
-        MenuName newMenu;
-        try {
-            newMenu = MenuName.valueOf(name.toUpperCase());
-        } catch (Exception e) {
-            throw new InvalidCommand();
-        }
-        if (currentMenu == newMenu)
-            throw new MenuNavigationError();
-        else if (currentMenu == MenuName.LOGIN && newMenu == MenuName.MAIN) {
-            if (LoginMenuController.getCurrentUser() != null) setCurrentMenu(newMenu);
-            else throw new NeedToLogin();
-        } else if (currentMenu == MenuName.MAIN && newMenu != MenuName.LOGIN)
-            setCurrentMenu(newMenu);
-        else
-            throw new MenuNavigationError();
-    }
+//    public static void enterMenu(String name) throws InvalidCommand, MenuNavigationError, NeedToLogin {
+//        MenuName newMenu;
+//        try {
+//            newMenu = MenuName.valueOf(name.toUpperCase());
+//        } catch (Exception e) {
+//            throw new InvalidCommand();
+//        }
+//        if (currentMenu == newMenu)
+//            throw new MenuNavigationError();
+//        else if (currentMenu == MenuName.LOGIN && newMenu == MenuName.MAIN) {
+//            if (LoginMenuController.getCurrentUser() != null) setCurrentMenu(newMenu);
+//            else throw new NeedToLogin();
+//        } else if (currentMenu == MenuName.MAIN && newMenu != MenuName.LOGIN)
+//            setCurrentMenu(newMenu);
+//        else
+//            throw new MenuNavigationError();
+//    }
 
     public static void exitMenu() {
         if (currentMenu == MenuName.LOGIN) {

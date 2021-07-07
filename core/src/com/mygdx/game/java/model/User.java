@@ -144,12 +144,10 @@ public class User implements Comparable<User> {
 
     public void changePassword(String newPassword) {
         this.password = newPassword;
-        Print.print(String.format(SuccessMessages.changingSuccessfully, "password"));
     }
 
     public void changeNickname(String newNickname) {
         this.nickName = newNickname;
-        Print.print(String.format(SuccessMessages.changingSuccessfully, "nickname"));
     }
 
     public void increaseBalance(int increasingAmount) {

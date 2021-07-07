@@ -77,12 +77,12 @@ public class DuelMenuController {
 
     public static void startNewDuel(String secondUserName, int numOfRounds, GameMainClass gameMainClass) throws InvalidName, NumOfRounds, InvalidDeck, NoActiveDeck, InvalidThing {
         User secondUser = User.getUserByName(secondUserName);
-        User firstUser = LoginMenuController.getCurrentUser();
-
-        if (isGameValid(firstUser, secondUser)) {
-            DuelMenuController duelMenuController = new DuelMenuController(firstUser, secondUser, numOfRounds, gameMainClass);
-            duelMenuController.startDuel();
-        }
+//        User firstUser = LoginMenuController.getCurrentUser();
+//
+//        if (isGameValid(firstUser, secondUser)) {
+//            DuelMenuController duelMenuController = new DuelMenuController(firstUser, secondUser, numOfRounds, gameMainClass);
+//            duelMenuController.startDuel();
+//        }
     }
 
     private static boolean isGameValid(User firstUser, User secondUser) throws InvalidName, NoActiveDeck, InvalidDeck, InvalidThing {

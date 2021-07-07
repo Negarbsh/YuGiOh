@@ -30,6 +30,23 @@ public class PreMonsterCard extends PreCard {
         allPreCards.add(this);
     }
 
+    public PreMonsterCard(String dataForHandMades) {
+        //Name,Level,Attribute, Monster Type , Card Type ,Atk,Def,Description,Price
+        String[] cardData = dataForHandMades.split(",");
+        name = cardData[0];
+        level = Integer.parseInt(cardData[1]);
+        attribute = CardAttribute.valueOf(cardData[2].toUpperCase());
+        monsterType = MonsterType.getEnum(cardData[3]);
+        monsterCardType = MonsterCardType.valueOf(cardData[4].toUpperCase());
+        attack = Integer.parseInt(cardData[5]);
+        defense = Integer.parseInt(cardData[6]);
+        description = cardData[7];
+        price = Integer.parseInt(cardData[8]);
+        cardType = CardType.MONSTER;
+
+        allPreCards.add(this);
+    }
+
     public String getName() {
         return name;
     }
