@@ -7,17 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.java.controller.FileHandler;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.Menus.DuelMenuScreen;
-import com.mygdx.game.java.view.Menus.DeckPreview;
-import com.mygdx.game.java.view.Menus.ProfileMenu;
 import com.mygdx.game.java.view.Menus.RelatedToMenu;
-//import com.mygdx.game.java.view.Menus.SignUpMenu;
-import com.mygdx.game.java.view.exceptions.*;
-import com.mygdx.game.java.view.exceptions.NumOfRounds;
 
 public class GameMainClass extends Game {
 
     public Skin orangeSkin;
     public Skin flatEarthSkin;
+    public Skin flatEarthSkin2;
 
     public Screen lastScreen;
 
@@ -26,16 +22,18 @@ public class GameMainClass extends Game {
 
         flatEarthSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
         orangeSkin = new Skin(Gdx.files.internal("orange/skin/uiskin.json"));
+        flatEarthSkin2 = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
+        flatEarthSkin2.getFont("font").getData().setScale(1.5f);
         FileHandler.loadThings();
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
-//        preformDuelScreenTest();
+        preformDuelScreenTest();
 //        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
 //        setScreen(new CardCreatorMenu(this, User.getUserByName("ali")));
 //        setScreen(new LoginMenu(this));
 //        setScreen(new SignUpMenu(this));
 //        setScreen(new ProfileMenu(this, User.getUserByName("akbar")));
-        setScreen(new RelatedToMenu(this));
+//        setScreen(new RelatedToMenu(this));
 
     }
 
@@ -66,15 +64,9 @@ public class GameMainClass extends Game {
     @Override
     public void render() {
         super.render();
-//		ScreenUtils.clear(1, 0, 0, 1);
-//		batch.begin();
-//		batch.draw(img, 0, 0);
-//		batch.end();
     }
 
     @Override
     public void dispose() {
-//		batch.dispose();
-//		img.dispose();
     }
 }

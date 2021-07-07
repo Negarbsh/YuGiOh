@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.*;
@@ -61,6 +63,9 @@ public class TurnScreen implements Screen {
 
     private Skin flatEarthSkin;
 
+    {
+        this.stage = new Stage(new FitViewport(Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
+    }
 
     public TurnScreen(Player myPlayer, Player rival, DuelMenuController controller, GameMainClass gameMainClass) {
         this.controller = controller;
@@ -71,15 +76,12 @@ public class TurnScreen implements Screen {
         this.rivalBoard = rival.getBoard();
         this.myHand = myPlayer.getHand();
         this.rivalHand = rival.getHand();
-        this.stage = new Stage(new ExtendViewport(Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
     }
 
     @Override
     public void show() {
+        flatEarthSkin = gameMainClass.flatEarthSkin2;
         stage.addActor(new Wallpaper(4, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
-        flatEarthSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
-        flatEarthSkin.getFont("font").getData().setScale(1.5f);
-
         createSideBar();
         createBoards();
         createHands();
@@ -329,7 +331,7 @@ public class TurnScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height);
     }
 
     @Override

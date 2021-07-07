@@ -76,7 +76,7 @@ public abstract class PreCard {
 //        Reader.figureCatalog(folderPath);
         int i = 0;
         for (FileHandle charPhoto : Reader.readDirectoryCatalog(folderPath)) {
-            User.charPhotos.put(i, ButtonUtils.makeDrawable(folderPath + "/" + charPhoto.name()));
+            User.charPhotos.put(i++, ButtonUtils.makeDrawable(folderPath + "/" + charPhoto.name()));
         }
     }
 
