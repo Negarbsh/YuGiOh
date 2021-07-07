@@ -41,15 +41,15 @@ public class CardImageButton extends ImageButton {
         this.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                super.enter(event, x, y, pointer, fromActor);
+//                super.enter(event, x, y, pointer, fromActor);
                 myController.selectCard(myOwnerCard);
             }
 
-
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                myController.selectCard(myOwnerCard); //todo: remove it I guess!
-            }
+//
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                myController.selectCard(myOwnerCard); //todo: remove it I guess!
+//            }
         });
     }
 
