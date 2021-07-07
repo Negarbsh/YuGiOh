@@ -1,11 +1,6 @@
 package com.mygdx.game.java.model.card.cardinusematerial;
 
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.game.java.controller.game.DuelMenuController;
-import com.mygdx.game.java.view.Constants;
-import lombok.Getter;
-import lombok.Setter;
 import com.mygdx.game.java.model.Board;
 import com.mygdx.game.java.model.CardState;
 import com.mygdx.game.java.model.Enums.Phase;
@@ -13,6 +8,8 @@ import com.mygdx.game.java.model.Player;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.watchers.Watcher;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,8 +24,6 @@ public abstract class CardInUse  {
     private boolean isFaceUp;
     protected Board board;
 
-    private ImageButton imageButton;
-    private ImageButton.ImageButtonStyle style;
 
     public CardInUse(Board board) {
         this.board = board;

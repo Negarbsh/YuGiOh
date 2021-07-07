@@ -40,7 +40,7 @@ public class DuelMenuScreen implements Screen {
 
     @Override
     public void show() {
-        stage.addActor(new Wallpaper(3, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
+        stage.addActor(new Wallpaper(2, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
         table = new Table();
         table.setFillParent(true);
         stage.addActor(table);

@@ -31,8 +31,8 @@ public class TurnScreen implements Screen {
 
     private final DuelMenuController controller;
 
-    private static Hand myHand;
-    private static Hand rivalHand;
+    private final Hand myHand;
+    private final Hand rivalHand;
     private final Board myBoard;
     private final Board rivalBoard;
     private final Player myPlayer;
