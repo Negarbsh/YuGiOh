@@ -67,7 +67,7 @@ public enum Phase {
             case 5:
                 return END;
             default:
-                return null;
+                throw new IllegalStateException();
         }
     }
 

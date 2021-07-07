@@ -3,6 +3,7 @@ package com.mygdx.game.java.view.Menus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -70,7 +71,7 @@ public class TurnScreen implements Screen {
         this.rivalBoard = rival.getBoard();
         this.myHand = myPlayer.getHand();
         this.rivalHand = rival.getHand();
-        this.stage = new Stage(new ExtendViewport(Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT)); //todo: fine?
+        this.stage = new Stage(new ExtendViewport(Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
     }
 
     @Override
@@ -107,7 +108,7 @@ public class TurnScreen implements Screen {
                 switch (decision) {
                     case 1:
                         controller.getRoundController().setTurnEnded(true);
-                        controller.getRoundController().setRoundEnded(true);
+                        controller.setRoundEnded(true);
                         DuelMenuController.endGame();
                         break;
                     case 2:
@@ -139,14 +140,16 @@ public class TurnScreen implements Screen {
         rivalHandTable = rivalHand.getHandTable(false);
         myHandTable.setBounds(Constants.SIDE_INFO_WIDTH, 0, Constants.HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
         rivalHandTable.setBounds(Constants.SIDE_INFO_WIDTH, Constants.RIVAL_HAND_Y, Constants.HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
-        myHandTable.setColor(Color.BLUE);
-        rivalHandTable.setColor(Color.BLUE);
+//        myHandTable.setColor(Color.BLUE); wtf:/
+//        rivalHandTable.setColor(Color.BLUE);
         stage.addActor(myHandTable);
         stage.addActor(rivalHandTable);
     }
 
     private void createBoards() {
         //todo
+
+
 //        rivalBoard.setupEntities(false);
 //        myBoardTable = myBoard.getTable();
 //        rivalBoardTable = rivalBoard.getTable();//todo: create the table fields in hand and board
@@ -232,13 +235,13 @@ public class TurnScreen implements Screen {
     }
 
     private void createPhaseBtn() {
-        phaseButton = new TextButton("Next Phase >>", flatEarthSkin);
+        phaseButton = new TextButton("Start Turn >>", flatEarthSkin);
         phaseButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 controller.nextPhase();
                 Phase currentPhase = controller.getCurrentPhase();
-                if (currentPhase != null) phaseButton.setText(currentPhase.toString() + "\nNext Phase >>");
+                if (currentPhase != null) phaseButton.setText(currentPhase.toString() + "\nnext phase >>");
             }
         });
         phaseButton.setHeight(Constants.SIDE_INFO_LABELS_HEIGHT);
@@ -281,7 +284,7 @@ public class TurnScreen implements Screen {
 
     private Label getNamesLabel(Player player) {
         Label label = new Label("Username: " + player.getOwner().getUsername() + "\nNickname: " + player.getName(), flatEarthSkin);
-
+        label.scaleBy(2); //todo: fine?
         label.setWidth(Constants.SIDE_INFO_WIDTH);
         label.setColor(0.6f, 0.298f, 0, 1);
         label.setAlignment(Align.center);
@@ -293,6 +296,9 @@ public class TurnScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0.466f, 0.207f, 0.466f, 1f);
+        Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         myLifePoint.setValue(myPlayer.getLifePoint());
         myLPLabel.setText("Life Point: " + myPlayer.getLifePoint());
         rivalLifePoint.setValue(rival.getLifePoint());
@@ -326,7 +332,6 @@ public class TurnScreen implements Screen {
 
     @Override
     public void dispose() {
-
     }
 
 

@@ -22,8 +22,8 @@ public class DuelMenuScreen implements Screen {
     Stage stage;
     User user;
     TextButton button;
-    Label rivalUserLabel,roundLabel,resultLabel;
-    TextField usernameTextField,roundTextField;
+    Label rivalUserLabel, roundLabel, resultLabel;
+    TextField usernameTextField, roundTextField;
 
     private final GameMainClass gameMainClass;
 
@@ -54,7 +54,7 @@ public class DuelMenuScreen implements Screen {
         roundTextField = new TextField("", gameMainClass.flatEarthSkin);
 
         resultLabel = new Label("", gameMainClass.flatEarthSkin);
-        resultLabel.setBounds(100,50, 100,500);
+        resultLabel.setBounds(100, 50, 100, 500);
 
         table.add(rivalUserLabel);
         table.add(usernameTextField).width(300).height(60).row();
@@ -70,14 +70,14 @@ public class DuelMenuScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
 
 
-                    try{
-                        DuelMenuController.startNewDuel(usernameTextField.getText(),Integer.parseInt(roundTextField.getText()),gameMainClass);
+                try {
+                    DuelMenuController.startNewDuel(usernameTextField.getText(), Integer.parseInt(roundTextField.getText()), gameMainClass);
 
-                    }catch(NumberFormatException e){
-                        resultLabel.setText("please enter a valid number");
-                    } catch (Exception e){
-                        resultLabel.setText(e.getMessage());
-                    }
+                } catch (NumberFormatException e) {
+                    resultLabel.setText("please enter a valid number");
+                } catch (Exception e) {
+                    resultLabel.setText(e.getMessage());
+                }
             }
         });
 

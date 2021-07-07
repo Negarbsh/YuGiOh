@@ -12,8 +12,6 @@ import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.exceptions.*;
 
 public class GameMainClass extends Game {
-//	SpriteBatch batch;
-//	Texture img;
 
     public Skin orangeSkin;
     public Skin flatEarthSkin;

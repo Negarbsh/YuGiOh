@@ -33,7 +33,6 @@ public class RoundController {
     private Card selectedCard;
     private boolean isSelectedCardFromRivalBoard;
 
-    private boolean isRoundEnded;
     private boolean isTurnEnded;
     private int roundIndex; //0,1,2
 
@@ -42,11 +41,12 @@ public class RoundController {
     {
         isSelectedCardFromRivalBoard = false;
         actionsOnRival = new ActionsOnRival(this);
-        this.isRoundEnded = false;
+//        this.isRoundEnded = false;
+        this.isTurnEnded = false;
     }
 
 
-    public RoundController(User firstUser, User secondUser, DuelMenuController duelMenuController, int roundIndex)
+    public RoundController(User firstUser, User secondUser, DuelMenuController duelMenuController, int roundIndex, Phase currentPhase)
             throws InvalidDeck, InvalidName, NoActiveDeck {
         this.duelMenuController = duelMenuController;
         currentPlayer = new Player(firstUser, this);
@@ -56,6 +56,7 @@ public class RoundController {
 //        currentPhase = Phase.DRAW;
 //        duelMenuController.setDrawPhase(new DrawPhaseController(this, true));
         this.roundIndex = roundIndex;
+        this.currentPhase = currentPhase; //actually it keeps the reference to the phase of duelController
     }
 
     public void setCurrentPhase(Phase currentPhase) {
@@ -66,13 +67,14 @@ public class RoundController {
 
     public void setTurnEnded(boolean isTurnEnded) {
         this.isTurnEnded = isTurnEnded;
+        if (isTurnEnded) duelMenuController.changeTurn(true);
     }
 
     public void swapPlayers() {
         Player hold = this.currentPlayer;
         this.currentPlayer = rival;
         this.rival = hold;
-        setTurnEnded(false);
+        setTurnEnded(false); //todo: why needed?
     }
 
     public void updateBoards() {
@@ -174,8 +176,8 @@ public class RoundController {
     /* the main part, the game */
 
     public void setRoundWinner(RoundResult roundResult) { //I think it needs an input for draw, maybe better get an enum
-        this.isRoundEnded = true;
-        this.isTurnEnded = true;
+        this.duelMenuController.setRoundEnded(true);
+        this.setTurnEnded(true);
         switch (roundResult) {
             case CURRENT_WON:
                 winner = currentPlayer;
