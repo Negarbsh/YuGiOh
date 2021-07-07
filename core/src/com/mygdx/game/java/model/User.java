@@ -60,6 +60,10 @@ public class User implements Comparable<User> {
         return null;
     }
 
+    public int getAvatarNum() {
+        return avatarNum;
+    }
+
     public static void setAllUsers(ArrayList<User> users) {
         allUsers = users;
     }
