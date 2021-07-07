@@ -16,8 +16,6 @@ import com.mygdx.game.java.view.Menus.CardCreatorMenu;
 import com.mygdx.game.java.view.exceptions.NumOfRounds;
 
 public class GameMainClass extends Game {
-//	SpriteBatch batch;
-//	Texture img;
 
     public Skin orangeSkin;
     public Skin flatEarthSkin;

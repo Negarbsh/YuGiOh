@@ -16,11 +16,11 @@ public class DrawPhaseController {
     private final boolean isBeginningOfGame;
     private final Hand hand;
 
-    public DrawPhaseController(RoundController gamePlay, boolean isBeginningOfGame) {
+    public DrawPhaseController(RoundController gamePlay, boolean isFirstTurnOfPlayer) {
         this.roundController = gamePlay;
         this.deck = gamePlay.getCurrentPlayer().getDeck();
-        this.isBeginningOfGame = isBeginningOfGame;
-        if (isBeginningOfGame) this.numOfCardsToAdd = 5;
+        this.isBeginningOfGame = isFirstTurnOfPlayer;
+        if (isFirstTurnOfPlayer) this.numOfCardsToAdd = 5;
         else this.numOfCardsToAdd = 1;
         this.hand = gamePlay.getCurrentPlayer().getHand();
     }
