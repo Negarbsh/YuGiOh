@@ -36,7 +36,7 @@ public class ShopMenu implements Screen {
     @Getter Sound coinShake;
     @Getter @Setter PreCard selected;
     @Getter TextButton buyButton;
-    @Getter Label descriptLabel;
+    @Getter Label descriptLabel, userMoney;
     @Getter Image selectedImage;
 
     {
@@ -91,10 +91,15 @@ public class ShopMenu implements Screen {
             }
         });
 
+        userMoney = new Label(String.valueOf(user.getBalance()), mainClass.orangeSkin);
+        userMoney.setBounds(875, 950, 120, 50);
+        userMoney.setFontScale(2f);
+
         stage.addActor(new Wallpaper(1, 0, 0, 1024, 1024));
         stage.addActor(shopTable);
         stage.addActor(buyTable);
         stage.addActor(back);
+        stage.addActor(userMoney);
         Gdx.input.setInputProcessor(stage);
     }
 

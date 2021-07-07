@@ -9,6 +9,7 @@ import com.mygdx.game.java.controller.FileHandler;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.Menus.DuelMenuScreen;
 import com.mygdx.game.java.view.Menus.RelatedToMenu;
+import com.mygdx.game.java.view.Menus.ScoreboardMenu;
 
 public class GameMainClass extends Game {
 
@@ -31,6 +32,7 @@ public class GameMainClass extends Game {
         flatEarthSkin2 = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
         flatEarthSkin2.getFont("font").getData().setScale(1.5f);
         FileHandler.loadThings();
+        setScreen(new ScoreboardMenu(this, User.getUserByName("ali")));
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
 //        preformDuelScreenTest();
@@ -39,7 +41,7 @@ public class GameMainClass extends Game {
 //        setScreen(new LoginMenu(this));
 //        setScreen(new SignUpMenu(this));
 //        setScreen(new ProfileMenu(this, User.getUserByName("akbar")));
-        setScreen(new RelatedToMenu(this));
+//        setScreen(new RelatedToMenu(this));
 
     }
 

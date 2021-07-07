@@ -74,7 +74,7 @@ public class MainMenu implements Screen {
         scoreBoard.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainClass.setScreen(new LoginMenu(mainClass));
+                mainClass.setScreen(new ScoreboardMenu(mainClass, user));
             }
         });
 

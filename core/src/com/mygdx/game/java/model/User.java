@@ -73,17 +73,9 @@ public class User implements Comparable<User> {
         return null;
     }
 
-    public static String showScoreBoard() {
-        StringBuilder scoreBoard = new StringBuilder();
-        allUsers.sort(User::compareTo);
-        int counter = 1;
-        User previousUser = null;
-        for (User user : allUsers) {
-            if (previousUser != null && user.score != previousUser.score) counter++;
-            scoreBoard.append(counter).append("- ").append(user.username).append(": ").append(user.getScore()).append("\n");
-            previousUser = user;
-        }
-        return scoreBoard.toString();
+    public static ArrayList<User> getScoreBoard() {
+        Collections.sort(allUsers);
+        return allUsers;
     }
 
     public Image getAvatar() {
