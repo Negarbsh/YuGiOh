@@ -55,7 +55,6 @@ public class TurnScreen implements Screen {
     private Label rivalLPLabel;
 
     private TextButton phaseButton;
-    private boolean isBeginningOfGame = true;
 
     private Image selectedCardImage;
     private Label selectedDescription;
@@ -80,7 +79,8 @@ public class TurnScreen implements Screen {
     @Override
     public void show() {
         stage.addActor(new Wallpaper(3, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
-        flatEarthSkin = gameMainClass.flatEarthSkin;
+        flatEarthSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
+
         createSideBar();
         createBoards();
         createHands();
@@ -99,7 +99,7 @@ public class TurnScreen implements Screen {
             }
         });
         float radius = Constants.SETTING_BUTTON_RADIUS;
-        settingsButton.setBounds(Constants.DUEL_SCREEN_WIDTH - 2 * radius, Constants.DUEL_SCREEN_HEIGHT - 2 * radius, radius, radius);
+        settingsButton.setBounds(Constants.DUEL_SCREEN_WIDTH - 2 * radius, Constants.DUEL_SCREEN_HEIGHT - 1.5f * radius, radius, radius);
         stage.addActor(settingsButton);
     }
 
@@ -143,10 +143,10 @@ public class TurnScreen implements Screen {
         rivalHandTable = rivalHand.getHandTable(false);
         myHandTable.setBounds(Constants.SIDE_INFO_WIDTH, 0, Constants.HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
         rivalHandTable.setBounds(Constants.SIDE_INFO_WIDTH, Constants.RIVAL_HAND_Y, Constants.HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
-//        myHandTable.setColor(Color.BLUE); wtf:/
+//        myHandTable.setColor(Color.BLUE);
 //        rivalHandTable.setColor(Color.BLUE);
-        stage.addActor(myHandTable);
         stage.addActor(rivalHandTable);
+        stage.addActor(myHandTable);
     }
 
     private void createBoards() {

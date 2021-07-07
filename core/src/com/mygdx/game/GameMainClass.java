@@ -5,13 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.java.controller.FileHandler;
-import com.mygdx.game.java.controller.game.DuelMenuController;
-import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.view.Menus.ProfileMenu;
-import com.mygdx.game.java.view.Menus.SignUpMenu;
-import com.mygdx.game.java.view.exceptions.*;
-import com.mygdx.game.java.view.exceptions.NumOfRounds;
+import com.mygdx.game.java.view.Menus.DuelMenuScreen;
 
 public class GameMainClass extends Game {
 
@@ -49,12 +44,8 @@ public class GameMainClass extends Game {
 //        ali.setActiveDeck(ali.getDecks().get(0));
 //        akbar.setActiveDeck(akbar.getDecks().get(0));
 
-        try {
-            LoginMenuController.login("ali", "234");
-            DuelMenuController.startNewDuel("akbar", 1, this);
-        } catch (InvalidName | NumOfRounds | InvalidDeck | NoActiveDeck | InvalidThing | LoginError ex) {
-            ex.printStackTrace();
-        }
+        Screen screen = new DuelMenuScreen(User.getUserByName("ali"), this);
+        setScreen(screen);
     }
 
 

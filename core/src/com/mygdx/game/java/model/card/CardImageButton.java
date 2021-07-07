@@ -21,8 +21,10 @@ public class CardImageButton extends ImageButton {
 
     private CardImageButton(Drawable imageUp, Card ownerCard, float width, float height, DuelMenuController controller, boolean isVisible) {
         super(imageUp);
+
         //todo: make the image down
         setWidth(width);
+
         setHeight(height);
         this.ownerCard = ownerCard;
         this.isVisible = isVisible;
@@ -35,6 +37,7 @@ public class CardImageButton extends ImageButton {
                 super.enter(event, x, y, pointer, fromActor);
                 controller.selectCard(ownerCard);
             }
+
 
             @Override
             public void clicked(InputEvent event, float x, float y) {

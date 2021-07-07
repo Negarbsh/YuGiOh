@@ -68,10 +68,8 @@ public class DuelMenuScreen implements Screen {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
-
                 try {
-                    DuelMenuController.startNewDuel(usernameTextField.getText(), Integer.parseInt(roundTextField.getText()), gameMainClass);
+                    DuelMenuController.startNewDuel(usernameTextField.getText(), Integer.parseInt(roundTextField.getText()), gameMainClass, user);
 
                 } catch (NumberFormatException e) {
                     resultLabel.setText("please enter a valid number");
