@@ -29,13 +29,13 @@ public class GameMainClass extends Game {
         FileHandler.loadThings();
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
-        preformDuelScreenTest();
+//        preformDuelScreenTest();
 //        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
 //        setScreen(new CardCreatorMenu(this, User.getUserByName("ali")));
 //        setScreen(new LoginMenu(this));
 //        setScreen(new SignUpMenu(this));
 //        setScreen(new ProfileMenu(this, User.getUserByName("akbar")));
-//        setScreen(new RelatedToMenu(this));
+        setScreen(new RelatedToMenu(this));
 
     }
 
@@ -58,7 +58,7 @@ public class GameMainClass extends Game {
     @Override
     public void setScreen(Screen screen) {
         if (lastScreen != null) lastScreen.dispose();
-        else lastScreen = screen;
+        lastScreen = screen;
         super.setScreen(screen);
     }
 

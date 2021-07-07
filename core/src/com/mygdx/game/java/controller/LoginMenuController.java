@@ -7,13 +7,13 @@ import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
 
 public class LoginMenuController {
-    User user;
+    public User user;
 
     public void createUser(String username, String nickname, String password) throws AlreadyExistingError, EmptyFieldException {
         if (username.equals("") || password.equals("") || nickname.equals(""))
             throw new EmptyFieldException();
         if (hasNoCreatingError(username, nickname)) {
-            new User(username, password, nickname);
+            user = new User(username, password, nickname);
         }
     }
 
@@ -28,8 +28,7 @@ public class LoginMenuController {
     public void login(String username, String password) throws LoginError {
         if (hasNoLoginError(username, password)) {
             user = User.getUserByName(username);
-            new SuccessfulAction("user", "logged in");
-            setUserInClasses(user);
+//            new SuccessfulAction("user", "logged in");
         }
     }
 
@@ -40,9 +39,6 @@ public class LoginMenuController {
         else if (user.isPasswordWrong(password))
             throw new LoginError();
         else return true;
-    }
-
-    private static void setUserInClasses(User user) {
     }
 
 }

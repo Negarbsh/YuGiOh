@@ -25,7 +25,7 @@ public class FileHandler {
     }
 
     private static void loadAssets() {
-        PreCard.setCardsPictures();
+        PreCard.setPictures();
         Wallpaper.setAllWallpapers();
         DeckImageButton.setDeckImages();
     }

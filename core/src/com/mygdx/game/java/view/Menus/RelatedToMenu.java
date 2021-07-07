@@ -55,10 +55,10 @@ public class RelatedToMenu implements Screen {
         });
 
         TextButton exitGame = new TextButton("exit game", mainClass.orangeSkin);
-        signUp.addListener(new ClickListener(){
+        exitGame.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                dispose();
             }
         });
 
