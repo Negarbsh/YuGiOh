@@ -1,8 +1,5 @@
 package com.mygdx.game.java.controller.game;
 
-import com.mygdx.game.java.view.messageviewing.Print;
-import lombok.Getter;
-import lombok.Setter;
 import com.mygdx.game.java.model.Board;
 import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.Enums.RoundResult;
@@ -15,6 +12,9 @@ import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.model.card.cardinusematerial.SpellTrapCardInUse;
 import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.exceptions.*;
+import com.mygdx.game.java.view.messageviewing.Print;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -113,7 +113,7 @@ public class RoundController {
 
     /* general actions (in any phase) */
 
-    public void selectCard(ZoneName zoneName, boolean isForOpponent, int cardIndex) throws InvalidSelection, NoCardFound {
+    public void selectCardByAddress(ZoneName zoneName, boolean isForOpponent, int cardIndex) throws InvalidSelection, NoCardFound {
         Player ownerOfToBeSelected = currentPlayer;
         if (isForOpponent) ownerOfToBeSelected = rival;
         switch (zoneName) {
@@ -143,6 +143,17 @@ public class RoundController {
                 throw new InvalidSelection();
         }
         Print.print("card selected");
+    }
+
+    public void selectCard(Card card, Player selector) throws InvalidSelection {
+        CardInUse cardInUse = findCardsCell(card);
+        if (cardInUse != null) {
+
+        } else {
+            if (selector.getHand().doesContainCard(card)) {
+                setSelectedCard(selectedCard);
+            } else throw new InvalidSelection();
+        }
     }
 
     public void deselectCard() {

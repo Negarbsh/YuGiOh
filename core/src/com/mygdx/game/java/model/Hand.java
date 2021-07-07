@@ -2,9 +2,9 @@ package com.mygdx.game.java.model;
 
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.CardImageButton;
-import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.monster.MonsterCardType;
 import com.mygdx.game.java.model.card.monster.PreMonsterCard;
@@ -49,13 +49,13 @@ public class Hand {
         return monsters;
     }
 
-    public void addCard(Card card) {
+    public void addCard(Card card, DuelMenuController controller) {
         if (cardsInHand.size() <= 5) {
             this.cardsInHand.add(card);
-            CardImageButton cardImageVisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
-            handTableVisible.add(cardImageVisible);
-            CardImageButton cardImageInvisible = CardImageButton.getNewImageButton(null, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
-            handTableInvisible.add(cardImageInvisible);
+            CardImageButton cardImageVisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller);
+            handTableVisible.add(cardImageVisible).width(Constants.CARD_IN_HAND_WIDTH).pad(Constants.HAND_GAP_BETWEEN_CELLS);
+            CardImageButton cardImageInvisible = CardImageButton.getNewImageButton(null, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller);
+            handTableInvisible.add(cardImageInvisible).width(Constants.CARD_IN_HAND_WIDTH);
             //todo: add the listener in the duel screen when we want to add the card.
             //after you  added the card, add the click listener to the imageButton of the
             // currently added card, so that it displays the info of the card
@@ -67,7 +67,6 @@ public class Hand {
 //                }
 //            });
             this.cardImageButtons.put(card, cardImageVisible);
-            handTableVisible.add(cardImageVisible);
         }
         //todo: else throw something
     }
