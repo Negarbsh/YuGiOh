@@ -2,7 +2,9 @@ package com.mygdx.game.java.model.card;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.java.model.ButtonUtils;
 import com.mygdx.game.java.model.Reader;
+import com.mygdx.game.java.model.User;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -56,8 +58,9 @@ public abstract class PreCard {
     }
 
 
-    public static void setCardsPictures() {
+    public static void setPictures() {
         addCardPics(new String[]{"Cards/Monsters", "Cards/SpellTrap"});
+        addCharPics("Characters/avatars");
     }
 
     private static void addCardPics(String[] folderPath) {
@@ -66,6 +69,14 @@ public abstract class PreCard {
             for (FileHandle cardPic : Reader.readDirectoryCatalog(s)) {
                 cardsPictures.put(cardPic.name().replace(".jpg", ""), new Texture(cardPic));
             }
+        }
+    }
+
+    private static void addCharPics(String folderPath) {
+//        Reader.figureCatalog(folderPath);
+        int i = 0;
+        for (FileHandle charPhoto : Reader.readDirectoryCatalog(folderPath)) {
+            User.charPhotos.put(i, ButtonUtils.makeDrawable(folderPath + "/" + charPhoto.name()));
         }
     }
 

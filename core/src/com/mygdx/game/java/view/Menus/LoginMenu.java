@@ -64,10 +64,10 @@ public class LoginMenu extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 try {
                     controller.login(usernameTextField.getText(), passwordTextField.getText());
+                    mainClass.setScreen(new MainMenu(mainClass, controller.user));
                 } catch (LoginError loginError) {
                     messageBar.setText(loginError.getMessage());
                     messageBar.setColor(Color.RED);
-                    //TODO set screen
                 }
             }
         });

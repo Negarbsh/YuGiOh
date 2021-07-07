@@ -31,8 +31,8 @@ public class TurnScreen implements Screen {
 
     private final DuelMenuController controller;
 
-    private static Hand myHand;
-    private static Hand rivalHand;
+    private Hand myHand;
+    private Hand rivalHand;
     private final Board myBoard;
     private final Board rivalBoard;
     private final Player myPlayer;
@@ -183,7 +183,7 @@ public class TurnScreen implements Screen {
         Image myAvatar = myPlayer.getAvatar();
         myAvatar.setHeight(Constants.AVATAR_HEIGHT);
 
-        handleSelectedCard();
+//        handleSelectedCard();
 
         createPhaseBtn();
         addPreparedActorsToSideInfo(rivalNames, myNames, rivalAvatar, myAvatar, selectedCardImage, selectedDescription);
@@ -191,9 +191,9 @@ public class TurnScreen implements Screen {
     }
 
     public void handleSelectedCard() {
-        selectedCardImage = getSelectedCardImage();
+        selectedCardImage.setDrawable(getSelectedCardImage().getDrawable());
         selectedCardImage.setHeight(Constants.SELECTED_CARD_IMAGE_HEIGHT);
-        selectedDescription = getSelectedCardDescription();
+        selectedDescription.setText(getSelectedCardDescription().getText());
         selectedDescription.setHeight(Constants.CARD_DESCRIPTION_HEIGHT);
     }
 

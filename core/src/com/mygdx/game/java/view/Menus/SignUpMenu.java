@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.LoginMenuController;
 import com.mygdx.game.java.model.ButtonUtils;
+import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.model.Wallpaper;
 import com.mygdx.game.java.view.exceptions.AlreadyExistingError;
 import com.mygdx.game.java.view.exceptions.EmptyFieldException;
@@ -69,10 +70,13 @@ public class SignUpMenu implements Screen {
                 try {
                     controller.createUser(usernameTextField.getText(), nicknameTextField.getText(),
                             passwordTextField.getText());
+                    mainClass.setScreen(new MainMenu(mainClass, User.getUserByName(usernameTextField.getText())));
                 } catch (AlreadyExistingError | EmptyFieldException loginError) {
                     messageBar.setText(loginError.getMessage());
                     messageBar.setColor(Color.RED);
-                    //TODO set screen
+                    usernameTextField.setText("");
+                    passwordTextField.setText("");
+                    nicknameTextField.setText("");
                 }
             }
         });
