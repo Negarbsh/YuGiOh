@@ -16,7 +16,7 @@ public class Torch extends AnimatedObjects{
 
     public void createFrames() {
         myFrames = new TextureRegion[12];
-        mainSheet = new Texture(Gdx.files.internal("Items/me/torch5-2.png"));
+        mainSheet = new Texture(Gdx.files.internal("Items/me/torch5-3.png"));
         TextureRegion[][] tmp = TextureRegion.split(mainSheet, 108, 344);
         int index = 0;
         for (int i = 0; i < 2; i++) {

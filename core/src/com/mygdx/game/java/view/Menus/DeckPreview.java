@@ -186,6 +186,7 @@ public class DeckPreview implements Screen {
 
     @Override
     public void dispose() {
+        fireSound.dispose();
         stage.dispose();
     }
 }
