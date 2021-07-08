@@ -6,17 +6,16 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.DeckMenuController;
-import com.mygdx.game.java.model.ButtonUtils;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.model.Wallpaper;
+import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.view.exceptions.*;
 import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
 import lombok.Getter;
@@ -68,7 +67,7 @@ public class DeckMenu implements Screen {
         controller.createDeckTable(treasuryTable);
 
         messageBar = ButtonUtils.createMessageBar("", mainClass.orangeSkin.getFont("font-title"), 0.9f);
-        messageBar.setBounds(100, 0, 824, 65);
+        messageBar.setBounds(0, 0, 1024, 65);
 
         mainDeck = new Table();
         controller.createDecks(mainDeck, false);

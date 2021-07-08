@@ -13,15 +13,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.*;
 import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.PreCard;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
+import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.view.Constants;
 import lombok.Getter;
 
