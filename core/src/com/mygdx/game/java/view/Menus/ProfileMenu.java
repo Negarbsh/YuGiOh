@@ -5,9 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
@@ -26,7 +24,9 @@ public class ProfileMenu implements Screen {
     ProfileMenuController controller;
     GameMainClass mainClass;
     User user;
-    Label messageBar;
+    Label messageBar, info;
+    Table userInfo;
+    Image userAvatar;
 
     {
         stage = new Stage(new StretchViewport(1024, 1024));
@@ -43,9 +43,27 @@ public class ProfileMenu implements Screen {
         messageBar = ButtonUtils.createMessageBar("", mainClass.orangeSkin.getFont("font-title"), 1f);
         messageBar.setBounds(0, 0, 1024, 50);
 
+        userInfo = new Table();
+        userInfo.setBounds(312, 650, 400, 300);
+        userInfo.defaults().size(200, 300);
+        userAvatar = user.getAvatar();
+        info = new Label("", mainClass.orangeSkin);
+        info.setFontScale(1.8f);
+        controller.setLabelInfo();
+        userInfo.add(userAvatar).padRight(50);
+        userInfo.add(info);
+
         Table table = new Table();
         table.setFillParent(true);
-        table.defaults().pad(10);
+        table.defaults().pad(10).width(200);
+
+        TextButton changeAvatar = new TextButton("change avatar", mainClass.orangeSkin);
+        changeAvatar.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.changeAvatar();
+            }
+        });
 
         TextButton changePassword = new TextButton("change password", mainClass.orangeSkin);
         changePassword.addListener(new ClickListener(){
@@ -63,12 +81,24 @@ public class ProfileMenu implements Screen {
             }
         });
 
+        table.add(changeAvatar).row();
         table.add(changeNickname).row();
         table.add(changePassword).row();
+
+        ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
+        back.setBounds(25,950,70,50);
+        back.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainClass.setScreen(new MainMenu(mainClass, user));
+            }
+        });
 
         stage.addActor(new Wallpaper(1, 0, 0, 1024, 1024));
         stage.addActor(messageBar);
         stage.addActor(table);
+        stage.addActor(back);
+        stage.addActor(userInfo);
         Gdx.input.setInputProcessor(stage);
     }
 

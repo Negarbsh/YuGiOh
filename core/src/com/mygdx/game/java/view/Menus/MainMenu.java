@@ -74,7 +74,15 @@ public class MainMenu implements Screen {
         scoreBoard.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainClass.setScreen(new LoginMenu(mainClass));
+                mainClass.setScreen(new ScoreboardMenu(mainClass, user));
+            }
+        });
+
+        TextButton logout = new TextButton("log out", mainClass.orangeSkin);
+        logout.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainClass.setScreen(new RelatedToMenu(mainClass));
             }
         });
 
@@ -83,6 +91,7 @@ public class MainMenu implements Screen {
         table.add(profileButton).row();
         table.add(scoreBoard).row();
         table.add(shop).row();
+        table.add(logout).row();
 
         stage.addActor(new Wallpaper(1, 0, 0, 1024, 1024));
         stage.addActor(table);

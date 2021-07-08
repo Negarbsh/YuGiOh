@@ -74,11 +74,20 @@ public class LoginMenu extends ScreenAdapter {
         table.add(buttonLogin).colspan(2).width(250).align(Align.center).padTop(100);
         table.row();
 
+        ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
+        back.setBounds(25,950,70,50);
+        back.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainClass.setScreen(new RelatedToMenu(mainClass));
+            }
+        });
+
 
         stage.addActor(new Wallpaper(1, 0,0, 1024, 1024));
         stage.addActor(messageBar);
         stage.addActor(table);
-//        stage.addActor(mainClass.createBackButton(new MainMenu(mainClass))); todo
+        stage.addActor(back);
         Gdx.input.setInputProcessor(stage);
     }
 
