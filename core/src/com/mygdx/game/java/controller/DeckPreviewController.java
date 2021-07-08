@@ -1,28 +1,21 @@
 package com.mygdx.game.java.controller;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
-import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Null;
-import com.mygdx.game.java.model.ButtonUtils;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.Deck;
-import com.mygdx.game.java.model.DeckImageButton;
+import com.mygdx.game.java.model.forgraphic.DeckImageButton;
 import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.view.Menus.DeckPreview;
 import com.mygdx.game.java.view.exceptions.*;
-import com.mygdx.game.java.view.messageviewing.Print;
-import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
 import lombok.Getter;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class DeckPreviewController {
     User user;

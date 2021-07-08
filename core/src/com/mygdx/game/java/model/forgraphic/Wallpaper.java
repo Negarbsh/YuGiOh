@@ -1,4 +1,4 @@
-package com.mygdx.game.java.model;
+package com.mygdx.game.java.model.forgraphic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -27,7 +27,7 @@ public class Wallpaper extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (needColor)  batch.setColor(Color.YELLOW);
+        batch.setColor(Color.LIGHT_GRAY);
         batch.draw(picture, x, y, width, height);
     }
 
@@ -38,6 +38,10 @@ public class Wallpaper extends Actor {
             allWallpapers.put(2, new Texture(Gdx.files.internal("Wallpapers/deck-background.png")));
             allWallpapers.put(3, new Texture(Gdx.files.internal("Wallpapers/duel_background.png")));
             allWallpapers.put(4, new Texture(Gdx.files.internal("Wallpapers/animeSky.jpg")));
+//            allWallpapers.put(5, new Texture(Gdx.files.internal("Wallpapers/deck-preview-back.jpg")));
+//            allWallpapers.put(6, new Texture(Gdx.files.internal("Wallpapers/deck-preview-back2.jpg")));
+            allWallpapers.put(5, new Texture(Gdx.files.internal("Wallpapers/deck-preview-back3.jpg")));
+//            allWallpapers.put(6, new Texture(Gdx.files.internal("Wallpapers/deck-preview-back4.jpg")));
         }
     }
 }

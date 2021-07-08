@@ -48,6 +48,7 @@ public class ProfileMenuController {
         dialog.getContentTable().add(newPassLabel);
         dialog.getContentTable().add(newPass).row();
         dialog.button("ok", true).setHeight(30);
+        dialog.button("cancel", false).setHeight(30);
         dialog.show(profileMenu.getStage());
     }
 
@@ -72,21 +73,25 @@ public class ProfileMenuController {
                         changeNickname(nickname.getText());
                         profileMenu.getMessageBar().setText(String.format(SuccessMessages.changingSuccessfully, "nickname"));
                         profileMenu.getMessageBar().setColor(Color.GREEN);
-                    } catch (AlreadyExistingError e) {
+                    } catch (AlreadyExistingError | EmptyFieldException e) {
                         profileMenu.getMessageBar().setText(e.getMessage());
                         profileMenu.getMessageBar().setColor(Color.RED);
                     }
-                }
+                } else
+                    hide();
             }
         };
         dialog.getContentTable().defaults().pad(10);
         dialog.getContentTable().add(nicknameLabel).row();
         dialog.getContentTable().add(nickname);
         dialog.button("ok", true).setHeight(30);
+        dialog.button("cancel", false).setHeight(30);
         dialog.show(profileMenu.getStage());
     }
 
-    private void changeNickname(String nickname) throws AlreadyExistingError {
+    private void changeNickname(String nickname) throws AlreadyExistingError, EmptyFieldException {
+        if (nickname.equals(""))
+            throw new EmptyFieldException();
         if (User.getUserByNickName(nickname) != null)
             throw new AlreadyExistingError("user", "nickname", nickname);
         else

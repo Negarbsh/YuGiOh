@@ -20,6 +20,8 @@ import com.mygdx.game.java.model.*;
 import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.PreCard;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
+import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.view.Constants;
 import lombok.Getter;
 

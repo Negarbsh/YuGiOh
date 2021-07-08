@@ -2,7 +2,7 @@ package com.mygdx.game.java.model.card;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.java.model.ButtonUtils;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.Reader;
 import com.mygdx.game.java.model.User;
 import lombok.Getter;

@@ -13,12 +13,11 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.LoginMenuController;
-import com.mygdx.game.java.model.ButtonUtils;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.model.Wallpaper;
+import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.view.exceptions.AlreadyExistingError;
 import com.mygdx.game.java.view.exceptions.EmptyFieldException;
-import com.mygdx.game.java.view.exceptions.LoginError;
 
 
 public class SignUpMenu implements Screen {

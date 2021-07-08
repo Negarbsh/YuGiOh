@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.model.Wallpaper;
+import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.view.Constants;
 
 public class DuelMenuScreen implements Screen {
