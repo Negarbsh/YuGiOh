@@ -191,6 +191,7 @@ public class RoundController {
                 isDraw = true;
                 break;
         }
+        //todo: open a dialog to show the winner and the result
     }
 
     public void announceRoundWinner() {

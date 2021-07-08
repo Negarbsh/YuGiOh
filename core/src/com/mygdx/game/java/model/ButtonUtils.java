@@ -6,29 +6,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.mygdx.game.java.model.card.PicState;
 import com.mygdx.game.java.model.card.PreCard;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
-import com.mygdx.game.GameMainClass;
-import com.mygdx.game.java.model.card.PicState;
-import com.mygdx.game.java.model.card.PreCard;
-import com.mygdx.game.java.view.Constants;
-
-import java.awt.*;
-import java.awt.Container;
 
 public class ButtonUtils {
 
     public static CustomImageButton createCustomCards(String preCardName) {
-        CustomImageButton customImageButton = new CustomImageButton(new TextureRegionDrawable(new TextureRegion(
+        return new CustomImageButton(new TextureRegionDrawable(new TextureRegion(
                 PreCard.getCardPic(preCardName))), PreCard.findCard(preCardName));
-        return customImageButton;
     }
 
     public static Table createScroller(int x, int y, int width, int height, Table insideTable, Skin skin) {
@@ -62,27 +48,12 @@ public class ButtonUtils {
     }
 
     public static TextField createTextField(String text, Skin skin) {
-        TextField textField = new TextField(text, skin);
-        return textField;
+        return new TextField(text, skin);
     }
 
     public static TextButton createTextButton(String text, Skin skin) {
         TextButton textButton = new TextButton(text, skin);
         textButton.setSize(80, 30);
         return textButton;
-    }
-
-    public static Label createDuelSideInfoLabel(String text, GameMainClass mainClass) {
-        Label.LabelStyle style = new Label.LabelStyle();
-        style.background = makeDrawable("Textures/message-bar.png"); //todo change to what you want
-        BitmapFont font = mainClass.orangeSkin.getFont("font-title");
-        font.setColor(Color.GREEN);
-        style.font = font;
-
-        Label label = new Label(text, style);
-        label.setWidth(Constants.SIDE_INFO_WIDTH);
-        label.setFontScale(0.4f);
-        label.setAlignment(Align.center);
-        return label;
     }
 }

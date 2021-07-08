@@ -13,9 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.*;
@@ -113,7 +111,7 @@ public class TurnScreen implements Screen {
                     case 1:
                         controller.getRoundController().setTurnEnded(true);
                         controller.setRoundEnded(true);
-                        DuelMenuController.endGame();
+                        controller.endGame(gameMainClass);
                         break;
                     case 2:
                         controller.setGamePaused(true);
