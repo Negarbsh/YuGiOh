@@ -54,8 +54,9 @@ public class CardImageButton extends ImageButton {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Phase currentPhase = ownerPlayer.getBoard().getMyPhase();
+//                Phase currentPhase = ownerPlayer.getBoard().getMyPhase();
 
+                Phase currentPhase = myController.getCurrentPhase();
                 if (currentPhase == Phase.MAIN_1 || currentPhase == Phase.MAIN_2) {
                     //actions : summon, set, flip summon
                     if (ownerPlayer.getHand().doesContainCard(ownerCard)) {
@@ -87,11 +88,9 @@ public class CardImageButton extends ImageButton {
                             }
                         }
                     }
-                }
-                else if (currentPhase == Phase.BATTLE){
+                } else if (currentPhase == Phase.BATTLE) {
                     //todo
-                }
-                else{
+                } else {
                     myController.selectCard(ownerCard); //maybe needed in case we wanted to attack sth from rival board!
                 }
             }

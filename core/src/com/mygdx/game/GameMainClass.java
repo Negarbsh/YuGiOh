@@ -11,6 +11,7 @@ import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.Menus.DeckPreview;
 import com.mygdx.game.java.view.Menus.DuelMenuScreen;
+import com.mygdx.game.java.view.Menus.RelatedToMenu;
 
 public class GameMainClass extends Game {
 
@@ -42,25 +43,25 @@ public class GameMainClass extends Game {
 //        setScreen(new ScoreboardMenu(this, User.getUserByName("ali")));
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
-        preformDuelScreenTest();
+//        preformDuelScreenTest();
 //        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
 //        setScreen(new CardCreatorMenu(this, User.getUserByName("ali")));
 //        setScreen(new LoginMenu(this));
 //        setScreen(new SignUpMenu(this));
 //        setScreen(new ProfileMenu(this, User.getUserByName("akbar")));
-//        setScreen(new RelatedToMenu(this));
+        setScreen(new RelatedToMenu(this));
 
     }
 
     private void preformDuelScreenTest() {
         User ali = User.getUserByName("ali");
 //        User akbar = User.getUserByName("akbar");
-        Deck alis = new Deck("alis");
+//        Deck alis = new Deck("alis");
 //        Deck akbars = new Deck("akbars");
-        ali.addDeck(alis);
+//        ali.addDeck(alis);
 //        akbar.addDeck(akbars);
 //
-        ali.setActiveDeck(ali.getDecks().get(0));
+//        ali.setActiveDeck(ali.getDecks().get(0));
 //        akbar.setActiveDeck(akbar.getDecks().get(0));
 
         Screen screen = new DuelMenuScreen(User.getUserByName("ali"), this);

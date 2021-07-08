@@ -1,6 +1,8 @@
 package com.mygdx.game.java.model.card.cardinusematerial;
 
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Board;
 import com.mygdx.game.java.model.CardState;
@@ -24,7 +26,7 @@ public abstract class CardInUse {
     public boolean isPositionChanged;  //if card manner was changed in a turn ->true then ->false
     private boolean isFaceUp;
     protected Board board;
-    protected ImageButton imageButtonInUse;
+    private ImageButton imageButtonInUse;
 
 
     {
@@ -36,7 +38,9 @@ public abstract class CardInUse {
     public CardInUse(Board board) {
         this.board = board;
         this.ownerOfCard = board.getOwner();
-//        imageButtonInUse = new ImageButton(GameMainClass.orangeSkin2);
+        imageButtonInUse = new ImageButton(GameMainClass.orangeSkin2);
+        setImageButton(null);
+//        imageButtonInUse.getStyle().imageUp = null;
 //        imageButtonInUse.setSize(Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
     }
 
@@ -104,11 +108,11 @@ public abstract class CardInUse {
 
     protected void setImageButton(Card owner) {
         if (owner == null) {
-//            imageButtonInUse.getImage().setDrawable(null);
-//            imageButtonInUse = null; //todo: null or what?
             imageButtonInUse.getStyle().imageUp = null;
+            imageButtonInUse.setVisible(false);
             return;
         }
+        imageButtonInUse.setVisible(true);
         if(isFaceUp) imageButtonInUse.getStyle().imageUp = owner.getVisibleImageButton().getImage().getDrawable();
         else imageButtonInUse.getStyle().imageUp = owner.getInvisibleImageButton().getImage().getDrawable();
         if (this instanceof MonsterCardInUse) {

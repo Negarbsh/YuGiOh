@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
@@ -47,8 +48,10 @@ public class TurnScreen implements Screen {
     private Table rivalHandTable;
 
     private Table boardsTable; //contains both of the boards and has a background
-    private Table myBoardTable; //each boardTable is a 2 * 5 table which has card in uses and a card in use has an image button to add to the table
-    private Table rivalBoardTable;
+//    private Table myBoardTable; //each boardTable is a 2 * 5 table which has card in uses and a card in use has an image button to add to the table
+//    private Table rivalBoardTable;
+//    private Array<ImageButton> myButtons;
+//    private Array<ImageButton>
 
     private Table sideInfoTable;//contains myAvatar, selectedCard description, selectedCard Image and rival avatar.
     private ProgressBar myLifePoint;
