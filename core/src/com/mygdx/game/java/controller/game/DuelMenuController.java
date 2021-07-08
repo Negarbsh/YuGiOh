@@ -16,6 +16,7 @@ import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.monster.MonsterManner;
 import com.mygdx.game.java.model.watchers.Watcher;
+import com.mygdx.game.java.view.Menus.CoinFlipScreen;
 import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.Menus.TurnScreen;
 import com.mygdx.game.java.view.exceptions.*;
@@ -117,16 +118,16 @@ public class DuelMenuController {
 
     /*match actions*/
 
-    private void startDuel() { //idk wht I didn't merge it with run match! :/
+
+    //todo; made public for test. make it private
+    public void startDuel() { //idk wht I didn't merge it with run match! :/
         isAnyGameRunning = true;
-        while (isAnyGameRunning) {
-            playHeadOrTails(gameMainClass);
-            //after the head or tails was done, the "runMatch()" function is called with a boolean "should swap users" as the inut
-        }
+        playHeadOrTails(gameMainClass);
+        //after the head or tails was done, the "runMatch()" function is called with a boolean "should swap users" as the inut
     }
 
     //called after the head or tails
-    public void runMatch(boolean shouldSwapUsers) throws InvalidDeck, NoActiveDeck, InvalidName {
+    public void runMatch(boolean shouldSwapUsers)  {
         if (shouldSwapUsers) {
             User hold = firstUser;
             firstUser = secondUser;
@@ -134,7 +135,11 @@ public class DuelMenuController {
         }
 
         for (int i = 0; i < numOfRounds && isAnyGameRunning; i++) {
-            runOneRound(i);
+            try {
+                runOneRound(i);
+            } catch (InvalidName | NoActiveDeck | InvalidDeck exception) {
+                DuelMenu.showException(exception);
+            }
             if (checkMatchFinished()) break;
             exchangeCardInDecks(roundController.getCurrentPlayer());
             exchangeCardInDecks(roundController.getRival());
@@ -255,14 +260,16 @@ public class DuelMenuController {
     }
 
 
-    public boolean playHeadOrTails(GameMainClass gameMainClass) {
+    public void playHeadOrTails(GameMainClass gameMainClass) {
 
         boolean isHead = Math.random() < 0.5;
-        //todo: uncomment after shima's push
+        CoinFlipScreen coinFlipScreen = new CoinFlipScreen(isHead, gameMainClass, this);
+        gameMainClass.setScreen(coinFlipScreen);
+
 //        CoinflipScreen screen = new Screen(isHead, gameMainClass,this);
 //        gameMainClass.setScreen(screen);
 
-        return isHead;
+//        return isHead;
 //        DuelMenu.showHeadOrTails(isHead, firstUser.getUsername(), secondUser.getUsername());
     }
 

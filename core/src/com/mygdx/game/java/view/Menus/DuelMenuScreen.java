@@ -45,9 +45,9 @@ public class DuelMenuScreen implements Screen {
         table.setFillParent(true);
         stage.addActor(table);
 
-        gameMainClass.flatEarthSkin.getFont("font").getData().scale(3f);
-        gameMainClass.flatEarthSkin.getFont("font").setColor(Color.BLACK);
-        rivalUserLabel = new Label("rival user", gameMainClass.flatEarthSkin);
+//        gameMainClass.flatEarthSkin.getFont("font").getData().scale(3f);
+//        gameMainClass.flatEarthSkin.getFont("font").setColor(Color.BLACK);
+//        rivalUserLabel = new Label("rival user", gameMainClass.flatEarthSkin);
 //        rivalUserLabel.setColor(Color.BLACK);
         usernameTextField = new TextField("", gameMainClass.flatEarthSkin);
         roundLabel = new Label("num of round", gameMainClass.flatEarthSkin);
@@ -74,7 +74,7 @@ public class DuelMenuScreen implements Screen {
                         DuelMenuController.startNewDuel(usernameTextField.getText(),Integer.parseInt(roundTextField.getText()),gameMainClass);
 
                     }catch(NumberFormatException e){
-                        resultLabel.setText("please enter a valid number");
+                        resultLabel.setText("please enter a valid number"   );
                     } catch (Exception e){
                         resultLabel.setText(e.getMessage());
                     }

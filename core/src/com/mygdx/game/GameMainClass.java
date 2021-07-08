@@ -9,6 +9,9 @@ import com.mygdx.game.java.controller.LoginMenuController;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.view.Menus.CoinFlipScreen;
+import com.mygdx.game.java.view.Menus.DuelMenu;
+import com.mygdx.game.java.view.Menus.DuelMenuScreen;
 import com.mygdx.game.java.view.exceptions.*;
 
 public class GameMainClass extends Game {
@@ -26,10 +29,36 @@ public class GameMainClass extends Game {
         flatEarthSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
         orangeSkin = new Skin(Gdx.files.internal("orange/skin/uiskin.json"));
         FileHandler.loadThings();
+        performShimaScreenTest();
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
-        preformDuelScreenTest();
+//        preformDuelScreenTest();
 //        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
+
+
+//        setScreen(new DuelMenuScreen(ali,this));
+//
+
+       }
+
+    private void performShimaScreenTest(){
+        User ali = User.getUserByName("ali");
+        User akbar = User.getUserByName("akbar");
+        Deck alis = new Deck("alis");
+        Deck akbars = new Deck("akbars");
+        ali.addDeck(alis);
+        akbar.addDeck(akbars);
+
+        try {
+            DuelMenuController controller = new DuelMenuController(ali,akbar,1,this);
+            controller.startDuel();
+
+        } catch (NumOfRounds numOfRounds) {
+            numOfRounds.printStackTrace();
+        }
+
+
+
 
     }
 
