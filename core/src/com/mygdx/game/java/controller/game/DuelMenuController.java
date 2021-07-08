@@ -16,6 +16,7 @@ import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.monster.MonsterManner;
 import com.mygdx.game.java.model.watchers.Watcher;
 import com.mygdx.game.java.view.Menus.DuelMenu;
+import com.mygdx.game.java.view.Menus.MainMenu;
 import com.mygdx.game.java.view.Menus.TurnScreen;
 import com.mygdx.game.java.view.exceptions.*;
 import com.mygdx.game.java.view.messageviewing.Print;
@@ -33,6 +34,8 @@ public class DuelMenuController {
     private static boolean isAnyGameRunning = false;
 
     private boolean isRoundEnded = false;
+
+    private User loggedInUser;
 
     private User firstUser;
     private User secondUser;
@@ -63,7 +66,9 @@ public class DuelMenuController {
 
     //todo: made public for test! make it private
     private DuelMenuController(User firstUser, User secondUser, int numOfRounds, GameMainClass gameMainClass) throws NumOfRounds {
+        DuelMenu.duelMenuController = this;
         this.gameMainClass = gameMainClass;
+        this.loggedInUser = firstUser;
         setFirstUser(firstUser);
         setSecondUser(secondUser);
         setNumOfRounds(numOfRounds);
@@ -106,8 +111,12 @@ public class DuelMenuController {
         }
     }
 
-    public static void endGame() {
+    public void endGame(GameMainClass gameMainClass) {
+        surrender();
         isAnyGameRunning = false;
+        User user = loggedInUser;
+        gameMainClass.setScreen(new MainMenu(gameMainClass, user));
+
     }
 
 
@@ -117,7 +126,7 @@ public class DuelMenuController {
         isAnyGameRunning = true;
         playHeadOrTails(gameMainClass);
         runMatch(false); //todo: it should be removed and called by shima
-        //after the head or tails was done, the "runMatch()" function is called with a boolean "should swap users" as the inut
+        //after the head or tails was done, the "runMatch()" function is called with a boolean "should swap users" as the input
     }
 
     //called after the head or tails
@@ -386,7 +395,7 @@ public class DuelMenuController {
         } else throw new NoSelectedCard();
     }
 
-    private boolean canSeeCard(Player viewer, Card card) {
+    public boolean canSeeCard(Player viewer, Card card) {
         CardInUse cardInUse = getRoundController().findCardsCell(card);
         if (cardInUse == null) {
             return viewer.getHand().doesContainCard(card);

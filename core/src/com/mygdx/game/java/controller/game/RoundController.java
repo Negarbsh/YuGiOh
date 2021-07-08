@@ -144,7 +144,8 @@ public class RoundController {
     public void selectCard(Card card, Player selector) throws InvalidSelection {
         CardInUse cardInUse = findCardsCell(card);
         if (cardInUse != null) {
-            //todo select the card in board
+            if (duelMenuController.canSeeCard(selector, card))
+                setSelectedCard(card);
         } else {
             if (selector.getHand().doesContainCard(card)) {
                 setSelectedCard(card);
@@ -191,6 +192,7 @@ public class RoundController {
                 isDraw = true;
                 break;
         }
+        //todo: open a dialog to show the winner and the result
     }
 
     public void announceRoundWinner() {

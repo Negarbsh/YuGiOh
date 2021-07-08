@@ -2,13 +2,9 @@ package com.mygdx.game.java.view.Menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
@@ -45,8 +41,7 @@ public class DuelMenuScreen implements Screen {
         table.setFillParent(true);
         stage.addActor(table);
 
-        gameMainClass.flatEarthSkin.getFont("font").getData().scale(3f);
-        gameMainClass.flatEarthSkin.getFont("font").setColor(Color.BLACK);
+
         rivalUserLabel = new Label("rival user", gameMainClass.flatEarthSkin);
 //        rivalUserLabel.setColor(Color.BLACK);
         usernameTextField = new TextField("", gameMainClass.flatEarthSkin);
@@ -78,7 +73,17 @@ public class DuelMenuScreen implements Screen {
             }
         });
 
+        ImageButton back = new ImageButton(gameMainClass.orangeSkin, "left");
+        back.setBounds(25,950,70,50);
+        back.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gameMainClass.setScreen(new MainMenu(gameMainClass, user));
+            }
+        });
+
         stage.addActor(resultLabel);
+        stage.addActor(back);
         Gdx.input.setInputProcessor(stage);
     }
 

@@ -1,5 +1,6 @@
 package com.mygdx.game.java.model;
 
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.view.exceptions.InvalidSelection;
@@ -65,5 +66,8 @@ public class GraveYard {
         return showGraveyard.toString();
     }
 
+    public ImageButton getImageButton() {
+        return null; //todo
+    }
 }
 

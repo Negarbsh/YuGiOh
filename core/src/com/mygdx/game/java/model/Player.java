@@ -1,9 +1,6 @@
 package com.mygdx.game.java.model;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.java.controller.game.RoundController;
 import com.mygdx.game.java.model.card.PreCard;
 
@@ -19,7 +16,7 @@ public class Player {
 
 
     {
-        this.hand = new Hand();
+        this.hand = new Hand(this);
     }
 
     public Player(User owner, RoundController roundController) {
