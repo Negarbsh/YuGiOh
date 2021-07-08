@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.DeckPreviewController;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import lombok.Getter;
 
@@ -34,6 +35,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void show() {
+        ButtonUtils.redoChangingCursor();
         Table table = new Table();
         table.setFillParent(true);
         table.defaults().pad(10).size(200, 50);
