@@ -78,7 +78,7 @@ public class TurnScreen implements Screen {
 
     @Override
     public void show() {
-        flatEarthSkin = gameMainClass.flatEarthSkin2;
+        flatEarthSkin = GameMainClass.flatEarthSkin2;
         stage.addActor(new Wallpaper(4, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
         createSideBar();
         createBoards();
@@ -130,7 +130,7 @@ public class TurnScreen implements Screen {
     }
 
     private void createMessageLabel() {
-        messageLabel = ButtonUtils.createMessageBar("YoGiOh!", gameMainClass.orangeSkin.getFont("font-title"), 0.9f);
+        messageLabel = ButtonUtils.createMessageBar("YuGiOh!", gameMainClass.orangeSkin.getFont("font-title"), 0.9f);
         messageLabel.setColor(0.98f, 0.68f, 0.52f, 1);
         messageLabel.setBounds(Constants.SIDE_INFO_WIDTH, Constants.DUEL_SCREEN_HEIGHT - Constants.UPPER_BAR_HEIGHT,
                 Constants.DUEL_SCREEN_WIDTH - Constants.SIDE_INFO_WIDTH - 3 * Constants.SETTING_BUTTON_RADIUS, Constants.UPPER_BAR_HEIGHT);
@@ -142,23 +142,27 @@ public class TurnScreen implements Screen {
         rivalHandTable = rivalHand.getHandTable(false);
         myHandTable.setBounds(Constants.SIDE_INFO_WIDTH, 0, Constants.HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
         rivalHandTable.setBounds(Constants.SIDE_INFO_WIDTH, Constants.RIVAL_HAND_Y, Constants.HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
-//        myHandTable.setColor(Color.BLUE);
-//        rivalHandTable.setColor(Color.BLUE);
-
         stage.addActor(myHandTable);
         stage.addActor(rivalHandTable);
     }
 
     private void createBoards() {
-        //todo
+        rivalBoard.setupEntities(false);
+        myBoard.setupEntities(true);
+        rivalBoardTable = rivalBoard.getTable();
+        myBoardTable = myBoard.getTable();
 
+        this.boardsTable = new Table(flatEarthSkin);
+        boardsTable.setBackground(ButtonUtils.makeDrawable("Field/fie_normal.bmp"));
+        boardsTable.setBounds(Constants.BOARDS_X, Constants.BOARDS_Y, Constants.BOARDS_WIDTH, Constants.BOARDS_HEIGHT);
 
-//        rivalBoard.setupEntities(false);
-//        myBoardTable = myBoard.getTable();
-//        rivalBoardTable = rivalBoard.getTable();//todo: create the table fields in hand and board
-//
-//        stage.addActor(myBoardTable);
-//        stage.addActor(rivalBoardTable);
+        this.rivalBoardTable = rivalBoard.getTable();
+        this.myBoardTable = myBoard.getTable();
+        boardsTable.add(rivalBoardTable).pad(Constants.BOARDS_GAP);
+        boardsTable.row();
+        boardsTable.add(myBoardTable);
+
+        stage.addActor(boardsTable);
     }
 
     //side bar stuff beginning

@@ -66,6 +66,7 @@ public class DuelMenuController {
 
     //todo: made public for test! make it private
     private DuelMenuController(User firstUser, User secondUser, int numOfRounds, GameMainClass gameMainClass) throws NumOfRounds {
+        DuelMenu.duelMenuController = this;
         this.gameMainClass = gameMainClass;
         this.loggedInUser = firstUser;
         setFirstUser(firstUser);
@@ -394,7 +395,7 @@ public class DuelMenuController {
         } else throw new NoSelectedCard();
     }
 
-    private boolean canSeeCard(Player viewer, Card card) {
+    public boolean canSeeCard(Player viewer, Card card) {
         CardInUse cardInUse = getRoundController().findCardsCell(card);
         if (cardInUse == null) {
             return viewer.getHand().doesContainCard(card);

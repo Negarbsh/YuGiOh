@@ -8,22 +8,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.mygdx.game.java.model.card.PicState;
+import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.model.card.PreCard;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
-import com.mygdx.game.java.model.card.PreCard;
-import com.mygdx.game.java.view.Constants;
-import com.mygdx.game.java.view.Menus.RelatedToMenu;
-
-import java.awt.*;
-import java.awt.Container;
 
 public class ButtonUtils {
 
@@ -34,8 +23,8 @@ public class ButtonUtils {
 
     public static ImageButton buttonBack(int x, int y, int width, int height, Screen screen, GameMainClass mainClass) {
         ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
-        back.setBounds(25,950,70,50);
-        back.addListener(new ClickListener(){
+        back.setBounds(25, 950, 70, 50);
+        back.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 mainClass.setScreen(screen);

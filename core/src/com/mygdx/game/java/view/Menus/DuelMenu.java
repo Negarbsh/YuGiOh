@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 
 public class DuelMenu {
     private static final Scanner scanner;
-    private static DuelMenuController duelMenuController;
+    public static DuelMenuController duelMenuController;
 
     static {
         scanner = new Scanner(System.in);
@@ -221,14 +221,20 @@ public class DuelMenu {
         }
     }
 
+    public static void showTemporaryTurnChange(String name, Board newCurrentBoard, Board newRivalBoard) {
+        Print.print("now it will be " + name + "’s turn");
+        Print.print(newRivalBoard.rivalTurnString());
+        Print.print(newCurrentBoard.myTurnString());
+    }
+
+
     public static void showException(Exception exception) {
         Print.print(exception.getMessage());
         duelMenuController.getTurnScreen().showMessage(exception.getMessage());
     }
 
-    public static void showTemporaryTurnChange(String name, Board newCurrentBoard, Board newRivalBoard) {
-        Print.print("now it will be " + name + "’s turn");
-        Print.print(newRivalBoard.rivalTurnString());
-        Print.print(newCurrentBoard.myTurnString());
+    public static void showResult(String message) {
+        Print.print(message);
+        duelMenuController.getTurnScreen().showMessage(message);
     }
 }

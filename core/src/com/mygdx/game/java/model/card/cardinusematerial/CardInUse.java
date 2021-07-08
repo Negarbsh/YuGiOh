@@ -1,5 +1,6 @@
 package com.mygdx.game.java.model.card.cardinusematerial;
 
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Board;
 import com.mygdx.game.java.model.CardState;
@@ -16,13 +17,14 @@ import java.util.Collections;
 
 @Getter
 @Setter
-public abstract class CardInUse  {
+public abstract class CardInUse {
     public ArrayList<Watcher> watchersOfCardInUse;
     public Card thisCard;
     public Player ownerOfCard;
     public boolean isPositionChanged;  //if card manner was changed in a turn ->true then ->false
     private boolean isFaceUp;
     protected Board board;
+    protected ImageButton imageButtonInUse;
 
 
     public CardInUse(Board board) {
@@ -34,6 +36,7 @@ public abstract class CardInUse  {
         isPositionChanged = false;
         isFaceUp = false;
         watchersOfCardInUse = new ArrayList<>();
+//        imageButtonInUse = new ImageButton(GameMainClass.flatEarthSkin2); todo needed?
     }
 
     public Card getThisCard() {
@@ -50,10 +53,12 @@ public abstract class CardInUse  {
             isFaceUp = true;
             isPositionChanged = true;
         }
+        setImageButton(thisCard);
     }
 
     public void setACardInCell(Card card) {
         thisCard = card;
+        setImageButton(thisCard);
         card.cardIsBeingSetInCell(this);
     }
 
@@ -68,6 +73,8 @@ public abstract class CardInUse  {
         if (thisCard != null)
             thisCard.theCardIsBeingDeleted();
         thisCard = null;
+        setImageButton(null);
+
     }
 
     public void sendToGraveYard() {
@@ -92,6 +99,22 @@ public abstract class CardInUse  {
             isPositionChanged = false;
         }
         Collections.sort(watchersOfCardInUse);//todo what is the error
+    }
+
+    protected void setImageButton(Card owner) {
+        if (owner == null) {
+//            imageButtonInUse.getImage().setDrawable(null);
+            imageButtonInUse = null; //todo: null or what?
+            return;
+        }
+        if (isFaceUp) imageButtonInUse = owner.getVisibleImageButton();
+        else imageButtonInUse = owner.getInvisibleImageButton();
+        if (this instanceof MonsterCardInUse) {
+            MonsterCardInUse monsterCardInUse = (MonsterCardInUse) this;
+            if (!monsterCardInUse.isInAttackMode()) {
+                imageButtonInUse.rotateBy(90); //todo: fine?
+            }
+        }
     }
 
     //used in showing the board

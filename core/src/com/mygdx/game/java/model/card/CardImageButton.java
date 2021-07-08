@@ -7,6 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.java.controller.game.DuelMenuController;
+import com.mygdx.game.java.model.Enums.Phase;
+import com.mygdx.game.java.model.card.monster.Monster;
+import com.mygdx.game.java.view.Menus.DuelMenu;
+import com.mygdx.game.java.view.exceptions.*;
 
 public class CardImageButton extends ImageButton {
     private final Card myOwnerCard;
@@ -17,8 +21,7 @@ public class CardImageButton extends ImageButton {
         Drawable imageUp;
         if (!isVisible) {
             imageUp = new Image(PreCard.getCardPic("Unknown")).getDrawable();
-        }
-        else {
+        } else {
             imageUp = new Image(PreCard.getCardPic(ownerCard.getName())).getDrawable();
 
         }
@@ -39,17 +42,28 @@ public class CardImageButton extends ImageButton {
             ownerCard.setVisibleImageButton(this);
         } else ownerCard.setInvisibleImageButton(this);
         this.addListener(new ClickListener() {
+
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-//                super.enter(event, x, y, pointer, fromActor);
                 myController.selectCard(myOwnerCard);
             }
 
-//
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                myController.selectCard(myOwnerCard); //todo: remove it I guess!
-//            }
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Phase currentPhase = myController.getCurrentPhase();
+                if (currentPhase == Phase.MAIN_1 || currentPhase == Phase.MAIN_2) {
+                    if (ownerCard instanceof Monster) {//todo: not this!
+                        try {
+                            myController.selectCard(myOwnerCard); // I think it's not needed
+                            myController.summonMonster(false);
+
+                        } catch (WrongPhaseForAction | CantDoActionWithCard | UnableToChangePosition | NoSelectedCard | BeingFull | AlreadyDoneAction | NotEnoughTributes exception) {
+                            DuelMenu.showException(exception);
+                        }
+                    }
+                }
+            }
         });
     }
 
