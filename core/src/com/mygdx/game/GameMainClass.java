@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.java.controller.FileHandler;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.view.Menus.DeckPreview;
 import com.mygdx.game.java.view.Menus.DuelMenuScreen;
 
 public class GameMainClass extends Game {
@@ -20,6 +21,7 @@ public class GameMainClass extends Game {
     public Music gameMusic;
 
     public Screen lastScreen;
+
 
     @Override
     public void create() {
