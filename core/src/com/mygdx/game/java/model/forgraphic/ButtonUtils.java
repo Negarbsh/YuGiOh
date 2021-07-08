@@ -1,5 +1,6 @@
 package com.mygdx.game.java.model.forgraphic;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -78,20 +80,6 @@ public class ButtonUtils {
         return textButton;
     }
 
-    public static Label createDuelSideInfoLabel(String text, GameMainClass mainClass) {
-        Label.LabelStyle style = new Label.LabelStyle();
-        style.background = makeDrawable("Textures/message-bar.png"); //todo change to what you want
-        BitmapFont font = mainClass.orangeSkin.getFont("font-title");
-        font.setColor(Color.GREEN);
-        style.font = font;
-
-        Label label = new Label(text, style);
-        label.setWidth(Constants.SIDE_INFO_WIDTH);
-        label.setFontScale(0.4f);
-        label.setAlignment(Align.center);
-        return label;
-    }
-
     public static void changeMouseCursor() {
         Pixmap pm = new Pixmap(Gdx.files.internal("Items/me/sword1-4.png"));
         Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
@@ -101,4 +89,23 @@ public class ButtonUtils {
     public static void redoChangingCursor() {
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
     }
+
+//    //if the user chooses options[i], the function returns i
+//    public static int showQuestionDialog(String title, String question, String[] options, Stage stage) {
+//        final int[] response = new int[1];
+//        Dialog dialog = new Dialog(title, GameMainClass.flatEarthSkin2) {
+//            @Override
+//            protected void result(Object object) {
+//                response[0] = (int) object;
+//            }
+//        };
+//
+//        dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+//        dialog.text(question);
+//        for (int i = 0; i < options.length; i++) {
+//            dialog.button(options[i], i);
+//        }
+//        dialog.show(stage);
+//        return response[0];
+//    }
 }

@@ -68,36 +68,7 @@ public class CardImageButton extends ImageButton {
         if (controller.isGamePaused()) return;
         Phase currentPhase = myController.getCurrentPhase();
         if (currentPhase == Phase.MAIN_1 || currentPhase == Phase.MAIN_2) {
-            //actions : summon, set, flip summon
-            if (ownerPlayer.getHand().doesContainCard(ownerCard)) {
-                if (ownerCard instanceof Monster) {//todo: we should ask the user what they want to do ( summon, setMonster) right now the default is summon
-                    try {
-                        myController.selectCard(myOwnerCard); // I think it's not needed
-                        myController.summonMonster(false);
-
-                    } catch (WrongPhaseForAction | CantDoActionWithCard | UnableToChangePosition | NoSelectedCard | BeingFull | AlreadyDoneAction | NotEnoughTributes exception) {
-                        DuelMenu.showException(exception);
-                    }
-                } else if (ownerCard instanceof SpellTrap) {
-                    try {
-                        myController.selectCard(ownerCard);
-                        myController.getMainPhaseController().setCard();
-                    } catch (AlreadyDoneAction | NoSelectedCard | CantDoActionWithCard | BeingFull exception) {
-                        DuelMenu.showException(exception);
-                    }
-                }
-            } else {
-                //the card isn't in hand. if it is in the monster zone we may flip summon it
-                if (ownerCard instanceof Monster) {
-                    myController.selectCard(ownerCard);
-                    //todo ask the user if they mean to flip summon! ( you can also do it in other parts)
-                    try {
-                        myController.getMainPhaseController().flipSummon();
-                    } catch (NoSelectedCard | CantDoActionWithCard exception) {
-                        DuelMenu.showException(exception);
-                    }
-                }
-            }
+            checkMainPhaseActions(ownerPlayer, ownerCard);
         } else if (currentPhase == Phase.BATTLE) {
             //todo
         } else {
@@ -105,7 +76,28 @@ public class CardImageButton extends ImageButton {
         }
     }
 
-    public void handleEntered(){
+    private void checkMainPhaseActions(Player ownerPlayer, Card ownerCard) {
+        //actions : summon, set, flip summon
+        if (ownerPlayer.getHand().doesContainCard(ownerCard)) {
+            if (ownerCard instanceof Monster)
+                myController.getTurnScreen().handleMainPhaseActionHand(true, myOwnerCard);
+            else if (ownerCard instanceof SpellTrap)
+                myController.getTurnScreen().handleMainPhaseActionHand(false, myOwnerCard);
+        } else {
+            //the card isn't in hand. if it is in the monster zone we may flip summon it
+            if (ownerCard instanceof Monster) {
+                myController.selectCard(ownerCard);
+                //todo ask the user if they mean to flip summon! ( you can also do it in other parts)
+                try {
+                    myController.getMainPhaseController().flipSummon();
+                } catch (NoSelectedCard | CantDoActionWithCard exception) {
+                    DuelMenu.showException(exception);
+                }
+            }
+        }
+    }
+
+    public void handleEntered() {
         myController.selectCard(myOwnerCard);
     }
 
