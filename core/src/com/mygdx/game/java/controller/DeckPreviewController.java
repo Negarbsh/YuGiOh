@@ -1,5 +1,7 @@
 package com.mygdx.game.java.controller;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -7,10 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Null;
+import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.forgraphic.DeckImageButton;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.model.forgraphic.Fire;
 import com.mygdx.game.java.view.Menus.DeckPreview;
 import com.mygdx.game.java.view.exceptions.*;
 import lombok.Getter;
@@ -23,6 +27,9 @@ public class DeckPreviewController {
     @Getter
     DeckImageButton selectedDeck;
     ButtonGroup allDecksGroup;
+    public long startTime;
+    public float elapsedTime;
+    public float targetDurationInSec;
 
     public DeckPreviewController(DeckPreview deckPreview, User user) {
         this.user = user;
@@ -104,21 +111,40 @@ public class DeckPreviewController {
                 return payload;
             }
         });
-        dragAndDrop.addTarget(new DragAndDrop.Target(deckPreview.getTrashcan()) {
+        dragAndDrop.addTarget(new DragAndDrop.Target(deckPreview.getFire()) {
             public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                getActor().setColor(Color.SKY);
+                Fire fire = (Fire) getActor();
+                fire.needColor = true;
                 return true;
             }
 
             public void reset(DragAndDrop.Source source, DragAndDrop.Payload payload) {
-                getActor().setColor(Color.WHITE);
+                Fire fire = (Fire) getActor();
+                fire.needColor = false;
             }
 
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
                 deleteDeck(deckImageButton.getDeck());
                 deckPreview.getMyDecks().removeActor(deckImageButton);
                 allDecksGroup.remove(deckImageButton.getImageButton());
+                deckPreview.getFireSound().setVolume(deckPreview.getSoundId(), 1f);
+                setTimer(5f);
             }
         });
+    }
+
+    private void setTimer(float targetDurationInSec) {
+        this.targetDurationInSec = targetDurationInSec;
+        startTime = System.currentTimeMillis();
+        deckPreview.timerHasStarted = true;
+    }
+
+    public void isTimerEnded() {
+        if (!deckPreview.timerHasStarted)
+            return;
+        elapsedTime = (float) ((System.currentTimeMillis() - startTime) / 1000.0);
+        if (elapsedTime >= targetDurationInSec) {
+            deckPreview.getFireSound().setVolume(deckPreview.getSoundId(), 0.1f);
+        }
     }
 }

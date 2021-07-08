@@ -2,6 +2,7 @@ package com.mygdx.game.java.view.Menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -15,6 +16,7 @@ import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.DeckPreviewController;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.model.forgraphic.Fire;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.view.exceptions.AlreadyExistingError;
 import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
@@ -32,11 +34,15 @@ public class DeckPreview implements Screen {
     ScrollPane decksScroller;
     @Getter
     Image trashcan;
+    @Getter Fire fire;
     @Getter
     Label messageBar, descriptLabel;
     TextField deckName;
     TextButton create, active, enter;
     Table buttonsTable;
+    @Getter Sound fireSound;
+    @Getter long soundId;
+    public boolean timerHasStarted;
 
     {
         stage = new Stage(new StretchViewport(400, 400));
@@ -47,13 +53,17 @@ public class DeckPreview implements Screen {
         this.user = user;
         this.mainClass = mainClass;
         controller = new DeckPreviewController(this, user);
+        fireSound = Gdx.audio.newSound(Gdx.files.internal("sounds/fire-sound.mp3"));
     }
 
 
     @Override
     public void show() {
-        trashcan = new Image(ButtonUtils.makeDrawable("Items/trashcan.png"));
-        trashcan.setBounds(340, 30, 50, 70);
+        soundId = fireSound.play(0.1f);
+        fireSound.setLooping(soundId, true);
+        fire = new Fire();
+//        trashcan = new Image(ButtonUtils.makeDrawable("Items/trashcan.png"));
+        fire.setBounds(250, 5, 150, 150);
 
 
         myDecks = new Table();
@@ -137,7 +147,7 @@ public class DeckPreview implements Screen {
         stage.addActor(new Wallpaper(5, 0, 0, 400, 400));
         stage.addActor(decksScroller);
         stage.addActor(buttonsTable);
-        stage.addActor(trashcan);
+        stage.addActor(fire);
         stage.addActor(messageBar);
         stage.addActor(descriptLabel);
         stage.addActor(back);
@@ -149,6 +159,7 @@ public class DeckPreview implements Screen {
         Gdx.gl.glClearColor(0.466f, 0.207f, 0.466f, 1f);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        controller.isTimerEnded();
         stage.act(delta);
         stage.draw();
     }

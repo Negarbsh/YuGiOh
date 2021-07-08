@@ -16,4 +16,12 @@ public abstract class AnimatedObjects extends Actor {
         objectAnimation = new Animation<TextureRegion>(durate
                 , myFrames);
     }
+
+    public void draw(Batch batch, float parentAlpha) {
+        TextureRegion currentFrame;
+        currentFrame = objectAnimation.getKeyFrame(stateTime, true);
+        stateTime += Gdx.graphics.getDeltaTime();
+
+        batch.draw(currentFrame, this.getX(), this.getY(), 30, 35);
+    }
 }

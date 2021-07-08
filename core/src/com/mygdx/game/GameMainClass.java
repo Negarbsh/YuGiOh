@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.java.controller.FileHandler;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.view.Menus.DeckPreview;
 import com.mygdx.game.java.view.Menus.DuelMenuScreen;
 import com.mygdx.game.java.view.Menus.RelatedToMenu;
 import com.mygdx.game.java.view.Menus.ScoreboardMenu;
@@ -32,11 +33,11 @@ public class GameMainClass extends Game {
         flatEarthSkin2 = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
         flatEarthSkin2.getFont("font").getData().setScale(1.5f);
         FileHandler.loadThings();
-        setScreen(new ScoreboardMenu(this, User.getUserByName("ali")));
+//        setScreen(new ScoreboardMenu(this, User.getUserByName("ali")));
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
 //        preformDuelScreenTest();
-//        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
+        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
 //        setScreen(new CardCreatorMenu(this, User.getUserByName("ali")));
 //        setScreen(new LoginMenu(this));
 //        setScreen(new SignUpMenu(this));
