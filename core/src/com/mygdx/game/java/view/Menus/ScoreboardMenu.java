@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.ScoreBoardMenuController;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.forgraphic.Curtain;
 import com.mygdx.game.java.model.User;
 
@@ -31,6 +32,7 @@ public class ScoreboardMenu implements Screen {
 
     @Override
     public void show() {
+        ButtonUtils.changeMouseCursor();
         scoreBoard = new Table();
         scoreBoard.setFillParent(true);
         scoreBoard.padTop(40).padLeft(50);

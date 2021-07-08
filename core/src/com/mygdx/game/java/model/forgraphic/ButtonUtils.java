@@ -3,6 +3,7 @@ package com.mygdx.game.java.model.forgraphic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -92,5 +93,11 @@ public class ButtonUtils {
         label.setFontScale(0.4f);
         label.setAlignment(Align.center);
         return label;
+    }
+
+    public static void changeMouseCursor() {
+        Pixmap pm = new Pixmap(Gdx.files.internal("Items/me/sword1-4.png"));
+        Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
+        pm.dispose();
     }
 }
