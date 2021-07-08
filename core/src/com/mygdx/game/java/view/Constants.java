@@ -34,17 +34,21 @@ public class Constants {
     public static final float BOARD_CELLS_GAP = 12 ;
     public final static float CARD_IN_USE_WIDTH = 7 * BOARD_CELLS_GAP;
     public final static float CARD_IN_USE_HEIGHT = 9 * BOARD_CELLS_GAP;
-    public static final float BOARD_ZONES_GAP = 20;
-    public static final float BOARDS_GAP = 20;
-    public static final float GRAVEYARD_WIDTH = CARD_IN_USE_WIDTH; //change it if you wish!
-    public static final float FIELD_WIDTH = BOARD_CELLS_GAP * 9;
+    public static final float BOARD_ZONES_GAP = 0.8f * BOARD_CELLS_GAP;
+    public static final float BOARDS_GAP = 3 * BOARD_CELLS_GAP;
+    public static final float GRAVEYARD_RADIUS = 10 * BOARD_CELLS_GAP; //change it if you wish!
+    public static final float FIELD_WIDTH = BOARD_CELLS_GAP * 7.5f;
 //    public static final float BOARD_WIDTH = CARD_IN_USE_WIDTH * 5 + BOARD_CELLS_GAP * 6 + GRAVEYARD_WIDTH + FIELD_WIDTH ;
     public static final float BOARD_WIDTH = BOARD_CELLS_GAP * 57;
 //    public static final float BOARD_HEIGHT = CARD_IN_USE_HEIGHT * 2 + BOARD_ZONES_GAP;
-    public static final float BOARD_HEIGHT = 19 * BOARD_CELLS_GAP;
+//    public static final float BOARD_HEIGHT = 19 * BOARD_CELLS_GAP; todo uncomment if needed!
     public static final float BOARDS_HEIGHT =  BOARD_CELLS_GAP * 60;
     public static final float BOARDS_WIDTH = BOARD_WIDTH;
     public static final float BOARDS_Y = HAND_BOARD_DISTANCE + CARD_IN_HAND_WIDTH;
     public static final float BOARDS_X = SIDE_INFO_WIDTH + HAND_WIDTH / 2 - BOARD_WIDTH / 2;
-    public static final float FIRST_CELL_IN_BOARD_X = SIDE_INFO_WIDTH + FIELD_WIDTH + BOARD_CELLS_GAP;
+    public static final float FIRST_CELL_IN_BOARD_X = SIDE_INFO_WIDTH + 10 * BOARD_CELLS_GAP;
+    public static final float FIRST_CELL_IN_BOARD_Y = 9.6f * BOARD_CELLS_GAP;  //the left down cell
+    public static final float FIRST_FIELD_X = 2 * BOARD_CELLS_GAP;
+
+
 }

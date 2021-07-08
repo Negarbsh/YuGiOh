@@ -273,14 +273,24 @@ public class Board {
     }
 
     public void addButtonsToStage(Stage stage, boolean amViewer) {
-        if(amViewer){
-            for (int i = 0; i < monsterZone.length; i++) {
-                ImageButton imageButton = monsterZone[i].getImageButtonInUse();
-                float[] position = PositionCalculator.getCardInUsePosition(i,true,true);
-                imageButton.setBounds(position[0], position[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
-                stage.addActor(imageButton);
-            }
+
+        for (int i = 0; i < 5; i++) {
+            ImageButton monsterBtn = monsterZone[i].getImageButtonInUse();
+            float[] position = PositionCalculator.getCardInUsePosition(i, true, amViewer);
+            monsterBtn.setBounds(position[0], position[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
+            stage.addActor(monsterBtn);
+
+            ImageButton spellBtn = spellTrapZone[i].getImageButtonInUse();
+            position = PositionCalculator.getCardInUsePosition(i, false, amViewer);
+            spellBtn.setBounds(position[0],position[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
+            stage.addActor(spellBtn);
         }
+
+        ImageButton fieldBtn = fieldCell.getImageButtonInUse();
+        float[] position = PositionCalculator.getFieldPosition(amViewer);
+        fieldBtn.setBounds(position[0], position[1], Constants.FIELD_WIDTH, Constants.CARD_IN_USE_HEIGHT);
+        stage.addActor(fieldBtn);
+
     }
 }
 
