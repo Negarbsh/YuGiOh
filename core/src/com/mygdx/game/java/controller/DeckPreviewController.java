@@ -127,7 +127,7 @@ public class DeckPreviewController {
                 deleteDeck(deckImageButton.getDeck());
                 deckPreview.getMyDecks().removeActor(deckImageButton);
                 allDecksGroup.remove(deckImageButton.getImageButton());
-                deckPreview.getFireSound().setVolume(deckPreview.getSoundId(), 1f);
+                deckPreview.getFireMusic().setVolume(1f);
                 setTimer(5f);
             }
         });
@@ -144,7 +144,7 @@ public class DeckPreviewController {
             return;
         elapsedTime = (float) ((System.currentTimeMillis() - startTime) / 1000.0);
         if (elapsedTime >= targetDurationInSec) {
-            deckPreview.getFireSound().setVolume(deckPreview.getSoundId(), 0.1f);
+            deckPreview.getFireMusic().setVolume(0.1f);
         }
     }
 }

@@ -2,6 +2,7 @@ package com.mygdx.game.java.view.Menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -32,8 +33,6 @@ public class DeckPreview implements Screen {
     Table myDecks, myDecksBar;
     TextureRegionDrawable background;
     ScrollPane decksScroller;
-    @Getter
-    Image trashcan;
     @Getter Fire fire;
     @Getter
     Label messageBar, descriptLabel;
@@ -42,6 +41,7 @@ public class DeckPreview implements Screen {
     Table buttonsTable;
     @Getter Sound fireSound;
     @Getter long soundId;
+    @Getter Music fireMusic;
     public boolean timerHasStarted;
 
     {
@@ -53,17 +53,17 @@ public class DeckPreview implements Screen {
         this.user = user;
         this.mainClass = mainClass;
         controller = new DeckPreviewController(this, user);
-        fireSound = Gdx.audio.newSound(Gdx.files.internal("sounds/fire-sound.mp3"));
+        fireMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/fire-sound.mp3"));
     }
 
 
     @Override
     public void show() {
-        soundId = fireSound.play(0.1f);
-        fireSound.setLooping(soundId, true);
+        fireMusic.play();
+        fireMusic.setVolume(0.1f);
+        fireMusic.setLooping(true);
         fire = new Fire();
-//        trashcan = new Image(ButtonUtils.makeDrawable("Items/trashcan.png"));
-        fire.setBounds(250, 5, 150, 150);
+        fire.setBounds(250, 5, 150, 130);
 
 
         myDecks = new Table();
@@ -146,8 +146,8 @@ public class DeckPreview implements Screen {
 
         stage.addActor(new Wallpaper(5, 0, 0, 400, 400));
         stage.addActor(decksScroller);
-        stage.addActor(buttonsTable);
         stage.addActor(fire);
+        stage.addActor(buttonsTable);
         stage.addActor(messageBar);
         stage.addActor(descriptLabel);
         stage.addActor(back);
@@ -186,7 +186,7 @@ public class DeckPreview implements Screen {
 
     @Override
     public void dispose() {
-        fireSound.dispose();
         stage.dispose();
+        fireMusic.dispose();
     }
 }

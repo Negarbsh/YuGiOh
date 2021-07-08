@@ -95,7 +95,7 @@ public class DeckMenu implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 try {
                     controller.removeCardFromDeck(controller.getSelectedCard(), mainDeck, false);
-                    messageBar.setText(new SuccessfulAction("card", "removed from side deck").getMessage());
+                    messageBar.setText(new SuccessfulAction("card", "removed from main deck").getMessage());
                     messageBar.setColor(Color.GREEN);
                 } catch (ButtonCantDoAction | NoSelectedCard | NotCorrectDeck e) {
                     messageBar.setText(e.getMessage());

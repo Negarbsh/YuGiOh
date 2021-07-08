@@ -103,6 +103,7 @@ public class DeckMenuController {
         for (PreCard preCard : allDeckValues) {
             CustomImageButton customImageButton = ButtonUtils.createCustomCards(preCard.getName());
             addCardToDeckGraphically(customImageButton, table, side);
+            getAppropriateList(side).add(customImageButton);
         }
     }
 
