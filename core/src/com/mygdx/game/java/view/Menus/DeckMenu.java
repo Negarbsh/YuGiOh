@@ -68,7 +68,7 @@ public class DeckMenu implements Screen {
         controller.createDeckTable(treasuryTable);
 
         messageBar = ButtonUtils.createMessageBar("", mainClass.orangeSkin.getFont("font-title"), 0.9f);
-        messageBar.setBounds(100, 0, 824, 65);
+        messageBar.setBounds(0, 0, 1024, 65);
 
         mainDeck = new Table();
         controller.createDecks(mainDeck, false);

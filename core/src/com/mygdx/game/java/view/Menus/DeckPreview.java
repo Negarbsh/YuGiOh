@@ -15,6 +15,7 @@ import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.DeckPreviewController;
 import com.mygdx.game.java.model.ButtonUtils;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.model.Wallpaper;
 import com.mygdx.game.java.view.exceptions.AlreadyExistingError;
 import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
 import lombok.Getter;
@@ -56,7 +57,6 @@ public class DeckPreview implements Screen {
 
 
         myDecks = new Table();
-        myDecks.setBackground(background);
         myDecks.setBounds(30, 250, 340, 80);
         controller.createDecksTable(myDecks);
         decksScroller = new ScrollPane(myDecks, mainClass.orangeSkin, "android-no-bg");
@@ -125,7 +125,7 @@ public class DeckPreview implements Screen {
         descriptLabel.setBounds(50, 200, 300, 70);
 
         ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
-        back.setBounds(3,374,28,20);
+        back.setBounds(8,365,31,23);
         back.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -134,7 +134,7 @@ public class DeckPreview implements Screen {
         });
 
 
-
+        stage.addActor(new Wallpaper(5, 0, 0, 400, 400));
         stage.addActor(decksScroller);
         stage.addActor(buttonsTable);
         stage.addActor(trashcan);

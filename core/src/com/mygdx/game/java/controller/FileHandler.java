@@ -1,11 +1,11 @@
 package com.mygdx.game.java.controller;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.mygdx.game.java.model.DeckImageButton;
-import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.model.Wallpaper;
+import com.mygdx.game.java.model.*;
 import com.mygdx.game.java.model.card.CardLoader;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.model.card.PreCardAdapter;
@@ -28,6 +28,13 @@ public class FileHandler {
         PreCard.setPictures();
         Wallpaper.setAllWallpapers();
         DeckImageButton.setDeckImages();
+//        setCurtainPictures("gifs/out");
+        Curtain.createFrames("gifs/out");
+        ScoreBoardMenuController.torchPic = ButtonUtils.makeDrawable("Items/me/torch3-1.png");
+    }
+
+    private static void setCurtainPictures(String folderPath) {
+        Reader.figureCatalog(new String[]{folderPath});
     }
 
     private static void loadUsers() {

@@ -13,6 +13,7 @@ import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.ProfileMenuController;
 import com.mygdx.game.java.controller.RelatedToMenuController;
 import com.mygdx.game.java.controller.ScoreBoardMenuController;
+import com.mygdx.game.java.model.Curtain;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.exceptions.InvalidCommand;
 import com.mygdx.game.java.view.exceptions.WrongMenu;
@@ -43,7 +44,7 @@ public class ScoreboardMenu implements Screen {
 
 
         ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
-        back.setBounds(10,360,33,23);
+        back.setBounds(5,370,31,23);
         back.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -52,6 +53,7 @@ public class ScoreboardMenu implements Screen {
         });
 
         stage.addActor(scoreBoard);
+        stage.addActor(new Curtain(back));
         stage.addActor(back);
         Gdx.input.setInputProcessor(stage);
     }
