@@ -23,7 +23,6 @@ public class GameMainClass extends Game {
 
     public Screen lastScreen;
 
-
     @Override
     public void create() {
         gameMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/pain.wav"));

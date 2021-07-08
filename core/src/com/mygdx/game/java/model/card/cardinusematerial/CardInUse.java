@@ -1,7 +1,11 @@
 package com.mygdx.game.java.model.card.cardinusematerial;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Board;
@@ -39,6 +43,29 @@ public abstract class CardInUse {
         this.board = board;
         this.ownerOfCard = board.getOwner();
         imageButtonInUse = new ImageButton(GameMainClass.orangeSkin2);
+        ImageButton.ImageButtonStyle imageButtonStyle = new ImageButton.ImageButtonStyle(imageButtonInUse.getStyle());
+        imageButtonInUse.setStyle(imageButtonStyle);
+        imageButtonInUse.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (board.getController().isGamePaused()) return;
+                if (thisCard != null) {
+                    if (isFaceUp)
+                        thisCard.getVisibleImageButton().handleClicked(board.getController(), board.getOwner(), thisCard);
+                    else thisCard.getInvisibleImageButton().handleClicked(board.getController(), board.getOwner(), thisCard);
+                }
+            }
+
+
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                if (thisCard != null) {
+                    if (isFaceUp)
+                        thisCard.getVisibleImageButton().handleEntered();
+                    else thisCard.getInvisibleImageButton().handleEntered();
+                }
+            }
+        });
         setImageButton(null);
 //        imageButtonInUse.getStyle().imageUp = null;
 //        imageButtonInUse.setSize(Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
@@ -113,7 +140,7 @@ public abstract class CardInUse {
             return;
         }
         imageButtonInUse.setVisible(true);
-        if(isFaceUp) imageButtonInUse.getStyle().imageUp = owner.getVisibleImageButton().getImage().getDrawable();
+        if (isFaceUp) imageButtonInUse.getStyle().imageUp = owner.getVisibleImageButton().getImage().getDrawable();
         else imageButtonInUse.getStyle().imageUp = owner.getInvisibleImageButton().getImage().getDrawable();
         if (this instanceof MonsterCardInUse) {
             MonsterCardInUse monsterCardInUse = (MonsterCardInUse) this;

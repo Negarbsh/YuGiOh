@@ -45,56 +45,68 @@ public class CardImageButton extends ImageButton {
             ownerCard.setVisibleImageButton(this);
         } else ownerCard.setInvisibleImageButton(this);
         this.addListener(new ClickListener() {
-
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                myController.selectCard(myOwnerCard);
+                handleEntered();
             }
 
 
+            //todo: why doesn't it work!?
+//            @Override
+//            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+//                try {
+//                    myController.deselectCard();
+//                } catch (NoSelectedCard ignored) {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-//                Phase currentPhase = ownerPlayer.getBoard().getMyPhase();
-
-                Phase currentPhase = myController.getCurrentPhase();
-                if (currentPhase == Phase.MAIN_1 || currentPhase == Phase.MAIN_2) {
-                    //actions : summon, set, flip summon
-                    if (ownerPlayer.getHand().doesContainCard(ownerCard)) {
-                        if (ownerCard instanceof Monster) {//todo: we should ask the user what they want to do ( summon, setMonster) right now the default is summon
-                            try {
-                                myController.selectCard(myOwnerCard); // I think it's not needed
-                                myController.summonMonster(false);
-
-                            } catch (WrongPhaseForAction | CantDoActionWithCard | UnableToChangePosition | NoSelectedCard | BeingFull | AlreadyDoneAction | NotEnoughTributes exception) {
-                                DuelMenu.showException(exception);
-                            }
-                        } else if (ownerCard instanceof SpellTrap) {
-                            try {
-                                myController.selectCard(ownerCard);
-                                myController.getMainPhaseController().setCard();
-                            } catch (AlreadyDoneAction | NoSelectedCard | CantDoActionWithCard | BeingFull exception) {
-                                DuelMenu.showException(exception);
-                            }
-                        }
-                    } else {
-                        //the card isn't in hand. if it is in the monster zone we may flip summon it
-                        if (ownerCard instanceof Monster) {
-                            myController.selectCard(ownerCard);
-                            //todo ask the user if they mean to flip summon! ( you can also do it in other parts)
-                            try {
-                                myController.getMainPhaseController().flipSummon();
-                            } catch (NoSelectedCard | CantDoActionWithCard exception) {
-                                DuelMenu.showException(exception);
-                            }
-                        }
-                    }
-                } else if (currentPhase == Phase.BATTLE) {
-                    //todo
-                } else {
-                    myController.selectCard(ownerCard); //maybe needed in case we wanted to attack sth from rival board!
-                }
+                handleClicked(controller, ownerPlayer, ownerCard);
             }
         });
+    }
+
+    public void handleClicked(DuelMenuController controller, Player ownerPlayer, Card ownerCard) {
+        if (controller.isGamePaused()) return;
+        Phase currentPhase = myController.getCurrentPhase();
+        if (currentPhase == Phase.MAIN_1 || currentPhase == Phase.MAIN_2) {
+            //actions : summon, set, flip summon
+            if (ownerPlayer.getHand().doesContainCard(ownerCard)) {
+                if (ownerCard instanceof Monster) {//todo: we should ask the user what they want to do ( summon, setMonster) right now the default is summon
+                    try {
+                        myController.selectCard(myOwnerCard); // I think it's not needed
+                        myController.summonMonster(false);
+
+                    } catch (WrongPhaseForAction | CantDoActionWithCard | UnableToChangePosition | NoSelectedCard | BeingFull | AlreadyDoneAction | NotEnoughTributes exception) {
+                        DuelMenu.showException(exception);
+                    }
+                } else if (ownerCard instanceof SpellTrap) {
+                    try {
+                        myController.selectCard(ownerCard);
+                        myController.getMainPhaseController().setCard();
+                    } catch (AlreadyDoneAction | NoSelectedCard | CantDoActionWithCard | BeingFull exception) {
+                        DuelMenu.showException(exception);
+                    }
+                }
+            } else {
+                //the card isn't in hand. if it is in the monster zone we may flip summon it
+                if (ownerCard instanceof Monster) {
+                    myController.selectCard(ownerCard);
+                    //todo ask the user if they mean to flip summon! ( you can also do it in other parts)
+                    try {
+                        myController.getMainPhaseController().flipSummon();
+                    } catch (NoSelectedCard | CantDoActionWithCard exception) {
+                        DuelMenu.showException(exception);
+                    }
+                }
+            }
+        } else if (currentPhase == Phase.BATTLE) {
+            //todo
+        } else {
+            myController.selectCard(ownerCard); //maybe needed in case we wanted to attack sth from rival board!
+        }
+    }
+
+    public void handleEntered(){
+        myController.selectCard(myOwnerCard);
     }
 
     public Card getOwnerCard() {

@@ -122,6 +122,7 @@ public class TurnScreen implements Screen {
                         break;
                     case 2:
                         controller.setGamePaused(true);
+//                        pause();
                         break;
                     case 3:
                         controller.setGamePaused(false);
@@ -348,7 +349,6 @@ public class TurnScreen implements Screen {
 
     @Override
     public void pause() {
-
     }
 
     @Override

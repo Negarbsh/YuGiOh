@@ -144,8 +144,11 @@ public class RoundController {
     public void selectCard(Card card, Player selector) throws InvalidSelection {
         CardInUse cardInUse = findCardsCell(card);
         if (cardInUse != null) {
-            if (duelMenuController.canSeeCard(selector, card))
+            if (duelMenuController.canSeeCard(selector, card)) {
                 setSelectedCard(card);
+                duelMenuController.getTurnScreen().updateSelectedCard();
+
+            }
         } else {
             if (selector.getHand().doesContainCard(card)) {
                 setSelectedCard(card);
