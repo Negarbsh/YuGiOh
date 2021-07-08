@@ -12,6 +12,7 @@ import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.view.Constants;
+import com.mygdx.game.java.view.exceptions.*;
 
 public class DuelMenuScreen implements Screen {
     Table table;
@@ -65,9 +66,9 @@ public class DuelMenuScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 try {
                     DuelMenuController.startNewDuel(usernameTextField.getText(), Integer.parseInt(roundTextField.getText()), gameMainClass, user);
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException numberFormatException) {
                     resultLabel.setText("please enter a valid number");
-                } catch (Exception e) {
+                } catch (InvalidName | NumOfRounds | InvalidDeck | NoActiveDeck | InvalidThing e) {
                     resultLabel.setText(e.getMessage());
                 }
             }
