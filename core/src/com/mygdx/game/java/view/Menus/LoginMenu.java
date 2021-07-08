@@ -1,6 +1,5 @@
 package com.mygdx.game.java.view.Menus;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -13,8 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.mygdx.game.java.model.ButtonUtils;
-import com.mygdx.game.java.model.Wallpaper;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
+import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.view.exceptions.LoginError;
 
 

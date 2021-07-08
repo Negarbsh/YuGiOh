@@ -1,22 +1,22 @@
-package com.mygdx.game.java.model;
+package com.mygdx.game.java.model.forgraphic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
+import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.card.PicState;
 import lombok.Getter;
 
 public class DeckImageButton extends Table {
     static TextureRegionDrawable normalDeck, activeDeck;
     static DeckImageButton activeDeckIcon;
-    @Getter Deck deck;
+    @Getter
+    Deck deck;
     @Getter ImageButton imageButton;
     Label label;
     boolean isActiveDeck;

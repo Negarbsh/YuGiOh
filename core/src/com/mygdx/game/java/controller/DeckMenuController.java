@@ -2,7 +2,6 @@ package com.mygdx.game.java.controller;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -11,6 +10,8 @@ import com.mygdx.game.java.model.*;
 import com.mygdx.game.java.model.card.CardType;
 import com.mygdx.game.java.model.card.PicState;
 import com.mygdx.game.java.model.card.PreCard;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
+import com.mygdx.game.java.model.forgraphic.CustomImageButton;
 import com.mygdx.game.java.view.Menus.DeckMenu;
 import com.mygdx.game.java.view.exceptions.*;
 import lombok.Getter;

@@ -10,14 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
-import com.mygdx.game.java.controller.ProfileMenuController;
-import com.mygdx.game.java.controller.RelatedToMenuController;
 import com.mygdx.game.java.controller.ScoreBoardMenuController;
-import com.mygdx.game.java.model.Curtain;
+import com.mygdx.game.java.model.forgraphic.Curtain;
 import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.view.exceptions.InvalidCommand;
-import com.mygdx.game.java.view.exceptions.WrongMenu;
-import com.mygdx.game.java.view.MenuName;
 
 public class ScoreboardMenu implements Screen {
     Stage stage;

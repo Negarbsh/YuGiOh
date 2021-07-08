@@ -1,4 +1,4 @@
-package com.mygdx.game.java.model;
+package com.mygdx.game.java.model.forgraphic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

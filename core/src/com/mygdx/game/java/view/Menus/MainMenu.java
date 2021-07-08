@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.DeckPreviewController;
 import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.model.Wallpaper;
+import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import lombok.Getter;
 
 @Getter

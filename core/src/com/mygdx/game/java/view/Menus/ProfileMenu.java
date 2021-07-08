@@ -10,12 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.ProfileMenuController;
-import com.mygdx.game.java.controller.RelatedToMenuController;
-import com.mygdx.game.java.model.ButtonUtils;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.model.Wallpaper;
-import com.mygdx.game.java.view.exceptions.*;
-import com.mygdx.game.java.view.MenuName;
+import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import lombok.Getter;
 
 @Getter

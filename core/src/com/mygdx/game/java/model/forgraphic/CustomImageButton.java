@@ -1,4 +1,4 @@
-package com.mygdx.game.java.model;
+package com.mygdx.game.java.model.forgraphic;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;

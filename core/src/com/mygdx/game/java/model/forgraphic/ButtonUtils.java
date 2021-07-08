@@ -1,4 +1,4 @@
-package com.mygdx.game.java.model;
+package com.mygdx.game.java.model.forgraphic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -12,20 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.mygdx.game.java.model.card.PicState;
+import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.card.PreCard;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.GameMainClass;
-import com.mygdx.game.java.model.card.PicState;
-import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.view.Constants;
-import com.mygdx.game.java.view.Menus.RelatedToMenu;
-
-import java.awt.*;
-import java.awt.Container;
 
 public class ButtonUtils {
 

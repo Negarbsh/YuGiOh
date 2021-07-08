@@ -5,19 +5,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
-import com.mygdx.game.java.controller.ProfileMenuController;
-import com.mygdx.game.java.controller.RelatedToMenuController;
-import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.model.Wallpaper;
-import com.mygdx.game.java.view.exceptions.InvalidCommand;
-import com.mygdx.game.java.view.exceptions.MenuNavigationError;
-import com.mygdx.game.java.view.exceptions.NeedToLogin;
+import com.mygdx.game.java.model.forgraphic.Wallpaper;
 
 public class RelatedToMenu implements Screen {
 
