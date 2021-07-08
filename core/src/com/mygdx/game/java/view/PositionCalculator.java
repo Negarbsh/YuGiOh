@@ -8,7 +8,8 @@ public class PositionCalculator {
     */
     public static float[] getCardInUsePosition(int index, boolean isMonster, boolean isForViewer) {
         index = getShowingIndex(index, isForViewer);
-        float[] position = new float[2];;
+        float[] position = new float[2];
+        ;
         position[0] = Constants.FIRST_CELL_IN_BOARD_X;
         position[0] += index * (Constants.CARD_IN_USE_WIDTH + Constants.BOARD_CELLS_GAP);
         position[1] = Constants.BOARDS_Y + Constants.FIRST_CELL_IN_BOARD_Y;
@@ -45,12 +46,13 @@ public class PositionCalculator {
         return 4 - showingIndex;
     }
 
-    public static float[] getFieldPosition(boolean isForViewer){
+    public static float[] getFieldPosition(boolean isForViewer) {
         float[] position = new float[2];
         position[0] = Constants.BOARDS_X + Constants.FIRST_FIELD_X;
-        if(!isForViewer) position[0] += 5 * Constants.CARD_IN_USE_WIDTH + 6 * Constants.BOARD_CELLS_GAP + Constants.FIELD_WIDTH - 10;
-        position[1] = Constants.FIRST_CELL_IN_BOARD_Y + 2 * Constants.CARD_IN_USE_HEIGHT + Constants.BOARD_ZONES_GAP ;
-        if(!isForViewer) position[1] += Constants.BOARDS_GAP + Constants.CARD_IN_USE_HEIGHT;
+        if (!isForViewer)
+            position[0] += 5 * Constants.CARD_IN_USE_WIDTH + 6 * Constants.BOARD_CELLS_GAP + Constants.FIELD_WIDTH - 10;
+        position[1] = Constants.FIRST_CELL_IN_BOARD_Y + 2 * Constants.CARD_IN_USE_HEIGHT + Constants.BOARD_ZONES_GAP;
+        if (!isForViewer) position[1] += Constants.BOARDS_GAP + Constants.CARD_IN_USE_HEIGHT;
         return position;
     }
 }
