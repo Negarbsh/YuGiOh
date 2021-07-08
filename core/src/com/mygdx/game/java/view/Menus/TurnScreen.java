@@ -407,7 +407,6 @@ public class TurnScreen implements Screen {
 
     @Override
     public void dispose() {
-        flatEarthSkin.dispose();
         stage.dispose();
     }
 

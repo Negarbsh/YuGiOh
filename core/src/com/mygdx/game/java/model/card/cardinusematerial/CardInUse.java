@@ -88,6 +88,12 @@ public abstract class CardInUse {
         setImageButton(thisCard);
     }
 
+    //note that it doesn't call the watchers!
+    public void setFaceUp(boolean faceUp) {
+        isFaceUp = faceUp;
+        setImageButton(thisCard);
+    }
+
     public void setACardInCell(Card card) {
         thisCard = card;
         setImageButton(thisCard);
@@ -144,9 +150,11 @@ public abstract class CardInUse {
         else imageButtonInUse.getStyle().imageUp = owner.getInvisibleImageButton().getImage().getDrawable();
         if (this instanceof MonsterCardInUse) {
             MonsterCardInUse monsterCardInUse = (MonsterCardInUse) this;
-            if (!monsterCardInUse.isInAttackMode()) {
-                imageButtonInUse.rotateBy(90); //todo: fine?
-            }
+//            if (!monsterCardInUse.isInAttackMode()) {
+//                imageButtonInUse.rotateBy(90); //todo: fine?
+//                imageButtonInUse.setTransform(true);
+//                imageButtonInUse.setRotation(90);
+//            }
         }
     }
 

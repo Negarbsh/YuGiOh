@@ -42,8 +42,17 @@ public class MonsterCardInUse extends CardInUse {
         if (isInAttackMode != inAttackMode) {
             isInAttackMode = inAttackMode;
             this.isPositionChanged = true;
+            if (isInAttackMode) { //todo why doesn't it work
+                super.getImageButtonInUse().setTransform(true);
+                super.getImageButtonInUse().setRotation(270);
+            }
+            else{
+                super.getImageButtonInUse().setTransform(true);
+                super.getImageButtonInUse().setRotation(90);
+            }
         }
         setImageButton(thisCard);
+
     }
 
     @Override
@@ -61,9 +70,9 @@ public class MonsterCardInUse extends CardInUse {
     }
 
     /*
-    * if the card is in attack point returns attack point
-    * else returns defense point
-    * */
+     * if the card is in attack point returns attack point
+     * else returns defense point
+     * */
     public int appropriatePointAtBattle() {
         if (isInAttackMode)
             return attack;
@@ -83,7 +92,7 @@ public class MonsterCardInUse extends CardInUse {
 
     public void destroyThis() {
         watchByState(CardState.DESTROY);
-        if (canBeDestroyed)     sendToGraveYard();
+        if (canBeDestroyed) sendToGraveYard();
     }
 
     public void summon() {

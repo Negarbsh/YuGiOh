@@ -121,8 +121,6 @@ public class MainPhaseController {
         spellTrapCardInUse.setFaceUp(false);
         new SuccessfulAction("", "set");
         controller.updateBoards();
-
-        //todo: the spell or trap card in use should be face down. but will it be needed?
     }
 
     //todo: I think "of currentplayer " isn't needed. check with hasti
