@@ -59,7 +59,7 @@ public class DeckPreview implements Screen {
         myDecks.setBackground(background);
         myDecks.setBounds(30, 250, 340, 80);
         controller.createDecksTable(myDecks);
-        decksScroller = new ScrollPane(myDecks, mainClass.orangeSkin);
+        decksScroller = new ScrollPane(myDecks, mainClass.orangeSkin, "android-no-bg");
         decksScroller.setBounds(30, 290, 340, 80);
         decksScroller.setScrollingDisabled(false, true);
         myDecksBar = new Table();
@@ -68,7 +68,7 @@ public class DeckPreview implements Screen {
         myDecksBar.add(decksScroller).fill();
 
         messageBar = ButtonUtils.createMessageBar("", mainClass.orangeSkin.getFont("font-title"), 0.4f);
-        messageBar.setBounds(50, 0, 300, 25);
+        messageBar.setBounds(0, 0, 400, 28);
 
         buttonsTable = new Table();
         buttonsTable.setBounds(300, 130, 100, 150);
@@ -124,12 +124,23 @@ public class DeckPreview implements Screen {
         descriptLabel.setWrap(true);
         descriptLabel.setBounds(50, 200, 300, 70);
 
+        ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
+        back.setBounds(3,374,28,20);
+        back.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainClass.setScreen(new MainMenu(mainClass, user));
+            }
+        });
+
+
 
         stage.addActor(decksScroller);
         stage.addActor(buttonsTable);
         stage.addActor(trashcan);
         stage.addActor(messageBar);
         stage.addActor(descriptLabel);
+        stage.addActor(back);
         Gdx.input.setInputProcessor(stage);
     }
 

@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 
 public class CardLoader {
-    static HashMap<String, ArrayList<String>> cardsWatchers;
+    public static HashMap<String, ArrayList<String>> cardsWatchers;
 
     static {
         setCardsWatchers();

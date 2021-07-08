@@ -66,6 +66,7 @@ public class ShopMenuController {
         else price = preCard.getPrice();
         user.decreaseBalance(price);
         user.addPreCardToTreasury(preCard);
+        shopMenu.getUserMoney().setText(user.getBalance());
         shopMenu.getCoinShake().play();
         setDescription(preCard);
     }

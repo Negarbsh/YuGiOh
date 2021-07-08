@@ -1,10 +1,9 @@
 package com.mygdx.game.java.model.card;
 
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import lombok.Getter;
 import com.mygdx.game.java.model.GraveYard;
 import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
 import com.mygdx.game.java.model.watchers.Watcher;
+import lombok.Getter;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,7 +15,9 @@ public abstract class Card extends Button {
     public PreCard preCardInGeneral;
     public boolean shouldDieAfterActivated = false;
     public ArrayList<Watcher> builtInWatchers;
-    private CardImageButton cardImageButton;
+
+    private CardImageButton visibleImageButton;
+    private CardImageButton invisibleImageButton;
 
     {
         builtInWatchers = new ArrayList<>();
@@ -65,8 +66,12 @@ public abstract class Card extends Button {
     }
 
 
-    public void setCardImageButton(CardImageButton cardImageButton) {
-        this.cardImageButton = cardImageButton;
+    public void setVisibleImageButton(CardImageButton cardImageButton) {
+        this.visibleImageButton = cardImageButton;
+    }
+
+    public void setInvisibleImageButton(CardImageButton cardImageButton) {
+        this.invisibleImageButton = cardImageButton;
     }
 
     @Override

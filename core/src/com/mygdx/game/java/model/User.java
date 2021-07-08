@@ -4,19 +4,18 @@ package com.mygdx.game.java.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.java.controller.FileHandler;
 import com.mygdx.game.java.view.messageviewing.Print;
 import lombok.Setter;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.view.SuccessMessages;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 @Setter
 public class User implements Comparable<User> {
+    private static Random random;
     private final String username;
     private String password;
     private String nickName;
@@ -24,12 +23,16 @@ public class User implements Comparable<User> {
     private final HashMap<String, Integer> cardTreasury;   //shows how many cards do we have of each type
     private final ArrayList<Deck> decks;
     private int balance;
-    private Image avatar;
+    private int avatarNum;
+    private transient Image avatarImage;
     private String activeDeck;
     private static ArrayList<User> allUsers;
+    public static HashMap<Integer, TextureRegionDrawable> charPhotos;
 
     static {
         allUsers = new ArrayList<>();
+        charPhotos = new HashMap<>();
+        random = new Random();
     }
 
     {
@@ -42,9 +45,9 @@ public class User implements Comparable<User> {
         this.password = password;
         this.nickName = nickName;
         this.score = 0;
-        this.balance = 100000; //todo I'm not sure!
+        this.balance = 10000; //todo I'm not sure!
+        avatarNum = random.nextInt(42);
         allUsers.add(this);
-        setAvatar(null);
         FileHandler.saveUsers();
     }
 
@@ -55,6 +58,10 @@ public class User implements Comparable<User> {
             }
         }
         return null;
+    }
+
+    public int getAvatarNum() {
+        return avatarNum;
     }
 
     public static void setAllUsers(ArrayList<User> users) {
@@ -70,28 +77,14 @@ public class User implements Comparable<User> {
         return null;
     }
 
-    public static String showScoreBoard() {
-        StringBuilder scoreBoard = new StringBuilder();
-        allUsers.sort(User::compareTo);
-        int counter = 1;
-        User previousUser = null;
-        for (User user : allUsers) {
-            if (previousUser != null && user.score != previousUser.score) counter++;
-            scoreBoard.append(counter).append("- ").append(user.username).append(": ").append(user.getScore()).append("\n");
-            previousUser = user;
-        }
-        return scoreBoard.toString();
-    }
-
-    public void setAvatar(Image image) {
-//        avatar = Objects.requireNonNullElseGet(image, () -> new Image(new Texture(Gdx.files.internal("default_avatar"))));
-        if (image == null) avatar = new Image(new Texture(Gdx.files.internal("defaultAvatar.png")));
-        else avatar = image;
+    public static ArrayList<User> getScoreBoard() {
+        Collections.sort(allUsers);
+        return allUsers;
     }
 
     public Image getAvatar() {
-        if (avatar == null) setAvatar(null);
-        return avatar;
+        if (avatarImage == null) avatarImage = new Image(charPhotos.get(avatarNum));
+        return avatarImage;
     }
 
     public String getUsername() {
@@ -144,12 +137,10 @@ public class User implements Comparable<User> {
 
     public void changePassword(String newPassword) {
         this.password = newPassword;
-        Print.print(String.format(SuccessMessages.changingSuccessfully, "password"));
     }
 
     public void changeNickname(String newNickname) {
         this.nickName = newNickname;
-        Print.print(String.format(SuccessMessages.changingSuccessfully, "nickname"));
     }
 
     public void increaseBalance(int increasingAmount) {

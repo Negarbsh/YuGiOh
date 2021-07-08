@@ -3,7 +3,6 @@
 package com.mygdx.game.java.controller.game;
 
 import com.mygdx.game.GameMainClass;
-import com.mygdx.game.java.controller.LoginMenuController;
 import com.mygdx.game.java.model.CardAddress;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.Enums.Phase;
@@ -16,7 +15,6 @@ import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.monster.MonsterManner;
 import com.mygdx.game.java.model.watchers.Watcher;
-import com.mygdx.game.java.view.Menus.CoinFlipScreen;
 import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.Menus.TurnScreen;
 import com.mygdx.game.java.view.exceptions.*;
@@ -27,13 +25,14 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Objects;
 
 
 @Getter
 @Setter
 public class DuelMenuController {
     private static boolean isAnyGameRunning = false;
+
+    private boolean isRoundEnded = false;
 
     private User firstUser;
     private User secondUser;
@@ -57,15 +56,17 @@ public class DuelMenuController {
     private boolean isGamePaused = false;
     private GameMainClass gameMainClass;
 
+    {
+        this.roundsWinner = new ArrayList<>();
+        this.usersLP = new ArrayList<>();
+    }
 
     //todo: made public for test! make it private
-    public DuelMenuController(User firstUser, User secondUser, int numOfRounds, GameMainClass gameMainClass) throws NumOfRounds {
+    private DuelMenuController(User firstUser, User secondUser, int numOfRounds, GameMainClass gameMainClass) throws NumOfRounds {
         this.gameMainClass = gameMainClass;
         setFirstUser(firstUser);
         setSecondUser(secondUser);
         setNumOfRounds(numOfRounds);
-        this.roundsWinner = new ArrayList<>();
-        this.usersLP = new ArrayList<>();
         for (int i = 0; i < numOfRounds; i++) {
             usersLP.add(new HashMap<>());
         }
@@ -73,9 +74,8 @@ public class DuelMenuController {
 
     /*initializing the match*/
 
-    public static void startNewDuel(String secondUserName, int numOfRounds, GameMainClass gameMainClass) throws InvalidName, NumOfRounds, InvalidDeck, NoActiveDeck, InvalidThing {
+    public static void startNewDuel(String secondUserName, int numOfRounds, GameMainClass gameMainClass, User firstUser) throws InvalidName, NumOfRounds, InvalidDeck, NoActiveDeck, InvalidThing {
         User secondUser = User.getUserByName(secondUserName);
-        User firstUser = LoginMenuController.getCurrentUser();
 
         if (isGameValid(firstUser, secondUser)) {
             DuelMenuController duelMenuController = new DuelMenuController(firstUser, secondUser, numOfRounds, gameMainClass);
@@ -110,67 +110,85 @@ public class DuelMenuController {
         isAnyGameRunning = false;
     }
 
-//    public static void main(String[] args) {
-//        ArrayList<PreCard> hello = new ArrayList<>(Arrays.asList(PreCard.findCard("Command Knight"), PreCard.findCard("Command Knight")));
-//        System.out.println(Collections.frequency(hello, PreCard.findCard("Command Knight")));
-//    }
-
 
     /*match actions*/
 
-
-    //todo; made public for test. make it private
-    public void startDuel() { //idk wht I didn't merge it with run match! :/
+    private void startDuel() {
         isAnyGameRunning = true;
         playHeadOrTails(gameMainClass);
+        runMatch(false); //todo: it should be removed and called by shima
         //after the head or tails was done, the "runMatch()" function is called with a boolean "should swap users" as the inut
     }
 
     //called after the head or tails
-    public void runMatch(boolean shouldSwapUsers)  {
+    public void runMatch(boolean shouldSwapUsers) {
         if (shouldSwapUsers) {
             User hold = firstUser;
             firstUser = secondUser;
             secondUser = hold;
         }
+        ///todo: not good! there should be a for over rounds
+//        try {
+//            runOneRound(0);
+//        } catch (InvalidName | NoActiveDeck | InvalidDeck ex) {
+//            DuelMenu.showException(ex);
+//        }
+//        exchangeCardInDecks(roundController.getCurrentPlayer());
+//            exchangeCardInDecks(roundController.getRival());
+        //not good ends!
 
-        for (int i = 0; i < numOfRounds && isAnyGameRunning; i++) {
-            try {
-                runOneRound(i);
-            } catch (InvalidName | NoActiveDeck | InvalidDeck exception) {
-                DuelMenu.showException(exception);
-            }
-            if (checkMatchFinished()) break;
-            exchangeCardInDecks(roundController.getCurrentPlayer());
-            exchangeCardInDecks(roundController.getRival());
+//        for (int i = 0; i < numOfRounds && isAnyGameRunning; i++) {
+        try {
+//                while (!isRoundEnded()) //todo: move the field to the duelMenuController
+            runOneRound(0);
+        } catch (InvalidName | NoActiveDeck | InvalidDeck exception) {
+            DuelMenu.showException(exception);
         }
-        isAnyGameRunning = false;
-        announceWinnerOfMatch();
+//            if (checkMatchFinished()) break;
+//            exchangeCardInDecks(roundController.getCurrentPlayer());
+//            exchangeCardInDecks(roundController.getRival());
+//        }
+//        isAnyGameRunning = false;
+//        announceWinnerOfMatch();
     }
 
     public RoundController getProperRoundController(int roundIndex) throws InvalidDeck, InvalidName, NoActiveDeck {
-        return new RoundController(this.firstUser, this.secondUser, this, roundIndex);
+        return new RoundController(this.firstUser, this.secondUser, this, roundIndex, this.currentPhase);
     }
 
     private void runOneRound(int roundIndex) throws InvalidName, NoActiveDeck, InvalidDeck {
         this.roundController = getProperRoundController(roundIndex);
-        nextPhase();
+//        nextPhase();
         Watcher.roundController = this.roundController;
 
-        changeTurnScreen();
-        while (true) {
-            if (roundController.isTurnEnded())
-                changeTurnScreen();
-            if (roundController.isRoundEnded()) return;
-        }
+        changeTurn(false); //here it actually doesn't change, just starts the first turn
+//        while (true) {
+//            if (roundController.isTurnEnded())
+//                changeTurnScreen();
+//            if (roundController.isRoundEnded()) {
+//                roundController.announceRoundWinner(); //todo: needed?
+//                return;
+//            }
+//        }
 
     }
 
-    private void changeTurnScreen() {
-        roundController.swapPlayers();
+    public void setRoundEnded(boolean isRoundEnded) {
+        this.isRoundEnded = isRoundEnded;
+        if (isRoundEnded) roundController.announceRoundWinner();
+    }
+
+    public void changeTurn(boolean shouldSwap) {
+        if (shouldSwap) {
+            if (!hasSecondPlayerTurnStarted) {
+                hasSecondPlayerTurnStarted = true;
+            }
+            roundController.swapPlayers();
+        }
 
         this.turnScreen = new TurnScreen(roundController.getCurrentPlayer(), roundController.getRival(), this, gameMainClass);
         gameMainClass.setScreen(turnScreen);
+        roundController.setTurnEnded(false);
     }
 
 
@@ -263,13 +281,9 @@ public class DuelMenuController {
     public void playHeadOrTails(GameMainClass gameMainClass) {
 
         boolean isHead = Math.random() < 0.5;
-        CoinFlipScreen coinFlipScreen = new CoinFlipScreen(isHead, gameMainClass, this);
-        gameMainClass.setScreen(coinFlipScreen);
-
+        //todo: uncomment after shima's push
 //        CoinflipScreen screen = new Screen(isHead, gameMainClass,this);
 //        gameMainClass.setScreen(screen);
-
-//        return isHead;
 //        DuelMenu.showHeadOrTails(isHead, firstUser.getUsername(), secondUser.getUsername());
     }
 
@@ -388,17 +402,22 @@ public class DuelMenuController {
 
     public void nextPhase() {
         if (isGamePaused) return;
-        if (currentPhase != null) {
+        if (currentPhase == null) {
+            //means that the phase should be draw phase and it's the first turn of our player
+            this.currentPhase = Phase.DRAW;
+            this.drawPhaseController = new DrawPhaseController(roundController, true);
+            drawPhaseController.run();
+
+        } else {
             this.currentPhase = currentPhase.goToNextGamePhase();
-            switch (Objects.requireNonNull(currentPhase)) {
+            switch (currentPhase) {
                 case DRAW:
                     this.drawPhaseController = new DrawPhaseController(roundController, false);
-                    break;
                 case STANDBY:
                     this.standByPhaseController = new StandByPhaseController(roundController);
                     break;
                 case MAIN_1:
-                    //in case MAIN_2 the com.mygdx.game.java.controller is the same as MAIN_1
+                    //in case MAIN_2 the controller is the same as MAIN_1
                     this.mainPhaseController = new MainPhaseController(roundController);
                     break;
                 case BATTLE:
@@ -406,26 +425,65 @@ public class DuelMenuController {
                         canHaveBattlePhase = true;
                         nextPhase();
                         return;
-                    } else this.battlePhaseController = new BattlePhaseController(roundController);
+                    }
+                    this.battlePhaseController = new BattlePhaseController(roundController);
                     break;
-                case END:
-                    this.roundController.setTurnEnded(true);
-                    DuelMenu.showPhase(currentPhase.toString()); //can be commented
-                    roundController.updateAfterChangePhase();
-                    return;
                 case MAIN_2:
                     break;
+                case END:
+                    roundController.setTurnEnded(true);
+                    break;
             }
-        } else { //current phase was null
-            this.currentPhase = Phase.DRAW;
-            this.drawPhaseController = new DrawPhaseController(roundController, true);
+            roundController.updateAfterChangePhase();
+            if (currentPhase == Phase.DRAW) drawPhaseController.run();
         }
-        roundController.setCurrentPhase(currentPhase);
-
-        DuelMenu.showPhase(currentPhase.toString()); //can be commented!
-        roundController.updateAfterChangePhase();
-        if (currentPhase == Phase.DRAW) drawPhaseController.run();
     }
+
+//
+//    public void oldNextPhase() {
+//        if (isGamePaused) return;
+//        if (currentPhase != null) {
+//            this.currentPhase = currentPhase.goToNextGamePhase();
+//            switch (Objects.requireNonNull(currentPhase)) {
+//                case DRAW:
+////                    if(!hasSecondPlayerTurnStarted){
+////                        this.drawPhaseController = new DrawPhaseController(roundController, true);
+////                        hasSecondPlayerTurnStarted = true;
+////                    }
+//                    this.drawPhaseController = new DrawPhaseController(roundController, false);
+//                    break;
+//                case STANDBY:
+//                    this.standByPhaseController = new StandByPhaseController(roundController);
+//                    break;
+//                case MAIN_1:
+//                    //in case MAIN_2 the controller is the same as MAIN_1
+//                    this.mainPhaseController = new MainPhaseController(roundController);
+//                    break;
+//                case BATTLE:
+//                    if (!canHaveBattlePhase) {
+//                        canHaveBattlePhase = true;
+//                        nextPhase();
+//                        return;
+//                    } else this.battlePhaseController = new BattlePhaseController(roundController);
+//                    break;
+//                case END:
+//                    this.roundController.setTurnEnded(true);
+//                    DuelMenu.showPhase(currentPhase.toString()); //can be commented
+//                    roundController.updateAfterChangePhase();
+//                    return;
+//                case MAIN_2:
+//                    break;
+//            }
+//        } else { //current phase was null
+//            this.currentPhase = Phase.DRAW;
+//            this.drawPhaseController = new DrawPhaseController(roundController, true);
+//        }
+////        roundController.setCurrentPhase(currentPhase);
+//
+//        DuelMenu.showPhase(currentPhase.toString()); //can be commented!
+//        roundController.updateAfterChangePhase();
+//        if (currentPhase == Phase.DRAW) drawPhaseController.run();
+//    }
 
     public boolean askToEnterSummon() {
         return DuelMenu.forceGetCommand("summon", "you should ritual summon right now");

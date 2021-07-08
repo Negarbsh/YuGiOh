@@ -22,8 +22,8 @@ public class DuelMenuScreen implements Screen {
     Stage stage;
     User user;
     TextButton button;
-    Label rivalUserLabel,roundLabel,resultLabel;
-    TextField usernameTextField,roundTextField;
+    Label rivalUserLabel, roundLabel, resultLabel;
+    TextField usernameTextField, roundTextField;
 
     private final GameMainClass gameMainClass;
 
@@ -40,21 +40,21 @@ public class DuelMenuScreen implements Screen {
 
     @Override
     public void show() {
-        stage.addActor(new Wallpaper(3, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
+        stage.addActor(new Wallpaper(2, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
         table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
 
-//        gameMainClass.flatEarthSkin.getFont("font").getData().scale(3f);
-//        gameMainClass.flatEarthSkin.getFont("font").setColor(Color.BLACK);
-//        rivalUserLabel = new Label("rival user", gameMainClass.flatEarthSkin);
+        gameMainClass.flatEarthSkin.getFont("font").getData().scale(3f);
+        gameMainClass.flatEarthSkin.getFont("font").setColor(Color.BLACK);
+        rivalUserLabel = new Label("rival user", gameMainClass.flatEarthSkin);
 //        rivalUserLabel.setColor(Color.BLACK);
         usernameTextField = new TextField("", gameMainClass.flatEarthSkin);
         roundLabel = new Label("num of round", gameMainClass.flatEarthSkin);
         roundTextField = new TextField("", gameMainClass.flatEarthSkin);
 
         resultLabel = new Label("", gameMainClass.flatEarthSkin);
-        resultLabel.setBounds(100,50, 100,500);
+        resultLabel.setBounds(100, 50, 100, 500);
 
         table.add(rivalUserLabel);
         table.add(usernameTextField).width(300).height(60).row();
@@ -68,16 +68,13 @@ public class DuelMenuScreen implements Screen {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
-
-                    try{
-                        DuelMenuController.startNewDuel(usernameTextField.getText(),Integer.parseInt(roundTextField.getText()),gameMainClass);
-
-                    }catch(NumberFormatException e){
-                        resultLabel.setText("please enter a valid number"   );
-                    } catch (Exception e){
-                        resultLabel.setText(e.getMessage());
-                    }
+                try {
+                    DuelMenuController.startNewDuel(usernameTextField.getText(), Integer.parseInt(roundTextField.getText()), gameMainClass, user);
+                } catch (NumberFormatException e) {
+                    resultLabel.setText("please enter a valid number");
+                } catch (Exception e) {
+                    resultLabel.setText(e.getMessage());
+                }
             }
         });
 

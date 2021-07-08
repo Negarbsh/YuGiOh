@@ -60,35 +60,6 @@ public class DeckPreviewController {
             user.setActiveDeck(selectedDeck.getDeck());
     }
 
-//    public void showAllDecks() {
-//        Print.print("Decks:\nActive deck:");
-//        Deck activeDeck = user.getActiveDeck();
-//        if (activeDeck != null) {
-//            Print.print(activeDeck.toString());
-//        }
-//
-//        Print.print("Other decks:");
-//        for (Deck deck : user.getDecks()) {
-//            if (deck != activeDeck)
-//                Print.print(deck.toString());
-//        }
-//    }
-
-//    public void showDeck(String command, boolean side) throws NotExisting {
-//        String deckName = Objects.requireNonNull(RelatedToMenuController.
-//                getCommandString(command, "--deck-name ([^-]+)")).trim();
-//        Deck targetDeck = user.findDeckByName(deckName);
-//        if (targetDeck == null)
-//            throw new NotExisting("deck", deckName);
-//
-//        targetDeck.showDeck(side);
-//    }
-
-    public void showCards() {
-        Print.print(user.getMyCardsForPrint());
-    }
-
-
     public void createDecksTable(Table table) {
         ArrayList<Deck> usersDecks = user.getDecks();
         table.align(Align.left);
@@ -157,41 +128,4 @@ public class DeckPreviewController {
             }
         });
     }
-
-//    private void addDragAndDrop(DeckImageButton deckImageButton) {
-//        DragAndDrop dragAndDrop = new DragAndDrop();
-//        dragAndDrop.addSource(new DragAndDrop.Source(deckImageButton) {
-//            @Null
-//            public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
-//                DragAndDrop.Payload payload = new DragAndDrop.Payload();
-//                payload.setObject("Some payload!");
-//
-//                payload.setDragActor(getActor());
-//
-//                Label validLabel = new Label("Some payload!", deckPreview.getMainClass().skin);
-//                validLabel.setColor(0, 1, 0, 1);
-//                payload.setValidDragActor(validLabel);
-////
-////                Label invalidLabel = new Label("Some payload!", mainClass.skin);
-////                invalidLabel.setColor(1, 0, 0, 1);
-////                payload.setInvalidDragActor(invalidLabel);
-//
-//                return payload;
-//            }
-//        });
-//        dragAndDrop.addTarget(new DragAndDrop.Target(validTargetImage) {
-//            public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-//                getActor().setColor(Color.GREEN);
-//                return true;
-//            }
-//
-//            public void reset(DragAndDrop.Source source, DragAndDrop.Payload payload) {
-//                getActor().setColor(Color.WHITE);
-//            }
-//
-//            public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-//                System.out.println("Accepted: " + payload.getObject() + " " + x + ", " + y);
-//            }
-//        });
-//    }
 }

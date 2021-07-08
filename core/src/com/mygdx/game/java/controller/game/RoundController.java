@@ -33,7 +33,6 @@ public class RoundController {
     private Card selectedCard;
     private boolean isSelectedCardFromRivalBoard;
 
-    private boolean isRoundEnded;
     private boolean isTurnEnded;
     private int roundIndex; //0,1,2
 
@@ -42,37 +41,34 @@ public class RoundController {
     {
         isSelectedCardFromRivalBoard = false;
         actionsOnRival = new ActionsOnRival(this);
-        this.isRoundEnded = false;
+//        this.isRoundEnded = false;
+        this.isTurnEnded = false;
     }
 
 
-    public RoundController(User firstUser, User secondUser, DuelMenuController duelMenuController, int roundIndex)
+    public RoundController(User firstUser, User secondUser, DuelMenuController duelMenuController, int roundIndex, Phase currentPhase)
             throws InvalidDeck, InvalidName, NoActiveDeck {
         this.duelMenuController = duelMenuController;
         currentPlayer = new Player(firstUser, this);
         currentPlayer.getBoard().setMyPhase(Phase.END_RIVAL);
+
         rival = new Player(secondUser, this);
         rival.getBoard().setMyPhase(Phase.END);
-//        currentPhase = Phase.DRAW;
-//        duelMenuController.setDrawPhase(new DrawPhaseController(this, true));
+
         this.roundIndex = roundIndex;
-    }
-
-    public void setCurrentPhase(Phase currentPhase) {
-        this.currentPhase = currentPhase;
-//        if (currentPhase == Phase.END) setTurnEnded(true);
-
+        this.currentPhase = currentPhase; //actually it keeps the reference to the phase of duelController
     }
 
     public void setTurnEnded(boolean isTurnEnded) {
         this.isTurnEnded = isTurnEnded;
+        if (isTurnEnded) duelMenuController.changeTurn(true);
     }
 
     public void swapPlayers() {
         Player hold = this.currentPlayer;
         this.currentPlayer = rival;
         this.rival = hold;
-        setTurnEnded(false);
+//        setTurnEnded(false);
     }
 
     public void updateBoards() {
@@ -84,7 +80,7 @@ public class RoundController {
         if (rival.getLifePoint() <= 0) {
             setRoundWinner(RoundResult.CURRENT_WON);
         }
-        showBoard(); //todo: check with hasti
+        showBoard();
         currentPlayer.getBoard().updateAfterAction();
         rival.getBoard().updateAfterAction();
     }
@@ -148,17 +144,22 @@ public class RoundController {
     public void selectCard(Card card, Player selector) throws InvalidSelection {
         CardInUse cardInUse = findCardsCell(card);
         if (cardInUse != null) {
-
+            //todo select the card in board
         } else {
             if (selector.getHand().doesContainCard(card)) {
-                setSelectedCard(selectedCard);
-            } else throw new InvalidSelection();
+                setSelectedCard(card);
+                duelMenuController.getTurnScreen().updateSelectedCard();
+            }
+//            else throw new InvalidSelection();
         }
     }
+
 
     public void deselectCard() {
         this.selectedCard = null;
         isSelectedCardFromRivalBoard = false; //todo: why do we need this thing?
+        duelMenuController.getTurnScreen().updateSelectedCard();
+
     }
 
     public String showGraveYard(boolean ofCurrentPlayer) {
@@ -174,8 +175,8 @@ public class RoundController {
     /* the main part, the game */
 
     public void setRoundWinner(RoundResult roundResult) { //I think it needs an input for draw, maybe better get an enum
-        this.isRoundEnded = true;
-        this.isTurnEnded = true;
+        this.duelMenuController.setRoundEnded(true);
+        this.setTurnEnded(true);
         switch (roundResult) {
             case CURRENT_WON:
                 winner = currentPlayer;
