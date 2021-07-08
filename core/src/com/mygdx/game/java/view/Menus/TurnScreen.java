@@ -16,8 +16,10 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
-import com.mygdx.game.java.model.*;
+import com.mygdx.game.java.model.Board;
 import com.mygdx.game.java.model.Enums.Phase;
+import com.mygdx.game.java.model.Hand;
+import com.mygdx.game.java.model.Player;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
@@ -149,22 +151,25 @@ public class TurnScreen implements Screen {
     }
 
     private void createBoards() {
-        rivalBoard.setupEntities(false);
-        myBoard.setupEntities(true);
-        rivalBoardTable = rivalBoard.getTable();
-        myBoardTable = myBoard.getTable();
+//        rivalBoard.setupEntities(false);
+//        myBoard.setupEntities(true);
 
         this.boardsTable = new Table(flatEarthSkin);
         boardsTable.setBackground(ButtonUtils.makeDrawable("Field/fie_normal.bmp"));
         boardsTable.setBounds(Constants.BOARDS_X, Constants.BOARDS_Y, Constants.BOARDS_WIDTH, Constants.BOARDS_HEIGHT);
 
-        this.rivalBoardTable = rivalBoard.getTable();
-        this.myBoardTable = myBoard.getTable();
-        boardsTable.add(rivalBoardTable).pad(Constants.BOARDS_GAP);
-        boardsTable.row();
-        boardsTable.add(myBoardTable);
+//        this.rivalBoardTable = rivalBoard.getTable();
+//        this.myBoardTable = myBoard.getTable();
+
+//        boardsTable.add(rivalBoardTable).pad(Constants.BOARDS_GAP);
+//        boardsTable.row();
+//        boardsTable.add(myBoardTable);
 
         stage.addActor(boardsTable);
+
+        myBoard.addButtonsToStage(stage, true);
+        rivalBoard.addButtonsToStage(stage, false);
+
     }
 
     //side bar stuff beginning

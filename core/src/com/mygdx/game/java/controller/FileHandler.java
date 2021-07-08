@@ -3,12 +3,11 @@ package com.mygdx.game.java.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.mygdx.game.java.model.*;
+import com.mygdx.game.java.model.Reader;
+import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.model.card.CardLoader;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.model.card.PreCardAdapter;
-import com.mygdx.game.java.model.forgraphic.ButtonUtils;
-import com.mygdx.game.java.model.forgraphic.Curtain;
 import com.mygdx.game.java.model.forgraphic.DeckImageButton;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
 
@@ -31,8 +30,6 @@ public class FileHandler {
         Wallpaper.setAllWallpapers();
         DeckImageButton.setDeckImages();
 //        setCurtainPictures("gifs/out");
-//        Curtain.createFrames("gifs/out");
-//        ScoreBoardMenuController.torchPic = ButtonUtils.makeDrawable("Items/me/torch3-1.png");
     }
 
     private static void setCurtainPictures(String folderPath) {

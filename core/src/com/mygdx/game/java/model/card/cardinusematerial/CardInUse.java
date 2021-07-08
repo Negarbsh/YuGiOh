@@ -1,6 +1,7 @@
 package com.mygdx.game.java.model.card.cardinusematerial;
 
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Board;
 import com.mygdx.game.java.model.CardState;
@@ -9,6 +10,7 @@ import com.mygdx.game.java.model.Player;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.watchers.Watcher;
+import com.mygdx.game.java.view.Constants;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,13 +32,14 @@ public abstract class CardInUse {
     public CardInUse(Board board) {
         this.board = board;
         this.ownerOfCard = board.getOwner();
+        imageButtonInUse = new ImageButton(GameMainClass.orangeSkin2);
+        imageButtonInUse.setSize(Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
     }
 
     {
         isPositionChanged = false;
         isFaceUp = false;
         watchersOfCardInUse = new ArrayList<>();
-//        imageButtonInUse = new ImageButton(GameMainClass.flatEarthSkin2); todo needed?
     }
 
     public Card getThisCard() {
@@ -47,7 +50,7 @@ public abstract class CardInUse {
         return thisCard == null;
     }
 
-    public void faceUpCard() { //note
+    public void faceUpCard() {
         if (!isFaceUp) {
             watchByState(CardState.FACE_UP);
             isFaceUp = true;
@@ -103,12 +106,12 @@ public abstract class CardInUse {
 
     protected void setImageButton(Card owner) {
         if (owner == null) {
-//            imageButtonInUse.getImage().setDrawable(null);
-            imageButtonInUse = null; //todo: null or what?
+            imageButtonInUse.getImage().setDrawable(null);
+//            imageButtonInUse = null; //todo: null or what?
             return;
         }
-        if (isFaceUp) imageButtonInUse = owner.getVisibleImageButton();
-        else imageButtonInUse = owner.getInvisibleImageButton();
+        if (isFaceUp) imageButtonInUse.getImage().setDrawable(owner.getVisibleImageButton().getImage().getDrawable());
+        else imageButtonInUse.getImage().setDrawable(owner.getInvisibleImageButton().getImage().getDrawable());
         if (this instanceof MonsterCardInUse) {
             MonsterCardInUse monsterCardInUse = (MonsterCardInUse) this;
             if (!monsterCardInUse.isInAttackMode()) {

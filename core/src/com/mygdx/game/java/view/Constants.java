@@ -25,24 +25,26 @@ public class Constants {
     //hand
     public final static float CARD_IN_HAND_HEIGHT = 160;
     public final static float HAND_GAP_BETWEEN_CELLS = 10;
-    public final static float HAND_WIDTH = 700;
     public final static float RIVAL_HAND_Y = DUEL_SCREEN_HEIGHT - UPPER_BAR_HEIGHT - CARD_IN_HAND_HEIGHT;
     public final static float CARD_IN_HAND_WIDTH = (DUEL_SCREEN_WIDTH - SIDE_INFO_WIDTH - 7 * HAND_GAP_BETWEEN_CELLS - DECK_WIDTH - 50) / 6;
+    public final static float HAND_WIDTH = CARD_IN_HAND_WIDTH * 6 + HAND_GAP_BETWEEN_CELLS * 7;
+
 
     //boards
-    public final static float CARD_IN_USE_WIDTH = 80;
-    public final static float CARD_IN_USE_HEIGHT = 160;
-    public static final float BOARD_CELLS_GAP = 10;
+    public static final float BOARD_CELLS_GAP = 12 ;
+    public final static float CARD_IN_USE_WIDTH = 7 * BOARD_CELLS_GAP;
+    public final static float CARD_IN_USE_HEIGHT = 9 * BOARD_CELLS_GAP;
     public static final float BOARD_ZONES_GAP = 20;
     public static final float BOARDS_GAP = 20;
     public static final float GRAVEYARD_WIDTH = CARD_IN_USE_WIDTH; //change it if you wish!
-    public static final float FIELD_WIDTH = CARD_IN_USE_WIDTH;
-    public static final float BOARD_WIDTH = CARD_IN_USE_WIDTH * 5 + BOARD_CELLS_GAP * 6 + GRAVEYARD_WIDTH + FIELD_WIDTH;
-    public static final float BOARD_HEIGHT = CARD_IN_USE_HEIGHT * 2 + BOARD_ZONES_GAP;
-    public static final float BOARDS_HEIGHT = 2 * BOARD_HEIGHT + BOARDS_GAP;
+    public static final float FIELD_WIDTH = BOARD_CELLS_GAP * 9;
+//    public static final float BOARD_WIDTH = CARD_IN_USE_WIDTH * 5 + BOARD_CELLS_GAP * 6 + GRAVEYARD_WIDTH + FIELD_WIDTH ;
+    public static final float BOARD_WIDTH = BOARD_CELLS_GAP * 57;
+//    public static final float BOARD_HEIGHT = CARD_IN_USE_HEIGHT * 2 + BOARD_ZONES_GAP;
+    public static final float BOARD_HEIGHT = 19 * BOARD_CELLS_GAP;
+    public static final float BOARDS_HEIGHT =  BOARD_CELLS_GAP * 60;
     public static final float BOARDS_WIDTH = BOARD_WIDTH;
     public static final float BOARDS_Y = HAND_BOARD_DISTANCE + CARD_IN_HAND_WIDTH;
     public static final float BOARDS_X = SIDE_INFO_WIDTH + HAND_WIDTH / 2 - BOARD_WIDTH / 2;
-
-
+    public static final float FIRST_CELL_IN_BOARD_X = SIDE_INFO_WIDTH + FIELD_WIDTH + BOARD_CELLS_GAP;
 }

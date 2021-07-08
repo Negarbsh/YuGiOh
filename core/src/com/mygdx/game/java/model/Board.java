@@ -1,7 +1,8 @@
 package com.mygdx.game.java.model;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.card.Card;
@@ -12,6 +13,7 @@ import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.spelltrap.SpellTrap;
 import com.mygdx.game.java.model.watchers.Watcher;
 import com.mygdx.game.java.view.Constants;
+import com.mygdx.game.java.view.PositionCalculator;
 import com.mygdx.game.java.view.exceptions.InvalidSelection;
 import com.mygdx.game.java.view.exceptions.NoCardFound;
 import lombok.Getter;
@@ -223,34 +225,40 @@ public class Board {
 
 
     //  This function is called when we want to show the board for the first time in the duelScreen.
-    public void setupEntities(boolean isMyOwnerCurrent) {
-        table.align(Align.center);
-        table.setX(Constants.BOARDS_X);
-        table.setWidth(Constants.BOARD_WIDTH);
-        table.setHeight(Constants.BOARD_HEIGHT);
-        if (isMyOwnerCurrent) { //todo clean code
-            table.add(fieldCell.getImageButtonInUse()).padRight(Constants.BOARD_CELLS_GAP);
-            for (int i = 0; i < 5; i++) {
-                table.add(monsterZone[i].getImageButtonInUse()).width(Constants.CARD_IN_USE_WIDTH).height(Constants.CARD_IN_USE_HEIGHT).padRight(Constants.BOARD_CELLS_GAP);
-            }
-            table.add(graveYard.getImageButton());
-            table.row().pad(Constants.BOARD_ZONES_GAP);
-            for (int i = 0; i < 5; i++) {
-                table.add(spellTrapZone[i].getImageButtonInUse()).width(Constants.CARD_IN_USE_WIDTH).height(Constants.CARD_IN_USE_HEIGHT).padRight(Constants.BOARD_CELLS_GAP);
-            }
-        } else {
-            for (int i = 0; i < 5; i++) {
-                table.add(spellTrapZone[i].getImageButtonInUse()).width(Constants.CARD_IN_USE_WIDTH).height(Constants.CARD_IN_USE_HEIGHT).padRight(Constants.BOARD_CELLS_GAP);
-            }
-            table.row().pad(Constants.BOARD_ZONES_GAP);
-            table.add(fieldCell.getImageButtonInUse()).padRight(Constants.BOARD_CELLS_GAP);
-            for (int i = 0; i < 5; i++) {
-                table.add(monsterZone[i].getImageButtonInUse()).width(Constants.CARD_IN_USE_WIDTH).height(Constants.CARD_IN_USE_HEIGHT).padRight(Constants.BOARD_CELLS_GAP);
-            }
-            table.add(graveYard.getImageButton());
-        }
-
-    }
+//    public void setupEntities(boolean isMyOwnerCurrent) {
+//        table.align(Align.center);
+////        table.setX(Constants.BOARDS_X);
+////        table.setWidth(Constants.BOARD_WIDTH);
+////        table.setHeight(Constants.BOARD_HEIGHT);
+//        if (isMyOwnerCurrent) { //todo clean code
+//
+//            table.setBounds(Constants.BOARDS_X, Constants.BOARDS_Y + Constants.BOARD_HEIGHT + Constants.BOARD_CELLS_GAP, Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);
+//            table.add(fieldCell.getImageButtonInUse()).padRight(Constants.BOARD_CELLS_GAP);
+//            for (int i = 0; i < 5; i++) {
+//                table.add(monsterZone[i].getImageButtonInUse()).width(Constants.CARD_IN_USE_WIDTH).height(Constants.CARD_IN_USE_HEIGHT).padRight(Constants.BOARD_CELLS_GAP);
+//            }
+//            table.add(graveYard.getImageButton());
+//            table.row().pad(Constants.BOARD_ZONES_GAP);
+//            for (int i = 0; i < 5; i++) {
+//                table.add(spellTrapZone[i].getImageButtonInUse()).width(Constants.CARD_IN_USE_WIDTH).height(Constants.CARD_IN_USE_HEIGHT).padRight(Constants.BOARD_CELLS_GAP);
+//            }
+//        }
+//        else {
+//            table.setBounds(Constants.BOARDS_X, Constants.BOARDS_Y , Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);
+//
+//
+//            for (int i = 0; i < 5; i++) {
+//                table.add(spellTrapZone[i].getImageButtonInUse()).width(Constants.CARD_IN_USE_WIDTH).height(Constants.CARD_IN_USE_HEIGHT).padRight(Constants.BOARD_CELLS_GAP);
+//            }
+//            table.row().pad(Constants.BOARD_ZONES_GAP);
+//            table.add(fieldCell.getImageButtonInUse()).padRight(Constants.BOARD_CELLS_GAP);
+//            for (int i = 0; i < 5; i++) {
+//                table.add(monsterZone[i].getImageButtonInUse()).width(Constants.CARD_IN_USE_WIDTH).height(Constants.CARD_IN_USE_HEIGHT).padRight(Constants.BOARD_CELLS_GAP);
+//            }
+//            table.add(graveYard.getImageButton());
+//        }
+//
+//    }
 
     public Table getTable() {
         return table;
@@ -264,5 +272,15 @@ public class Board {
             return rivalTurnString();
     }
 
+    public void addButtonsToStage(Stage stage, boolean amViewer) {
+        if(amViewer){
+            for (int i = 0; i < monsterZone.length; i++) {
+                ImageButton imageButton = monsterZone[i].getImageButtonInUse();
+                float[] position = PositionCalculator.getCardInUsePosition(i,true,true);
+                imageButton.setBounds(position[0], position[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
+                stage.addActor(imageButton);
+            }
+        }
+    }
 }
 
