@@ -22,13 +22,20 @@ import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.Hand;
 import com.mygdx.game.java.model.Player;
 import com.mygdx.game.java.model.card.Card;
+import com.mygdx.game.java.model.card.CardImageButton;
 import com.mygdx.game.java.model.card.PreCard;
+import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
+import com.mygdx.game.java.model.forgraphic.CustomDialog;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.view.Constants;
 import com.mygdx.game.java.view.exceptions.*;
 import lombok.Getter;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 
 @Getter
@@ -69,6 +76,8 @@ public class TurnScreen implements Screen {
     private Label messageLabel;
 
     private Skin flatEarthSkin;
+
+    private CustomDialog customDialog;
 
     {
         this.stage = new Stage(new FitViewport(Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
@@ -320,12 +329,19 @@ public class TurnScreen implements Screen {
 
 
     //if the user chooses options[i], the function returns i
-    public int showQuestionDialog(String title, String question, String[] options) {
-        final int[] response = new int[1];
+    public void showQuestionDialog(String title, String question, String[] options, Method method, Object ownerOfMethod) {
+//        if(!(options instanceof String[]) || !(options instanceof Button[])) return;
+
         Dialog dialog = new Dialog(title, GameMainClass.flatEarthSkin2) {
             @Override
             protected void result(Object object) {
-                response[0] = (int) object;
+                try {
+                    method.invoke(ownerOfMethod, object);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException ex) { //other exceptions that may happen due to the method's exceptions todo am I right?
+                    DuelMenu.showException(ex);
+                }
             }
         };
 
@@ -335,11 +351,33 @@ public class TurnScreen implements Screen {
             dialog.button(options[i], i);
         }
         dialog.show(stage);
-        return response[0];
+    }
+
+    public void showImageButtonDialog(String title, String question, ArrayList<ImageButton> options, Method method, Object ownerOfMethod) {
+        Dialog dialog = new Dialog(title, GameMainClass.flatEarthSkin2) {
+            @Override
+            protected void result(Object object) {
+                try {
+                    method.invoke(ownerOfMethod, object);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException ex) { //other exceptions that may happen due to the method's exceptions todo am I right?
+                    DuelMenu.showException(ex);
+                }
+            }
+        };
+
+        dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+        dialog.text(question);
+        for (int i = 0; i < options.size(); i++) {
+            dialog.button(options.get(i), i);
+        }
+        dialog.show(stage);
     }
 
     public void handleMainPhaseActionHand(boolean isMonster, Card card) {
         controller.selectCard(card);
+
         Dialog dialog;
         if (isMonster) {
             dialog = new Dialog("Choose Action", GameMainClass.flatEarthSkin2) {
@@ -382,6 +420,8 @@ public class TurnScreen implements Screen {
 
     public void handleMainPhaseBoard(boolean isMonster, Card card) {
         controller.selectCard(card);
+        CardInUse cardInUse = controller.getRoundController().findCardsCell(card);
+        if(cardInUse.getOwnerOfCard()  != myPlayer) return; //todo for attack, it might be sth else
         Dialog dialog;
         if (isMonster) {
             dialog = new Dialog("Choose Action", GameMainClass.flatEarthSkin2) {
@@ -415,11 +455,13 @@ public class TurnScreen implements Screen {
             dialog.button("Activate", 0);
         }
         dialog.button("Cancel", 1);
+        dialog.show(stage);
     }
 
 
     public void askToAttack(Monster monster) {
-        Dialog dialog = new Dialog("Choose Battle Action", GameMainClass.flatEarthSkin2) {
+        controller.selectCard(monster);
+        Dialog dialog = new Dialog("Battle Announce", GameMainClass.flatEarthSkin2) {
             @Override
             protected void result(Object object) {
                 int answer = (int) object;
@@ -429,7 +471,7 @@ public class TurnScreen implements Screen {
                             controller.attackDirect();
                         } catch (CardAttackedBeforeExeption | WrongPhaseForAction | CardCantAttack exception) {
                             DuelMenu.showException(exception);
-                        } catch (CantAttackDirectlyException exception){
+                        } catch (CantAttackDirectlyException exception) {
                             askToChoosePrey();
                         }
                     }
@@ -442,6 +484,7 @@ public class TurnScreen implements Screen {
         dialog.text("Do you want to attack?");
         dialog.button("Yes", 0);
         dialog.button("No", 1);
+        dialog.show(stage);
     }
 
     private void askToChoosePrey() {
@@ -458,6 +501,7 @@ public class TurnScreen implements Screen {
         myLPLabel.setText("Life Point: " + myPlayer.getLifePoint());
         rivalLifePoint.setValue(rival.getLifePoint());
         rivalLPLabel.setText("Life Point: " + rival.getLifePoint());
+
 
         stage.act();
         stage.draw();

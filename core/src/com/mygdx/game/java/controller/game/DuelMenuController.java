@@ -166,7 +166,7 @@ public class DuelMenuController {
     }
 
     public RoundController getProperRoundController(int roundIndex) throws InvalidDeck, InvalidName, NoActiveDeck {
-        return new RoundController(this.firstUser, this.secondUser, this, roundIndex, this.currentPhase);
+        return new RoundController(this.firstUser, this.secondUser, this, roundIndex);
     }
 
     private void runOneRound(int roundIndex) throws InvalidName, NoActiveDeck, InvalidDeck {

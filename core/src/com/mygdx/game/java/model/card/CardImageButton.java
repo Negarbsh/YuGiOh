@@ -13,6 +13,8 @@ import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.spelltrap.SpellTrap;
 import com.mygdx.game.java.view.exceptions.*;
 
+import java.lang.reflect.Method;
+
 public class CardImageButton extends ImageButton {
     private final Card myOwnerCard;
     private final boolean canBeSeen;
@@ -49,13 +51,13 @@ public class CardImageButton extends ImageButton {
                 handleEntered();
             }
 
-            @Override
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                try {
-                    myController.deselectCard();
-                } catch (NoSelectedCard ignored) {
-                }
-            }
+//            @Override
+//            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+//                try {
+//                    myController.deselectCard();
+//                } catch (NoSelectedCard ignored) {
+//                }
+//            }
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -66,7 +68,7 @@ public class CardImageButton extends ImageButton {
 
     public void handleClicked(DuelMenuController controller, Player ownerPlayer, Card ownerCard) {
         if (controller.isGamePaused()) return;
-        Phase currentPhase = myController.getCurrentPhase();
+        Phase currentPhase = myController.getCurrentPhase(); //todo for phase 3, the current phase should be the phase of viewer
         if (currentPhase == Phase.MAIN_1 || currentPhase == Phase.MAIN_2) {
             checkMainPhaseActions(ownerPlayer, ownerCard);
         } else if (currentPhase == Phase.BATTLE) {
@@ -78,29 +80,42 @@ public class CardImageButton extends ImageButton {
 
     private void checkMainPhaseActions(Player ownerPlayer, Card ownerCard) {
         //actions : summon, set, flip summon
-        if (ownerPlayer.getHand().doesContainCard(ownerCard)) {
+        if (myController.getTurnScreen().getMyPlayer().getHand().doesContainCard(ownerCard)) {
             if (ownerCard instanceof Monster) {
                 myController.getTurnScreen().handleMainPhaseActionHand(true, myOwnerCard);
-//                int choice = myController.getTurnScreen().showQuestionDialog("Main Phase Action", "What do you want to do?", new String[]{"summon", "set", "cancel"});
+//                Method method = null;
 //                try {
-//                    if (choice == 0) myController.summonMonster(false);
-//                    else if (choice == 1) myController.setCard();
-//                } catch (Exception ignored) {
+//                    method = Class.forName("com.mygdx.game.java.model.card.CardImageButton").getMethod("handleChoiceHasti", int.class);
+//                } catch (NoSuchMethodException | ClassNotFoundException e) {
+//                    e.printStackTrace();
 //                }
+//                myController.getTurnScreen().showQuestionDialog("Main Phase Action", "What do you want to do?", new String[]{"summon", "set", "cancel"}, method, this);
+
             } else if (ownerCard instanceof SpellTrap)
                 myController.getTurnScreen().handleMainPhaseActionHand(false, myOwnerCard);
         } else {
             //the card isn't in hand. if it is in the monster zone we may flip summon it
             if (ownerCard instanceof Monster) {
                 myController.getTurnScreen().handleMainPhaseBoard(true, ownerCard);
+            } else if (ownerCard instanceof SpellTrap) {
+                myController.getTurnScreen().handleMainPhaseBoard(false, ownerCard);
             }
         }
     }
 
+//    public void handleChoiceHasti(int choice) {
+//        try {
+//            if (choice == 0) myController.summonMonster(false);
+//            else if (choice == 1) myController.setCard();
+//        } catch (Exception ignored) {
+//        }
+//    }
+
     public void checkBattlePhaseActions(Player cardOwner, Card card) {
         myController.selectCard(card);
-        if (card instanceof Monster){
-            myController.getTurnScreen().askToAttack((Monster) card);
+        if (card instanceof Monster) {
+            if (cardOwner == myController.getTurnScreen().getMyPlayer() && cardOwner == myController.getRoundController().getCurrentPlayer())
+                myController.getTurnScreen().askToAttack((Monster) card);
         }
     }
 

@@ -20,6 +20,9 @@ import com.mygdx.game.java.view.exceptions.InvalidTributeAddress;
 import java.util.ArrayList;
 
 public class AdvancedRitualArtWatcher extends Watcher {
+    private SelectController selectControllerForMonster;
+    private SelectController selectControllerForTribute;
+    private Monster monsterToSummon;
 
     public AdvancedRitualArtWatcher(CardInUse ownerOfWatcher, WhoToWatch whoToWatch) {
         super(ownerOfWatcher, whoToWatch);
@@ -29,26 +32,28 @@ public class AdvancedRitualArtWatcher extends Watcher {
     public void watch(CardInUse theCard, CardState cardState, DuelMenuController duelMenuController) {
         if (cardState == CardState.ACTIVE_MY_EFFECT) {
             if (handleChain()) {
-                try {
-                    handleRitualSummon();
-                } catch (BeingFull | InvalidTributeAddress ex) {
-                    DuelMenu.showException(ex);
-                }
+                getMonsterToSummon();
+//                try {
+////                    handleRitualSummon();
+//                } catch (BeingFull | InvalidTributeAddress ex) {
+//                    DuelMenu.showException(ex);
+//                }
             }
         }
     }
 
     private void handleRitualSummon() throws BeingFull, InvalidTributeAddress {
-        Monster monster = getMonsterToSummon();
-        if (monster == null) return;
 
-        ArrayList<Monster> tributes = getTributes(monster.getLevel());
-        if (tributes == null || tributes.isEmpty()) return;
-
-        isWatcherActivated = true;
-        Player player = this.ownerOfWatcher.ownerOfCard;
-        SummonController.specialSummon(monster, player, player.getBoard().getController().getRoundController(), true);
-        sendToGraveYard(tributes);
+//        Monster monster = getMonsterToSummon();
+//        if (monster == null) return;
+//
+//        ArrayList<Monster> tributes = getTributes(monster.getLevel());
+//        if (tributes == null || tributes.isEmpty()) return;
+//
+//        isWatcherActivated = true;
+//        Player player = this.ownerOfWatcher.ownerOfCard;
+//        SummonController.specialSummon(monster, player, player.getBoard().getController().getRoundController(), true);
+//        sendToGraveYard(tributes);
     }
 
     private void sendToGraveYard(ArrayList<Monster> tributes) {
@@ -61,47 +66,83 @@ public class AdvancedRitualArtWatcher extends Watcher {
 
     }
 
-    private Monster getMonsterToSummon() {
-        if (ownerOfWatcher.getBoard().getController().askToEnterSummon()) return null;
+    private void getMonsterToSummon() {
+        if (ownerOfWatcher.getBoard().getController().askToEnterSummon()) return;
 
         ArrayList<ZoneName> zoneNames = new ArrayList<>();
         zoneNames.add(ZoneName.HAND);
-        SelectController selectController = new SelectController(zoneNames, ownerOfWatcher.getBoard().getController().getRoundController(), ownerOfWatcher.getOwnerOfCard());
-        selectController.setCardType(CardType.MONSTER);
-        selectController.setIfRitual(true);
-        Card card = selectController.getTheCard();
-        if (card instanceof Monster) return (Monster) card;
-        return null; //it may happen when the process is canceled
+        selectControllerForMonster = new SelectController(zoneNames, ownerOfWatcher.getBoard().getController().getRoundController(), ownerOfWatcher.getOwnerOfCard());
+        selectControllerForMonster.setCardType(CardType.MONSTER);
+        selectControllerForMonster.setIfRitual(true);
+        try {
+            selectControllerForMonster.askToChoosePossibleCard(this.getClass().getMethod("handleSelectAction", int.class), this);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+//        Card card = selectController.askToChoosePossibleCard();
+//        if (card instanceof Monster) return (Monster) card;
+//        return null; //it may happen when the process is canceled
     }
 
-    private ArrayList<Monster> getTributes(int levelsSum) throws InvalidTributeAddress {
-        int numOfTributes;
-        //todo: following lines are better to be in com.mygdx.game.java.view. but never mind
-        String numString = DuelMenu.askQuestion("Enter the number of tributes or enter \"cancel\" to cancel!");
-        while (true) {
-            if (numString.equals("cancel")) return null;
-            try {
-                numOfTributes = Integer.parseInt(numString);
-                break;
-            } catch (Exception e) {
-                numString = DuelMenu.askQuestion("Invalid number. " +
-                        "Enter the number of tributes or enter \"cancel\" to cancel!");
-            }
-        }
+    public void handleSelectAction(int choice) throws InvalidTributeAddress, BeingFull {
+        Card card = selectControllerForMonster.getTheCard(choice);
+        if (!(card instanceof Monster)) return;
+        monsterToSummon = (Monster) card;
+        getTributesAndContinue(monsterToSummon.getLevel());
+        //todo ooooooooooooooooooooooooooooooooooo!
+//        ArrayList<Monster> tributes = getTributesAndContinue(monsterToSummon.getLevel());
+//        if (tributes == null || tributes.isEmpty()) return;
+//
+//        isWatcherActivated = true;
+//        Player player = this.ownerOfWatcher.ownerOfCard;
+//        SummonController.specialSummon(monsterToSummon, player, player.getBoard().getController().getRoundController(), true);
+//        sendToGraveYard(tributes);
 
+    }
+
+    private void getTributesAndContinue(int levelsSum) throws InvalidTributeAddress {
         ArrayList<ZoneName> deckZone = new ArrayList<>();
         ArrayList<Monster> tributes = new ArrayList<>();
         deckZone.add(ZoneName.MY_DECK);
-        for (int i = 0; i < numOfTributes; i++) {
-            SelectController selectController = new SelectController(deckZone, ownerOfWatcher.getBoard().getController().getRoundController(), ownerOfWatcher.ownerOfCard);
-            selectController.setCardType(CardType.MONSTER);
-            selectController.setIfNormal(true);
-            tributes.add((Monster) selectController.getTheCard());
-        }
-        if (!areTributesValid(tributes, levelsSum)) {
-            throw new InvalidTributeAddress();
-        }
-        return tributes;
+
+        selectControllerForTribute = new SelectController(deckZone, ownerOfWatcher.getBoard().getController().getRoundController(), ownerOfWatcher.ownerOfCard);
+        selectControllerForTribute.setCardType(CardType.MONSTER);
+        selectControllerForTribute.setIfNormal(true);
+
+//        selectControllerForTribute.askToChoosePossibleCard();
+//        tributes.add((Monster) selectControllerForTribute.getTheCard());
+
+
+//        int numOfTributes;
+//
+//        String numString = DuelMenu.askQuestion("Enter the number of tributes or enter \"cancel\" to cancel!");
+//        while (true) {
+//            if (numString.equals("cancel")) return null;
+//            try {
+//                numOfTributes = Integer.parseInt(numString);
+//                break;
+//            } catch (Exception e) {
+//                numString = DuelMenu.askQuestion("Invalid number. " +
+//                        "Enter the number of tributes or enter \"cancel\" to cancel!");
+//            }
+//        }
+//        ArrayList<ZoneName> deckZone = new ArrayList<>();
+//        ArrayList<Monster> tributes = new ArrayList<>();
+//        deckZone.add(ZoneName.MY_DECK);
+//
+//
+//
+//        for (int i = 0; i < numOfTributes; i++) {
+//            SelectController selectController = new SelectController(deckZone, ownerOfWatcher.getBoard().getController().getRoundController(), ownerOfWatcher.ownerOfCard);
+//            selectController.setCardType(CardType.MONSTER);
+//            selectController.setIfNormal(true);
+//            tributes.add((Monster) selectController.getTheCard());
+//        }
+//        if (!areTributesValid(tributes, levelsSum)) {
+//            throw new InvalidTributeAddress();
+//        }
+//        return tributes;
+
     }
 
     private boolean areTributesValid(ArrayList<Monster> tributeMonsters, int level) {
