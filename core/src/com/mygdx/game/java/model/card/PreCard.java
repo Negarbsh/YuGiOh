@@ -73,7 +73,7 @@ public abstract class PreCard {
     }
 
     private static void addCharPics(String folderPath) {
-//        Reader.figureCatalog(folderPath);
+//        Reader.figureCatalog(new String[]{"Characters/avatars"});
         int i = 0;
         for (FileHandle charPhoto : Reader.readDirectoryCatalog(folderPath)) {
             User.charPhotos.put(i++, ButtonUtils.makeDrawable(folderPath + "/" + charPhoto.name()));

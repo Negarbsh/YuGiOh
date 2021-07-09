@@ -31,8 +31,9 @@ public class Constants {
     public final static float RIVAL_HAND_Y = DUEL_SCREEN_HEIGHT - UPPER_BAR_HEIGHT - CARD_IN_HAND_HEIGHT;
     public final static float CARD_IN_HAND_WIDTH = (DUEL_SCREEN_WIDTH - SIDE_INFO_WIDTH - 7 * HAND_GAP_BETWEEN_CELLS - DECK_WIDTH - 50) / 6;
 
-    public final static float COIN_TURN_HEIGHT=100;
-    public final static float COIN_TURN_WIDTH=100;
+    public final static float COIN_TURN_HEIGHT=80;
+    public final static float COIN_TURN_WIDTH=120;
+
     public final static float COIN_IMAGE_HEIGHT=200;
     public final static float COIN_IMAGE_WIDTH=200;
 }

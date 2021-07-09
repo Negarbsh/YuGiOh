@@ -6,10 +6,16 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.java.controller.FileHandler;
+import com.mygdx.game.java.controller.game.DuelMenuController;
+import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.view.Menus.CoinFlipScreen;
 import com.mygdx.game.java.view.Menus.DuelMenuScreen;
 import com.mygdx.game.java.view.Menus.RelatedToMenu;
 import com.mygdx.game.java.view.Menus.ScoreboardMenu;
+import com.mygdx.game.java.view.exceptions.NumOfRounds;
+
+import java.util.concurrent.ExecutionException;
 
 public class GameMainClass extends Game {
 
@@ -32,10 +38,13 @@ public class GameMainClass extends Game {
         flatEarthSkin2 = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
         flatEarthSkin2.getFont("font").getData().setScale(1.5f);
         FileHandler.loadThings();
-        setScreen(new ScoreboardMenu(this, User.getUserByName("ali")));
+
+//        setScreen(new ScoreboardMenu(this, User.getUserByName("ali")));
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
+        performCoinScreenTest();
 //        preformDuelScreenTest();
+
 //        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
 //        setScreen(new CardCreatorMenu(this, User.getUserByName("ali")));
 //        setScreen(new LoginMenu(this));
@@ -44,6 +53,22 @@ public class GameMainClass extends Game {
 //        setScreen(new RelatedToMenu(this));
 
     }
+
+    private void performCoinScreenTest(){
+
+
+        Screen screen = null;
+        try {
+            screen = new CoinFlipScreen(true,this,
+                    new DuelMenuController(User.getUserByName("ali"),User.getUserByName("akbar"),3,this));
+        } catch ( Exception e) {
+            System.out.println(e.getMessage());
+        }
+        setScreen(screen);
+
+
+    }
+
 
     private void preformDuelScreenTest() {
 //        User ali = User.getUserByName("ali");
@@ -77,4 +102,5 @@ public class GameMainClass extends Game {
     @Override
     public void dispose() {
     }
-}
+};
+

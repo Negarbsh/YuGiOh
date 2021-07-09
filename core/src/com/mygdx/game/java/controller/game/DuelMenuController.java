@@ -62,7 +62,7 @@ public class DuelMenuController {
     }
 
     //todo: made public for test! make it private
-    private DuelMenuController(User firstUser, User secondUser, int numOfRounds, GameMainClass gameMainClass) throws NumOfRounds {
+    public DuelMenuController(User firstUser, User secondUser, int numOfRounds, GameMainClass gameMainClass) throws NumOfRounds {
         this.gameMainClass = gameMainClass;
         setFirstUser(firstUser);
         setSecondUser(secondUser);
