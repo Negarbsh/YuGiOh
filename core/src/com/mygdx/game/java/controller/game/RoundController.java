@@ -28,7 +28,6 @@ public class RoundController {
     private Player loser;
     private boolean isDraw = false;
 
-    private Phase currentPhase;
     private ActionsOnRival actionsOnRival;
 
 
@@ -40,19 +39,18 @@ public class RoundController {
 
     private DuelMenuController duelMenuController;
 
-    private boolean specialSelectWaiting = false;
-    private boolean waitingToChoosePrey = false;
-    private Card selectedPrey;
+    private boolean specialSelectWaiting = false; //not sure when it will be needed
+    private boolean waitingToChoosePrey = false; // used when we're in battle phase and we are waiting for the player to choose a monster from rival board to attak
+    private Card selectedPrey; //after selected, the selectedCard will attack selectedPrey and "waiting to choose prey" will become false
 
     {
         isSelectedCardFromRivalBoard = false;
         actionsOnRival = new ActionsOnRival(this);
-//        this.isRoundEnded = false;
         this.isTurnEnded = false;
     }
 
 
-    public RoundController(User firstUser, User secondUser, DuelMenuController duelMenuController, int roundIndex, Phase currentPhase)
+    public RoundController(User firstUser, User secondUser, DuelMenuController duelMenuController, int roundIndex)
             throws InvalidDeck, InvalidName, NoActiveDeck {
         this.duelMenuController = duelMenuController;
         currentPlayer = new Player(firstUser, this);
@@ -62,7 +60,10 @@ public class RoundController {
         rival.getBoard().setMyPhase(Phase.END);
 
         this.roundIndex = roundIndex;
-        this.currentPhase = currentPhase; //actually it keeps the reference to the phase of duelController
+    }
+
+    public Phase getCurrentPhase(){
+        return duelMenuController.getCurrentPhase();
     }
 
     public void setTurnEnded(boolean isTurnEnded) {
@@ -156,9 +157,10 @@ public class RoundController {
                 if (!(card instanceof Monster)) return;
                 setSelectedPrey(card);
                 try {
-                    duelMenuController.attack(cardInUse.getIndexInBoard()); //todo fine?
+                    duelMenuController.attack(cardInUse.getIndexInBoard()); //todo fine or -1?
                     waitingToChoosePrey = false;
                     specialSelectWaiting = false;
+                    selectedPrey = null;
                 } catch (WrongPhaseForAction | CardAttackedBeforeExeption | CardCantAttack | NoCardToAttack | NoSelectedCard | NoCardFound exception) {
                     DuelMenu.showException(exception);
                 }
@@ -173,7 +175,6 @@ public class RoundController {
                 setSelectedCard(card);
                 duelMenuController.getTurnScreen().updateSelectedCard();
             }
-//            else throw new InvalidSelection();
         }
     }
 

@@ -7,10 +7,16 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.java.controller.FileHandler;
+import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.view.Menus.DeckPreview;
+import com.mygdx.game.java.view.Menus.CoinFlipScreen;
 import com.mygdx.game.java.view.Menus.DuelMenuScreen;
+import com.mygdx.game.java.view.Menus.RelatedToMenu;
+import com.mygdx.game.java.view.Menus.ScoreboardMenu;
+import com.mygdx.game.java.view.exceptions.NumOfRounds;
+
+import java.util.concurrent.ExecutionException;
 
 public class GameMainClass extends Game {
 
@@ -21,7 +27,6 @@ public class GameMainClass extends Game {
     public Music gameMusic;
 
     public Screen lastScreen;
-
 
     @Override
     public void create() {
@@ -39,10 +44,11 @@ public class GameMainClass extends Game {
 
 
         FileHandler.loadThings();
-//        setScreen(new ScoreboardMenu(this, User.getUserByName("ali")));
+        setScreen(new ScoreboardMenu(this, User.getUserByName("ali")));
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
-        preformDuelScreenTest();
+        performCoinScreenTest();
+//        preformDuelScreenTest();
 //        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
 //        setScreen(new CardCreatorMenu(this, User.getUserByName("ali")));
 //        setScreen(new LoginMenu(this));
@@ -52,8 +58,24 @@ public class GameMainClass extends Game {
 
     }
 
+    private void performCoinScreenTest(){
+
+
+        Screen screen = null;
+        try {
+            screen = new CoinFlipScreen(true,this,
+                    new DuelMenuController(User.getUserByName("ali"),User.getUserByName("akbar"),3,this));
+        } catch ( Exception e) {
+            System.out.println(e.getMessage());
+        }
+        setScreen(screen);
+
+
+    }
+
+
     private void preformDuelScreenTest() {
-        User ali = User.getUserByName("ali");
+//        User ali = User.getUserByName("ali");
 //        User akbar = User.getUserByName("akbar");
 //        Deck alis = new Deck("alis");
 //        Deck akbars = new Deck("akbars");

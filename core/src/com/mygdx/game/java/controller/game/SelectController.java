@@ -1,6 +1,9 @@
 package com.mygdx.game.java.controller.game;
 
 
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.game.java.model.CardAddress;
 import com.mygdx.game.java.model.Enums.ZoneName;
 import com.mygdx.game.java.model.Player;
@@ -11,11 +14,14 @@ import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.monster.MonsterCardType;
 import com.mygdx.game.java.model.card.monster.MonsterType;
 import com.mygdx.game.java.model.card.monster.PreMonsterCard;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.view.Menus.DuelMenu;
+import com.mygdx.game.java.view.Menus.TurnScreen;
 import com.mygdx.game.java.view.exceptions.CantDoActionWithCard;
 import com.mygdx.game.java.view.exceptions.InvalidSelection;
 import com.mygdx.game.java.view.exceptions.NoCardFound;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,6 +36,13 @@ public class SelectController {
     private ArrayList<MonsterType> monsterTypes;
     private boolean isRitual = false; // used in ritual summon
     private boolean isNormal = false; // it means that the selected card should be a normal monster (it is set in the monsterCardType)
+
+    private Card chosenCard;
+    private ArrayList<Card> possibleCards;
+
+    {
+        possibleCards = new ArrayList<>();
+    }
 
     public SelectController(ArrayList<ZoneName> zoneNames, RoundController roundController, Player selector) {
         this.zoneNames = zoneNames;
@@ -70,28 +83,49 @@ public class SelectController {
         }
     }
 
+
+    public Card getTheCard(){
+        return null;//todo remove it after the problems were fixed. I just added to be able to run!
+
+    }
     //this is the function that should be called if we want to get the card!
-    public Card getTheCard() {
-        while (true) {
-            CardAddress cardAddress = getForcedCardAddress();
-            if (cardAddress == null) return null;//means that the process is canceled by user
-            Card toReturn;
-            try {
-                toReturn = getCardByAddress(cardAddress);
-                if (toReturn != null) return toReturn;
-                else throw new InvalidSelection();
-            } catch (InvalidSelection | NoCardFound | CantDoActionWithCard invalidSelection) {
-                DuelMenu.showException(invalidSelection);
-            }
+    // but before that we should call the function "ask to choose possible card" and pass the method to it
+    //index varies between 0 and num of possible choices - 1
+    public Card getTheCard(int index) {
+        return possibleCards.get(index);
+//        while (true) {
+//            CardAddress cardAddress = askToChoosePossibleCard();
+//            if (cardAddress == null) return null;//means that the process is canceled by user
+//            Card toReturn;
+//            try {
+//                toReturn = getCardByAddress(cardAddress);
+//                if (toReturn != null) return toReturn;
+//                else throw new InvalidSelection();
+//            } catch (InvalidSelection | NoCardFound | CantDoActionWithCard invalidSelection) {
+//                DuelMenu.showException(invalidSelection);
+//            }
+//        }
+    }
+
+    public CardInUse getTheCardInUse(){
+        return null;//todo remove it after the problems were fixed. I just added to be able to run!
+    }
+    public CardInUse getTheCardInUse(int index) {
+        return roundController.findCardsCell(getTheCard(index));
+    }
+
+
+    //an int is given as the parameter of the method. inside that, we should call the "get the card" or "get the card in use" method
+    public void askToChoosePossibleCard(Method method, Object ownerOfMethod) {
+//        return DuelMenu.forceGetCardAddress(getPossibleChoices());
+
+        TurnScreen turnScreen = DuelMenu.duelMenuController.getTurnScreen();
+        if(turnScreen == null) return;
+        ArrayList<ImageButton> options = new ArrayList<>();
+        for (Card card : possibleCards) {
+//            options.add(new ImageButton);
         }
-    }
-
-    public CardInUse getTheCardInUse() {
-        return roundController.findCardsCell(getTheCard());
-    }
-
-    private CardAddress getForcedCardAddress() {
-        return DuelMenu.forceGetCardAddress(getPossibleChoices());
+        turnScreen.showImageButtonDialog("Select Box", "Select your desired card.",options, method, ownerOfMethod);
     }
 
     //the validity of card is also checked here
@@ -240,11 +274,12 @@ public class SelectController {
         return possibleChoices;
     }
 
-    private void getCardAddressesIn(HashMap<Card, CardAddress> possibleChoices, String zoneNameString, int sizeOfZone) {
+    private void getCardAddressesIn(HashMap<Card, CardAddress> possibleAddresses, String zoneNameString, int sizeOfZone) {
         for (int i = 1; i <= sizeOfZone; i++) {
             try {
                 CardAddress cardAddress = new CardAddress(zoneNameString + i);
-                possibleChoices.put(getCardByAddress(cardAddress), cardAddress);
+                possibleAddresses.put(getCardByAddress(cardAddress), cardAddress);
+                possibleCards.add(getCardByAddress(cardAddress));
             } catch (InvalidSelection | NoCardFound | CantDoActionWithCard invalidSelection) {
                 DuelMenu.showException(invalidSelection);
             }

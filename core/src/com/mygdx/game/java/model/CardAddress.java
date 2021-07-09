@@ -1,5 +1,6 @@
 package com.mygdx.game.java.model;
 
+import com.mygdx.game.java.model.card.Card;
 import lombok.Getter;
 import com.mygdx.game.java.model.Enums.ZoneName;
 import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
