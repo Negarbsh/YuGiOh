@@ -1,7 +1,6 @@
 package com.mygdx.game.java.controller.game;
 
 import com.mygdx.game.java.model.Board;
-import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.Enums.RoundResult;
 import com.mygdx.game.java.model.Enums.ZoneName;
@@ -12,6 +11,7 @@ import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
 import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.model.card.cardinusematerial.SpellTrapCardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.exceptions.*;
 import com.mygdx.game.java.view.messageviewing.Print;
@@ -158,7 +158,7 @@ public class RoundController {
                 setSelectedPrey(card);
                 try {
                     duelMenuController.attack(cardInUse.getIndexInBoard()); //todo fine or -1?
-                    waitingToChoosePrey = false;
+                    setWaitingToChoosePrey(false);
                     specialSelectWaiting = false;
                     selectedPrey = null;
                 } catch (WrongPhaseForAction | CardAttackedBeforeExeption | CardCantAttack | NoCardToAttack | NoSelectedCard | NoCardFound exception) {
@@ -296,6 +296,12 @@ public class RoundController {
 
     public void setSpecialSelectWaiting(boolean specialSelectWaiting, boolean waitingToChoosePrey) {
         this.specialSelectWaiting = specialSelectWaiting;
+        setWaitingToChoosePrey(waitingToChoosePrey);
+    }
+
+    public void setWaitingToChoosePrey(boolean waitingToChoosePrey) {
         this.waitingToChoosePrey = waitingToChoosePrey;
+        if(isWaitingToChoosePrey()) ButtonUtils.changeMouseCursor();
+        else ButtonUtils.redoChangingCursor();
     }
 }
