@@ -51,4 +51,9 @@ public class Constants {
     public static final float FIRST_FIELD_X = 2 * BOARD_CELLS_GAP;
 
 
+    public final static float COIN_TURN_HEIGHT=80;
+    public final static float COIN_TURN_WIDTH=120;
+
+    public final static float COIN_IMAGE_HEIGHT=200;
+    public final static float COIN_IMAGE_WIDTH=200;
 }
