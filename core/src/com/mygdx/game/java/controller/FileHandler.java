@@ -30,6 +30,7 @@ public class FileHandler {
         Wallpaper.setAllWallpapers();
         DeckImageButton.setDeckImages();
 //        setCurtainPictures("gifs/out");
+//        Reader.figureCatalog(new String[]{"Items/Coins/Bronze/with-star"});
     }
 
     private static void setCurtainPictures(String folderPath) {

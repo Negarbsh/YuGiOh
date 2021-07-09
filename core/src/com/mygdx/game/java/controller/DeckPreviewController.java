@@ -1,15 +1,13 @@
 package com.mygdx.game.java.controller;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
+
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Null;
-import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.forgraphic.DeckImageButton;
@@ -26,6 +24,7 @@ public class DeckPreviewController {
     DeckPreview deckPreview;
     @Getter
     DeckImageButton selectedDeck;
+    ArrayList<Actor> allDeckTableActors;
     ButtonGroup allDecksGroup;
     public long startTime;
     public float elapsedTime;
@@ -34,6 +33,7 @@ public class DeckPreviewController {
     public DeckPreviewController(DeckPreview deckPreview, User user) {
         this.user = user;
         this.deckPreview = deckPreview;
+        allDeckTableActors = new ArrayList<>();
     }
 
     public void createDeck(String deckName, Table table) throws AlreadyExistingError {
@@ -85,6 +85,7 @@ public class DeckPreviewController {
         addDragAndDrop(deckIcon);
         allDecksGroup.add(deckIcon.getImageButton());
         table.add(deckIcon).padLeft(10);
+        allDeckTableActors.add(deckIcon);
     }
 
     private void updateSelected(DeckImageButton deckButton) {
@@ -126,6 +127,8 @@ public class DeckPreviewController {
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
                 deleteDeck(deckImageButton.getDeck());
                 deckPreview.getMyDecks().removeActor(deckImageButton);
+                allDeckTableActors.remove(deckImageButton);
+                ButtonUtils.reArrangeTable(deckPreview.getMyDecks(), allDeckTableActors, 10);
                 allDecksGroup.remove(deckImageButton.getImageButton());
                 deckPreview.getFireMusic().setVolume(1f);
                 setTimer(5f);

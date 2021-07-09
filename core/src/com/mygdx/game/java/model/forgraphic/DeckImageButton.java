@@ -12,6 +12,8 @@ import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.card.PicState;
 import lombok.Getter;
 
+import java.util.Objects;
+
 public class DeckImageButton extends Table {
     static TextureRegionDrawable normalDeck, activeDeck;
     static DeckImageButton activeDeckIcon;

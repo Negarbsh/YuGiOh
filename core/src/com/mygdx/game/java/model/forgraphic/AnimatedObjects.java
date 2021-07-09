@@ -22,6 +22,6 @@ public abstract class AnimatedObjects extends Actor {
         currentFrame = objectAnimation.getKeyFrame(stateTime, true);
         stateTime += Gdx.graphics.getDeltaTime();
 
-        batch.draw(currentFrame, this.getX(), this.getY(), 30, 35);
+        batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
     }
 }

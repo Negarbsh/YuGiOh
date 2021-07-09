@@ -2,6 +2,7 @@ package com.mygdx.game.java.view.Menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -15,6 +16,7 @@ import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.CardCreatorController;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.model.card.CardType;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.view.exceptions.AlreadyExistingError;
 import com.mygdx.game.java.view.exceptions.CardCreatorException;
 import lombok.Getter;
@@ -62,10 +64,10 @@ public class CardCreatorMenu implements Screen {
 
         createChoosingTable();
 
-//        messageBar = ButtonUtils.createMessageBar("", mainClass.orangeSkin.getFont("font-title"), 0.9f);
-//        messageBar.setBounds(100, 0, 824, 65);
+        messageBar = ButtonUtils.createMessageBar("", mainClass.orangeSkin.getFont("font-title"), 0.7f);
+        messageBar.setBounds(0, 0, 600, 40);
 
-//        stage.addActor(messageBar);
+        stage.addActor(messageBar);
         stage.addActor(table);
         stage.addActor(choosingTable);
         Gdx.input.setInputProcessor(stage);
@@ -107,8 +109,9 @@ public class CardCreatorMenu implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 try {
                     controller.addToList(chosenWatchers, watchers);
-                } catch (AlreadyExistingError alreadyExistingError) {
-                    alreadyExistingError.printStackTrace();
+                } catch (AlreadyExistingError e) {
+                    messageBar.setText(e.getMessage());
+                    messageBar.setColor(Color.RED);
                 }
             }
         });
@@ -118,14 +121,24 @@ public class CardCreatorMenu implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 try {
                     controller.doCardCreationChecks();
+                    messageBar.setText("creation was done successfully");
+                    messageBar.setColor(Color.GREEN);
                 } catch (CardCreatorException e) {
-                    System.out.println(e.getMessage());
+                    messageBar.setText(e.getMessage());
+                    messageBar.setColor(Color.RED);
                 } catch (NumberFormatException numEx) {
-                    numEx.printStackTrace();
+                    messageBar.setText("invalid number format for attack or defense");
+                    messageBar.setColor(Color.RED);
                 }
             }
         });
         buy = new TextButton("buy", mainClass.orangeSkin);
+        buy.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+            }
+        });
         choosingTable.add(cards).size(230, 30).padBottom(30).padRight(40);
         choosingTable.add(watchers).size(100, 30).padBottom(30).row();
         choosingTable.add(attackLabel).padTop(-10);

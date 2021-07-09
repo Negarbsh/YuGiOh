@@ -11,7 +11,6 @@ import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.Menus.DeckPreview;
 import com.mygdx.game.java.view.Menus.DuelMenuScreen;
-import com.mygdx.game.java.view.Menus.RelatedToMenu;
 
 public class GameMainClass extends Game {
 
@@ -22,6 +21,7 @@ public class GameMainClass extends Game {
     public Music gameMusic;
 
     public Screen lastScreen;
+
 
     @Override
     public void create() {
@@ -42,13 +42,13 @@ public class GameMainClass extends Game {
 //        setScreen(new ScoreboardMenu(this, User.getUserByName("ali")));
 //		setScreen(new ShopMenu(this, User.getUserByName("ali")));
 
-//        preformDuelScreenTest();
+        preformDuelScreenTest();
 //        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
 //        setScreen(new CardCreatorMenu(this, User.getUserByName("ali")));
 //        setScreen(new LoginMenu(this));
 //        setScreen(new SignUpMenu(this));
 //        setScreen(new ProfileMenu(this, User.getUserByName("akbar")));
-        setScreen(new RelatedToMenu(this));
+//        setScreen(new RelatedToMenu(this));
 
     }
 

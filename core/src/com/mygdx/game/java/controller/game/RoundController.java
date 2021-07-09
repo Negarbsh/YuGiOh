@@ -116,7 +116,7 @@ public class RoundController {
     /* general actions (in any phase) */
 
     public void selectCardByAddress(ZoneName zoneName, boolean isForOpponent, int cardIndex) throws InvalidSelection, NoCardFound {
-//        if(isWaitingToChoosePrey()) return;
+        if(isWaitingToChoosePrey()) return;
         Player ownerOfToBeSelected = currentPlayer;
         if (isForOpponent) ownerOfToBeSelected = rival;
         switch (zoneName) {

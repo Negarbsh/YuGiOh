@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.ShopMenuController;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.model.forgraphic.Coin;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.model.card.PreCard;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class ShopMenu implements Screen {
     @Getter TextButton buyButton;
     @Getter Label descriptLabel, userMoney;
     @Getter Image selectedImage;
+    @Getter Coin coin;
 
     {
         this.stage = new Stage(new StretchViewport(1024, 1024));
@@ -65,8 +67,10 @@ public class ShopMenu implements Screen {
         buyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (selected != null)
+                if (selected != null) {
                     controller.sellCard(selected);
+                    coin.play();
+                }
             }
         });
         buyButton.setTouchable(Touchable.disabled);
@@ -87,11 +91,15 @@ public class ShopMenu implements Screen {
         userMoney.setBounds(875, 950, 120, 50);
         userMoney.setFontScale(2f);
 
+        coin = new Coin();
+        coin.setBounds(900, 890, 60, 60);
+
         stage.addActor(new Wallpaper(1, 0, 0, 1024, 1024));
         stage.addActor(shopTable);
         stage.addActor(buyTable);
         stage.addActor(back);
         stage.addActor(userMoney);
+        stage.addActor(coin);
         Gdx.input.setInputProcessor(stage);
     }
 

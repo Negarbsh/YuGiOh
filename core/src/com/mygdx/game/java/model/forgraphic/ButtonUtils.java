@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -19,6 +20,8 @@ import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.view.Constants;
+
+import java.util.ArrayList;
 
 public class ButtonUtils {
 
@@ -88,6 +91,13 @@ public class ButtonUtils {
 
     public static void redoChangingCursor() {
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
+    }
+
+    public static void reArrangeTable(Table table, ArrayList<Actor> icons, float padRight) {
+        table.clearChildren();
+        for (Actor icon : icons) {
+            table.add(icon).padRight(padRight);
+        }
     }
 
 }

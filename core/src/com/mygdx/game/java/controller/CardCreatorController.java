@@ -10,6 +10,7 @@ import com.mygdx.game.java.model.card.monster.PreMonsterCard;
 import com.mygdx.game.java.view.Menus.CardCreatorMenu;
 import com.mygdx.game.java.view.exceptions.AlreadyExistingError;
 import com.mygdx.game.java.view.exceptions.CardCreatorException;
+import lombok.SneakyThrows;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -58,16 +59,15 @@ public class CardCreatorController {
         selectBox.setItems(nameOfWatchers);
     }
 
-    public void doCardCreationChecks() throws CardCreatorException {
+    public void doCardCreationChecks() throws CardCreatorException, NumberFormatException{
         Array<String> chosenWatchers = creatorMenu.getChosenWatchers().getItems();
         if (!creatorMenu.getList().getSelected().equals("monster")) {
             if (chosenWatchers.size == 0)
                 throw new CardCreatorException("this is not a new card");
             else if (chosenWatchers.size > 2)
                 throw new CardCreatorException("no more than 2 watchers are allowed");
-            else {
+            else
                 calculatePrice(CardType.SPELL, chosenWatchers);
-            }
         } else {
             if (chosenWatchers.size > 4)
                 throw new CardCreatorException("no more than 4 watchers are allowed");
@@ -77,7 +77,6 @@ public class CardCreatorController {
     }
 
     private void createCard(String name) throws CardCreatorException {
-        doCardCreationChecks();
         Array<String> chosenWatchers = creatorMenu.getChosenWatchers().getItems();
         if (creatorMenu.getList().getSelected().equals("monster")) {
             int attack = Integer.parseInt(creatorMenu.getAttack().getText());
@@ -93,7 +92,7 @@ public class CardCreatorController {
         }
     }
 
-    public void calculatePrice(CardType cardType, Array<String> watchers) {
+    public void calculatePrice(CardType cardType, Array<String> watchers) throws NumberFormatException, CardCreatorException {
         int price = 0;
         if (cardType == CardType.MONSTER) {
             int attack = Integer.parseInt(creatorMenu.getAttack().getText());
@@ -114,16 +113,21 @@ public class CardCreatorController {
             }
         }
         creatorMenu.getFinalResult().setText(price);
+        showDialogChooseName();
     }
 
-    private void showDialogChooseName() {
+    private void showDialogChooseName() throws CardCreatorException{
         Label label = new Label("please enter your desired name for your new card",
                 creatorMenu.getMainClass().orangeSkin);
         TextField nameField = new TextField("", creatorMenu.getMainClass().orangeSkin);
         Dialog dialog = new Dialog("", creatorMenu.getMainClass().orangeSkin) {
+            @SneakyThrows
             @Override
             protected void result(Object object) {
                 if ((Boolean) object) {
+                    if (nameField.getText().equals("")) {
+                        throw new CardCreatorException("it was not an acceptable name");
+                    }
                     newCardName = nameField.getText();
                     hide();
                 }
