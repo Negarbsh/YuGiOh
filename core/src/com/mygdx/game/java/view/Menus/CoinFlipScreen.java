@@ -2,6 +2,7 @@ package com.mygdx.game.java.view.Menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
+import com.mygdx.game.java.model.forgraphic.Wallpaper;
 
 import static com.mygdx.game.java.view.Constants.*;
 
@@ -58,7 +60,6 @@ public class CoinFlipScreen implements Screen {
     public void show() {
 //        stage.addActor(new Wallpaper(4, 0, 0, DUEL_SCREEN_WIDTH, DUEL_SCREEN_HEIGHT));
 
-
         batch = new SpriteBatch();
 //        textureCoin = new TextureAtlas(Gdx.files.internal("OlderIcons/coin.atlas"));
 //        animation = new Animation(1/15f, textureCoin.getRegions());
@@ -92,13 +93,13 @@ public class CoinFlipScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 isTurnButtonClicked = true;
                 if (isFirstPlayerStarts) {
-                    successfulLabel.setText("you play first know click start game ->");
-                    stage.addActor(startGameButton);
+                    successfulLabel.setText("You play first now click start game ->");
+//                    stage.addActor(startGameButton);
 //                    finalFrameIndex = 13;
 //                   coin.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture("Items/Coins/Gold/Gold_9.png"))));
                 }
                 if (!isFirstPlayerStarts) {
-                    successfulLabel.setText("your rival play first know click start game ->");
+                    successfulLabel.setText("Your rival plays first now click start game ->");
 //                    coin.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture("Items/Coins/Gold/Gold_20.png"))));
 //                    finalFrameIndex = 6;
                 }
@@ -115,6 +116,8 @@ public class CoinFlipScreen implements Screen {
 
         stage.addActor(turnButton);
         stage.addActor(successfulLabel);
+        stage.addActor(startGameButton);
+
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -159,5 +162,6 @@ public class CoinFlipScreen implements Screen {
     @Override
     public void dispose() {
         coin.dispose();
+        stage.dispose();
     }
 }

@@ -61,6 +61,7 @@ public abstract class CardInUse {
 
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                if(board.getController().isWaitingToChoosePrey()) return;
                 if (thisCard != null) {
                     if (isFaceUp)
                         thisCard.getVisibleImageButton().handleEntered();

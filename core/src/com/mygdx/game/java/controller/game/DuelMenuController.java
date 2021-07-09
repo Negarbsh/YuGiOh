@@ -15,6 +15,7 @@ import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.monster.MonsterManner;
 import com.mygdx.game.java.model.watchers.Watcher;
+import com.mygdx.game.java.view.Menus.CoinFlipScreen;
 import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.Menus.MainMenu;
 import com.mygdx.game.java.view.Menus.TurnScreen;
@@ -129,7 +130,7 @@ public class DuelMenuController {
     private void startDuel() {
         isAnyGameRunning = true;
         playHeadOrTails(gameMainClass);
-        runMatch(false); //todo: it should be removed and called by shima
+//        runMatch(false); //todo: it should be removed and called by shima
         //after the head or tails was done, the "runMatch()" function is called with a boolean "should swap users" as the input
     }
 
@@ -292,12 +293,9 @@ public class DuelMenuController {
 
 
     public void playHeadOrTails(GameMainClass gameMainClass) {
-
         boolean isHead = Math.random() < 0.5;
-        //todo: uncomment after shima's push
-//        CoinflipScreen screen = new Screen(isHead, gameMainClass,this);
-//        gameMainClass.setScreen(screen);
-//        DuelMenu.showHeadOrTails(isHead, firstUser.getUsername(), secondUser.getUsername());
+        CoinFlipScreen coinFlipScreen = new CoinFlipScreen(isHead,gameMainClass,this);
+        gameMainClass.setScreen(coinFlipScreen);
     }
 
     private void setNumOfRounds(int numOfRounds) throws NumOfRounds {
