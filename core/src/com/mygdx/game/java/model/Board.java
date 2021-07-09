@@ -93,10 +93,10 @@ public class Board {
 
     private void newCells() {
         for (int i = 0; i < 5; i++) {
-            monsterZone[i] = new MonsterCardInUse(this);
-            spellTrapZone[i] = new SpellTrapCardInUse(this);
+            monsterZone[i] = new MonsterCardInUse(this, i +1  );
+            spellTrapZone[i] = new SpellTrapCardInUse(this,i + 1 );
         }
-        fieldCell = new SpellTrapCardInUse(this);
+        fieldCell = new SpellTrapCardInUse(this, 0 );
     }
 
     public boolean isMonsterZoneFull() {

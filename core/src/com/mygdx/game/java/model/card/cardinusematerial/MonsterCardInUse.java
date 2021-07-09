@@ -25,8 +25,8 @@ public class MonsterCardInUse extends CardInUse {
         //todo: if the monster is flip summoned, should we be able to change its attackMode after that?
     }
 
-    public MonsterCardInUse(Board board) {
-        super(board);
+    public MonsterCardInUse(Board board, int indexInBoard) {
+        super(board, indexInBoard);
     }
 
 

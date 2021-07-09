@@ -31,6 +31,7 @@ public abstract class CardInUse {
     private boolean isFaceUp;
     protected Board board;
     private ImageButton imageButtonInUse;
+    private int indexInBoard;
 
 
     {
@@ -39,8 +40,9 @@ public abstract class CardInUse {
         watchersOfCardInUse = new ArrayList<>();
     }
 
-    public CardInUse(Board board) {
+    public CardInUse(Board board, int indexInBoard) {
         this.board = board;
+        this.indexInBoard = indexInBoard;
         this.ownerOfCard = board.getOwner();
         imageButtonInUse = new ImageButton(GameMainClass.orangeSkin2);
         ImageButton.ImageButtonStyle imageButtonStyle = new ImageButton.ImageButtonStyle(imageButtonInUse.getStyle());
@@ -173,5 +175,9 @@ public abstract class CardInUse {
             if (isFaceUp) return "O ";
             else return "H ";
         }
+    }
+
+    public int getIndexInBoard(){
+        return indexInBoard;
     }
 }

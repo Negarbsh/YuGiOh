@@ -59,6 +59,10 @@ public class DuelMenuController {
     private boolean isGamePaused = false;
     private GameMainClass gameMainClass;
 
+    private boolean specialSelectWaiting = false;
+    private boolean waitingToChoosePrey = false;
+
+
     {
         this.roundsWinner = new ArrayList<>();
         this.usersLP = new ArrayList<>();
@@ -508,5 +512,4 @@ public class DuelMenuController {
             roundController.showBoard();
         }
     }
-
 }

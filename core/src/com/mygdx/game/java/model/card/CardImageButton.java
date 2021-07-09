@@ -11,8 +11,6 @@ import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.Player;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.spelltrap.SpellTrap;
-import com.mygdx.game.java.model.forgraphic.ButtonUtils;
-import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.exceptions.*;
 
 public class CardImageButton extends ImageButton {
@@ -72,7 +70,7 @@ public class CardImageButton extends ImageButton {
         if (currentPhase == Phase.MAIN_1 || currentPhase == Phase.MAIN_2) {
             checkMainPhaseActions(ownerPlayer, ownerCard);
         } else if (currentPhase == Phase.BATTLE) {
-            //todo
+            checkBattlePhaseActions(ownerPlayer, ownerCard);
         } else {
             myController.selectCard(ownerCard); //maybe needed in case we wanted to attack sth from rival board!
         }
@@ -96,6 +94,13 @@ public class CardImageButton extends ImageButton {
             if (ownerCard instanceof Monster) {
                 myController.getTurnScreen().handleMainPhaseBoard(true, ownerCard);
             }
+        }
+    }
+
+    public void checkBattlePhaseActions(Player cardOwner, Card card) {
+        myController.selectCard(card);
+        if (card instanceof Monster){
+            myController.getTurnScreen().askToAttack((Monster) card);
         }
     }
 

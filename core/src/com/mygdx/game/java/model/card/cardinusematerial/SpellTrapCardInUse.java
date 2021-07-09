@@ -9,8 +9,8 @@ import com.mygdx.game.java.model.card.spelltrap.SpellTrap;
 @Getter
 public class SpellTrapCardInUse extends CardInUse {
 
-    public SpellTrapCardInUse(Board board) {
-        super(board);
+    public SpellTrapCardInUse(Board board, int indexInBoard) {
+        super(board, indexInBoard);
     }
 
     public void activateMyEffect() {

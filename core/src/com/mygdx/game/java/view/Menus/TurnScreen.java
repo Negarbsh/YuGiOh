@@ -23,6 +23,7 @@ import com.mygdx.game.java.model.Hand;
 import com.mygdx.game.java.model.Player;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.PreCard;
+import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.view.Constants;
@@ -416,6 +417,38 @@ public class TurnScreen implements Screen {
         dialog.button("Cancel", 1);
     }
 
+
+    public void askToAttack(Monster monster) {
+        Dialog dialog = new Dialog("Choose Battle Action", GameMainClass.flatEarthSkin2) {
+            @Override
+            protected void result(Object object) {
+                int answer = (int) object;
+                try {
+                    if (answer == 0) {
+                        try {
+                            controller.attackDirect();
+                        } catch (CardAttackedBeforeExeption | WrongPhaseForAction | CardCantAttack exception) {
+                            DuelMenu.showException(exception);
+                        } catch (CantAttackDirectlyException exception){
+                            askToChoosePrey();
+                        }
+                    }
+                } catch (NoSelectedCard exception) {
+                    DuelMenu.showException(exception);
+                }
+            }
+        };
+        dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+        dialog.text("Do you want to attack?");
+        dialog.button("Yes", 0);
+        dialog.button("No", 1);
+    }
+
+    private void askToChoosePrey() {
+        showMessage("Choose a monster from rival's board to attack.");
+        controller.getRoundController().setSpecialSelectWaiting(true, true);
+    }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.466f, 0.207f, 0.466f, 1f);
@@ -459,6 +492,4 @@ public class TurnScreen implements Screen {
     public void showMessage(String message) {
         messageLabel.setText(message);
     }
-
-
 }
