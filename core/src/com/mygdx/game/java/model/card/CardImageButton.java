@@ -11,6 +11,7 @@ import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.Player;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.spelltrap.SpellTrap;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.exceptions.*;
 
@@ -50,13 +51,14 @@ public class CardImageButton extends ImageButton {
                 handleEntered();
             }
 
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                try {
+                    myController.deselectCard();
+                } catch (NoSelectedCard ignored) {
+                }
+            }
 
-            //todo: why doesn't it work!?
-//            @Override
-//            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-//                try {
-//                    myController.deselectCard();
-//                } catch (NoSelectedCard ignored) {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 handleClicked(controller, ownerPlayer, ownerCard);
@@ -79,20 +81,20 @@ public class CardImageButton extends ImageButton {
     private void checkMainPhaseActions(Player ownerPlayer, Card ownerCard) {
         //actions : summon, set, flip summon
         if (ownerPlayer.getHand().doesContainCard(ownerCard)) {
-            if (ownerCard instanceof Monster)
+            if (ownerCard instanceof Monster) {
                 myController.getTurnScreen().handleMainPhaseActionHand(true, myOwnerCard);
-            else if (ownerCard instanceof SpellTrap)
+//                int choice = myController.getTurnScreen().showQuestionDialog("Main Phase Action", "What do you want to do?", new String[]{"summon", "set", "cancel"});
+//                try {
+//                    if (choice == 0) myController.summonMonster(false);
+//                    else if (choice == 1) myController.setCard();
+//                } catch (Exception ignored) {
+//                }
+            } else if (ownerCard instanceof SpellTrap)
                 myController.getTurnScreen().handleMainPhaseActionHand(false, myOwnerCard);
         } else {
             //the card isn't in hand. if it is in the monster zone we may flip summon it
             if (ownerCard instanceof Monster) {
-                myController.selectCard(ownerCard);
-                //todo ask the user if they mean to flip summon! ( you can also do it in other parts)
-                try {
-                    myController.getMainPhaseController().flipSummon();
-                } catch (NoSelectedCard | CantDoActionWithCard exception) {
-                    DuelMenu.showException(exception);
-                }
+                myController.getTurnScreen().handleMainPhaseBoard(true, ownerCard);
             }
         }
     }

@@ -90,22 +90,4 @@ public class ButtonUtils {
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
     }
 
-//    //if the user chooses options[i], the function returns i
-//    public static int showQuestionDialog(String title, String question, String[] options, Stage stage) {
-//        final int[] response = new int[1];
-//        Dialog dialog = new Dialog(title, GameMainClass.flatEarthSkin2) {
-//            @Override
-//            protected void result(Object object) {
-//                response[0] = (int) object;
-//            }
-//        };
-//
-//        dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
-//        dialog.text(question);
-//        for (int i = 0; i < options.length; i++) {
-//            dialog.button(options[i], i);
-//        }
-//        dialog.show(stage);
-//        return response[0];
-//    }
 }

@@ -9,6 +9,7 @@ import com.mygdx.game.java.model.card.cardinusematerial.SpellTrapCardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.spelltrap.CardIcon;
 import com.mygdx.game.java.model.card.spelltrap.SpellTrap;
+import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.exceptions.*;
 import com.mygdx.game.java.view.messageviewing.Print;
 import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
@@ -145,7 +146,8 @@ public class MainPhaseController {
         if (spellCard.isActivated()) throw new AlreadyActivatedEffect();
         cardInUse.activateMyEffect();
 
-        Print.print("spell " + spellCard.name + "  is activated");
+        new SuccessfulAction("Effect of spell " + selectedCard.getName(), " is activated");
+
         controller.updateBoards();
 
     }
@@ -159,6 +161,7 @@ public class MainPhaseController {
             if (fieldCell != null) {
                 fieldCell.resetCell();
                 fieldCell.sendToGraveYard();
+                player.getHand().removeCard(spell);
                 fieldCell.resetCell();
                 fieldCell.setACardInCell(spell);
                 fieldCell.activateMyEffect();
@@ -170,7 +173,8 @@ public class MainPhaseController {
 
             spellInUse.setACardInCell(spell);
             spellInUse.activateMyEffect();
-            Print.print("spell activated");
+            player.getHand().removeCard(spell);
+            new SuccessfulAction("Effect of spell " + spell.getName(), " is activated");
             controller.updateBoards();
         }
     }

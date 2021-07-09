@@ -230,11 +230,13 @@ public class DuelMenu {
 
     public static void showException(Exception exception) {
         Print.print(exception.getMessage());
-        duelMenuController.getTurnScreen().showMessage(exception.getMessage());
+        if (duelMenuController != null && duelMenuController.getTurnScreen() != null)
+            duelMenuController.getTurnScreen().showMessage(exception.getMessage());
     }
 
     public static void showResult(String message) {
         Print.print(message);
-        duelMenuController.getTurnScreen().showMessage(message);
+        if (duelMenuController != null && duelMenuController.getTurnScreen() != null)
+            duelMenuController.getTurnScreen().showMessage(message);
     }
 }

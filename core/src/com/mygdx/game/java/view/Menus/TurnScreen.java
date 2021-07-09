@@ -140,7 +140,9 @@ public class TurnScreen implements Screen {
 
     private void createMessageLabel() {
         messageLabel = ButtonUtils.createMessageBar("YuGiOh!", gameMainClass.orangeSkin.getFont("font-title"), 0.9f);
-        messageLabel.setColor(0.98f, 0.68f, 0.52f, 1);
+        messageLabel.setColor(0.501f, 0.250f, 0.250f, 1);
+//        messageLabel.getStyle().background = ButtonUtils.makeDrawable("Wallpapers/BluePinkGradient.jpg");
+
         messageLabel.setBounds(Constants.SIDE_INFO_WIDTH, Constants.DUEL_SCREEN_HEIGHT - Constants.UPPER_BAR_HEIGHT,
                 Constants.DUEL_SCREEN_WIDTH - Constants.SIDE_INFO_WIDTH - 3 * Constants.SETTING_BUTTON_RADIUS, Constants.UPPER_BAR_HEIGHT);
         stage.addActor(messageLabel);
@@ -156,25 +158,13 @@ public class TurnScreen implements Screen {
     }
 
     private void createBoards() {
-//        rivalBoard.setupEntities(false);
-//        myBoard.setupEntities(true);
-
         this.boardsTable = new Table(flatEarthSkin);
         boardsTable.setBackground(ButtonUtils.makeDrawable("Field/fie_normal.bmp"));
         boardsTable.setBounds(Constants.BOARDS_X, Constants.BOARDS_Y, Constants.BOARDS_WIDTH, Constants.BOARDS_HEIGHT);
-
-//        this.rivalBoardTable = rivalBoard.getTable();
-//        this.myBoardTable = myBoard.getTable();
-
-//        boardsTable.add(rivalBoardTable).pad(Constants.BOARDS_GAP);
-//        boardsTable.row();
-//        boardsTable.add(myBoardTable);
-
         stage.addActor(boardsTable);
 
         myBoard.addButtonsToStage(stage, true);
         rivalBoard.addButtonsToStage(stage, false);
-
     }
 
     //side bar stuff beginning
@@ -327,6 +317,26 @@ public class TurnScreen implements Screen {
         selectedDescription.setText(description);
     }
 
+
+    //if the user chooses options[i], the function returns i
+    public int showQuestionDialog(String title, String question, String[] options) {
+        final int[] response = new int[1];
+        Dialog dialog = new Dialog(title, GameMainClass.flatEarthSkin2) {
+            @Override
+            protected void result(Object object) {
+                response[0] = (int) object;
+            }
+        };
+
+        dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+        dialog.text(question);
+        for (int i = 0; i < options.length; i++) {
+            dialog.button(options[i], i);
+        }
+        dialog.show(stage);
+        return response[0];
+    }
+
     public void handleMainPhaseActionHand(boolean isMonster, Card card) {
         controller.selectCard(card);
         Dialog dialog;
@@ -346,8 +356,7 @@ public class TurnScreen implements Screen {
             dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
             dialog.text("What do you want to do with this monster?");
             dialog.button("Summon", 0);
-        }
-        else{
+        } else {
             dialog = new Dialog("Choose Action", GameMainClass.flatEarthSkin2) {
                 @Override
                 protected void result(Object object) {
@@ -365,9 +374,46 @@ public class TurnScreen implements Screen {
             dialog.button("Activate", 0);
         }
         dialog.button("Set", 1);
-        dialog.button("Cancel",2);
+        dialog.button("Cancel", 2);
         dialog.show(stage);
 
+    }
+
+    public void handleMainPhaseBoard(boolean isMonster, Card card) {
+        controller.selectCard(card);
+        Dialog dialog;
+        if (isMonster) {
+            dialog = new Dialog("Choose Action", GameMainClass.flatEarthSkin2) {
+                @Override
+                protected void result(Object object) {
+                    int answer = (int) object;
+                    try {
+                        if (answer == 0) controller.getMainPhaseController().flipSummon();
+                    } catch (NoSelectedCard | CantDoActionWithCard exception) {
+                        DuelMenu.showException(exception);
+                    }
+                }
+            };
+            dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+            dialog.text("What do you want to do with this monster?");
+            dialog.button("Flip Summon", 0);
+        } else {
+            dialog = new Dialog("Choose Action", GameMainClass.flatEarthSkin2) {
+                @Override
+                protected void result(Object object) {
+                    int answer = (int) object;
+                    try {
+                        if (answer == 0) controller.activateEffect();
+                    } catch (NoSelectedCard | WrongPhaseForAction | ActivateEffectNotSpell | BeingFull | AlreadyActivatedEffect exception) {
+                        DuelMenu.showException(exception);
+                    }
+                }
+            };
+            dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+            dialog.text("What do you want to do with this spell or trap?");
+            dialog.button("Activate", 0);
+        }
+        dialog.button("Cancel", 1);
     }
 
     @Override
@@ -380,7 +426,6 @@ public class TurnScreen implements Screen {
         rivalLifePoint.setValue(rival.getLifePoint());
         rivalLPLabel.setText("Life Point: " + rival.getLifePoint());
 
-        //todo: update entities
         stage.act();
         stage.draw();
 
@@ -414,5 +459,6 @@ public class TurnScreen implements Screen {
     public void showMessage(String message) {
         messageLabel.setText(message);
     }
+
 
 }
