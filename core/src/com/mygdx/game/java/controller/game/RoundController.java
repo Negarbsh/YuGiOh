@@ -1,6 +1,7 @@
 package com.mygdx.game.java.controller.game;
 
 import com.mygdx.game.java.model.Board;
+import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.Enums.RoundResult;
 import com.mygdx.game.java.model.Enums.ZoneName;
@@ -10,6 +11,7 @@ import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
 import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.model.card.cardinusematerial.SpellTrapCardInUse;
+import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.exceptions.*;
 import com.mygdx.game.java.view.messageviewing.Print;
@@ -37,6 +39,10 @@ public class RoundController {
     private int roundIndex; //0,1,2
 
     private DuelMenuController duelMenuController;
+
+    private boolean specialSelectWaiting = false;
+    private boolean waitingToChoosePrey = false;
+    private Card selectedPrey;
 
     {
         isSelectedCardFromRivalBoard = false;
@@ -110,6 +116,7 @@ public class RoundController {
     /* general actions (in any phase) */
 
     public void selectCardByAddress(ZoneName zoneName, boolean isForOpponent, int cardIndex) throws InvalidSelection, NoCardFound {
+//        if(isWaitingToChoosePrey()) return;
         Player ownerOfToBeSelected = currentPlayer;
         if (isForOpponent) ownerOfToBeSelected = rival;
         switch (zoneName) {
@@ -144,8 +151,24 @@ public class RoundController {
     public void selectCard(Card card, Player selector) throws InvalidSelection {
         CardInUse cardInUse = findCardsCell(card);
         if (cardInUse != null) {
-            //todo select the card in board
+            if (isWaitingToChoosePrey()) {
+                if (cardInUse.ownerOfCard == selector) return;
+                if (!(card instanceof Monster)) return;
+                setSelectedPrey(card);
+                try {
+                    duelMenuController.attack(cardInUse.getIndexInBoard()); //todo fine?
+                    waitingToChoosePrey = false;
+                    specialSelectWaiting = false;
+                } catch (WrongPhaseForAction | CardAttackedBeforeExeption | CardCantAttack | NoCardToAttack | NoSelectedCard | NoCardFound exception) {
+                    DuelMenu.showException(exception);
+                }
+
+            } else if (duelMenuController.canSeeCard(selector, card)) {
+                setSelectedCard(card);
+                duelMenuController.getTurnScreen().updateSelectedCard();
+            }
         } else {
+            if (isWaitingToChoosePrey()) return;
             if (selector.getHand().doesContainCard(card)) {
                 setSelectedCard(card);
                 duelMenuController.getTurnScreen().updateSelectedCard();
@@ -191,6 +214,7 @@ public class RoundController {
                 isDraw = true;
                 break;
         }
+        //todo: open a dialog to show the winner and the result
     }
 
     public void announceRoundWinner() {
@@ -267,5 +291,10 @@ public class RoundController {
     public void showBoard() {
         Print.print(rival.getBoard().toString());
         Print.print(currentPlayer.getBoard().toString());
+    }
+
+    public void setSpecialSelectWaiting(boolean specialSelectWaiting, boolean waitingToChoosePrey) {
+        this.specialSelectWaiting = specialSelectWaiting;
+        this.waitingToChoosePrey = waitingToChoosePrey;
     }
 }

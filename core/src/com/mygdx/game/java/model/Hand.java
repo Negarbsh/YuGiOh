@@ -1,8 +1,6 @@
 package com.mygdx.game.java.model;
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.CardImageButton;
@@ -15,6 +13,7 @@ public class Hand {
     private final ArrayList<Card> cardsInHand;
     private final Table visibleTable;
     private final Table invisibleTable;
+    private final Player owner;
 
     {
         this.visibleTable = new Table();
@@ -22,6 +21,9 @@ public class Hand {
         this.cardsInHand = new ArrayList<>();
     }
 
+    public Hand(Player owner){
+        this.owner = owner;
+    }
 
     public ArrayList<Card> getCardsInHand() {
         return cardsInHand;
@@ -41,12 +43,12 @@ public class Hand {
     }
 
     public void makeVisible(Card card, DuelMenuController controller) {
-        CardImageButton cardImageVisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller, true);
+        CardImageButton cardImageVisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller, true, owner);
         visibleTable.add(cardImageVisible).width(Constants.CARD_IN_HAND_WIDTH).pad(Constants.HAND_GAP_BETWEEN_CELLS);
     }
 
     public void makeInvisible(Card card, DuelMenuController controller) {
-        CardImageButton cardImageInvisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller, false);
+        CardImageButton cardImageInvisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller, false, owner);
         invisibleTable.add(cardImageInvisible).width(Constants.CARD_IN_HAND_WIDTH).pad(Constants.HAND_GAP_BETWEEN_CELLS);
     }
 
@@ -54,6 +56,8 @@ public class Hand {
         this.cardsInHand.remove(card);
         this.invisibleTable.removeActor(card.getInvisibleImageButton());
         this.visibleTable.removeActor(card.getVisibleImageButton());
+//        this.invisibleTable.pack();
+//        this.visibleTable.pack();
     }
 
 

@@ -2,12 +2,12 @@
 
 package com.mygdx.game.java.model.card.cardinusematerial;
 
-import lombok.Getter;
-import lombok.Setter;
 import com.mygdx.game.java.model.Board;
 import com.mygdx.game.java.model.CardState;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.monster.Monster;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -25,8 +25,8 @@ public class MonsterCardInUse extends CardInUse {
         //todo: if the monster is flip summoned, should we be able to change its attackMode after that?
     }
 
-    public MonsterCardInUse(Board board) {
-        super(board);
+    public MonsterCardInUse(Board board, int indexInBoard) {
+        super(board, indexInBoard);
     }
 
 
@@ -42,7 +42,17 @@ public class MonsterCardInUse extends CardInUse {
         if (isInAttackMode != inAttackMode) {
             isInAttackMode = inAttackMode;
             this.isPositionChanged = true;
+            if (isInAttackMode) { //todo why doesn't it work
+                super.getImageButtonInUse().setTransform(true);
+                super.getImageButtonInUse().setRotation(270);
+            }
+            else{
+                super.getImageButtonInUse().setTransform(true);
+                super.getImageButtonInUse().setRotation(90);
+            }
         }
+        setImageButton(thisCard);
+
     }
 
     @Override
@@ -60,9 +70,9 @@ public class MonsterCardInUse extends CardInUse {
     }
 
     /*
-    * if the card is in attack point returns attack point
-    * else returns defense point
-    * */
+     * if the card is in attack point returns attack point
+     * else returns defense point
+     * */
     public int appropriatePointAtBattle() {
         if (isInAttackMode)
             return attack;
@@ -82,7 +92,7 @@ public class MonsterCardInUse extends CardInUse {
 
     public void destroyThis() {
         watchByState(CardState.DESTROY);
-        if (canBeDestroyed)     sendToGraveYard();
+        if (canBeDestroyed) sendToGraveYard();
     }
 
     public void summon() {

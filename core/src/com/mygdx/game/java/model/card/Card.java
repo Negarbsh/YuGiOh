@@ -16,6 +16,8 @@ public abstract class Card extends Button {
     public boolean shouldDieAfterActivated = false;
     public ArrayList<Watcher> builtInWatchers;
 
+
+    //when a card is added to the hand, the image buttons of the card are created, too.
     private CardImageButton visibleImageButton;
     private CardImageButton invisibleImageButton;
 

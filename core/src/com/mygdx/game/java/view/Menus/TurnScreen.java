@@ -13,16 +13,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
-import com.mygdx.game.java.model.*;
+import com.mygdx.game.java.model.Board;
 import com.mygdx.game.java.model.Enums.Phase;
+import com.mygdx.game.java.model.Hand;
+import com.mygdx.game.java.model.Player;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.PreCard;
+import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.view.Constants;
+import com.mygdx.game.java.view.exceptions.*;
 import lombok.Getter;
 
 
@@ -45,8 +50,10 @@ public class TurnScreen implements Screen {
     private Table rivalHandTable;
 
     private Table boardsTable; //contains both of the boards and has a background
-    private Table myBoardTable; //each boardTable is a 2 * 5 table which has card in uses and a card in use has an image button to add to the table
-    private Table rivalBoardTable;
+//    private Table myBoardTable; //each boardTable is a 2 * 5 table which has card in uses and a card in use has an image button to add to the table
+//    private Table rivalBoardTable;
+//    private Array<ImageButton> myButtons;
+//    private Array<ImageButton>
 
     private Table sideInfoTable;//contains myAvatar, selectedCard description, selectedCard Image and rival avatar.
     private ProgressBar myLifePoint;
@@ -80,7 +87,7 @@ public class TurnScreen implements Screen {
 
     @Override
     public void show() {
-        flatEarthSkin = gameMainClass.flatEarthSkin2;
+        flatEarthSkin = GameMainClass.flatEarthSkin2;
         stage.addActor(new Wallpaper(4, 0, 0, Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
         createSideBar();
         createBoards();
@@ -113,10 +120,11 @@ public class TurnScreen implements Screen {
                     case 1:
                         controller.getRoundController().setTurnEnded(true);
                         controller.setRoundEnded(true);
-                        DuelMenuController.endGame();
+                        controller.endGame(gameMainClass);
                         break;
                     case 2:
                         controller.setGamePaused(true);
+//                        pause();
                         break;
                     case 3:
                         controller.setGamePaused(false);
@@ -132,8 +140,10 @@ public class TurnScreen implements Screen {
     }
 
     private void createMessageLabel() {
-        messageLabel = ButtonUtils.createMessageBar("YoGiOh!", gameMainClass.orangeSkin.getFont("font-title"), 0.9f);
-        messageLabel.setColor(0.98f, 0.68f, 0.52f, 1);
+        messageLabel = ButtonUtils.createMessageBar("YuGiOh!", gameMainClass.orangeSkin.getFont("font-title"), 0.9f);
+        messageLabel.setColor(0.501f, 0.250f, 0.250f, 1);
+//        messageLabel.getStyle().background = ButtonUtils.makeDrawable("Wallpapers/BluePinkGradient.jpg");
+
         messageLabel.setBounds(Constants.SIDE_INFO_WIDTH, Constants.DUEL_SCREEN_HEIGHT - Constants.UPPER_BAR_HEIGHT,
                 Constants.DUEL_SCREEN_WIDTH - Constants.SIDE_INFO_WIDTH - 3 * Constants.SETTING_BUTTON_RADIUS, Constants.UPPER_BAR_HEIGHT);
         stage.addActor(messageLabel);
@@ -144,23 +154,18 @@ public class TurnScreen implements Screen {
         rivalHandTable = rivalHand.getHandTable(false);
         myHandTable.setBounds(Constants.SIDE_INFO_WIDTH, 0, Constants.HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
         rivalHandTable.setBounds(Constants.SIDE_INFO_WIDTH, Constants.RIVAL_HAND_Y, Constants.HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
-//        myHandTable.setColor(Color.BLUE);
-//        rivalHandTable.setColor(Color.BLUE);
-
         stage.addActor(myHandTable);
         stage.addActor(rivalHandTable);
     }
 
     private void createBoards() {
-        //todo
+        this.boardsTable = new Table(flatEarthSkin);
+        boardsTable.setBackground(ButtonUtils.makeDrawable("Field/fie_normal.bmp"));
+        boardsTable.setBounds(Constants.BOARDS_X, Constants.BOARDS_Y, Constants.BOARDS_WIDTH, Constants.BOARDS_HEIGHT);
+        stage.addActor(boardsTable);
 
-
-//        rivalBoard.setupEntities(false);
-//        myBoardTable = myBoard.getTable();
-//        rivalBoardTable = rivalBoard.getTable();//todo: create the table fields in hand and board
-//
-//        stage.addActor(myBoardTable);
-//        stage.addActor(rivalBoardTable);
+        myBoard.addButtonsToStage(stage, true);
+        rivalBoard.addButtonsToStage(stage, false);
     }
 
     //side bar stuff beginning
@@ -313,6 +318,137 @@ public class TurnScreen implements Screen {
         selectedDescription.setText(description);
     }
 
+
+    //if the user chooses options[i], the function returns i
+    public int showQuestionDialog(String title, String question, String[] options) {
+        final int[] response = new int[1];
+        Dialog dialog = new Dialog(title, GameMainClass.flatEarthSkin2) {
+            @Override
+            protected void result(Object object) {
+                response[0] = (int) object;
+            }
+        };
+
+        dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+        dialog.text(question);
+        for (int i = 0; i < options.length; i++) {
+            dialog.button(options[i], i);
+        }
+        dialog.show(stage);
+        return response[0];
+    }
+
+    public void handleMainPhaseActionHand(boolean isMonster, Card card) {
+        controller.selectCard(card);
+        Dialog dialog;
+        if (isMonster) {
+            dialog = new Dialog("Choose Action", GameMainClass.flatEarthSkin2) {
+                @Override
+                protected void result(Object object) {
+                    int answer = (int) object;
+                    try {
+                        if (answer == 0) controller.summonMonster(false);
+                        else if (answer == 1) controller.getMainPhaseController().setCard();
+                    } catch (NoSelectedCard | CantDoActionWithCard | BeingFull | AlreadyDoneAction | UnableToChangePosition | WrongPhaseForAction | NotEnoughTributes exception) {
+                        DuelMenu.showException(exception);
+                    }
+                }
+            };
+            dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+            dialog.text("What do you want to do with this monster?");
+            dialog.button("Summon", 0);
+        } else {
+            dialog = new Dialog("Choose Action", GameMainClass.flatEarthSkin2) {
+                @Override
+                protected void result(Object object) {
+                    int answer = (int) object;
+                    try {
+                        if (answer == 0) controller.activateEffect();
+                        else if (answer == 1) controller.getMainPhaseController().setCard();
+                    } catch (NoSelectedCard | CantDoActionWithCard | BeingFull | AlreadyDoneAction | WrongPhaseForAction | ActivateEffectNotSpell | AlreadyActivatedEffect exception) {
+                        DuelMenu.showException(exception);
+                    }
+                }
+            };
+            dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+            dialog.text("What do you want to do with this spell or trap?");
+            dialog.button("Activate", 0);
+        }
+        dialog.button("Set", 1);
+        dialog.button("Cancel", 2);
+        dialog.show(stage);
+
+    }
+
+    public void handleMainPhaseBoard(boolean isMonster, Card card) {
+        controller.selectCard(card);
+        Dialog dialog;
+        if (isMonster) {
+            dialog = new Dialog("Choose Action", GameMainClass.flatEarthSkin2) {
+                @Override
+                protected void result(Object object) {
+                    int answer = (int) object;
+                    try {
+                        if (answer == 0) controller.getMainPhaseController().flipSummon();
+                    } catch (NoSelectedCard | CantDoActionWithCard exception) {
+                        DuelMenu.showException(exception);
+                    }
+                }
+            };
+            dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+            dialog.text("What do you want to do with this monster?");
+            dialog.button("Flip Summon", 0);
+        } else {
+            dialog = new Dialog("Choose Action", GameMainClass.flatEarthSkin2) {
+                @Override
+                protected void result(Object object) {
+                    int answer = (int) object;
+                    try {
+                        if (answer == 0) controller.activateEffect();
+                    } catch (NoSelectedCard | WrongPhaseForAction | ActivateEffectNotSpell | BeingFull | AlreadyActivatedEffect exception) {
+                        DuelMenu.showException(exception);
+                    }
+                }
+            };
+            dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+            dialog.text("What do you want to do with this spell or trap?");
+            dialog.button("Activate", 0);
+        }
+        dialog.button("Cancel", 1);
+    }
+
+
+    public void askToAttack(Monster monster) {
+        Dialog dialog = new Dialog("Choose Battle Action", GameMainClass.flatEarthSkin2) {
+            @Override
+            protected void result(Object object) {
+                int answer = (int) object;
+                try {
+                    if (answer == 0) {
+                        try {
+                            controller.attackDirect();
+                        } catch (CardAttackedBeforeExeption | WrongPhaseForAction | CardCantAttack exception) {
+                            DuelMenu.showException(exception);
+                        } catch (CantAttackDirectlyException exception){
+                            askToChoosePrey();
+                        }
+                    }
+                } catch (NoSelectedCard exception) {
+                    DuelMenu.showException(exception);
+                }
+            }
+        };
+        dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+        dialog.text("Do you want to attack?");
+        dialog.button("Yes", 0);
+        dialog.button("No", 1);
+    }
+
+    private void askToChoosePrey() {
+        showMessage("Choose a monster from rival's board to attack.");
+        controller.getRoundController().setSpecialSelectWaiting(true, true);
+    }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.466f, 0.207f, 0.466f, 1f);
@@ -323,7 +459,6 @@ public class TurnScreen implements Screen {
         rivalLifePoint.setValue(rival.getLifePoint());
         rivalLPLabel.setText("Life Point: " + rival.getLifePoint());
 
-        //todo: update entities
         stage.act();
         stage.draw();
 
@@ -336,7 +471,6 @@ public class TurnScreen implements Screen {
 
     @Override
     public void pause() {
-
     }
 
     @Override
@@ -351,6 +485,7 @@ public class TurnScreen implements Screen {
 
     @Override
     public void dispose() {
+        stage.dispose();
     }
 
 

@@ -51,14 +51,17 @@ public class DeckImageButton extends Table {
 
 
     public DeckImageButton clone() {
-        return new DeckImageButton(deck,
-                imageButton.getImage().getDrawable()==activeDeck, skin);
+        DeckImageButton deckImageButton = new DeckImageButton(deck,
+                false, skin);
+        if (isActiveDeck)
+            deckImageButton.getImageButton().getStyle().imageUp = activeDeck;
+        return deckImageButton;
     }
 
     public void setActive() {
+        deActiveDeck();
         isActiveDeck = true;
         imageButton.getStyle().imageUp = activeDeck;
-        deActiveDeck();
         activeDeckIcon = this;
     }
 
