@@ -2,7 +2,6 @@ package com.mygdx.game.java.model.watchers;
 
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.controller.game.RoundController;
-import lombok.Setter;
 import com.mygdx.game.java.model.CardState;
 import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.Player;
@@ -13,6 +12,7 @@ import com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard;
 import com.mygdx.game.java.model.watchers.monsters.*;
 import com.mygdx.game.java.model.watchers.spells.*;
 import com.mygdx.game.java.model.watchers.traps.*;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +31,9 @@ public abstract class Watcher implements Comparable {
     protected static boolean isInChainMode = false;
     public boolean firstOfStack = false;
     public int speed = 1;
+
+    private static Watcher watcherToAddToStack;
+    private static boolean addToStackOutput = false; // for graphic stuff, instead of using the output of "addToStack" method, use this boolean and then change it to false
 
     static {
         allWatchers = new HashMap<>();
@@ -83,21 +86,30 @@ public abstract class Watcher implements Comparable {
     protected static boolean addToStack(Watcher watcher) {
         if (!stack.contains(watcher)) {
             if (stack.size() == 0 || stack.get(stack.size() - 1).speed <= watcher.speed) {
-                if (stack.size() !=0 && stack.get(stack.size() - 1).ownerOfWatcher.ownerOfCard != watcher.ownerOfWatcher.ownerOfCard)
+                if (stack.size() != 0 && stack.get(stack.size() - 1).ownerOfWatcher.ownerOfCard != watcher.ownerOfWatcher.ownerOfCard)
                     roundController.temporaryTurnChange(watcher.ownerOfWatcher.ownerOfCard);
                 if (watcher.ownerOfWatcher.thisCard.preCardInGeneral instanceof PreSpellTrapCard) {
                     PreSpellTrapCard preSpellTrapCard = (PreSpellTrapCard) watcher.ownerOfWatcher.thisCard.preCardInGeneral;
                     if (preSpellTrapCard.getCardType() == CardType.TRAP) {
-                        if (roundController.wantToActivateCard(watcher.ownerOfWatcher.thisCard.getName())) {
-                            stack.add(watcher);
-                            return true;
+                        watcherToAddToStack = watcher;
+                        try {
+                            roundController.askIfWantToActivateCard(watcher.ownerOfWatcher.thisCard.getName(),
+                                    Class.forName("com.mygdx.game.java.model.watchers.Watcher").getMethod("handleWantToActivate", int.class), null);
+                        } catch (NoSuchMethodException | ClassNotFoundException e) {
+                            e.printStackTrace();
                         }
+//                        if (roundController.askIfWantToActivateCard(watcher.ownerOfWatcher.thisCard.getName())) {
+//                            stack.add(watcher);
+//                            return true;
+//                        }
                     } else {
                         stack.add(watcher);
+                        addToStackOutput = true;
                         return true;
                     }
                 } else {
                     stack.add(watcher);
+                    addToStackOutput = true;
                     return true;
                 }
             }
@@ -106,8 +118,19 @@ public abstract class Watcher implements Comparable {
         return false;
     }
 
+
+    //called by the dialog
+    public static void handleWantToActivate(int choice) {
+        if (choice == 0) {
+            stack.add(watcherToAddToStack);
+            addToStackOutput = true;
+        } else if (choice == 1) addToStackOutput = false;
+    }
+
     public boolean handleChain() {
-        if (Watcher.addToStack(this)) {
+        Watcher.addToStack(this);
+        if (Watcher.addToStackOutput) {
+            addToStackOutput = false;
             ownerOfWatcher.watchByState(CardState.ACTIVE_EFFECT);
             emptyStack();
             return true;

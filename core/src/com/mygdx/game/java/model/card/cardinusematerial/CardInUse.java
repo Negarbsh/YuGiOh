@@ -2,9 +2,7 @@ package com.mygdx.game.java.model.card.cardinusematerial;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
@@ -30,7 +28,7 @@ public abstract class CardInUse {
     public boolean isPositionChanged;  //if card manner was changed in a turn ->true then ->false
     private boolean isFaceUp;
     protected Board board;
-    private ImageButton imageButtonInUse;
+    ImageButton imageButtonInUse;
     private int indexInBoard;
 
 

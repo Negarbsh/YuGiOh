@@ -4,8 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.card.Card;
-import com.mygdx.game.java.model.card.CardImageButton;
-import com.mygdx.game.java.model.forgraphic.ButtonUtils;
+import com.mygdx.game.java.model.forgraphic.CardImageButton;
 import com.mygdx.game.java.view.Constants;
 import com.mygdx.game.java.view.exceptions.InvalidSelection;
 
@@ -13,8 +12,8 @@ import java.util.ArrayList;
 
 public class Hand {
     private final ArrayList<Card> cardsInHand;
-    private final Table visibleTable;
-    private final Table invisibleTable;
+    private Table visibleTable;
+    private Table invisibleTable;
 
     private final ArrayList<Actor> visibleActors;
     private final ArrayList<Actor> inVisibleActors;
@@ -53,12 +52,14 @@ public class Hand {
     public void makeVisible(Card card, DuelMenuController controller) {
         CardImageButton cardImageVisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller, true, owner);
         visibleTable.add(cardImageVisible).width(Constants.CARD_IN_HAND_WIDTH).pad(Constants.HAND_GAP_BETWEEN_CELLS);
+        cardImageVisible.sizeBy(Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
         visibleActors.add(cardImageVisible);
     }
 
     public void makeInvisible(Card card, DuelMenuController controller) {
         CardImageButton cardImageInvisible = CardImageButton.getNewImageButton(card, Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT, controller, false, owner);
         invisibleTable.add(cardImageInvisible).width(Constants.CARD_IN_HAND_WIDTH).pad(Constants.HAND_GAP_BETWEEN_CELLS);
+        cardImageInvisible.sizeBy(Constants.CARD_IN_HAND_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
         inVisibleActors.add(cardImageInvisible);
     }
 
@@ -84,6 +85,17 @@ public class Hand {
     }
 
     public Table getHandTable(boolean isVisible) {
+        visibleTable = new Table();
+        for (Actor visibleActor : visibleActors) {
+            visibleTable.add(visibleActor).width(Constants.CARD_IN_HAND_WIDTH).pad(Constants.HAND_GAP_BETWEEN_CELLS);
+        }
+
+        invisibleTable = new Table();
+        for (Actor inVisibleActor : inVisibleActors) {
+            invisibleTable.add(inVisibleActor).width(Constants.CARD_IN_HAND_WIDTH).pad(Constants.HAND_GAP_BETWEEN_CELLS);
+            ;
+        }
+
         if (isVisible) return visibleTable;
         else {
             return invisibleTable;

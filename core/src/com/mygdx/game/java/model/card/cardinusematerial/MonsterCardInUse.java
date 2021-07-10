@@ -43,11 +43,11 @@ public class MonsterCardInUse extends CardInUse {
             isInAttackMode = inAttackMode;
             this.isPositionChanged = true;
             if (isInAttackMode) { //todo why doesn't it work
-                super.getImageButtonInUse().setTransform(true);
+//                super.getImageButtonInUse().setTransform(true);
                 super.getImageButtonInUse().setRotation(270);
             }
             else{
-                super.getImageButtonInUse().setTransform(true);
+//                super.getImageButtonInUse().setTransform(true);
                 super.getImageButtonInUse().setRotation(90);
             }
         }

@@ -36,7 +36,7 @@ public class Constants {
     public final static float CARD_IN_USE_HEIGHT = 9 * BOARD_CELLS_GAP;
     public static final float BOARD_ZONES_GAP = 0.8f * BOARD_CELLS_GAP;
     public static final float BOARDS_GAP = 3 * BOARD_CELLS_GAP;
-    public static final float GRAVEYARD_RADIUS = 10 * BOARD_CELLS_GAP; //change it if you wish!
+    public static final float GRAVEYARD_RADIUS = 10 * BOARD_CELLS_GAP;
     public static final float FIELD_WIDTH = BOARD_CELLS_GAP * 7.5f;
 //    public static final float BOARD_WIDTH = CARD_IN_USE_WIDTH * 5 + BOARD_CELLS_GAP * 6 + GRAVEYARD_WIDTH + FIELD_WIDTH ;
     public static final float BOARD_WIDTH = BOARD_CELLS_GAP * 57;

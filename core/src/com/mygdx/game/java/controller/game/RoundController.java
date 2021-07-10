@@ -18,6 +18,8 @@ import com.mygdx.game.java.view.messageviewing.Print;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.lang.reflect.Method;
+
 @Getter
 @Setter
 public class RoundController {
@@ -62,13 +64,19 @@ public class RoundController {
         this.roundIndex = roundIndex;
     }
 
-    public Phase getCurrentPhase(){
+    public Phase getCurrentPhase() {
         return duelMenuController.getCurrentPhase();
     }
 
     public void setTurnEnded(boolean isTurnEnded) {
         this.isTurnEnded = isTurnEnded;
         if (isTurnEnded) duelMenuController.changeTurn(true);
+    }
+
+
+    public void setSelectedCard(Card selectedCard) {
+        this.selectedCard = selectedCard;
+        System.out.println("Card " + selectedCard.name + " is selected");
     }
 
     public void swapPlayers() {
@@ -117,7 +125,7 @@ public class RoundController {
     /* general actions (in any phase) */
 
     public void selectCardByAddress(ZoneName zoneName, boolean isForOpponent, int cardIndex) throws InvalidSelection, NoCardFound {
-        if(isWaitingToChoosePrey()) return;
+        if (isWaitingToChoosePrey()) return;
         Player ownerOfToBeSelected = currentPlayer;
         if (isForOpponent) ownerOfToBeSelected = rival;
         switch (zoneName) {
@@ -279,9 +287,10 @@ public class RoundController {
         DuelMenu.showTemporaryTurnChange(newCurrent.getName(), newCurrent.getBoard(), getMyRival(newCurrent).getBoard());
     }
 
-    public boolean wantToActivateCard(String cardName) {
-        return DuelMenuController.askQuestion(
-                "Do you want to activate" + cardName + " ?(Y/N)").equals("Y");
+    public void askIfWantToActivateCard(String cardName, Method method, Object ownerOfMethod) {
+//        return DuelMenuController.askQuestion(
+//                "Do you want to activate" + cardName + " ?(Y/N)").equals("Y");
+        duelMenuController.getTurnScreen().showQuestionDialog("Chain ", "Do you want to activate " + cardName + " ?", new String[]{"Yes", "No"}, method, ownerOfMethod);
     }
 
     public boolean arrangeAlternateBattle() {
@@ -301,7 +310,7 @@ public class RoundController {
 
     public void setWaitingToChoosePrey(boolean waitingToChoosePrey) {
         this.waitingToChoosePrey = waitingToChoosePrey;
-        if(isWaitingToChoosePrey()) ButtonUtils.changeMouseCursor();
+        if (isWaitingToChoosePrey()) ButtonUtils.changeMouseCursor();
         else ButtonUtils.redoChangingCursor();
     }
 }

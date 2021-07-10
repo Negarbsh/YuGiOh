@@ -55,4 +55,11 @@ public class PositionCalculator {
         if (!isForViewer) position[1] += Constants.BOARDS_GAP + Constants.CARD_IN_USE_HEIGHT;
         return position;
     }
+
+    public static float[] getGraveYardPosition(boolean isForViewer) {
+        float[] position = new float[2];
+        position[0] = getFieldPosition(!isForViewer)[0];
+        position[1] = getFieldPosition(isForViewer)[1];
+        return position;
+    }
 }

@@ -2,6 +2,7 @@ package com.mygdx.game.java.model;
 
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.game.java.model.card.Card;
+import com.mygdx.game.java.model.card.cardinusematerial.GraveYardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.view.exceptions.InvalidSelection;
 
@@ -10,23 +11,26 @@ import java.util.ArrayList;
 public class GraveYard {
     private final ArrayList<Card> cardsInGraveYard;
     private final Board board;
-
-    public ArrayList<Card> getCardsInGraveYard() {
-        return cardsInGraveYard;
-    }
-
-    public GraveYard(Board board) {
-        this.board = board;
-    }
-
+    private GraveYardInUse graveYardInUse;
 
     {
         cardsInGraveYard = new ArrayList<>();
     }
 
+    public GraveYard(Board board) {
+        this.board = board;
+        this.graveYardInUse = new GraveYardInUse(board, 0, board.getController(), this);
+        board.setGraveYardInUse(graveYardInUse);
+    }
+
+    public ArrayList<Card> getCardsInGraveYard() {
+        return cardsInGraveYard;
+    }
+
     public void addCard(Card card) {
         if (card != null) {
             cardsInGraveYard.add(card);
+            graveYardInUse.setFirstImageButton(card.getVisibleImageButton());
             board.getController().getRoundController().updateBoards();
         }
     }
@@ -46,6 +50,7 @@ public class GraveYard {
 
     public void removeCard(Card card) {
         cardsInGraveYard.remove(card);
+        graveYardInUse.setFirstImageButton(cardsInGraveYard.get(cardsInGraveYard.size() - 1).getVisibleImageButton());
     }
 
     //card index is between 1 and the size!
@@ -67,7 +72,7 @@ public class GraveYard {
     }
 
     public ImageButton getImageButton() {
-        return null; //todo
+        return graveYardInUse.getFirstImageButton();
     }
 }
 

@@ -1,12 +1,12 @@
 package com.mygdx.game.java.controller.game;
 
-import lombok.Getter;
-import lombok.Setter;
 import com.mygdx.game.java.model.Board;
 import com.mygdx.game.java.model.CardState;
 import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.view.messageviewing.Print;
 import com.mygdx.game.java.view.messageviewing.Winner;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -33,7 +33,7 @@ public class BattleController {
         preyCard.watchByState(CardState.IS_ATTACKED);
         isPreyCardInAttackMode = preyCard.isInAttackMode();
         if (canBattleHappen && !attacker.isCellEmpty()) {
-            if (preyCard.isCellEmpty() || summonedCardsLength > mainPhase.summonedInThisPhase.size())
+            if (preyCard.isCellEmpty() || summonedCardsLength > mainPhase.summonedInThisPhase.size()) //todo: it can't happen, right?
                 battlePhaseController.reArrangeBattle(attacker);
             else run();
         } else System.out.println("this battle can't happen");

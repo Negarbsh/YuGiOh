@@ -2,11 +2,11 @@ package com.mygdx.game.java.model;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
+import com.mygdx.game.java.model.card.cardinusematerial.GraveYardInUse;
 import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.model.card.cardinusematerial.SpellTrapCardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
@@ -30,6 +30,7 @@ public class Board {
     private MonsterCardInUse[] monsterZone;
     private SpellTrapCardInUse[] spellTrapZone;
     private SpellTrapCardInUse fieldCell;   //TODO !!! check updated with new program
+    private GraveYardInUse graveYardInUse;
 
     //watchers which are only available in areWatchingMe Cards. -> scanner, changeOfHearts
     private ArrayList<Watcher> freeBuiltInWatchers;
@@ -39,13 +40,11 @@ public class Board {
     private Phase myPhase;
     private DuelMenuController controller;
 
-    private Table table;
 
     {
         monsterZone = new MonsterCardInUse[5];
         spellTrapZone = new SpellTrapCardInUse[5];
         freeBuiltInWatchers = new ArrayList<>();
-        table = new Table();
     }
 
     public Board(Player owner, DuelMenuController controller) {
@@ -93,10 +92,10 @@ public class Board {
 
     private void newCells() {
         for (int i = 0; i < 5; i++) {
-            monsterZone[i] = new MonsterCardInUse(this, i +1  );
-            spellTrapZone[i] = new SpellTrapCardInUse(this,i + 1 );
+            monsterZone[i] = new MonsterCardInUse(this, i + 1);
+            spellTrapZone[i] = new SpellTrapCardInUse(this, i + 1);
         }
-        fieldCell = new SpellTrapCardInUse(this, 0 );
+        fieldCell = new SpellTrapCardInUse(this, 0);
     }
 
     public boolean isMonsterZoneFull() {
@@ -224,46 +223,6 @@ public class Board {
     }
 
 
-    //  This function is called when we want to show the board for the first time in the duelScreen.
-//    public void setupEntities(boolean isMyOwnerCurrent) {
-//        table.align(Align.center);
-////        table.setX(Constants.BOARDS_X);
-////        table.setWidth(Constants.BOARD_WIDTH);
-////        table.setHeight(Constants.BOARD_HEIGHT);
-//        if (isMyOwnerCurrent) { //todo clean code
-//
-//            table.setBounds(Constants.BOARDS_X, Constants.BOARDS_Y + Constants.BOARD_HEIGHT + Constants.BOARD_CELLS_GAP, Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);
-//            table.add(fieldCell.getImageButtonInUse()).padRight(Constants.BOARD_CELLS_GAP);
-//            for (int i = 0; i < 5; i++) {
-//                table.add(monsterZone[i].getImageButtonInUse()).width(Constants.CARD_IN_USE_WIDTH).height(Constants.CARD_IN_USE_HEIGHT).padRight(Constants.BOARD_CELLS_GAP);
-//            }
-//            table.add(graveYard.getImageButton());
-//            table.row().pad(Constants.BOARD_ZONES_GAP);
-//            for (int i = 0; i < 5; i++) {
-//                table.add(spellTrapZone[i].getImageButtonInUse()).width(Constants.CARD_IN_USE_WIDTH).height(Constants.CARD_IN_USE_HEIGHT).padRight(Constants.BOARD_CELLS_GAP);
-//            }
-//        }
-//        else {
-//            table.setBounds(Constants.BOARDS_X, Constants.BOARDS_Y , Constants.BOARD_WIDTH, Constants.BOARD_HEIGHT);
-//
-//
-//            for (int i = 0; i < 5; i++) {
-//                table.add(spellTrapZone[i].getImageButtonInUse()).width(Constants.CARD_IN_USE_WIDTH).height(Constants.CARD_IN_USE_HEIGHT).padRight(Constants.BOARD_CELLS_GAP);
-//            }
-//            table.row().pad(Constants.BOARD_ZONES_GAP);
-//            table.add(fieldCell.getImageButtonInUse()).padRight(Constants.BOARD_CELLS_GAP);
-//            for (int i = 0; i < 5; i++) {
-//                table.add(monsterZone[i].getImageButtonInUse()).width(Constants.CARD_IN_USE_WIDTH).height(Constants.CARD_IN_USE_HEIGHT).padRight(Constants.BOARD_CELLS_GAP);
-//            }
-//            table.add(graveYard.getImageButton());
-//        }
-//
-//    }
-
-    public Table getTable() {
-        return table;
-    }
-
     @Override
     public String toString() {
         if (controller.getRoundController().getCurrentPlayer() == this.owner)
@@ -282,7 +241,7 @@ public class Board {
 
             ImageButton spellBtn = spellTrapZone[i].getImageButtonInUse();
             position = PositionCalculator.getCardInUsePosition(i, false, amViewer);
-            spellBtn.setBounds(position[0],position[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
+            spellBtn.setBounds(position[0], position[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
             stage.addActor(spellBtn);
         }
 
@@ -290,6 +249,10 @@ public class Board {
         float[] position = PositionCalculator.getFieldPosition(amViewer);
         fieldBtn.setBounds(position[0], position[1], Constants.FIELD_WIDTH, Constants.CARD_IN_USE_HEIGHT);
         stage.addActor(fieldBtn);
+
+        position = PositionCalculator.getGraveYardPosition(amViewer);
+        graveYardInUse.getFirstImageButton().setBounds(position[0], position[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
+        stage.addActor(graveYardInUse.getFirstImageButton());
 
     }
 }

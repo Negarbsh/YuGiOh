@@ -1,20 +1,19 @@
-package com.mygdx.game.java.model.card;
+package com.mygdx.game.java.model.forgraphic;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.Player;
+import com.mygdx.game.java.model.card.Card;
+import com.mygdx.game.java.model.card.PreCard;
+import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.spelltrap.SpellTrap;
-import com.mygdx.game.java.view.exceptions.*;
-
-import java.lang.reflect.Method;
 
 public class CardImageButton extends ImageButton {
     private final Card myOwnerCard;
@@ -39,7 +38,6 @@ public class CardImageButton extends ImageButton {
         this.ownerPlayer = ownerPlayer;
         //todo: make the image down
         setWidth(width);
-
         setHeight(height);
         this.myOwnerCard = ownerCard;
         this.canBeSeen = canBeSeen;
@@ -115,8 +113,11 @@ public class CardImageButton extends ImageButton {
     public void checkBattlePhaseActions(Player cardOwner, Card card) {
         myController.selectCard(card);
         if (card instanceof Monster) {
-            if (cardOwner == myController.getTurnScreen().getMyPlayer() && cardOwner == myController.getRoundController().getCurrentPlayer())
-                myController.getTurnScreen().askToAttack((Monster) card);
+            CardInUse cardInUse = myController.getRoundController().findCardsCell(card);
+            if (cardInUse != null) {
+                if (cardOwner == myController.getTurnScreen().getMyPlayer() && cardOwner == myController.getRoundController().getCurrentPlayer())
+                    myController.getTurnScreen().askToAttack((Monster) card);
+            }
         }
     }
 

@@ -132,12 +132,8 @@ public class DuelMenu {
 
     public static String askQuestion(String questionToAsk) {
         Print.print(questionToAsk);
-        return scanner.nextLine();
-    }
-
-    public static String askForSth(String wanted) {
-        Print.print(wanted);
-        return scanner.nextLine();
+//        return scanner.nextLine(); //todo: should be deleted when we handled the dialog
+        return null;
     }
 
     public static void showWinner(String winnerUsername, int winnerScore, int loserScore, boolean isForMatch) {

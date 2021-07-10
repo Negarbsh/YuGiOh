@@ -10,8 +10,8 @@ import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
 import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.monster.MonsterManner;
+import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.exceptions.*;
-import com.mygdx.game.java.view.messageviewing.Print;
 import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
 
 import java.util.ArrayList;
@@ -58,12 +58,12 @@ public class SummonController {
             throw new NotEnoughTributes();
         }
         for (int i = 0; i < tributesNeeded; i++) {
-            String address = DuelMenuController.askQuestion("Enter the index of a card to tribute:");
+            String address = DuelMenuController.askQuestion("Enter the index of a card for tribute:");
             try {
                 payTributeFromBoard(address);
             } catch (InvalidTributeAddress | InvalidSelection invalidAddress) {
                 if (address.equals("cancel")) return;
-                Print.print(invalidAddress.getMessage());
+                DuelMenu.showException(invalidAddress);
                 i--;
             }
         }

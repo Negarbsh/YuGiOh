@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
@@ -22,7 +21,6 @@ import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.Hand;
 import com.mygdx.game.java.model.Player;
 import com.mygdx.game.java.model.card.Card;
-import com.mygdx.game.java.model.card.CardImageButton;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
@@ -259,6 +257,8 @@ public class TurnScreen implements Screen {
         phaseButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                ButtonUtils.redoChangingCursor();
+                controller.setWaitingToChoosePrey(false);
                 controller.nextPhase();
                 Phase currentPhase = controller.getCurrentPhase();
                 if (currentPhase != null) phaseButton.setText(currentPhase.toString() + "\nnext phase >>");
@@ -481,7 +481,7 @@ public class TurnScreen implements Screen {
             }
         };
         dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
-        dialog.text("Do you want to attack?");
+        dialog.text("Do you want to attack with this monster?");
         dialog.button("Yes", 0);
         dialog.button("No", 1);
         dialog.show(stage);

@@ -2,6 +2,7 @@ package com.mygdx.game.java.model.card;
 
 import com.mygdx.game.java.model.GraveYard;
 import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
+import com.mygdx.game.java.model.forgraphic.CardImageButton;
 import com.mygdx.game.java.model.watchers.Watcher;
 import lombok.Getter;
 
