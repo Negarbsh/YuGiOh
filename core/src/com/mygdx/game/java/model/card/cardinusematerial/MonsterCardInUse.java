@@ -22,7 +22,6 @@ public class MonsterCardInUse extends CardInUse {
         attack = 0;
         isInAttackMode = true; //it's needed for the first use of "setInAttackMode"
         canBeDestroyed = true;
-        //todo: if the monster is flip summoned, should we be able to change its attackMode after that?
     }
 
     public MonsterCardInUse(Board board, int indexInBoard) {
@@ -43,11 +42,11 @@ public class MonsterCardInUse extends CardInUse {
             isInAttackMode = inAttackMode;
             this.isPositionChanged = true;
             if (isInAttackMode) { //todo why doesn't it work
-//                super.getImageButtonInUse().setTransform(true);
-                super.getImageButtonInUse().setRotation(270);
+                super.getImageButtonInUse().setTransform(true);
+                super.getImageButtonInUse().setRotation(0);
             }
             else{
-//                super.getImageButtonInUse().setTransform(true);
+                super.getImageButtonInUse().setTransform(true);
                 super.getImageButtonInUse().setRotation(90);
             }
         }

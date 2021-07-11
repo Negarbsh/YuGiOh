@@ -375,6 +375,35 @@ public class TurnScreen implements Screen {
         dialog.show(stage);
     }
 
+    public void showGraveYardDialog(String title, String question, ArrayList<ImageButton> options, Method method, Object ownerOfMethod) {
+        Dialog dialog = new Dialog(title, GameMainClass.flatEarthSkin2) {
+            @Override
+            protected void result(Object object) {
+                if ((int) object == -1) return;
+                try {
+                    method.invoke(ownerOfMethod, object);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException ex) { //other exceptions that may happen due to the method's exceptions todo am I right?
+                    DuelMenu.showException(ex);
+                }
+            }
+        };
+
+        dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+        dialog.text(question);
+        for (int i = 0; i < options.size(); i++) {
+            options.get(i).setSize(20,30);
+            dialog.button(options.get(i), i);
+//            ImageButton button = new ImageButton(options.get(i).getStyle());
+//            button.setSize(50, 100);
+//            dialog.button(button);
+        }
+        dialog.button("Exit GraveYard", -1);
+        dialog.show(stage);
+    }
+
+
     public void handleMainPhaseActionHand(boolean isMonster, Card card) {
         controller.selectCard(card);
 
@@ -421,7 +450,7 @@ public class TurnScreen implements Screen {
     public void handleMainPhaseBoard(boolean isMonster, Card card) {
         controller.selectCard(card);
         CardInUse cardInUse = controller.getRoundController().findCardsCell(card);
-        if(cardInUse.getOwnerOfCard()  != myPlayer) return; //todo for attack, it might be sth else
+        if (cardInUse.getOwnerOfCard() != myPlayer) return; //todo for attack, it might be sth else
         Dialog dialog;
         if (isMonster) {
             dialog = new Dialog("Choose Action", GameMainClass.flatEarthSkin2) {
@@ -469,6 +498,7 @@ public class TurnScreen implements Screen {
                     if (answer == 0) {
                         try {
                             controller.attackDirect();
+                            DuelMenu.showResult("Direct attack was successful!");
                         } catch (CardAttackedBeforeExeption | WrongPhaseForAction | CardCantAttack exception) {
                             DuelMenu.showException(exception);
                         } catch (CantAttackDirectlyException exception) {

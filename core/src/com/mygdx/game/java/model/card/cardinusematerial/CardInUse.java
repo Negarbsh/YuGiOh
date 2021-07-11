@@ -151,11 +151,11 @@ public abstract class CardInUse {
         else imageButtonInUse.getStyle().imageUp = owner.getInvisibleImageButton().getImage().getDrawable();
         if (this instanceof MonsterCardInUse) {
             MonsterCardInUse monsterCardInUse = (MonsterCardInUse) this;
-//            if (!monsterCardInUse.isInAttackMode()) {
-//                imageButtonInUse.rotateBy(90); //todo: fine?
-//                imageButtonInUse.setTransform(true);
-//                imageButtonInUse.setRotation(90);
-//            }
+            if (!monsterCardInUse.isInAttackMode()) {
+                imageButtonInUse.setOrigin(imageButtonInUse.getWidth() / 2, imageButtonInUse.getHeight() / 2);
+                imageButtonInUse.setTransform(true);
+                imageButtonInUse.setRotation(90);
+            }
         }
     }
 

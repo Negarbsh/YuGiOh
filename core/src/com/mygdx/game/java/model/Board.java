@@ -102,6 +102,13 @@ public class Board {
         return getFirstEmptyCardInUse(true) == null;
     }
 
+    public boolean doesAnyMonsterExist(){
+        for (MonsterCardInUse monsterCardInUse : this.monsterZone) {
+            if(monsterCardInUse.thisCard != null) return true;
+        }
+        return false;
+    }
+
     public CardInUse getFirstEmptyCardInUse(boolean isMonster) {
         CardInUse[] zone;
         if (isMonster) zone = this.monsterZone;
@@ -251,8 +258,9 @@ public class Board {
         stage.addActor(fieldBtn);
 
         position = PositionCalculator.getGraveYardPosition(amViewer);
-        graveYardInUse.getFirstImageButton().setBounds(position[0], position[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_HAND_HEIGHT);
-        stage.addActor(graveYardInUse.getFirstImageButton());
+        ImageButton graveYardBtn = graveYardInUse.getFirstImageButton();
+        graveYardBtn.setBounds(position[0], position[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
+        stage.addActor(graveYardBtn);
 
     }
 }

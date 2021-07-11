@@ -6,8 +6,8 @@ import com.mygdx.game.java.model.Enums.ZoneName;
 import com.mygdx.game.java.model.card.CardType;
 import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
 import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
-import com.mygdx.game.java.view.messageviewing.Print;
 import com.mygdx.game.java.view.exceptions.*;
+import com.mygdx.game.java.view.messageviewing.Print;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -81,7 +81,7 @@ public class BattlePhaseController {
     }
 
     private boolean canAttackDirectly() {   //complete
-        return gamePlay.getRivalBoard().getFirstEmptyCardInUse(true) == null;
+        return !gamePlay.getRivalBoard().doesAnyMonsterExist();
     }
 
 

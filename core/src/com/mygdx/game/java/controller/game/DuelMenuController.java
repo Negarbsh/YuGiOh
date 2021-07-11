@@ -96,7 +96,7 @@ public class DuelMenuController {
     private static boolean isGameValid(User firstUser, User secondUser) throws InvalidName, NoActiveDeck, InvalidDeck, InvalidThing {
         if (firstUser == null || secondUser == null)
             throw new InvalidName("user", "username");
-        if (firstUser.equals(secondUser)) throw new InvalidThing("second username");
+        if (firstUser.equals(secondUser)) throw new InvalidThing("Second username");
         checkValidityOfUser(firstUser);
         checkValidityOfUser(secondUser);
         return true;

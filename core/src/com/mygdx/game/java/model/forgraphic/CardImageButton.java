@@ -70,10 +70,10 @@ public class CardImageButton extends ImageButton {
         Phase currentPhase = myController.getCurrentPhase(); //todo for phase 3, the current phase should be the phase of viewer
         if (currentPhase == Phase.MAIN_1 || currentPhase == Phase.MAIN_2) {
             checkMainPhaseActions(ownerPlayer, ownerCard);
-        } else if (currentPhase == Phase.BATTLE) {
+        } else if (currentPhase == Phase.BATTLE || currentPhase == Phase.BATTLE_RIVAL) {
             checkBattlePhaseActions(ownerPlayer, ownerCard);
         } else {
-            myController.selectCard(ownerCard); //maybe needed in case we wanted to attack sth from rival board!
+            myController.selectCard(ownerCard);
         }
     }
 
@@ -122,6 +122,7 @@ public class CardImageButton extends ImageButton {
     }
 
     public void handleEntered() {
+        if(myController.isWaitingToChoosePrey()) return;
         myController.selectCard(myOwnerCard);
     }
 

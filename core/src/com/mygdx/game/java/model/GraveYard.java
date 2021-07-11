@@ -1,6 +1,5 @@
 package com.mygdx.game.java.model;
 
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.cardinusematerial.GraveYardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
@@ -69,10 +68,6 @@ public class GraveYard {
             showGraveyard.append("graveyard empty");
         }
         return showGraveyard.toString();
-    }
-
-    public ImageButton getImageButton() {
-        return graveYardInUse.getFirstImageButton();
     }
 }
 

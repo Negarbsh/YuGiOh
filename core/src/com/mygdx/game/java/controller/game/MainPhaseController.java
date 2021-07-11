@@ -9,9 +9,7 @@ import com.mygdx.game.java.model.card.cardinusematerial.SpellTrapCardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.spelltrap.CardIcon;
 import com.mygdx.game.java.model.card.spelltrap.SpellTrap;
-import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.exceptions.*;
-import com.mygdx.game.java.view.messageviewing.Print;
 import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
 
 import java.util.ArrayList;
@@ -22,6 +20,7 @@ public class MainPhaseController {
 
 
     public final ArrayList<CardInUse> summonedInThisPhase; //used in handling the flip summon. can be used for some effects of cards
+    private boolean isAnyMonsterSet = false;
 
     {
         summonedInThisPhase = new ArrayList<>();
@@ -50,6 +49,7 @@ public class MainPhaseController {
         if (!player.getHand().doesContainCard(selectedCard) || !(selectedCard instanceof Monster))
             throw new CantDoActionWithCard("summon");
         if (player.getBoard().isMonsterZoneFull()) throw new BeingFull("monster card zone");
+        if(isAnyMonsterSet) throw new AlreadyDoneAction("summoned/set");
 
         MonsterCardInUse monsterCardInUse = (MonsterCardInUse) player.getBoard().getFirstEmptyCardInUse(true);
         SummonController summonController = new SummonController(monsterCardInUse, (Monster) selectedCard, controller, summonedInThisPhase);
@@ -104,12 +104,13 @@ public class MainPhaseController {
     private void setMonster(Monster selectedCard) throws BeingFull, AlreadyDoneAction {
         MonsterCardInUse monsterCardInUse = (MonsterCardInUse) player.getBoard().getFirstEmptyCardInUse(true);
         if (monsterCardInUse == null) throw new BeingFull("monster card zone");
-        if (!summonedInThisPhase.isEmpty()) throw new AlreadyDoneAction("summoned/set");
+        if (!summonedInThisPhase.isEmpty() || isAnyMonsterSet) throw new AlreadyDoneAction("summoned/set");
 
         player.getHand().removeCard(selectedCard);
         monsterCardInUse.setACardInCell(selectedCard);
         monsterCardInUse.setFaceUp(false);
         monsterCardInUse.setInAttackMode(false);
+        isAnyMonsterSet = true;
         new SuccessfulAction("", "set");
     }
 
