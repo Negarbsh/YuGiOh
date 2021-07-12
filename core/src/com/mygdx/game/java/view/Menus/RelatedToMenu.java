@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
 
 public class RelatedToMenu implements Screen {
@@ -27,6 +28,8 @@ public class RelatedToMenu implements Screen {
 
     @Override
     public void show() {
+        ButtonUtils.redoChangingCursor();
+
         Table table = new Table();
         table.setFillParent(true);
         table.defaults().pad(10).size(200, 50);

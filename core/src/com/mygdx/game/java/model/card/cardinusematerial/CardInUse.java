@@ -67,6 +67,10 @@ public abstract class CardInUse {
                 }
             }
         });
+
+        if(this instanceof  MonsterCardInUse){
+//            imageButtonInUse.addListener(new Tooltip<>())
+        }
         setImageButton(null);
 //        imageButtonInUse.getStyle().imageUp = null;
 //        imageButtonInUse.setSize(Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);

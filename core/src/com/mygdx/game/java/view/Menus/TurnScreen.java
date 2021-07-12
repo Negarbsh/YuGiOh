@@ -21,8 +21,10 @@ import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.Hand;
 import com.mygdx.game.java.model.Player;
 import com.mygdx.game.java.model.card.Card;
+import com.mygdx.game.java.model.card.CardType;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
+import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.forgraphic.CustomDialog;
@@ -323,7 +325,21 @@ public class TurnScreen implements Screen {
 
         String description = "";
         if (selectedCard == null) description = "No card is selected!";
-        else description = selectedCard.getPreCardInGeneral().getDescription();
+        else {
+            description = selectedCard.getPreCardInGeneral().getDescription();
+            if (selectedCard instanceof Monster) {
+                Monster monster = (Monster) selectedCard;
+                CardInUse cardInUse = controller.getRoundController().findCardsCell(selectedCard);
+                if (cardInUse == null) {
+                    description += "\nattack: " + monster.getMyPreCard().getAttack() +
+                            "\ndefense: " + monster.getMyPreCard().getDefense();
+                } else {
+                    MonsterCardInUse monsterCardInUse = (MonsterCardInUse) cardInUse;
+                    description += "\nattack: " + monsterCardInUse.getAttack() +
+                            "\ndefense: " + monsterCardInUse.getDefense();
+                }
+            }
+        }
         selectedDescription.setText(description);
     }
 
@@ -393,7 +409,7 @@ public class TurnScreen implements Screen {
         dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
         dialog.text(question);
         for (int i = 0; i < options.size(); i++) {
-            options.get(i).setSize(20,30);
+            options.get(i).setSize(20, 30);
             dialog.button(options.get(i), i);
 //            ImageButton button = new ImageButton(options.get(i).getStyle());
 //            button.setSize(50, 100);
@@ -438,8 +454,10 @@ public class TurnScreen implements Screen {
                 }
             };
             dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
-            dialog.text("What do you want to do with this spell or trap?");
-            dialog.button("Activate", 0);
+            if (card.getPreCardInGeneral().getCardType().equals(CardType.SPELL)) {
+                dialog.text("What do you want to do with this spell?");
+                dialog.button("Activate", 0);
+            } else dialog.text("What do you want to do with this trap?");
         }
         dialog.button("Set", 1);
         dialog.button("Cancel", 2);

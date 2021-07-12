@@ -141,6 +141,7 @@ public class DuelMenu {
         if (!isForMatch) matchOrGame = "game";
         else matchOrGame = "whole match";
         Print.print(winnerUsername + " won the " + matchOrGame + " and the score is: " + winnerScore + "-" + loserScore);
+        DuelMenu.showResult(winnerUsername + " won the " + matchOrGame + " and the score is: " + winnerScore + "-" + loserScore);
     }
 
     public static void showPhase(String phaseName) {
