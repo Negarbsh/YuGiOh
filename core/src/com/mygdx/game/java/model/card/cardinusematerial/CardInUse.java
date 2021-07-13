@@ -26,7 +26,7 @@ public abstract class CardInUse {
     public Card thisCard;
     public Player ownerOfCard;
     public boolean isPositionChanged;  //if card manner was changed in a turn ->true then ->false
-    private boolean isFaceUp;
+    protected boolean isFaceUp;
     protected Board board;
     ImageButton imageButtonInUse;
     private int indexInBoard;
@@ -52,14 +52,15 @@ public abstract class CardInUse {
                 if (thisCard != null) {
                     if (isFaceUp)
                         thisCard.getVisibleImageButton().handleClicked(board.getController(), board.getOwner(), thisCard);
-                    else thisCard.getInvisibleImageButton().handleClicked(board.getController(), board.getOwner(), thisCard);
+                    else
+                        thisCard.getInvisibleImageButton().handleClicked(board.getController(), board.getOwner(), thisCard);
                 }
             }
 
 
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                if(board.getController().isWaitingToChoosePrey()) return;
+                if (board.getController().isWaitingToChoosePrey()) return;
                 if (thisCard != null) {
                     if (isFaceUp)
                         thisCard.getVisibleImageButton().handleEntered();
@@ -68,7 +69,7 @@ public abstract class CardInUse {
             }
         });
 
-        if(this instanceof  MonsterCardInUse){
+        if (this instanceof MonsterCardInUse) {
 //            imageButtonInUse.addListener(new Tooltip<>())
         }
         setImageButton(null);
@@ -92,6 +93,12 @@ public abstract class CardInUse {
         }
         setImageButton(thisCard);
     }
+
+    public void summonFaceUply() {
+        isFaceUp = true;
+        setImageButton(thisCard);
+    }
+
 
     //note that it doesn't call the watchers!
     public void setFaceUp(boolean faceUp) {
@@ -128,7 +135,8 @@ public abstract class CardInUse {
 
     public void watchByState(CardState cardState) {
         DuelMenuController duelMenuController = this.getBoard().getController();
-        for (Watcher watcher : watchersOfCardInUse) {
+        ArrayList<Watcher> copy = new ArrayList<>(watchersOfCardInUse);
+        for (Watcher watcher : copy) {
             if (watcher.ownerOfWatcher == this && cardState == CardState.ACTIVE_EFFECT)
                 watcher.watch(this, CardState.ACTIVE_MY_EFFECT, duelMenuController);
             else
@@ -180,7 +188,7 @@ public abstract class CardInUse {
         }
     }
 
-    public int getIndexInBoard(){
+    public int getIndexInBoard() {
         return indexInBoard;
     }
 }

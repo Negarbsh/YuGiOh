@@ -57,6 +57,7 @@ public class TexChangerWatcher extends Watcher {
     }
 
     public void summonAppropriateMonsterCard() {
+        roundController.temporaryTurnChange(ownerOfWatcher.ownerOfCard);
         selectController = new SelectController(new ArrayList<>(Arrays.asList(
                 ZoneName.MY_DECK, ZoneName.HAND, ZoneName.MY_GRAVEYARD)), roundController, ownerOfWatcher.getOwnerOfCard());
 
@@ -68,24 +69,19 @@ public class TexChangerWatcher extends Watcher {
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
-//            try {
-//                SummonController.specialSummon((Monster) selectController.getTheCard(),
-//                        ownerOfWatcher.getOwnerOfCard(), roundController, false);
-//                ownerOfWatcher.getBoard().getGraveYard().removeCard(selectController.getTheCard());
-//            } catch (BeingFull beingFull) {
-//                DuelMenu.showException(beingFull);
-//            }
         }
     }
 
     public void handleSelectAction(int choice) {
-        Card card = selectController.getTheCard(choice);
-        try {
-            SummonController.specialSummon((Monster) card,
-                    ownerOfWatcher.getOwnerOfCard(), roundController, false);
-            ownerOfWatcher.getBoard().getGraveYard().removeCard(card);
-        } catch (BeingFull beingFull) {
-            DuelMenu.showException(beingFull);
-        }
+        Card selected = selectController.getTheCard(choice);
+            try {
+                if (selected != null) {
+                    SummonController.specialSummon((Monster) selected,
+                            ownerOfWatcher.getOwnerOfCard(), roundController, false);
+                    ownerOfWatcher.getBoard().getGraveYard().removeCard(selected);
+                }
+            } catch (BeingFull beingFull) {
+                DuelMenu.showException(beingFull);
+            }
     }
 }

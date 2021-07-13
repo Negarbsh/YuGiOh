@@ -217,8 +217,9 @@ public class TurnScreen implements Screen {
         Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGB565);
         bgPixmap.setColor(new Color(0.501f, 0.250f, 0.250f, 1f));
         bgPixmap.fill();
-        TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
-        table.setBackground(textureRegionDrawableBg);
+        TextureRegionDrawable drawable = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
+        table.setBackground(drawable);
+        bgPixmap.dispose();
     }
 
     private void addPreparedActorsToSideInfo(Label rivalNames, Label myNames, Image rivalAvatar, Image myAvatar, Image selectedCardImage, Label selectedDescription) {
@@ -271,14 +272,24 @@ public class TurnScreen implements Screen {
 
     private void handleRivalLifePointInfo() {
         rivalLifePoint = new ProgressBar(0, 8000, 100, false, flatEarthSkin);
-        rivalLifePoint.setColor(0.128f, 0.128f, 0, 1);
+        setStyleOfBar(rivalLifePoint);
+//        rivalLifePoint.setColor(0.128f, 0.128f, 0, 1);
         rivalLifePoint.setValue(rival.getLifePoint());
         rivalLPLabel = new Label("Life Point: " + (int) rivalLifePoint.getValue(), flatEarthSkin);
     }
 
+    private void setStyleOfBar(ProgressBar progressBar) {
+        Pixmap pixmap = new Pixmap(1, 10, Pixmap.Format.RGBA8888);
+        pixmap.setColor(new Color(0.4f, 0.4f, 1f, 1f));
+        pixmap.fill();
+        progressBar.getStyle().knobBefore = new TextureRegionDrawable(new TextureRegion(new Texture(pixmap)));
+        pixmap.dispose();
+    }
+
     private void handleMyLifePointInfo() {
         myLifePoint = new ProgressBar(0, 8000, 50, false, flatEarthSkin);
-        myLifePoint.setColor(0.128f, 0.128f, 0, 1);
+//        myLifePoint.setColor(0.128f, 0.128f, 0, 1);
+        setStyleOfBar(myLifePoint);
         myLifePoint.setValue(myPlayer.getLifePoint());
         myLPLabel = new Label("Life Point: " + (int) myLifePoint.getValue(), flatEarthSkin);
     }
@@ -306,7 +317,7 @@ public class TurnScreen implements Screen {
 
     private Label getNamesLabel(Player player) {
         Label label = new Label("Username: " + player.getOwner().getUsername() + "\nNickname: " + player.getName(), flatEarthSkin);
-        label.scaleBy(2); //todo: fine?
+        label.scaleBy(2);
         label.setWidth(Constants.SIDE_INFO_WIDTH);
         label.setColor(0.6f, 0.298f, 0, 1);
         label.setAlignment(Align.center);
@@ -331,12 +342,12 @@ public class TurnScreen implements Screen {
                 Monster monster = (Monster) selectedCard;
                 CardInUse cardInUse = controller.getRoundController().findCardsCell(selectedCard);
                 if (cardInUse == null) {
-                    description += "\nattack: " + monster.getMyPreCard().getAttack() +
-                            "\ndefense: " + monster.getMyPreCard().getDefense();
+                    description += "\nATK:\t" + monster.getMyPreCard().getAttack() +
+                            "\nDEF:\t" + monster.getMyPreCard().getDefense();
                 } else {
                     MonsterCardInUse monsterCardInUse = (MonsterCardInUse) cardInUse;
-                    description += "\nattack: " + monsterCardInUse.getAttack() +
-                            "\ndefense: " + monsterCardInUse.getDefense();
+                    description += "\nATK:\t" + monsterCardInUse.getAttack() +
+                            "\nDEF:\t" + monsterCardInUse.getDefense();
                 }
             }
         }
@@ -477,7 +488,8 @@ public class TurnScreen implements Screen {
                     int answer = (int) object;
                     try {
                         if (answer == 0) controller.getMainPhaseController().flipSummon();
-                    } catch (NoSelectedCard | CantDoActionWithCard exception) {
+                        else if (answer == 2) controller.changePosition(!((MonsterCardInUse) cardInUse).isInAttackMode());
+                    } catch (NoSelectedCard | CantDoActionWithCard | WrongPhaseForAction | AlreadyDoneAction | UnableToChangePosition | AlreadyInWantedPosition exception) {
                         DuelMenu.showException(exception);
                     }
                 }
@@ -485,6 +497,7 @@ public class TurnScreen implements Screen {
             dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
             dialog.text("What do you want to do with this monster?");
             dialog.button("Flip Summon", 0);
+            dialog.button("change position", 2);
         } else {
             dialog = new Dialog("Choose Action", GameMainClass.flatEarthSkin2) {
                 @Override

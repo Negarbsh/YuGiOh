@@ -22,7 +22,9 @@ public class ManEaterWatcher extends Watcher {
     public void watch(CardInUse theCard, CardState cardState, DuelMenuController duelMenuController) {
         if (cardState == CardState.FACE_UP) {
             if (handleChain()) {
-                selectMonsterCardInUse().destroyThis();
+                MonsterCardInUse selected = selectMonsterCardInUse();
+                if (selected != null)
+                    selected.destroyThis();
                 isWatcherActivated = true;
             }
         }
@@ -39,9 +41,15 @@ public class ManEaterWatcher extends Watcher {
     }
 
     public MonsterCardInUse selectMonsterCardInUse() {
+        if (roundController.getCurrentPlayer() != ownerOfWatcher.ownerOfCard)
+            roundController.temporaryTurnChange(ownerOfWatcher.ownerOfCard);
         SelectController selectController = new SelectController(new ArrayList<>(Collections.singletonList(
                 ZoneName.RIVAL_MONSTER_ZONE)), roundController, ownerOfWatcher.getOwnerOfCard());
 
-        return (MonsterCardInUse) selectController.getTheCardInUse();
+        CardInUse selectedCardCell = selectController.getTheCardInUse();
+        if (selectedCardCell != null)
+            return (MonsterCardInUse) selectedCardCell;
+
+        return null;
     }
 }

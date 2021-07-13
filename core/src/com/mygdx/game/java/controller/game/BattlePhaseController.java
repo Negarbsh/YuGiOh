@@ -75,8 +75,10 @@ public class BattlePhaseController {
             throw new CardAttackedBeforeExeption();
         else if (!canAttackDirectly())
             throw new CantAttackDirectlyException();
-        else
-            gamePlay.getRival().decreaseLifePoint(attacker.getAttack());
+        else {
+            new BattleController(attacker, this);
+            attackedInThisTurn.add(attacker);
+        }
         gamePlay.updateBoards();
     }
 

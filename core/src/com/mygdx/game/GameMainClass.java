@@ -7,16 +7,9 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.java.controller.FileHandler;
-import com.mygdx.game.java.controller.game.DuelMenuController;
-import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.view.Menus.CoinFlipScreen;
-import com.mygdx.game.java.view.Menus.DuelMenuScreen;
 import com.mygdx.game.java.view.Menus.RelatedToMenu;
 import com.mygdx.game.java.view.Menus.ScoreboardMenu;
-import com.mygdx.game.java.view.exceptions.NumOfRounds;
-
-import java.util.concurrent.ExecutionException;
 
 public class GameMainClass extends Game {
 
@@ -57,38 +50,6 @@ public class GameMainClass extends Game {
         setScreen(new RelatedToMenu(this));
 
     }
-
-    private void performCoinScreenTest(){
-
-//
-//        Screen screen = null;
-//        try {
-//            screen = new CoinFlipScreen(true,this,
-//                    new DuelMenuController(User.getUserByName("ali"),User.getUserByName("akbar"),3,this));
-//        } catch ( Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//        setScreen(screen);
-//
-
-    }
-
-
-    private void preformDuelScreenTest() {
-//        User ali = User.getUserByName("ali");
-//        User akbar = User.getUserByName("akbar");
-//        Deck alis = new Deck("alis");
-//        Deck akbars = new Deck("akbars");
-//        ali.addDeck(alis);
-//        akbar.addDeck(akbars);
-//
-//        ali.setActiveDeck(ali.getDecks().get(0));
-//        akbar.setActiveDeck(akbar.getDecks().get(0));
-
-        Screen screen = new DuelMenuScreen(User.getUserByName("ali"), this);
-        setScreen(screen);
-    }
-
 
     @Override
     public void setScreen(Screen screen) {

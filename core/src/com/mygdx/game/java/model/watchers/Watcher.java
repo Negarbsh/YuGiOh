@@ -31,6 +31,7 @@ public abstract class Watcher implements Comparable {
     protected static boolean isInChainMode = false;
     public boolean firstOfStack = false;
     public int speed = 1;
+    public boolean isDeleted = false;
 
     private static Watcher watcherToAddToStack;
     private static boolean addToStackOutput = false; // for graphic stuff, instead of using the output of "addToStack" method, use this boolean and then change it to false
@@ -65,11 +66,14 @@ public abstract class Watcher implements Comparable {
         amWatching.remove(cardInUse);
     }
 
-    public void deleteWatcher() {   //when owner of watcher is destroyed or the watcher can only be used once
-        for (CardInUse cardInUse : amWatching) {
-            cardInUse.watchersOfCardInUse.remove(this);
-            amWatching.remove(cardInUse);
-        }
+    public static CardInUse[] uniteArrays(CardInUse[] a, CardInUse[] b) {
+        HashSet<CardInUse> set = new HashSet<>();
+        set.addAll(Arrays.asList(a));
+        set.addAll(Arrays.asList(b));
+
+        CardInUse[] unitedArray = new CardInUse[set.size()];
+        set.toArray(unitedArray);
+        return unitedArray;
     }
 
     protected static void emptyStack() {
@@ -139,9 +143,12 @@ public abstract class Watcher implements Comparable {
         return false;
     }
 
-    public void trapHasDoneItsEffect() {
-        isWatcherActivated = true;
-        ownerOfWatcher.sendToGraveYard();
+    public void deleteWatcher() {   //when owner of watcher is destroyed or the watcher can only be used once
+        for (CardInUse cardInUse : amWatching) {
+            cardInUse.watchersOfCardInUse.remove(this);
+            amWatching = new ArrayList<>();
+            isDeleted = true;
+        }
     }
 
     public void addWatcherToCardInUse(CardInUse cardInUse) {
@@ -224,12 +231,9 @@ public abstract class Watcher implements Comparable {
         return null;
     }
 
-    public static CardInUse[] uniteArrays(CardInUse[] a, CardInUse[] b) {
-        HashSet<CardInUse> set = new HashSet<>();
-        set.addAll(Arrays.asList(a));
-        set.addAll(Arrays.asList(b));
-
-        return (CardInUse[]) set.toArray();
+    public void spellTrapHasDoneItsEffect() {
+        isWatcherActivated = true;
+        ownerOfWatcher.sendToGraveYard();
     }
 
     public CardInUse[] theTargetCells(Zone zoneName) {
@@ -267,7 +271,9 @@ public abstract class Watcher implements Comparable {
     @Override
     public int compareTo(Object o) {
         Watcher secWatcher = (Watcher) o;
-        if (this.whoToWatch == WhoToWatch.MINE)
+        if (this.whoToWatch == secWatcher.whoToWatch)
+            return 0;
+        else if (this.whoToWatch == WhoToWatch.MINE)
             return 1;
         else if (this.whoToWatch == WhoToWatch.RIVALS)
             return -1;
@@ -277,7 +283,7 @@ public abstract class Watcher implements Comparable {
             else if (secWatcher.whoToWatch == WhoToWatch.RIVALS)
                 return 1;
             else
-                return 0;
+                return 1;
         }
     }
 }

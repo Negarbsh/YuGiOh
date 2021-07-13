@@ -64,11 +64,10 @@ public class FieldWatcher extends SpellsWithActivation {
     public void deleteWatcher() {
         for (CardInUse cardInUse : amWatching) {
             cardInUse.watchersOfCardInUse.remove(this);
-            amWatching.remove(cardInUse);
             ((MonsterCardInUse) cardInUse).addToAttack(attackAdded * -1);
             ((MonsterCardInUse) cardInUse).addToDefense(defenseAdded * -1);
         }
-
+        super.deleteWatcher();
         if (!activationWatcher.isDeleted) activationWatcher.deleteWatcher();
     }
 }

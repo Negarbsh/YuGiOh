@@ -20,7 +20,7 @@ public class NegateAttackWatcher extends Watcher {
             if (handleChain()) {
                 BattleController battle = duelMenuController.getBattlePhaseController().battleController;
                 battle.canBattleHappen = false;
-                trapHasDoneItsEffect();
+                spellTrapHasDoneItsEffect();
                 duelMenuController.nextPhase();
             }
         }

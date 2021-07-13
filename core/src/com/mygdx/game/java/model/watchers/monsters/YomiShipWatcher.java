@@ -20,7 +20,8 @@ public class YomiShipWatcher extends Watcher {
             theBattleAgainstMe = duelMenuController.getBattlePhaseController().battleController;
         } else if (cardState == CardState.DESTROY) {
             if (theBattleAgainstMe != null && theBattleAgainstMe == duelMenuController.getBattlePhaseController().battleController) {
-                theBattleAgainstMe.getAttacker().destroyThis();
+                if (!theBattleAgainstMe.getAttacker().isCellEmpty())
+                    theBattleAgainstMe.getAttacker().destroyThis();
                 isWatcherActivated = true;
             }
         }

@@ -110,6 +110,8 @@ public class DuelMenuController {
         allCards.addAll(deck.getMainCards());
         allCards.addAll(deck.getSideCards());
         for (PreCard preCard : allCards) {
+            if (!user.getCardTreasury().containsKey(preCard.getName()))
+                throw new InvalidDeck(user.getUsername());
             if (Collections.frequency(allCards, preCard)
                     > user.getCardTreasury().get(preCard.getName()))
                 throw new InvalidDeck(user.getUsername());
@@ -383,12 +385,17 @@ public class DuelMenuController {
     public void showCard() throws NoSelectedCard {
         if (roundController != null && roundController.isAnyCardSelected()) {
             Card card = roundController.getSelectedCard();
+            if (card == null) throw new NoSelectedCard();
             if (!canSeeCard(roundController.getCurrentPlayer(), card)) {
                 Print.print("You can't view this card!");
                 return;
             }
-            MonsterCardInUse monsterCardInUse = (MonsterCardInUse) roundController.getSelectedCardInUse();
-            if (monsterCardInUse != null) {
+            CardInUse cardInUse = roundController.getSelectedCardInUse();
+            if (cardInUse == null) throw new NoSelectedCard();
+
+//            MonsterCardInUse monsterCardInUse = (MonsterCardInUse) roundController.getSelectedCardInUse();
+            if (cardInUse instanceof MonsterCardInUse) {
+                MonsterCardInUse monsterCardInUse = (MonsterCardInUse) cardInUse;
                 Monster monster = (Monster) monsterCardInUse.getThisCard();
                 if (monster != null) {
                     Print.print(monster.getName() + " - attack : " + monsterCardInUse.getAttack() + " defense : " + monsterCardInUse.getDefense() + "\n\t" + monster.getMyPreCard().getDescription());

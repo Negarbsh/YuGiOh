@@ -1,8 +1,6 @@
 package com.mygdx.game.java.controller.game;
 
 
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.game.java.model.CardAddress;
 import com.mygdx.game.java.model.Enums.ZoneName;
@@ -14,7 +12,6 @@ import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.monster.MonsterCardType;
 import com.mygdx.game.java.model.card.monster.MonsterType;
 import com.mygdx.game.java.model.card.monster.PreMonsterCard;
-import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.Menus.TurnScreen;
 import com.mygdx.game.java.view.exceptions.CantDoActionWithCard;
@@ -254,10 +251,10 @@ public class SelectController {
                     getCardAddressesIn(possibleChoices, "--graveYard ", selector.getBoard().getGraveYard().getCardsInGraveYard().size());
                     break;
                 case RIVAL_MONSTER_ZONE:
-                    getCardAddressesIn(possibleChoices, "--monster --opponent", roundController.getMyRival(selector).getBoard().getMonsterZone().length);
+                    getCardAddressesIn(possibleChoices, "--monster --opponent ", roundController.getMyRival(selector).getBoard().getMonsterZone().length);
                     break;
                 case RIVAL_SPELL_ZONE:
-                    getCardAddressesIn(possibleChoices, "--spell --opponent", roundController.getMyRival(selector).getBoard().getSpellTrapZone().length);
+                    getCardAddressesIn(possibleChoices, "--spell --opponent ", roundController.getMyRival(selector).getBoard().getSpellTrapZone().length);
                     break;
                 case RIVAL_FIELD:
                     getCardAddressesIn(possibleChoices, "--field --opponent ", 1);
@@ -278,10 +275,12 @@ public class SelectController {
         for (int i = 1; i <= sizeOfZone; i++) {
             try {
                 CardAddress cardAddress = new CardAddress(zoneNameString + i);
-                possibleAddresses.put(getCardByAddress(cardAddress), cardAddress);
+                Card card = getCardByAddress(cardAddress);
+                if (card != null)
+                    possibleAddresses.put(card, cardAddress);
                 possibleCards.add(getCardByAddress(cardAddress));
-            } catch (InvalidSelection | NoCardFound | CantDoActionWithCard invalidSelection) {
-                DuelMenu.showException(invalidSelection);
+            } catch (InvalidSelection | NoCardFound | CantDoActionWithCard ignored) {
+                //it's ignored because the address is not given by the user
             }
         }
     }

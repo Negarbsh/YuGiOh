@@ -200,18 +200,19 @@ public class DuelMenu {
             try {
                 if (enteredAddress.equals("cancel")) return null;
                 if (!enteredAddress.startsWith("select")) throw new InvalidCommand();
+                enteredAddress = enteredAddress.substring(7);
                 return new CardAddress(enteredAddress);
             } catch (InvalidSelection invalidSelection) {
                 showException(invalidSelection);
             } catch (InvalidCommand invalidCommand) {
                 showException(invalidCommand);
-                Print.print("The command must begin with \"select\".");
+                Print.print("The command must begin with \"select \".");
             }
         }
     }
 
     private static void showPossibleSelectChoices(HashMap<Card, CardAddress> possibleChoices) {
-        Print.print("Possible addresses:");
+        Print.print("Choose one of the possible addresses:");
         if (possibleChoices.isEmpty()) Print.print("no possible choice");
         for (Card card : possibleChoices.keySet()) {
             Print.print("\tcard name : " + card.getName() + "\tcard address : " + possibleChoices.get(card).toString());
