@@ -28,7 +28,7 @@ public abstract class CardInUse {
     public boolean isPositionChanged;  //if card manner was changed in a turn ->true then ->false
     protected boolean isFaceUp;
     protected Board board;
-    ImageButton imageButtonInUse;
+    protected ImageButton imageButtonInUse;
     private int indexInBoard;
 
 

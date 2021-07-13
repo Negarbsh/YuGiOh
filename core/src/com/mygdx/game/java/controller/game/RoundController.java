@@ -52,8 +52,7 @@ public class RoundController {
     }
 
 
-    public RoundController(User firstUser, User secondUser, DuelMenuController duelMenuController, int roundIndex)
-            throws InvalidDeck, InvalidName, NoActiveDeck {
+    public RoundController(User firstUser, User secondUser, DuelMenuController duelMenuController, int roundIndex) {
         this.duelMenuController = duelMenuController;
         currentPlayer = new Player(firstUser, this);
         currentPlayer.getBoard().setMyPhase(Phase.END_RIVAL);
@@ -165,7 +164,7 @@ public class RoundController {
                 if (!(card instanceof Monster)) return;
                 setSelectedPrey(card);
                 try {
-                    duelMenuController.attack(cardInUse.getIndexInBoard()); //todo fine or -1?
+                    duelMenuController.attack(cardInUse.getIndexInBoard());
                     setWaitingToChoosePrey(false);
                     specialSelectWaiting = false;
                     selectedPrey = null;
@@ -207,8 +206,6 @@ public class RoundController {
     /* the main part, the game */
 
     public void setRoundWinner(RoundResult roundResult) { //I think it needs an input for draw, maybe better get an enum
-        this.duelMenuController.setRoundEnded(true);
-        this.setTurnEnded(true);
         switch (roundResult) {
             case CURRENT_WON:
                 winner = currentPlayer;
@@ -223,7 +220,8 @@ public class RoundController {
                 isDraw = true;
                 break;
         }
-        //todo: open a dialog to show the winner and the result
+        this.isTurnEnded = true;
+        this.duelMenuController.setRoundEnded(true);
     }
 
     public void announceRoundWinner() {
@@ -233,8 +231,7 @@ public class RoundController {
             return;
         }
         if (winner == null || loser == null) return;
-        this.duelMenuController.handleRoundWinner(winner.getOwner(), loser.getOwner(), winner.getLifePoint(), loser.getLifePoint(), 1, 0, this.roundIndex);
-        //todo: not sure what to put as the scores!
+        this.duelMenuController.handleAndShowRoundWinner(winner.getOwner(), loser.getOwner(), winner.getLifePoint(), loser.getLifePoint(), 1, 0, this.roundIndex);
     }
 
     public void sendToGraveYard(CardInUse cardInUse) {
@@ -295,7 +292,7 @@ public class RoundController {
 
     public boolean arrangeAlternateBattle() {
         return DuelMenuController.askQuestion("your battle was canceled.\n" +
-                "Do you want to start a new battle with this card? (Y/N)").equals("Y");
+                "Do you want to start a new battle with this card? (Y/N)").equals("Y"); //todo it should be dialog af:)
     }
 
     public void showBoard() {
