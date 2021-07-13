@@ -37,8 +37,4 @@ public class ChangeOfHeartsWatcher extends Watcher{
 
     }
 
-    @Override
-    public void deleteWatcher() {
-
-    }
 }

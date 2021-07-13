@@ -1,6 +1,8 @@
 package com.mygdx.game.java.view.messageviewing;
 
 
+import com.mygdx.game.java.view.Menus.DuelMenu;
+
 public enum Winner {
     AGAINST_A_WINS("your opponent’s monster is destroyed and your opponent" +
             " receives %d battle damage"),//
@@ -36,6 +38,7 @@ public enum Winner {
             case AGAINST_D_WINS:
             case AGAINST_D_NONE:
                 Print.print(winner.message);
+                DuelMenu.showResult(winner.message);
                 break;
         }
     }

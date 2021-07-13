@@ -39,7 +39,7 @@ public class TimeSealWatcher extends Watcher {
         else {
             if (!DrawPhaseController.canDraw) {
                 DrawPhaseController.canDraw = true;
-                trapHasDoneItsEffect();
+                spellTrapHasDoneItsEffect();
             }
         }
     }

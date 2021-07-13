@@ -36,9 +36,9 @@ public class ClosedForestWatcher extends FieldWatcher{
     public void deleteWatcher() {
         for (CardInUse cardInUse : amWatching) {
             cardInUse.watchersOfCardInUse.remove(this);
-            amWatching.remove(cardInUse);
             ((MonsterCardInUse) cardInUse).addToAttack(monstersInGraveyard * attackAdded * -1);
             ((MonsterCardInUse) cardInUse).addToDefense(monstersInGraveyard * defenseAdded * -1);
         }
+        super.deleteWatcher();
     }
 }

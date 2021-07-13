@@ -1,6 +1,7 @@
 package com.mygdx.game.java.controller.game;
 
 
+import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.Player;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
@@ -66,6 +67,14 @@ public class MainPhaseController {
         MonsterCardInUse monsterCardInUse = (MonsterCardInUse) cardInUse;
 
         if (monsterCardInUse.isPositionChanged()) throw new AlreadyDoneAction("changed this card position");
+        if (controller.getCurrentPhase() == Phase.MAIN_2) {
+            BattlePhaseController battle = controller.getDuelMenuController().getBattlePhaseController();
+            if (battle != null) {
+                ArrayList<CardInUse> alreadyAttacked = battle.attackedInThisTurn;
+                if (alreadyAttacked.contains(cardInUse))
+                    throw new CantDoActionWithCard("change position after attacking with");
+            }
+        }
 
         if (isToBeAttackMode) {
             if (monsterCardInUse.isInAttackMode() || !monsterCardInUse.isFaceUp()) throw new AlreadyInWantedPosition();
@@ -119,8 +128,7 @@ public class MainPhaseController {
         if (spellTrapCardInUse == null) throw new BeingFull("spell card zone");
 
         player.getHand().removeCard(selectedCard);
-        spellTrapCardInUse.setThisCard(selectedCard);
-        spellTrapCardInUse.setFaceUp(false);
+        spellTrapCardInUse.setACardInCell(selectedCard);
         new SuccessfulAction("", "set");
         controller.updateBoards();
     }

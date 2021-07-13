@@ -8,7 +8,6 @@ import com.mygdx.game.java.model.watchers.WhoToWatch;
 
 public class ActivationWatcher extends Watcher {
     Watcher upperWatcher;
-    boolean isDeleted = false;
 
     public ActivationWatcher(CardInUse ownerOfWatcher, WhoToWatch whoToWatch, Watcher upperWatcher) {
         super(ownerOfWatcher, whoToWatch);

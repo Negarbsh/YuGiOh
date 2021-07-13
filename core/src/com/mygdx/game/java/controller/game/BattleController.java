@@ -3,6 +3,7 @@ package com.mygdx.game.java.controller.game;
 import com.mygdx.game.java.model.Board;
 import com.mygdx.game.java.model.CardState;
 import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
+import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.messageviewing.Print;
 import com.mygdx.game.java.view.messageviewing.Winner;
 import lombok.Getter;
@@ -36,13 +37,23 @@ public class BattleController {
             if (preyCard.isCellEmpty() || summonedCardsLength > mainPhase.summonedInThisPhase.size()) //todo: it can't happen, right?
                 battlePhaseController.reArrangeBattle(attacker);
             else run();
-        } else System.out.println("this battle can't happen");
+        } else DuelMenu.showException(new Exception("this battle can't happen"));
+    }
+
+    public BattleController(MonsterCardInUse attacker, BattlePhaseController battlePhaseController) {
+        this.attackerBoard = attacker.getBoard();
+        this.attacker = attacker;
+        attackerBoard.getController().getBattlePhaseController().battleController = this;
+        attacker.watchByState(CardState.WANT_TO_ATTACK);
+        if (canBattleHappen && !attacker.isCellEmpty()) {
+            battlePhaseController.gamePlay.getRival().decreaseLifePoint(attacker.getAttack());
+        } else DuelMenu.showException(new Exception("this battle can't happen"));
     }
 
     private void run() {
 
         if (!preyCard.isFaceUp()) {
-            preyCard.faceUpCard();
+            preyCard.flipSummon();
             Print.print(String.format("opponent’s monster card was %s",
                     preyCard.getThisCard().getName()));
         }

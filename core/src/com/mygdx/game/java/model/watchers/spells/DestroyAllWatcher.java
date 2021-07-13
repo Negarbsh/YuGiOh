@@ -38,9 +38,11 @@ public class DestroyAllWatcher extends SpellsWithActivation {
     public void watchTheFieldAffected() {
         CardInUse[] toBeDestroyed = theTargetCells(zoneAffected);
         for (CardInUse cardInUse : toBeDestroyed) {
-            cardInUse.sendToGraveYard();
+            if (!cardInUse.isCellEmpty())
+                cardInUse.sendToGraveYard();
         }
 
         deleteWatcher();
+        spellTrapHasDoneItsEffect();
     }
 }

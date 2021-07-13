@@ -20,7 +20,7 @@ public class TorrentialTributeWatcher extends Watcher {
             if (handleChain()) {
                 new DestroyAllWatcher(ownerOfWatcher, WhoToWatch.ALL, Zone.MONSTER).watch(
                         theCard, CardState.ACTIVE_MY_EFFECT, null);
-                trapHasDoneItsEffect();
+                spellTrapHasDoneItsEffect();
             }
         }
     }
