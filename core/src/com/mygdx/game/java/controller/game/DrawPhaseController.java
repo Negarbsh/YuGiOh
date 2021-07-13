@@ -50,7 +50,7 @@ public class DrawPhaseController {
                 return;
             }
             if (rivalHand.getCardsInHand().size() < 6) {
-                PreCard preCard = rivalDeck.getMainCards().get(i);
+                PreCard preCard = rivalDeck.getMainCards().remove(0);
                 Card card = preCard.newCard();
                 rivalHand.addCard(card, this.roundController.getDuelMenuController());
             }

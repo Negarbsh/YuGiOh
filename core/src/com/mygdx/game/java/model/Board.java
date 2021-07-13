@@ -270,6 +270,7 @@ public class Board {
 
     public void setFieldImage() {
         String bgName = "Field/";
+        if(fieldCell.thisCard == null) return;
         SpellTrap spellTrap = (SpellTrap) fieldCell.thisCard;
         switch (spellTrap.getName().toLowerCase()) {
             case "yami":
