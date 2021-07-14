@@ -2,6 +2,7 @@ package com.mygdx.game.java.model;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.java.controller.game.DuelMenuController;
 import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.card.Card;
@@ -11,6 +12,7 @@ import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.model.card.cardinusematerial.SpellTrapCardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.spelltrap.SpellTrap;
+import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.watchers.Watcher;
 import com.mygdx.game.java.view.Constants;
 import com.mygdx.game.java.view.PositionCalculator;
@@ -102,9 +104,9 @@ public class Board {
         return getFirstEmptyCardInUse(true) == null;
     }
 
-    public boolean doesAnyMonsterExist(){
+    public boolean doesAnyMonsterExist() {
         for (MonsterCardInUse monsterCardInUse : this.monsterZone) {
-            if(monsterCardInUse.thisCard != null) return true;
+            if (monsterCardInUse.thisCard != null) return true;
         }
         return false;
     }
@@ -149,6 +151,8 @@ public class Board {
                 if (spellTrapCardInUse.getThisCard().equals(card)) return spellTrapCardInUse;
             }
         }
+        if (fieldCell.thisCard == card)
+            return fieldCell;
         return null;
     }
 
@@ -262,6 +266,28 @@ public class Board {
         graveYardBtn.setBounds(position[0], position[1], Constants.CARD_IN_USE_WIDTH, Constants.CARD_IN_USE_HEIGHT);
         stage.addActor(graveYardBtn);
 
+    }
+
+    public void setFieldImage() {
+        String bgName = "Field/";
+        if(fieldCell.thisCard == null) return;
+        SpellTrap spellTrap = (SpellTrap) fieldCell.thisCard;
+        switch (spellTrap.getName().toLowerCase()) {
+            case "yami":
+                bgName += "fie_umi";
+                break;
+            case "forest":
+                bgName += "fie_gaia";
+                break;
+            case "closed forest":
+                bgName += "fie_mori";
+                break;
+            case "umiruka":
+                bgName += "fie_uni";
+        }
+        bgName = bgName + ".bmp";
+        Drawable drawable = ButtonUtils.makeDrawable(bgName);
+        controller.getTurnScreen().setBackGround(drawable);
     }
 }
 

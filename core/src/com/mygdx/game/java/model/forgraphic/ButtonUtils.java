@@ -1,6 +1,5 @@
 package com.mygdx.game.java.model.forgraphic;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -11,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -19,7 +17,6 @@ import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.card.PreCard;
-import com.mygdx.game.java.view.Constants;
 
 import java.util.ArrayList;
 

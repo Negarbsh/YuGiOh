@@ -9,6 +9,7 @@ import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.model.card.cardinusematerial.SpellTrapCardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.spelltrap.CardIcon;
+import com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard;
 import com.mygdx.game.java.model.card.spelltrap.SpellTrap;
 import com.mygdx.game.java.view.exceptions.*;
 import com.mygdx.game.java.view.messageviewing.SuccessfulAction;
@@ -50,7 +51,7 @@ public class MainPhaseController {
         if (!player.getHand().doesContainCard(selectedCard) || !(selectedCard instanceof Monster))
             throw new CantDoActionWithCard("summon");
         if (player.getBoard().isMonsterZoneFull()) throw new BeingFull("monster card zone");
-        if(isAnyMonsterSet) throw new AlreadyDoneAction("summoned/set");
+        if (isAnyMonsterSet) throw new AlreadyDoneAction("summoned/set");
 
         MonsterCardInUse monsterCardInUse = (MonsterCardInUse) player.getBoard().getFirstEmptyCardInUse(true);
         SummonController summonController = new SummonController(monsterCardInUse, (Monster) selectedCard, controller, summonedInThisPhase);
@@ -103,6 +104,7 @@ public class MainPhaseController {
     }
 
     public void setCard() throws NoSelectedCard, CantDoActionWithCard, BeingFull, AlreadyDoneAction {
+        if (controller.getDuelMenuController().isGamePaused()) return;
         Card selectedCard = getSelectedCard();
         if (!player.getHand().doesContainCard(selectedCard)) throw new CantDoActionWithCard("set");
         if (selectedCard instanceof Monster) setMonster((Monster) selectedCard);
@@ -123,7 +125,9 @@ public class MainPhaseController {
         new SuccessfulAction("", "set");
     }
 
-    private void setSpellTrap(SpellTrap selectedCard) throws BeingFull {
+    private void setSpellTrap(SpellTrap selectedCard) throws BeingFull, CantDoActionWithCard {
+        if (((PreSpellTrapCard) selectedCard.getPreCardInGeneral()).getIcon() == CardIcon.FIELD)
+            throw new CantDoActionWithCard("set");
         SpellTrapCardInUse spellTrapCardInUse = (SpellTrapCardInUse) player.getBoard().getFirstEmptyCardInUse(false);
         if (spellTrapCardInUse == null) throw new BeingFull("spell card zone");
 
@@ -141,7 +145,11 @@ public class MainPhaseController {
         if (!(selectedCard instanceof SpellTrap)) throw new ActivateEffectNotSpell();
         if (ofCurrentPlayer && player.getHand().doesContainCard(selectedCard)) {
             activateEffectFromHand((SpellTrap) selectedCard);
-        } else activateEffectFromBoard(ofCurrentPlayer);
+        } else {
+            CardInUse cardInUse = this.controller.getSelectedCardInUse();
+            if (cardInUse != null)
+                activateEffectFromBoard(ofCurrentPlayer);
+        }
         controller.updateBoards();
     }
 
@@ -151,7 +159,6 @@ public class MainPhaseController {
         if (!(selectedCard instanceof SpellTrap)) throw new ActivateEffectNotSpell();
         SpellTrap spellCard = (SpellTrap) selectedCard;
         SpellTrapCardInUse cardInUse = (SpellTrapCardInUse) this.controller.getSelectedCardInUse();
-
         if (spellCard.isActivated()) throw new AlreadyActivatedEffect();
         cardInUse.activateMyEffect();
 
@@ -168,11 +175,12 @@ public class MainPhaseController {
             //it is a field spell inside hand and we want to send it to the field zone
             SpellTrapCardInUse fieldCell = player.getBoard().getFieldCell();
             if (fieldCell != null) {
-                fieldCell.resetCell();
-                fieldCell.sendToGraveYard();
+                if (fieldCell.thisCard != null)
+                    fieldCell.sendToGraveYard();
                 player.getHand().removeCard(spell);
-                fieldCell.resetCell();
+                fieldCell.setFaceUp(true);
                 fieldCell.setACardInCell(spell);
+                player.getBoard().setFieldImage();
                 fieldCell.activateMyEffect();
             }
         } else {

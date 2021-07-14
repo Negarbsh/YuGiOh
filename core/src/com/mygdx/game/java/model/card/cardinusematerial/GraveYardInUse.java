@@ -65,12 +65,10 @@ public class GraveYardInUse extends CardInUse {
     }
 
     public ImageButton getFirstImageButton() {
-//        return super.getImageButtonInUse();
         return firstImageButton;
     }
 
     public void setFirstImageButton(ImageButton imageButton) {
-//        super.imageButtonInUse = imageButton;
         if (imageButton == null) return;
         firstImageButton.setVisible(true);
         ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle(firstImageButton.getStyle());

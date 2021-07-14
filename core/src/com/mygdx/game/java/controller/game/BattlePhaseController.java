@@ -44,6 +44,7 @@ public class BattlePhaseController {
         else if (attackedInThisTurn.contains(attacker = (MonsterCardInUse) cardInUse))
             throw new CardAttackedBeforeExeption();
         else {
+            gamePlay.getDuelMenuController().getTurnScreen().battleSound.play();
             battleController = new BattleController(attacker, preyCard, this);
             attackedInThisTurn.add(attacker);
         }

@@ -44,8 +44,7 @@ public class MonsterCardInUse extends CardInUse {
             if (isInAttackMode) {
                 super.getImageButtonInUse().setTransform(true);
                 super.getImageButtonInUse().setRotation(0);
-            }
-            else{
+            } else {
                 super.getImageButtonInUse().setTransform(true);
                 super.getImageButtonInUse().setRotation(90);
             }
@@ -56,7 +55,8 @@ public class MonsterCardInUse extends CardInUse {
 
     @Override
     public void setACardInCell(Card card) {
-        this.attack = ((Monster) card).getRawAttack();
+        if (!(card instanceof Monster)) return;
+            this.attack = ((Monster) card).getRawAttack();
         this.defense = ((Monster) card).getRawDefense();
         super.setACardInCell(card);
     }

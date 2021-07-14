@@ -2,6 +2,7 @@ package com.mygdx.game.java.view.Menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -20,6 +22,7 @@ import com.mygdx.game.java.model.Board;
 import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.Hand;
 import com.mygdx.game.java.model.Player;
+import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.card.CardType;
 import com.mygdx.game.java.model.card.PreCard;
@@ -78,6 +81,7 @@ public class TurnScreen implements Screen {
     private Skin flatEarthSkin;
 
     private CustomDialog customDialog;
+    public Sound battleSound;
 
     {
         this.stage = new Stage(new FitViewport(Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
@@ -103,6 +107,7 @@ public class TurnScreen implements Screen {
         createHands();
         createMessageLabel();
         createSettingsButton();
+        battleSound = Gdx.audio.newSound(Gdx.files.internal("sounds/battleSound.mp3"));
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -129,7 +134,8 @@ public class TurnScreen implements Screen {
                     case 1:
                         controller.getRoundController().setTurnEnded(true);
                         controller.setRoundEnded(true);
-                        controller.endGame(gameMainClass);
+//                        controller.endGame(gameMainClass);
+                        controller.surrender();
                         break;
                     case 2:
                         controller.setGamePaused(true);
@@ -142,7 +148,7 @@ public class TurnScreen implements Screen {
             }
         };
         dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
-        dialog.button("End Game", 1);
+        dialog.button("Surrender", 1);
         dialog.button("Pause", 2);
         dialog.button("Resume", 3);
         dialog.show(stage);
@@ -169,7 +175,9 @@ public class TurnScreen implements Screen {
 
     private void createBoards() {
         this.boardsTable = new Table(flatEarthSkin);
-        boardsTable.setBackground(ButtonUtils.makeDrawable("Field/fie_normal.bmp"));
+        if (myPlayer.getBoard().getFieldCell().thisCard == null)
+            boardsTable.setBackground(ButtonUtils.makeDrawable("Field/fie_normal.bmp"));
+        else myPlayer.getBoard().setFieldImage();
         boardsTable.setBounds(Constants.BOARDS_X, Constants.BOARDS_Y, Constants.BOARDS_WIDTH, Constants.BOARDS_HEIGHT);
         stage.addActor(boardsTable);
 
@@ -488,7 +496,8 @@ public class TurnScreen implements Screen {
                     int answer = (int) object;
                     try {
                         if (answer == 0) controller.getMainPhaseController().flipSummon();
-                        else if (answer == 2) controller.changePosition(!((MonsterCardInUse) cardInUse).isInAttackMode());
+                        else if (answer == 2)
+                            controller.changePosition(!((MonsterCardInUse) cardInUse).isInAttackMode());
                     } catch (NoSelectedCard | CantDoActionWithCard | WrongPhaseForAction | AlreadyDoneAction | UnableToChangePosition | AlreadyInWantedPosition exception) {
                         DuelMenu.showException(exception);
                     }
@@ -553,6 +562,11 @@ public class TurnScreen implements Screen {
         controller.getRoundController().setSpecialSelectWaiting(true, true);
     }
 
+
+    public void setBackGround(Drawable drawable) {
+        boardsTable.setBackground(drawable);
+    }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.466f, 0.207f, 0.466f, 1f);
@@ -590,6 +604,7 @@ public class TurnScreen implements Screen {
 
     @Override
     public void dispose() {
+        battleSound.dispose();
         stage.dispose();
     }
 
@@ -597,4 +612,37 @@ public class TurnScreen implements Screen {
     public void showMessage(String message) {
         messageLabel.setText(message);
     }
+
+    public void showWinnerDialog(String winnerUsername, int winnerScore, int loserScore, boolean isForMatch) {
+        if (isForMatch) {
+            String title = "Match Result";
+            String matchOrGame = "whole match";
+            Dialog dialog = new Dialog(title, GameMainClass.flatEarthSkin2) {
+                @Override
+                protected void result(Object object) {
+                    if ((int) object == 0) {
+                        User user = controller.getLoggedInUser();
+                        gameMainClass.setScreen(new MainMenu(gameMainClass, user));
+                    }
+                }
+            };
+            dialog.text(winnerUsername + " won the " + matchOrGame + " and the score is: " + winnerScore + "-" + loserScore);
+            dialog.button("next", 0);
+
+            dialog.show(stage);
+        } else {
+            String title = "Round Result";
+            String matchOrGame = "game";
+            Dialog dialog = new Dialog(title, GameMainClass.flatEarthSkin2) {
+                @Override
+                protected void result(Object object) {
+                    if ((int) object == 0) controller.nextRound();
+                }
+            };
+            dialog.text(winnerUsername + " won the " + matchOrGame + " and the score is: " + winnerScore + "-" + loserScore);
+            dialog.button("next", 0);
+            dialog.show(stage);
+        }
+    }
+
 }
