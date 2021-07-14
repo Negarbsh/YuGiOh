@@ -2,21 +2,19 @@ package com.mygdx.game.java.view.Menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.game.DuelMenuController;
+import com.mygdx.game.java.model.forgraphic.CoinDownRotating;
+import com.mygdx.game.java.model.forgraphic.CoinUpRotating;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
+import lombok.Getter;
 
 import static com.mygdx.game.java.view.Constants.*;
 
@@ -29,27 +27,17 @@ public class CoinFlipScreen implements Screen {
     TextButton turnButton, startGameButton;
     Label successfulLabel;
     boolean isTurnButtonClicked = false;
-
-//    int finalFrameIndex = 13;
-//    int finalRotatingTimes;
-//    int rotatingTimes;
-    private static float FRAME_DURATION = .05f;
-    private TextureAtlas coin;
-    private TextureRegion currentFrame;
-    private Animation rotatingAnimation;
-    private float elapsed_time = 0f;
-    private SpriteBatch batch;
+    @Getter CoinUpRotating coinUpRotating;
+    @Getter CoinDownRotating coinDownRotating;
+    @Getter Sound coinShake;
 
 
     {
         this.stage = new Stage(new StretchViewport(1024, 1024));
-//        finalRotatingTimes = (int) Math.floor(Math.random() * (3) + 2); //random number between 2-4
-//        System.out.println(finalFrameIndex+"uil");
-//        rotatingTimes=0;
     }
 
     public CoinFlipScreen(boolean isFirstPlayerStarts, GameMainClass gameMainClass, DuelMenuController duelMenuController) {
-
+        setSounds();
         this.isFirstPlayerStarts = isFirstPlayerStarts;
         this.gameMainClass = gameMainClass;
         this.duelMenuController = duelMenuController;
@@ -58,12 +46,7 @@ public class CoinFlipScreen implements Screen {
 
     @Override
     public void show() {
-//        stage.addActor(new Wallpaper(4, 0, 0, DUEL_SCREEN_WIDTH, DUEL_SCREEN_HEIGHT));
-
-        batch = new SpriteBatch();
-//        textureCoin = new TextureAtlas(Gdx.files.internal("OlderIcons/coin.atlas"));
-//        animation = new Animation(1/15f, textureCoin.getRegions());
-
+        stage.addActor(new Wallpaper(4, 0, 0, DUEL_SCREEN_WIDTH, DUEL_SCREEN_HEIGHT));
 
         turnButton = new TextButton("turn", gameMainClass.orangeSkin);
         startGameButton = new TextButton("start Game", gameMainClass.orangeSkin);
@@ -74,67 +57,50 @@ public class CoinFlipScreen implements Screen {
         successfulLabel.setBounds(100, 100, 700, 200);
         successfulLabel.setFontScale(3);
 
-
-        coin = new TextureAtlas(Gdx.files.internal("OlderIcons/coin.atlas"));
-
-        Array<TextureAtlas.AtlasRegion> rotatingFrames=new Array<>();
-
-        if(isFirstPlayerStarts)rotatingFrames= coin.findRegions("rotating");
-        else {
-            for (int i = 0; i < 21; i++) {
-                rotatingFrames.add(coin.findRegion("rotating",i));
-            }
-        }
-
-        rotatingAnimation = new Animation(FRAME_DURATION, rotatingFrames, Animation.PlayMode.NORMAL);
-//        TextureRegion firstTexture = rotatingFrames.first();
         turnButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 isTurnButtonClicked = true;
+                stage.addActor(startGameButton);
                 if (isFirstPlayerStarts) {
+                    coinUpRotating.play();
                     successfulLabel.setText("You play first now click start game ->");
-//                    stage.addActor(startGameButton);
-//                    finalFrameIndex = 13;
-//                   coin.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture("Items/Coins/Gold/Gold_9.png"))));
                 }
                 if (!isFirstPlayerStarts) {
+                    coinDownRotating.play();
                     successfulLabel.setText("Your rival plays first now click start game ->");
-//                    coin.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture("Items/Coins/Gold/Gold_20.png"))));
-//                    finalFrameIndex = 6;
                 }
             }
         });
-//
+
         startGameButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 if (isTurnButtonClicked) {
+                    stage.addActor(startGameButton);
                     duelMenuController.runMatch(!isFirstPlayerStarts);
                 }
             }
         });
 
+
+        coinUpRotating = new CoinUpRotating();
+        coinDownRotating = new CoinDownRotating();
+       if(isFirstPlayerStarts){
+           coinUpRotating.setBounds(300, 470, 150, 150);
+           stage.addActor(coinUpRotating);
+       }else{
+           coinDownRotating.setBounds(300, 470, 150, 150);
+           stage.addActor(coinDownRotating);
+       }
         stage.addActor(turnButton);
         stage.addActor(successfulLabel);
-        stage.addActor(startGameButton);
+        stage.addActor(coinUpRotating);
 
         Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void render(float delta) {
-//        Gdx.gl.glClearColor(0.466f, 0.207f, 0.466f, 1f);
-//        Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//        if(rotatingAnimation.isAnimationFinished(elapsed_time)) rotatingTimes++;
-        if (isTurnButtonClicked ){ //&&rotatingTimes<=finalRotatingTimes) {
-            elapsed_time += Gdx.graphics.getDeltaTime();
-            currentFrame = (TextureRegion) rotatingAnimation.getKeyFrame(elapsed_time);
-            batch.begin();
-            batch.draw(currentFrame, 320, 350, 120, 120);
-            batch.end();
-        }
-
-
         stage.act(delta);
         stage.draw();
     }
@@ -161,7 +127,11 @@ public class CoinFlipScreen implements Screen {
 
     @Override
     public void dispose() {
-        coin.dispose();
         stage.dispose();
+        coinShake.dispose();
+    }
+
+    private void setSounds() {
+        coinShake = Gdx.audio.newSound(Gdx.files.internal("sounds/coins-shake.ogg"));
     }
 }

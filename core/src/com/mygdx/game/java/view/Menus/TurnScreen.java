@@ -2,6 +2,7 @@ package com.mygdx.game.java.view.Menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -30,11 +31,9 @@ import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.forgraphic.CustomDialog;
-import com.mygdx.game.java.model.forgraphic.Lightning;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.view.Constants;
 import com.mygdx.game.java.view.exceptions.*;
-import jdk.swing.interop.LightweightContentWrapper;
 import lombok.Getter;
 
 import java.lang.reflect.InvocationTargetException;
@@ -82,7 +81,7 @@ public class TurnScreen implements Screen {
     private Skin flatEarthSkin;
 
     private CustomDialog customDialog;
-    private Image backGround;
+    public Sound battleSound;
 
     {
         this.stage = new Stage(new FitViewport(Constants.DUEL_SCREEN_WIDTH, Constants.DUEL_SCREEN_HEIGHT));
@@ -108,7 +107,7 @@ public class TurnScreen implements Screen {
         createHands();
         createMessageLabel();
         createSettingsButton();
-//        stage.addActor(new Lightning());
+        battleSound = Gdx.audio.newSound(Gdx.files.internal("sounds/battleSound.mp3"));
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -176,7 +175,9 @@ public class TurnScreen implements Screen {
 
     private void createBoards() {
         this.boardsTable = new Table(flatEarthSkin);
-        boardsTable.setBackground(ButtonUtils.makeDrawable("Field/fie_normal.bmp"));
+        if (myPlayer.getBoard().getFieldCell().thisCard == null)
+            boardsTable.setBackground(ButtonUtils.makeDrawable("Field/fie_normal.bmp"));
+        else myPlayer.getBoard().setFieldImage();
         boardsTable.setBounds(Constants.BOARDS_X, Constants.BOARDS_Y, Constants.BOARDS_WIDTH, Constants.BOARDS_HEIGHT);
         stage.addActor(boardsTable);
 
@@ -319,7 +320,6 @@ public class TurnScreen implements Screen {
         Card selectedCard = controller.getRoundController().getSelectedCard();
         if (selectedCard == null) texture = PreCard.getCardPic("Unknown");
         else texture = PreCard.getCardPic(selectedCard.getName());
-
         return new Image(texture);
     }
 
@@ -340,7 +340,6 @@ public class TurnScreen implements Screen {
         Card selectedCard = controller.getRoundController().getSelectedCard();
         if (selectedCard == null) texture = PreCard.getCardPic("Unknown");
         else texture = PreCard.getCardPic(selectedCard.getName());
-
         selectedCardImage.setDrawable(new Image(texture).getDrawable());
 
         String description = "";
@@ -605,6 +604,7 @@ public class TurnScreen implements Screen {
 
     @Override
     public void dispose() {
+        battleSound.dispose();
         stage.dispose();
     }
 
