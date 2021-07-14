@@ -20,13 +20,15 @@ import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.model.Deck;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.view.Constants;
+import com.mygdx.game.java.view.exceptions.NullHandMadeDetected;
 
 import java.util.ArrayList;
 
 public class ButtonUtils {
 
     public static CustomImageButton createCustomCards(String preCardName) {
-        CustomImageButton customImageButton = new CustomImageButton(new TextureRegionDrawable(new TextureRegion(
+        CustomImageButton customImageButton = null;
+        customImageButton = new CustomImageButton(new TextureRegionDrawable(new TextureRegion(
                 PreCard.getCardPic(preCardName))), PreCard.findCard(preCardName));
         return customImageButton;
     }

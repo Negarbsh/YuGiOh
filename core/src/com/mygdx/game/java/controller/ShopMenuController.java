@@ -80,9 +80,9 @@ public class ShopMenuController {
 
     public void updateSelected(PreCard preCard) {
         if (preCard != shopMenu.getSelected()) {
-            shopMenu.setSelected(preCard);
             shopMenu.getSelectedImage().setDrawable(new TextureRegionDrawable(new TextureRegion(
                     PreCard.getCardPic(preCard.getName()))));
+            shopMenu.setSelected(preCard);
             checkBuyPossibility();
             setDescription(preCard);
         }

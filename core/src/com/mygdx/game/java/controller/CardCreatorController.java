@@ -1,5 +1,6 @@
 package com.mygdx.game.java.controller;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.java.model.User;
@@ -7,6 +8,7 @@ import com.mygdx.game.java.model.card.CardLoader;
 import com.mygdx.game.java.model.card.CardType;
 import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.model.card.monster.PreMonsterCard;
+import com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard;
 import com.mygdx.game.java.view.Menus.CardCreatorMenu;
 import com.mygdx.game.java.view.exceptions.AlreadyExistingError;
 import com.mygdx.game.java.view.exceptions.CardCreatorException;
@@ -20,7 +22,8 @@ public class CardCreatorController {
     User user;
     ArrayList<String> allPreCards;
     Array<String> canBeUsedCards;
-    String newCardName;
+    PreCard createdCard;
+    int priceCreated;
 
     {
         allPreCards = new ArrayList<>();
@@ -38,6 +41,13 @@ public class CardCreatorController {
         }
     }
 
+    public void buyCard() {
+        if (user.getBalance() >= priceCreated && createdCard != null) {
+            user.decreaseBalance(priceCreated);
+            user.addPreCardToTreasury(createdCard);
+        }
+    }
+
     public void setSelectBoxMain(SelectBox<String> selectBox, String s, CardType cardType) {
         String regex = ".*" + s + ".*";
         canBeUsedCards.clear();
@@ -47,6 +57,19 @@ public class CardCreatorController {
         }
         selectBox.setItems(canBeUsedCards);
         creatorMenu.getChosenWatchers().clearItems();
+        if (cardType != CardType.MONSTER) {
+            creatorMenu.getAttack().setVisible(false);
+            creatorMenu.getAttackLabel().setVisible(false);
+            creatorMenu.getDefenseLabel().setVisible(false);
+            creatorMenu.getDefense().setVisible(false);
+        } else {
+            try {
+                creatorMenu.getAttack().setVisible(true);
+                creatorMenu.getAttackLabel().setVisible(true);
+                creatorMenu.getDefenseLabel().setVisible(true);
+                creatorMenu.getDefense().setVisible(true);
+            } catch (NullPointerException ignored){}
+        }
     }
 
     public void setSelectBox(String cardName, SelectBox<String> selectBox) {
@@ -59,7 +82,7 @@ public class CardCreatorController {
         selectBox.setItems(nameOfWatchers);
     }
 
-    public void doCardCreationChecks() throws CardCreatorException, NumberFormatException{
+    public void doCardCreationChecks() throws CardCreatorException, NumberFormatException {
         Array<String> chosenWatchers = creatorMenu.getChosenWatchers().getItems();
         if (!creatorMenu.getList().getSelected().equals("monster")) {
             if (chosenWatchers.size == 0)
@@ -76,59 +99,66 @@ public class CardCreatorController {
         }
     }
 
-    private void createCard(String name) throws CardCreatorException {
-        Array<String> chosenWatchers = creatorMenu.getChosenWatchers().getItems();
-        if (creatorMenu.getList().getSelected().equals("monster")) {
-            int attack = Integer.parseInt(creatorMenu.getAttack().getText());
-            int defense = Integer.parseInt(creatorMenu.getDefense().getText());
-            int price = Integer.parseInt(String.valueOf(creatorMenu.getFinalResult().getText()));
-            int level = attack > 2000 ? 7 : 4;
-            String dataForHandMades = newCardName + "," + level + ",wind,hand-made,normal,"
-                    + attack + "," + defense + ",handmade," + price;
-            PreMonsterCard monsterCard = new PreMonsterCard(dataForHandMades);
-            user.getCardTreasury().put(monsterCard.getName(), 1);
-        } else {
-
-        }
-    }
-
-    public void calculatePrice(CardType cardType, Array<String> watchers) throws NumberFormatException, CardCreatorException {
-        int price = 0;
+    private void createCard(String name, CardType cardType, Array<String> watchers) {
+        int price = Integer.parseInt(String.valueOf(creatorMenu.getFinalResult().getText()));
         if (cardType == CardType.MONSTER) {
             int attack = Integer.parseInt(creatorMenu.getAttack().getText());
             int defense = Integer.parseInt(creatorMenu.getDefense().getText());
-            price = (attack * 2 + defense) / 3;
+            int level = attack > 2000 ? 7 : 4;
+            String dataForHandmades = name + "," + level + ",wind,hand-made,normal,"
+                    + attack + "," + defense + ",handmade," + price;
+            PreMonsterCard monsterCard = new PreMonsterCard(dataForHandmades);
+            PreCard.getAllPreCards().add(monsterCard);
+            createdCard = monsterCard;
+        } else {
+            String dataForHandmades = name + "," + cardType + ",normal,handmade,unlimited," + price;
+            PreSpellTrapCard spellTrapCard = new PreSpellTrapCard(dataForHandmades);
+            PreCard.getAllPreCards().add(spellTrapCard);
+            createdCard = spellTrapCard;
+        }
+
+        int value = 1;
+        if (user.getCardTreasury().containsKey(name))   value = user.getCardTreasury().get(name) + 1;
+        user.getCardTreasury().put(name, value);
+    }
+
+    public void calculatePrice(CardType cardType, Array<String> watchers) throws NumberFormatException, CardCreatorException {
+        if (cardType == CardType.MONSTER) {
+            int attack = Integer.parseInt(creatorMenu.getAttack().getText());
+            int defense = Integer.parseInt(creatorMenu.getDefense().getText());
+            priceCreated = (attack * 2 + defense) / 3;
             int value = 250;
             int usedTimes = 1;
             for (int i = 0; i < watchers.size; i++) {
-                price += value * usedTimes;
+                priceCreated += value * usedTimes;
                 usedTimes++;
             }
         } else {
             int value = 1200;
             int usedTimes = 1;
             for (int i = 0; i < watchers.size; i++) {
-                price += value * usedTimes;
+                priceCreated += value * usedTimes;
                 usedTimes++;
             }
         }
-        creatorMenu.getFinalResult().setText(price);
-        showDialogChooseName();
+        creatorMenu.getFinalResult().setText(priceCreated);
+        showDialogChooseName(cardType, watchers);
     }
 
-    private void showDialogChooseName() throws CardCreatorException{
+    private void showDialogChooseName(CardType cardType, Array<String> watchers) throws CardCreatorException {
         Label label = new Label("please enter your desired name for your new card",
                 creatorMenu.getMainClass().orangeSkin);
         TextField nameField = new TextField("", creatorMenu.getMainClass().orangeSkin);
         Dialog dialog = new Dialog("", creatorMenu.getMainClass().orangeSkin) {
-            @SneakyThrows
             @Override
             protected void result(Object object) {
                 if ((Boolean) object) {
                     if (nameField.getText().equals("")) {
-                        throw new CardCreatorException("it was not an acceptable name");
+                        creatorMenu.getMessageBar().setText("it was not an acceptable name");
+                        creatorMenu.getMessageBar().setColor(Color.RED);
+                    } else {
+                        createCard(nameField.getText(), cardType, watchers);
                     }
-                    newCardName = nameField.getText();
                     hide();
                 }
             }

@@ -12,7 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.DeckPreviewController;
+import com.mygdx.game.java.controller.FileHandler;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import lombok.Getter;
@@ -84,7 +86,16 @@ public class MainMenu implements Screen {
         logout.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                FileHandler.saveUsers();
                 mainClass.setScreen(new RelatedToMenu(mainClass));
+            }
+        });
+
+        TextButton cardCreator = new TextButton("cardCreator", mainClass.orangeSkin);
+        cardCreator.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainClass.setScreen(new CardCreatorMenu(mainClass, user));
             }
         });
 
@@ -92,6 +103,7 @@ public class MainMenu implements Screen {
         table.add(deckButton).row();
         table.add(profileButton).row();
         table.add(scoreBoard).row();
+        table.add(cardCreator).row();
         table.add(shop).row();
         table.add(logout).row();
 

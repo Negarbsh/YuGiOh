@@ -210,7 +210,7 @@ public abstract class Watcher implements Comparable {
                 return new FieldWatcher(ownerOfWatcher, new MonsterType[]{MonsterType.INSECT, MonsterType.BEAST_WARRIOR, MonsterType.BEAST}, 200, 200, WhoToWatch.ALL);
             case "Umiiruka":
                 return new FieldWatcher(ownerOfWatcher, new MonsterType[]{MonsterType.AQUA}, 500, -400, WhoToWatch.ALL);
-            case "ClosedForest":
+            case "ClosedForestWatcher":
                 return new ClosedForestWatcher(ownerOfWatcher, new MonsterType[]{MonsterType.BEAST, MonsterType.BEAST_WARRIOR}, 100, 0, WhoToWatch.MINE);
             //traps
             case "MagicCylinderWatcher":

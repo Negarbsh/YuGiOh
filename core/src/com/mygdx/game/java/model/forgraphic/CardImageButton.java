@@ -14,6 +14,7 @@ import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.spelltrap.SpellTrap;
+import com.mygdx.game.java.view.exceptions.NullHandMadeDetected;
 
 public class CardImageButton extends ImageButton {
     private final Card myOwnerCard;
@@ -22,13 +23,14 @@ public class CardImageButton extends ImageButton {
     private final Player ownerPlayer;
 
     public static CardImageButton getNewImageButton(Card ownerCard, float width, float height, DuelMenuController controller, boolean isVisible, Player ownerPlayer) {
-        Drawable imageUp;
+        Drawable imageUp = null;
         if (!isVisible) {
             imageUp = new Image(PreCard.getCardPic("Unknown")).getDrawable();
         } else {
             imageUp = new Image(PreCard.getCardPic(ownerCard.getName())).getDrawable();
 
         }
+
         return new CardImageButton(imageUp, ownerCard, width, height, controller, isVisible, ownerPlayer);
     }
 
@@ -122,7 +124,7 @@ public class CardImageButton extends ImageButton {
     }
 
     public void handleEntered() {
-        if(myController.isWaitingToChoosePrey()) return;
+        if (myController.isWaitingToChoosePrey()) return;
         myController.selectCard(myOwnerCard);
     }
 

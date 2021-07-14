@@ -23,6 +23,11 @@ public class PreSpellTrapCard extends PreCard {
         allPreCards.add(this);
     }
 
+    public PreSpellTrapCard(String dataForHandmades) {
+        this(dataForHandmades.split(","));
+        cardsPictures.put(name, defaultTexture);
+    }
+
     @Override
     public Card newCard() {
         return new SpellTrap(this);

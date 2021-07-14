@@ -30,9 +30,11 @@ import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.forgraphic.CustomDialog;
+import com.mygdx.game.java.model.forgraphic.Lightning;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.view.Constants;
 import com.mygdx.game.java.view.exceptions.*;
+import jdk.swing.interop.LightweightContentWrapper;
 import lombok.Getter;
 
 import java.lang.reflect.InvocationTargetException;
@@ -106,6 +108,7 @@ public class TurnScreen implements Screen {
         createHands();
         createMessageLabel();
         createSettingsButton();
+//        stage.addActor(new Lightning());
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -316,6 +319,7 @@ public class TurnScreen implements Screen {
         Card selectedCard = controller.getRoundController().getSelectedCard();
         if (selectedCard == null) texture = PreCard.getCardPic("Unknown");
         else texture = PreCard.getCardPic(selectedCard.getName());
+
         return new Image(texture);
     }
 
@@ -336,6 +340,7 @@ public class TurnScreen implements Screen {
         Card selectedCard = controller.getRoundController().getSelectedCard();
         if (selectedCard == null) texture = PreCard.getCardPic("Unknown");
         else texture = PreCard.getCardPic(selectedCard.getName());
+
         selectedCardImage.setDrawable(new Image(texture).getDrawable());
 
         String description = "";

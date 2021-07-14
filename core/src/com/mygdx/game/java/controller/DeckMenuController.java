@@ -48,8 +48,8 @@ public class DeckMenuController {
             throw new ButtonCantDoAction();
         }
 
-        thisDeck.addCard(customButton.preCard.getName(), side);
         CustomImageButton newCustomButton = ButtonUtils.createCustomCards(customButton.preCard.getName());
+        thisDeck.addCard(customButton.preCard.getName(), side);
         addCardToDeckGraphically(newCustomButton, table, side);
         getAppropriateList(side).add(newCustomButton);
         updateSelected(null);
@@ -101,9 +101,9 @@ public class DeckMenuController {
 
         table.align(Align.left);
         for (PreCard preCard : allDeckValues) {
-            CustomImageButton customImageButton = ButtonUtils.createCustomCards(preCard.getName());
-            addCardToDeckGraphically(customImageButton, table, side);
-            getAppropriateList(side).add(customImageButton);
+                CustomImageButton customImageButton = ButtonUtils.createCustomCards(preCard.getName());
+                addCardToDeckGraphically(customImageButton, table, side);
+                getAppropriateList(side).add(customImageButton);
         }
     }
 
@@ -133,8 +133,14 @@ public class DeckMenuController {
         if (customImageButton == null) {
             setDescription(null);
             deckMenu.getSelectedImage().setDrawable(null);
-        }
-        else if (customImageButton != selectedCard) {
+        } else if (customImageButton.preCard == null) {
+            try {
+                if (mainDeck.contains(customImageButton))
+                    removeCardFromDeck(customImageButton, deckMenu.getMainDeck(), false);
+                else if (sideDeck.contains(customImageButton))
+                    removeCardFromDeck(customImageButton, deckMenu.getSideDeck(), true);
+            }catch (ButtonCantDoAction | NotCorrectDeck | NoSelectedCard | NotExisting ignore) {}
+        } else if (customImageButton != selectedCard) {
             deckMenu.getSelectedImage().setDrawable(new TextureRegionDrawable(new TextureRegion(
                     PreCard.getCardPic(customImageButton.preCard.getName()))));
             setDescription(customImageButton.preCard);

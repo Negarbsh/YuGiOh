@@ -33,6 +33,8 @@ public class CardCreatorMenu implements Screen {
     SelectBox<String> cards, watchers;
     Table choosingTable;
     TextButton create, buy;
+    private Label attackLabel;
+    private Label defenseLabel;
 
     {
         stage = new Stage(new StretchViewport(600, 600));
@@ -67,6 +69,16 @@ public class CardCreatorMenu implements Screen {
         messageBar = ButtonUtils.createMessageBar("", mainClass.orangeSkin.getFont("font-title"), 0.7f);
         messageBar.setBounds(0, 0, 600, 40);
 
+        ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
+        back.setBounds(8,555,47,35);
+        back.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainClass.setScreen(new MainMenu(mainClass, user));
+            }
+        });
+
+        stage.addActor(back);
         stage.addActor(messageBar);
         stage.addActor(table);
         stage.addActor(choosingTable);
@@ -98,9 +110,9 @@ public class CardCreatorMenu implements Screen {
             }
         });
         watchers = new SelectBox<String>(mainClass.orangeSkin);
-        Label attackLabel = new Label("attack: ", mainClass.orangeSkin);
+        attackLabel = new Label("attack: ", mainClass.orangeSkin);
         attack = new TextField("", mainClass.orangeSkin);
-        Label defenseLabel = new Label("defense: ", mainClass.orangeSkin);
+        defenseLabel = new Label("defense: ", mainClass.orangeSkin);
         defense = new TextField("", mainClass.orangeSkin);
         finalResult = new Label("1234", mainClass.orangeSkin);
         TextButton add = new TextButton("add", mainClass.orangeSkin);
@@ -136,7 +148,7 @@ public class CardCreatorMenu implements Screen {
         buy.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
+                controller.buyCard();
             }
         });
         choosingTable.add(cards).size(230, 30).padBottom(30).padRight(40);

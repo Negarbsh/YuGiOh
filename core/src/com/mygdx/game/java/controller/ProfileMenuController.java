@@ -107,6 +107,7 @@ public class ProfileMenuController {
     public void changeAvatar() {
         avatarNumber = user.getAvatarNum();
         avatar.setDrawable(User.charPhotos.get(avatarNumber));
+
         Dialog dialog = new Dialog("", profileMenu.getMainClass().orangeSkin) {
             @Override
             protected void result(Object object) {

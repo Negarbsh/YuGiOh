@@ -1,10 +1,12 @@
 package com.mygdx.game.java.model.card;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.Reader;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.view.exceptions.NullHandMadeDetected;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ public abstract class PreCard {
     protected String description;
     protected int price;
     protected static HashMap<String, Texture> cardsPictures;
+    protected static Texture defaultTexture;
 
     static {
         allPreCards = new ArrayList<>();
@@ -65,6 +68,7 @@ public abstract class PreCard {
 
     private static void addCardPics(String[] folderPath) {
 //        Reader.figureCatalog(folderPath);
+        defaultTexture = new Texture(Gdx.files.internal("Cards/handmade/4001.png"));
         for (String s : folderPath) {
             for (FileHandle cardPic : Reader.readDirectoryCatalog(s)) {
                 cardsPictures.put(cardPic.name().replace(".jpg", ""), new Texture(cardPic));
@@ -80,9 +84,11 @@ public abstract class PreCard {
         }
     }
 
-    public static Texture getCardPic(String cardName) {
+    public static Texture getCardPic(String cardName)  {
         String alterName = cardName.replace(" ", "").replace("-", "").replace("'", "");
-        return cardsPictures.getOrDefault(alterName, null);
+        if (cardsPictures.containsKey(alterName))
+            return cardsPictures.get(alterName);
+        else return defaultTexture;
     }
 
     public String getOtherDescripts() {

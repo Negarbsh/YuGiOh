@@ -28,7 +28,7 @@ public class DeckMenu implements Screen {
     DeckMenuController controller;
     User user;
     TextButton sideAdd, sideRemove, mainRemove, mainAdd;
-    Table treasuryTable, mainDeck, sideDeck, mainDeckBar, sideDeckBar, selectedTable;
+    @Getter Table treasuryTable, mainDeck, sideDeck, mainDeckBar, sideDeckBar, selectedTable;
     @Getter
     Image selectedImage;
     @Getter
