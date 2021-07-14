@@ -35,7 +35,7 @@ public class TheCalculatorWatcher extends Watcher {
         int sumOfLevels = 0;
         for (MonsterCardInUse monsterCardInUse : ownerOfWatcher.ownerOfCard.getBoard().getMonsterZone()) {
             if (monsterCardInUse.isFaceUp()) {
-                sumOfLevels = ((PreMonsterCard) monsterCardInUse.thisCard.getPreCardInGeneral()).getLevel();
+                sumOfLevels += ((PreMonsterCard) monsterCardInUse.thisCard.getPreCardInGeneral()).getLevel();
             }
         }
 

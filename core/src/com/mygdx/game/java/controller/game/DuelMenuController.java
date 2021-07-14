@@ -15,7 +15,6 @@ import com.mygdx.game.java.model.card.cardinusematerial.MonsterCardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.monster.MonsterManner;
 import com.mygdx.game.java.model.watchers.Watcher;
-import com.mygdx.game.java.view.Menus.CoinFlipScreen;
 import com.mygdx.game.java.view.Menus.DuelMenu;
 import com.mygdx.game.java.view.Menus.MainMenu;
 import com.mygdx.game.java.view.Menus.TurnScreen;
@@ -131,7 +130,7 @@ public class DuelMenuController {
     private void startDuel() {
         isAnyGameRunning = true;
         playHeadOrTails(gameMainClass);
-//        runMatch(false); //todo: it should be removed and called by shima
+        runMatch(false); //todo: it should be removed and called by shima
         //after the head or tails was done, the "runMatch()" function is called with a boolean "should swap users" as the input
     }
 
@@ -253,8 +252,8 @@ public class DuelMenuController {
 
     public void playHeadOrTails(GameMainClass gameMainClass) {
         boolean isHead = Math.random() < 0.5;
-        CoinFlipScreen coinFlipScreen = new CoinFlipScreen(isHead, gameMainClass, this);
-        gameMainClass.setScreen(coinFlipScreen);
+//        CoinFlipScreen coinFlipScreen = new CoinFlipScreen(isHead, gameMainClass, this);
+//        gameMainClass.setScreen(coinFlipScreen);
     }
 
     private void setNumOfRounds(int numOfRounds) throws NumOfRounds {
@@ -351,6 +350,11 @@ public class DuelMenuController {
             if (!canSeeCard(roundController.getCurrentPlayer(), card)) {
                 Print.print("You can't view this card!");
                 return;
+            }
+            if (roundController.getCurrentPlayer().getHand().doesContainCard(card)){
+//                 try {
+//                    RelatedToMenu.showCard(card.getName());
+//                } catch (NotExisting ignore) {}
             }
             CardInUse cardInUse = roundController.getSelectedCardInUse();
             if (cardInUse == null) throw new NoSelectedCard();

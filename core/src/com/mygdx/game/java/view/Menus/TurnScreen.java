@@ -425,14 +425,15 @@ public class TurnScreen implements Screen {
             }
         };
 
-        dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
+//        dialog.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
         dialog.text(question);
         for (int i = 0; i < options.size(); i++) {
-            options.get(i).setSize(20, 30);
-            dialog.button(options.get(i), i);
-//            ImageButton button = new ImageButton(options.get(i).getStyle());
-//            button.setSize(50, 100);
-//            dialog.button(button);
+//            options.get(i).setSize(20, 30);
+//            dialog.button(options.get(i), i);
+            ImageButton button = new ImageButton(options.get(i).getStyle());
+            button.setSize(1, 2);
+            dialog.button(button, i).sizeBy(0.5f);
+//            dialog.getButtonTable().add(button);
         }
         dialog.button("Exit GraveYard", -1);
         dialog.show(stage);
@@ -487,6 +488,7 @@ public class TurnScreen implements Screen {
     public void handleMainPhaseBoard(boolean isMonster, Card card) {
         controller.selectCard(card);
         CardInUse cardInUse = controller.getRoundController().findCardsCell(card);
+        if (cardInUse == null) return;
         if (cardInUse.getOwnerOfCard() != myPlayer) return; //todo for attack, it might be sth else
         Dialog dialog;
         if (isMonster) {
