@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.Reader;
 import com.mygdx.game.java.model.User;
-import com.mygdx.game.java.view.exceptions.NullHandMadeDetected;
 import lombok.Getter;
 
 import java.util.ArrayList;

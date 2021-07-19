@@ -33,7 +33,7 @@ public class CardCreatorMenu implements Screen {
     SelectBox<String> cards, watchers;
     Table choosingTable;
     TextButton create, buy;
-    private Label attackLabel;
+    private Label attackLabel, userMoney;
     private Label defenseLabel;
 
     {
@@ -78,10 +78,15 @@ public class CardCreatorMenu implements Screen {
             }
         });
 
+        userMoney = new Label(String.valueOf(user.getBalance()), mainClass.orangeSkin);
+        userMoney.setBounds(530, 560, 55, 35);
+        userMoney.setFontScale(1.2f);
+
         stage.addActor(back);
         stage.addActor(messageBar);
         stage.addActor(table);
         stage.addActor(choosingTable);
+        stage.addActor(userMoney);
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -114,7 +119,7 @@ public class CardCreatorMenu implements Screen {
         attack = new TextField("", mainClass.orangeSkin);
         defenseLabel = new Label("defense: ", mainClass.orangeSkin);
         defense = new TextField("", mainClass.orangeSkin);
-        finalResult = new Label("1234", mainClass.orangeSkin);
+        finalResult = new Label("", mainClass.orangeSkin);
         TextButton add = new TextButton("add", mainClass.orangeSkin);
         add.addListener(new ClickListener() {
             @Override
@@ -149,6 +154,7 @@ public class CardCreatorMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 controller.buyCard();
+                userMoney.setText(user.getBalance());
             }
         });
         choosingTable.add(cards).size(230, 30).padBottom(30).padRight(40);

@@ -16,7 +16,7 @@ public class Coin extends AnimatedObjects {
 
 
     public void createFrames(String folderPath) {
-//        Reader.figureCatalog(new String[]{"Items/Coins/Bronze/with-star"});
+//        Reader.figureCatalog(new String[]{"Items/Coins/Bronze/with-star", "Items/Coins/Gold/up-rotating"});
         int i = 0;
         myFrames = new TextureRegion[10];
         for (FileHandle curPhoto : Reader.readDirectoryCatalog(folderPath)) {

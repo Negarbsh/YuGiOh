@@ -14,7 +14,6 @@ import com.mygdx.game.java.model.card.PreCard;
 import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
 import com.mygdx.game.java.model.card.monster.Monster;
 import com.mygdx.game.java.model.card.spelltrap.SpellTrap;
-import com.mygdx.game.java.view.exceptions.NullHandMadeDetected;
 
 public class CardImageButton extends ImageButton {
     private final Card myOwnerCard;

@@ -130,8 +130,8 @@ public class DuelMenuController {
 
     private void startDuel() {
         isAnyGameRunning = true;
-        playHeadOrTails(gameMainClass);
-//        runMatch(false); //todo: it should be removed and called by shima
+//        playHeadOrTails(gameMainClass);
+        runMatch(false); //todo: it should be removed and called by shima
         //after the head or tails was done, the "runMatch()" function is called with a boolean "should swap users" as the input
     }
 
