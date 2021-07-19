@@ -10,5 +10,6 @@ public enum CardState {
     SENT_TO_GRAVEYARD,
     ACTIVE_EFFECT,
     ACTIVE_MY_EFFECT,
-    TRIGGERED
+    TRIGGERED,
+    OUR_BATTLE_ENDED
 }

@@ -55,10 +55,10 @@ public class RoundController {
     public RoundController(User firstUser, User secondUser, DuelMenuController duelMenuController, int roundIndex) {
         this.duelMenuController = duelMenuController;
         currentPlayer = new Player(firstUser, this);
-        currentPlayer.getBoard().setMyPhase(Phase.END_RIVAL);
+        currentPlayer.getBoard().setMyPhase(Phase.DRAW);
 
         rival = new Player(secondUser, this);
-        rival.getBoard().setMyPhase(Phase.END);
+        rival.getBoard().setMyPhase(Phase.DRAW);
 
         this.roundIndex = roundIndex;
     }

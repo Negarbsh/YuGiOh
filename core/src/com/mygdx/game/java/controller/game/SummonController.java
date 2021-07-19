@@ -74,8 +74,8 @@ public class SummonController {
 
     private static void putMonsterInUse(Monster monster, boolean isSpecial, MonsterCardInUse monsterCardInUse, ArrayList<CardInUse> summonedCards, RoundController roundController) {
         if (monsterCardInUse == null) return;
-        monsterCardInUse.summon();
         monsterCardInUse.setACardInCell(monster);
+        monsterCardInUse.summon();
         monsterCardInUse.setInAttackMode(true);
         monsterCardInUse.summonFaceUply();
         if (!isSpecial && summonedCards != null) summonedCards.add(monsterCardInUse);

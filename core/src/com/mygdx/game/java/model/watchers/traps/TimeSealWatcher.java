@@ -34,6 +34,7 @@ public class TimeSealWatcher extends Watcher {
         if (newPhase == Phase.DRAW_RIVAL) {
             if (handleChain()) {
                 DrawPhaseController.canDraw = false;
+                isWatcherActivated = true;
             }
         }
         else {

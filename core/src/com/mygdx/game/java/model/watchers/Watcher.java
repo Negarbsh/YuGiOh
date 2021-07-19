@@ -7,6 +7,7 @@ import com.mygdx.game.java.model.Enums.Phase;
 import com.mygdx.game.java.model.Player;
 import com.mygdx.game.java.model.card.CardType;
 import com.mygdx.game.java.model.card.cardinusematerial.CardInUse;
+import com.mygdx.game.java.model.card.cardinusematerial.SpellTrapCardInUse;
 import com.mygdx.game.java.model.card.monster.MonsterType;
 import com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard;
 import com.mygdx.game.java.model.watchers.monsters.*;
@@ -90,7 +91,9 @@ public abstract class Watcher implements Comparable {
     protected static boolean addToStack(Watcher watcher) {
         if (!stack.contains(watcher)) {
             if (stack.size() == 0 || stack.get(stack.size() - 1).speed <= watcher.speed) {
-                if (stack.size() != 0 && stack.get(stack.size() - 1).ownerOfWatcher.ownerOfCard != watcher.ownerOfWatcher.ownerOfCard)
+                if ((stack.size() != 0 && stack.get(stack.size() - 1).ownerOfWatcher.ownerOfCard != watcher.ownerOfWatcher.ownerOfCard)
+                        || (stack.size() == 0 && watcher.ownerOfWatcher.ownerOfCard != roundController.getCurrentPlayer()
+                        && watcher.ownerOfWatcher.thisCard.preCardInGeneral.getCardType() == CardType.TRAP))
                     roundController.temporaryTurnChange(watcher.ownerOfWatcher.ownerOfCard);
                 if (watcher.ownerOfWatcher.thisCard.preCardInGeneral instanceof PreSpellTrapCard) {
                     PreSpellTrapCard preSpellTrapCard = (PreSpellTrapCard) watcher.ownerOfWatcher.thisCard.preCardInGeneral;
@@ -127,6 +130,7 @@ public abstract class Watcher implements Comparable {
     public static void handleWantToActivate(int choice) {
         if (choice == 0) {
             stack.add(watcherToAddToStack);
+            watcherToAddToStack.trapIsBeingActivated();
             addToStackOutput = true;
         } else if (choice == 1) addToStackOutput = false;
     }
@@ -233,7 +237,12 @@ public abstract class Watcher implements Comparable {
 
     public void spellTrapHasDoneItsEffect() {
         isWatcherActivated = true;
+        deleteWatcher();
         ownerOfWatcher.sendToGraveYard();
+    }
+
+    public void trapIsBeingActivated() {
+        ((SpellTrapCardInUse) ownerOfWatcher).faceUpAfterActivation();
     }
 
     public CardInUse[] theTargetCells(Zone zoneName) {
