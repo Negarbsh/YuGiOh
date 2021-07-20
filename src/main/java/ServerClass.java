@@ -8,7 +8,7 @@ public class ServerClass {
             ServerSocket server = new ServerSocket(7776);
             while (true) {
                 Socket socket = server.accept();
-                new ClientThread(socket);
+                new ClientThread(socket).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
