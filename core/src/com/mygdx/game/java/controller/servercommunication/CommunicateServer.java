@@ -1,9 +1,15 @@
 package com.mygdx.game.java.controller.servercommunication;
 
+import com.mygdx.game.java.view.exceptions.MyException;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,7 +54,7 @@ public class CommunicateServer {
         connected = true;
     }
 
-    public static String write(String message){
+    public static String write(String message) {
         try {
             dataOutputStream.writeUTF(message);
             dataOutputStream.flush();
@@ -61,4 +67,25 @@ public class CommunicateServer {
         }
     }
 
+    public static MyException createANewObject(String[] result) {
+        String fullClassName = result[1];
+        Object[] initials = new Object[result.length - 2];
+        for (int i = 2; i < result.length; i++)
+            initials[i - 2] = result[i];
+
+        try {
+            Class clazz = Class.forName(fullClassName);
+            Class[] paramsTypeArray = new Class[initials.length];
+            for (int i = 0; i < initials.length; i++) {
+                paramsTypeArray[i] = initials[i].getClass();
+            }
+            Constructor cons = clazz.getDeclaredConstructor(paramsTypeArray);
+            cons.setAccessible(true);
+
+            return (MyException) cons.newInstance(initials);
+        } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

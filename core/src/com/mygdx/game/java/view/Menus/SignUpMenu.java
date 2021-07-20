@@ -18,6 +18,7 @@ import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.view.exceptions.AlreadyExistingError;
 import com.mygdx.game.java.view.exceptions.EmptyFieldException;
+import com.mygdx.game.java.view.exceptions.MyException;
 
 
 public class SignUpMenu implements Screen {
@@ -70,7 +71,7 @@ public class SignUpMenu implements Screen {
                     controller.createUser(usernameTextField.getText(), nicknameTextField.getText(),
                             passwordTextField.getText());
                     mainClass.setScreen(new MainMenu(mainClass, User.getUserByName(usernameTextField.getText())));
-                } catch (AlreadyExistingError | EmptyFieldException loginError) {
+                } catch (MyException | EmptyFieldException loginError) {
                     messageBar.setText(loginError.getMessage());
                     messageBar.setColor(Color.RED);
                     usernameTextField.setText("");
