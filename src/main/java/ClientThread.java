@@ -23,6 +23,10 @@ public class ClientThread extends Thread {
     @Override
     public void run() {
         Menu menu = new Menu();
-        menu.run(dataInputStream, dataOutputStream);
+        try {
+            menu.run(dataInputStream, dataOutputStream);
+        } catch (IOException e) {
+            //todo I guess hasti had handled it :)
+        }
     }
 }

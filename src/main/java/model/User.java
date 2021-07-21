@@ -2,6 +2,7 @@
 package model;
 
 
+import controller.FileHandler;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -16,9 +17,9 @@ public class User implements Comparable<User> {
     private String nickName;
     private int score;
     private final HashMap<String, Integer> cardTreasury;   //shows how many cards do we have of each type
-    private final ArrayList<Deck> decks;
+//    private final ArrayList<Deck> decks; todo uncomment
     private int balance;
-    private Deck activeDeck;
+//    private Deck activeDeck; todo uncomment
     private static ArrayList<User> allUsers;
 
     static {
@@ -27,7 +28,7 @@ public class User implements Comparable<User> {
 
     {
         cardTreasury = new HashMap<>();
-        decks = new ArrayList<>();
+//        decks = new ArrayList<>(); todo uncomment
     }
 
     public User(String username, String password, String nickName) {
@@ -94,7 +95,7 @@ public class User implements Comparable<User> {
     public HashMap<String, Integer> getCardTreasury() {
         return cardTreasury;
     }
-
+/*
     public Deck findDeckByName(String name) {
         for (Deck deck : decks) {
             if (deck.equalNames(name))
@@ -145,7 +146,7 @@ public class User implements Comparable<User> {
         } else {
             this.cardTreasury.put(preCard.getName(), 1);
         }
-    }
+    }*/
 
     public void removeCardFromTreasury(String nameOfCard) {
         int numOfCard = this.cardTreasury.get(nameOfCard) - 1;
@@ -160,12 +161,12 @@ public class User implements Comparable<User> {
     public boolean isPasswordWrong(String password) {
         return !password.equals(this.password);
     }
-
+/*
     public void setActiveDeck(Deck deck) {
         if (this.decks.contains(deck)) {
             this.activeDeck = deck;
         }
-    }
+    } */
 
     @Override
     public int compareTo(model.User otherUser) {
@@ -173,7 +174,7 @@ public class User implements Comparable<User> {
         if (this.score < otherUser.score) return 1;
         return this.username.compareTo(otherUser.username);
     }
-
+/*
     public void addDeck(Deck deck) {
         decks.add(deck);
         FileHandler.saveUsers();
@@ -199,5 +200,5 @@ public class User implements Comparable<User> {
             cards.append(Objects.requireNonNull(PreCard.findCard(cardName)).toString());
         }
         return cards.toString();
-    }
+    } */
 }

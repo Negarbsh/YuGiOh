@@ -1,5 +1,6 @@
 package menus;
 
+import controller.FileHandler;
 import model.User;
 
 import java.io.DataOutputStream;
@@ -18,7 +19,7 @@ public class LoginMenu {
             result = login(command.substring(6), menu);
         else if (command.equals("exit program")) {
             FileHandler.saveUsers();
-            Print.print("Good Bye!");
+//            Print.print("Good Bye!");
             System.exit(0);
         }
 
@@ -48,6 +49,7 @@ public class LoginMenu {
                 return true;
             }
         }
+        return false; //todo check with hasti
     }
 
     private static boolean login(String command, Menu menu) throws IOException {
