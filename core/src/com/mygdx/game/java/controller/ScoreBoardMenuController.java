@@ -23,13 +23,16 @@ public class ScoreBoardMenuController {
 
     public static void makeScoreBoard(Table table, User user, Skin skin) {
         ArrayList<User> sortedUsers = requestScoreBoard();
+        ArrayList<User> onlineUsers = requestOnlineUsers();
         Table usersTable = new Table();
         int count = 0;
         for (User aUser : sortedUsers) {
             String styleName;
             if (aUser == user && count < 20) styleName = "white";
             else styleName = "default";
-            Label nickname = new Label(aUser.getNickName(), skin, styleName);
+            String nickNameText = aUser.getNickName();
+            if (onlineUsers.contains(user)) nickNameText += " (online)";
+            Label nickname = new Label(nickNameText, skin, styleName);
             Label score = new Label(String.valueOf(aUser.getScore()), skin, styleName);
             Table forUser = new Table();
             Torch firstTorch = new Torch();
@@ -43,6 +46,20 @@ public class ScoreBoardMenuController {
         usersScroller.setScrollingDisabled(true, false);
         table.align(Align.top);
         table.add(usersScroller).fill();
+    }
+
+    private static ArrayList<User> requestOnlineUsers() {
+        String onlineUsersJson = CommunicateServer.write("scoreBoard - onlineUsers");
+        //deserialize:
+        Gson gsonExt = null;
+        {
+            GsonBuilder builder = new GsonBuilder();
+            builder.registerTypeAdapter(PreCard.class, new PreCardAdapter());
+            gsonExt = builder.create();
+        }
+        Type type = new TypeToken<ArrayList<User>>() {
+        }.getType();
+        return gsonExt.fromJson(onlineUsersJson, type);
     }
 
     private static ArrayList<User> requestScoreBoard() {

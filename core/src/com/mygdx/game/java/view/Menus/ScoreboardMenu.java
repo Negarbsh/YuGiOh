@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
@@ -20,6 +21,7 @@ public class ScoreboardMenu implements Screen {
     GameMainClass mainClass;
     User user;
     Table scoreBoard;
+    private TextButton refreshBtn;
 
     {
         stage = new Stage(new StretchViewport(400, 400));
@@ -33,16 +35,12 @@ public class ScoreboardMenu implements Screen {
     @Override
     public void show() {
         ButtonUtils.changeMouseCursor();
-        scoreBoard = new Table();
-        scoreBoard.setFillParent(true);
-        scoreBoard.padTop(40).padLeft(50);
-        scoreBoard.padBottom(20);
-        ScoreBoardMenuController.makeScoreBoard(scoreBoard, user, mainClass.orangeSkin);
-
+        refreshScoreBoard();
+        createRefreshButton();
 
         ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
-        back.setBounds(5,370,31,23);
-        back.addListener(new ClickListener(){
+        back.setBounds(5, 370, 31, 23);
+        back.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 mainClass.setScreen(new MainMenu(mainClass, user));
@@ -52,7 +50,27 @@ public class ScoreboardMenu implements Screen {
         stage.addActor(scoreBoard);
         stage.addActor(new Curtain(back));
         stage.addActor(back);
+        stage.addActor(refreshBtn);
         Gdx.input.setInputProcessor(stage);
+    }
+
+    private void createRefreshButton() {
+        refreshBtn = new TextButton("refresh", mainClass.orangeSkin);
+        refreshBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                refreshScoreBoard();
+            }
+        });
+        refreshBtn.setBounds(50, 370, 31,23); //todo idk about the size :(
+    }
+
+    private void refreshScoreBoard() {
+        scoreBoard = new Table();
+        scoreBoard.setFillParent(true);
+        scoreBoard.padTop(40).padLeft(50);
+        scoreBoard.padBottom(20);
+        ScoreBoardMenuController.makeScoreBoard(scoreBoard, user, mainClass.orangeSkin);
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.DeckPreviewController;
 import com.mygdx.game.java.controller.FileHandler;
+import com.mygdx.game.java.controller.LobbyController;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.model.card.Card;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
@@ -42,11 +43,12 @@ public class MainMenu implements Screen {
         table.setFillParent(true);
         table.defaults().pad(10).size(200, 50);
 
-        TextButton startDuel = new TextButton("start a duel", mainClass.orangeSkin);
-        startDuel.addListener(new ClickListener() {
+        TextButton lobby = new TextButton("lobby", mainClass.orangeSkin);
+        lobby.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                mainClass.setScreen(new DuelMenuScreen(user, mainClass));
+//                mainClass.setScreen(new DuelMenuScreen(user, mainClass));
+                mainClass.setScreen(new LobbyScreen(new LobbyController(user), mainClass));
             }
         });
 
@@ -99,7 +101,7 @@ public class MainMenu implements Screen {
             }
         });
 
-        table.add(startDuel).row();
+        table.add(lobby).row();
         table.add(deckButton).row();
         table.add(profileButton).row();
         table.add(scoreBoard).row();
