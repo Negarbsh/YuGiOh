@@ -68,7 +68,6 @@ public class DuelMenuController {
         this.usersLP = new ArrayList<>();
     }
 
-    //todo: made public for test! make it private
     private DuelMenuController(User firstUser, User secondUser, int numOfRounds, GameMainClass gameMainClass) throws NumOfRounds {
         DuelMenu.duelMenuController = this;
         this.gameMainClass = gameMainClass;

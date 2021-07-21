@@ -134,12 +134,10 @@ public class TurnScreen implements Screen {
                     case 1:
                         controller.getRoundController().setTurnEnded(true);
                         controller.setRoundEnded(true);
-//                        controller.endGame(gameMainClass);
                         controller.surrender();
                         break;
                     case 2:
                         controller.setGamePaused(true);
-//                        pause();
                         break;
                     case 3:
                         controller.setGamePaused(false);
