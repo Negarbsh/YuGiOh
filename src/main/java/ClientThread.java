@@ -26,7 +26,7 @@ public class ClientThread extends Thread {
         try {
             menu.run(dataInputStream, dataOutputStream);
         } catch (IOException e) {
-            //todo I guess hasti had handled it :)
+            System.out.println("Caught an error!");
         }
     }
 }

@@ -10,7 +10,8 @@ package menus;
 //import  messageviewing.Print;
 
 public class ShopMenu {
-    public static void checkMenuCommands(String command) {}
+    public static void checkMenuCommands(String command) {
+    }
 //            throws InvalidCommand, WrongMenu {
 //        if (RelatedToMenuController.isMenuFalse(MenuName.SHOP))
 //            throw new WrongMenu();
@@ -24,6 +25,4 @@ public class ShopMenu {
 //        } else if (command.equals("show --all")) {
 //            Print.print(ShopMenuController.showAllCards());
 //        } else throw new InvalidCommand();
-    }
-
 }

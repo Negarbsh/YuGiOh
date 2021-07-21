@@ -1,5 +1,6 @@
 package menus;
 
+import exceptions.*;
 import model.User;
 
 import java.io.DataInputStream;
@@ -26,27 +27,33 @@ public class Menu {
         while (!isProgramEnded) {
             try {
                 checkMenuCommands(dataInputStream.readUTF()); //todo we should get the token from the client
-//            } catch (InvalidCommand | InvalidDeck | InvalidName | InvalidThing | NoActiveDeck | NumOfRounds | NotExisting exception) {
+            } catch (InvalidCommand | InvalidDeck | InvalidName | InvalidThing | NoActiveDeck | NumOfRounds | NotExisting exception) {
+                dataOutputStream.writeUTF(exception.getMessage());
             } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
     }
 
     //    public void checkMenuCommands(String command) throws InvalidDeck, InvalidName, InvalidThing, NoActiveDeck, NumOfRounds, NotExisting, IOException {
     public void checkMenuCommands(String command) throws Exception {
+        System.out.println("command : " + command);
+
         if (command.startsWith("user ") && !command.equals("user logout"))
             LoginMenu.checkMenuCommands(command.substring(5), this);
         else if (command.startsWith("scoreboard "))
             ScoreboardMenu.checkMenuCommands(command.substring(11), this);
-        else if (command.startsWith("profile "))
-            ProfileMenu.checkMenuCommands(command.substring(8));
-        else if (command.startsWith("deck "))
-            DeckMenu.checkMenuCommands(command.substring(5));
+//        else if (command.startsWith("profile "))
+//            ProfileMenu.checkMenuCommands(command.substring(8));
+//        else if (command.startsWith("deck "))
+//            DeckMenu.checkMenuCommands(command.substring(5));
         else if (command.startsWith("shop "))
             ShopMenu.checkMenuCommands(command.substring(5));
-//        else if (command.startsWith("duel ")) {
-//            DuelMenu.checkMenuCommands(command.substring(5));
-        else if (command.equals("user logout")) {
+        else if (command.startsWith("duel ")) {
+            System.out.println(command);
+            //            DuelMenu.checkMenuCommands(command.substring(5));
+
+        } else if (command.equals("user logout")) {
 //            MainMenu.logout(); todo
         } else if (command.equals("exit program")) {
             LoginMenu.checkMenuCommands(command, this);
