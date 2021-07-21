@@ -36,53 +36,9 @@ public class GameMainClass extends Game {
         flatEarthSkin2.getFont("font").getData().setScale(1.5f);
         orangeSkin2 = new Skin(Gdx.files.internal("orange/skin/uiskin.json"));
 
-
         FileHandler.loadThings();
-//        setScreen(new ScoreboardMenu(this, User.getUserByName("ali")));
-//		setScreen(new ShopMenu(this, User.getUserByName("ali")));
-
-//        performCoinScreenTest();
-//        preformDuelScreenTest();
-//        setScreen(new DeckPreview(this, User.getUserByName("akbar")));
-        setScreen(new CardCreatorMenu(this, User.getUserByName("ali")));
-//        setScreen(new LoginMenu(this));
-//        setScreen(new SignUpMenu(this));
-//        setScreen(new ProfileMenu(this, User.getUserByName("akbar")));
-//        setScreen(new RelatedToMenu(this));
-
+        setScreen(new RelatedToMenu(this));
     }
-
-    private void performCoinScreenTest(){
-
-//
-//        Screen screen = null;
-//        try {
-//            screen = new CoinFlipScreen(true,this,
-//                    new DuelMenuController(User.getUserByName("ali"),User.getUserByName("akbar"),3,this));
-//        } catch ( Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//        setScreen(screen);
-//
-
-    }
-
-
-    private void preformDuelScreenTest() {
-//        User ali = User.getUserByName("ali");
-//        User akbar = User.getUserByName("akbar");
-//        Deck alis = new Deck("alis");
-//        Deck akbars = new Deck("akbars");
-//        ali.addDeck(alis);
-//        akbar.addDeck(akbars);
-//
-//        ali.setActiveDeck(ali.getDecks().get(0));
-//        akbar.setActiveDeck(akbar.getDecks().get(0));
-
-        Screen screen = new DuelMenuScreen(User.getUserByName("ali"), this);
-        setScreen(screen);
-    }
-
 
     @Override
     public void setScreen(Screen screen) {

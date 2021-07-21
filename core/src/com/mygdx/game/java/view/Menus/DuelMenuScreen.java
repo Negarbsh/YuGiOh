@@ -65,12 +65,14 @@ public class DuelMenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 try {
-                    DuelMenuController.startNewDuel(usernameTextField.getText(), Integer.parseInt(roundTextField.getText()), gameMainClass, user);
+                    //todo here we should send the request to lobby controller. it will tell the server and when the server answered, we should call startNewDuel with the information
+//                    DuelMenuController.startNewDuel(usernameTextField.getText(), Integer.parseInt(roundTextField.getText()), gameMainClass, user);
                 } catch (NumberFormatException numberFormatException) {
                     resultLabel.setText("Please enter a valid number");
-                } catch (InvalidName | NumOfRounds | InvalidDeck | NoActiveDeck | InvalidThing e) {
-                    resultLabel.setText(e.getMessage());
                 }
+//                catch (InvalidName | NumOfRounds | InvalidDeck | NoActiveDeck | InvalidThing e) {
+//                    resultLabel.setText(e.getMessage());
+//                }
             }
         });
 

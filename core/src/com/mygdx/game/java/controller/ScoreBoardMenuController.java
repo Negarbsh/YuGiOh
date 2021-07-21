@@ -3,16 +3,26 @@ package com.mygdx.game.java.controller;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.mygdx.game.java.controller.servercommunication.CommunicateServer;
 import com.mygdx.game.java.model.User;
+import com.mygdx.game.java.model.card.PreCard;
+import com.mygdx.game.java.model.card.PreCardAdapter;
 import com.mygdx.game.java.model.forgraphic.Torch;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
+//client
 public class ScoreBoardMenuController {
-//    static TextureRegionDrawable torchPic;
 
     public static void makeScoreBoard(Table table, User user, Skin skin) {
-        ArrayList<User> sortedUsers = User.getScoreBoard();
+        ArrayList<User> sortedUsers = requestScoreBoard();
         Table usersTable = new Table();
         int count = 0;
         for (User aUser : sortedUsers) {
@@ -33,5 +43,20 @@ public class ScoreBoardMenuController {
         usersScroller.setScrollingDisabled(true, false);
         table.align(Align.top);
         table.add(usersScroller).fill();
+    }
+
+    private static ArrayList<User> requestScoreBoard() {
+        String scoreBoardJson = CommunicateServer.write("scoreBoard - show"); //todo handle the format
+        //todo: when server gets this request, it should serialize the User.getScoreBoard ArrayList and return the json
+        //deserialize:
+        Gson gsonExt = null;
+        {
+            GsonBuilder builder = new GsonBuilder();
+            builder.registerTypeAdapter(PreCard.class, new PreCardAdapter());
+            gsonExt = builder.create();
+        }
+        Type type = new TypeToken<ArrayList<User>>() {
+        }.getType();
+        return gsonExt.fromJson(scoreBoardJson, type);
     }
 }

@@ -56,7 +56,7 @@ public class CommunicateServer {
 
     public static String write(String message) {
         try {
-            dataOutputStream.writeUTF(message);
+loby            dataOutputStream.writeUTF(message);
             dataOutputStream.flush();
             return dataInputStream.readUTF();
         } catch (IOException e) {
