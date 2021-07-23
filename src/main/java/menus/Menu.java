@@ -1,6 +1,5 @@
 package menus;
 
-import exceptions.*;
 import model.User;
 
 import java.io.DataInputStream;
@@ -25,18 +24,12 @@ public class Menu {
         this.dataInputStream = dataInputStream;
         this.dataOutputStream = dataOutputStream;
         while (!isProgramEnded) {
-            try {
-                checkMenuCommands(dataInputStream.readUTF()); //todo we should get the token from the client
-            } catch (InvalidCommand | InvalidDeck | InvalidName | InvalidThing | NoActiveDeck | NumOfRounds | NotExisting exception) {
-                dataOutputStream.writeUTF(exception.getMessage());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+            checkMenuCommands(dataInputStream.readUTF()); //todo we should get the token from the client
         }
     }
 
     //    public void checkMenuCommands(String command) throws InvalidDeck, InvalidName, InvalidThing, NoActiveDeck, NumOfRounds, NotExisting, IOException {
-    public void checkMenuCommands(String command) throws Exception {
+    public void checkMenuCommands(String command) throws IOException {
         System.out.println("command : " + command);
 
         if (command.startsWith("user ") && !command.equals("user logout"))

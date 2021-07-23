@@ -95,6 +95,10 @@ public class User implements Comparable<User> {
     public HashMap<String, Integer> getCardTreasury() {
         return cardTreasury;
     }
+
+    public static ArrayList<User> getAllUsers() {
+        return allUsers;
+    }
 /*
     public Deck findDeckByName(String name) {
         for (Deck deck : decks) {

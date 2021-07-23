@@ -14,16 +14,32 @@ public class ScoreboardMenu {
 //    }
 
     public static void checkMenuCommands(String command, Menu menu) {
+        DataOutputStream dataOutputStream = menu.dataOutputStream;
         if (command.contains("show")) {
-            DataOutputStream dataOutputStream = menu.dataOutputStream;
             try {
-                dataOutputStream.writeUTF("scoreBoard-show-" + User.showScoreBoard());
+                dataOutputStream.writeUTF(User.showScoreBoard());
+                dataOutputStream.flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else if (command.contains("addScore10")) {
             menu.user.increaseScore(10);
-        } //else throw sth
+            try {
+                dataOutputStream.writeUTF("success");
+                dataOutputStream.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (command.contains("onlineUsers")) {
+            try {
+                //            dataOutputStream.writeUTF();
+
+                dataOutputStream.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
 }

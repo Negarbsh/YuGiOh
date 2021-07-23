@@ -3,6 +3,7 @@ package controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import model.User;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class FileHandler {
             Gson gsonExt = null;
             {
                 GsonBuilder builder = new GsonBuilder();
-                builder.registerTypeAdapter(PreCard.class, new PreCardAdapter());
+//                builder.registerTypeAdapter(PreCard.class, new PreCardAdapter());
                 gsonExt = builder.create();
             }
             String json = new String(Files.readAllBytes(Paths.get("users.json")));
@@ -54,7 +55,7 @@ public class FileHandler {
             Gson gsonExt = null;
             {
                 GsonBuilder builder = new GsonBuilder();
-                builder.registerTypeAdapter(PreCard.class, new PreCardAdapter());
+//                builder.registerTypeAdapter(PreCard.class, new PreCardAdapter());
                 gsonExt = builder.create();
             }
             FileWriter fileWriter = new FileWriter("users.json");
