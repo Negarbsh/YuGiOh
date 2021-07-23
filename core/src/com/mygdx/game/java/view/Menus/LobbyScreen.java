@@ -47,13 +47,23 @@ public class LobbyScreen implements Screen {
         table.row();
         table.add(openChatBox).width(300).height(60);
 
+        ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
+        back.setBounds(25, 950, 70, 50);
+        back.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainClass.setScreen(new MainMenu(mainClass, controller.getCurrentUser()));
+            }
+        });
+
         stage.addActor(new Wallpaper(1, 0, 0, 1024, 1024));
+        stage.addActor(back);
         stage.addActor(table);
         Gdx.input.setInputProcessor(stage);
     }
 
     private void createOpenChatBox() {
-        openChatBox = new TextButton("open chatBox", GameMainClass.orangeSkin2);
+        openChatBox = new TextButton("Open ChatBox", GameMainClass.orangeSkin2);
         openChatBox.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -80,7 +90,7 @@ public class LobbyScreen implements Screen {
         SelectBox<Integer> numOfRounds = new SelectBox<>(GameMainClass.orangeSkin2);
         numOfRounds.setItems(numbers);
 
-        TextField rivalName = new TextField("", GameMainClass.orangeSkin2);
+        TextField rivalName = new TextField("random", GameMainClass.orangeSkin2);
 
         Dialog dialog = new Dialog("New Game", GameMainClass.orangeSkin2) {
             @Override
