@@ -67,11 +67,11 @@ public class CommunicateServer {
         }
     }
 
+    //result[0] = success/ error - result[1] = exception name - exception inputs
     public static MyException createANewObject(String[] result) {
         String fullClassName = result[1];
         Object[] initials = new Object[result.length - 2];
-        for (int i = 2; i < result.length; i++)
-            initials[i - 2] = result[i];
+        System.arraycopy(result, 2, initials, 0, result.length - 2);
 
         try {
             Class clazz = Class.forName(fullClassName);

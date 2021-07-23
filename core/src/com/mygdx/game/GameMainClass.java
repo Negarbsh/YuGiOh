@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.java.controller.FileHandler;
+import com.mygdx.game.java.controller.servercommunication.CommunicateServer;
 import com.mygdx.game.java.model.User;
 import com.mygdx.game.java.view.Menus.CardCreatorMenu;
 import com.mygdx.game.java.view.Menus.DuelMenuScreen;
@@ -37,6 +38,7 @@ public class GameMainClass extends Game {
         orangeSkin2 = new Skin(Gdx.files.internal("orange/skin/uiskin.json"));
 
         FileHandler.loadThings();
+        CommunicateServer.setSocket();
         setScreen(new RelatedToMenu(this));
     }
 

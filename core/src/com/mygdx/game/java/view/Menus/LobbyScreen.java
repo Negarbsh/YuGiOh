@@ -2,6 +2,7 @@ package com.mygdx.game.java.view.Menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -12,8 +13,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.LobbyController;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
-import com.mygdx.game.java.view.Constants;
-import org.w3c.dom.Text;
 
 public class LobbyScreen implements Screen {
     private final LobbyController controller;
@@ -103,7 +102,11 @@ public class LobbyScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0.466f, 0.207f, 0.466f, 1f);
+        Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        stage.act();
+        stage.draw();
     }
 
     @Override
