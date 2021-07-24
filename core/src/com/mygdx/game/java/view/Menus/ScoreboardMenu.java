@@ -41,13 +41,14 @@ public class ScoreboardMenu implements Screen {
         createRefreshButton();
 
         increaseScore = new TextButton("increase score", GameMainClass.orangeSkin2);
-        increaseScore.setBounds(1000, 10, 50, 20);
+        increaseScore.setBounds(1000, 10, 80, 20);
         increaseScore.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 CommunicateServer.write("addScore10");
             }
         });
+//        scoreBoard.add(increaseScore);
 
         ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
         back.setBounds(5, 370, 31, 23);
@@ -73,7 +74,7 @@ public class ScoreboardMenu implements Screen {
                 refreshScoreBoard();
             }
         });
-        refreshBtn.setBounds(50, 370, 31, 23); //todo idk about the size :(
+        refreshBtn.setBounds(50, 370, 80, 23); //todo idk about the size :(
     }
 
     private void refreshScoreBoard() {

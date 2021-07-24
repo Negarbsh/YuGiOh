@@ -23,10 +23,10 @@ public class ScoreBoardMenuController {
 
     public static void makeScoreBoard(Table table, User user, Skin skin) {
         ArrayList<User> sortedUsers = requestScoreBoard();
-        ArrayList<User> onlineUsers = requestOnlineUsers();
+//        ArrayList<User> onlineUsers = requestOnlineUsers();
         if(sortedUsers == null) sortedUsers = new ArrayList<>();
-        if(onlineUsers == null) onlineUsers = new ArrayList<>();
-//        ArrayList<User> onlineUsers = new ArrayList<>();
+//        if(onlineUsers == null) onlineUsers = new ArrayList<>();
+ArrayList<User> onlineUsers = new ArrayList<>();
         Table usersTable = new Table();
         int count = 0;
         for (User aUser : sortedUsers) {

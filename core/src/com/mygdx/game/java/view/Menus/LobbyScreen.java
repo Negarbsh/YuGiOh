@@ -21,7 +21,9 @@ public class LobbyScreen implements Screen {
     private final Stage stage;
     private TextButton newGameButton;
     private TextButton openChatBox;
-    private  Table table;
+    private Table table;
+    private Label waitingLabel;
+    private TextButton cancelWait;
 
 
     {
@@ -31,6 +33,8 @@ public class LobbyScreen implements Screen {
     public LobbyScreen(LobbyController controller, GameMainClass mainClass) {
         this.controller = controller;
         this.mainClass = mainClass;
+        controller.lobbyScreen = this;
+
     }
 
     @Override
@@ -43,6 +47,26 @@ public class LobbyScreen implements Screen {
         createNewGameButton();
         createOpenChatBox();
         ImageButton back = createBack();
+
+        waitingLabel = new Label("Waiting For Opponent", GameMainClass.orangeSkin2);
+        cancelWait = new TextButton("Cancel Game Request", GameMainClass.orangeSkin2);
+        cancelWait.setWidth(100);
+        cancelWait.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (controller.shouldWaitForResponse()) {
+                    controller.stopWaitingForGameResponse();
+                    waitingLabel.setVisible(false);
+                    cancelWait.setVisible(false); //todo fine?
+                }
+            }
+        });
+
+        waitingLabel.setVisible(false);
+        cancelWait.setVisible(false);
+
+        table.add(waitingLabel).width(150).height(60);
+        table.add(cancelWait).height(60).row();
 
         table.add(newGameButton).width(300).height(60);
         table.row();
@@ -103,6 +127,8 @@ public class LobbyScreen implements Screen {
                 if ((boolean) object) {
                     int rounds = numOfRounds.getSelected();
                     controller.sendGameRequest(rounds, rivalName.getText());
+                    cancelWait.setVisible(true);
+                    waitingLabel.setVisible(true);
                 }
             }
         };
@@ -147,5 +173,10 @@ public class LobbyScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    public void gameStarted() {
+        this.cancelWait.setVisible(false);
+        this.waitingLabel.setVisible(false);
     }
 }

@@ -19,6 +19,7 @@ public class GameBeginningThread extends Thread {
                 String result = dataInputStream.readUTF();
                 if (result.startsWith("game started")) {
                     controller.startTheGame(result);
+                    controller.lobbyScreen.gameStarted();
                     return;
                 }
             } catch (IOException ignored) {

@@ -11,7 +11,7 @@ import java.net.Socket;
 
 public class LobbyController {
     private final User currentUser;
-    private LobbyScreen lobbyScreen;
+    public LobbyScreen lobbyScreen;
     private boolean shouldWaitForResponse;
 
     public LobbyController(User currentUser) {
@@ -24,8 +24,10 @@ public class LobbyController {
 
     public void sendGameRequest(int rounds, String rivalNameText) {
         String opponent = rivalNameText;
-        if (opponent.equals("")) opponent = "*unknown";
-        CommunicateServer.writeWithoutWaitingForResponse("duel --new --rounds " + rounds + " --opponent " + opponent);
+        if (opponent.equals("random")) opponent = "*unknown";
+//        CommunicateServer.writeWithoutWaitingForResponse("duel --new --rounds " + rounds + " --opponent " + opponent);
+        CommunicateServer.writeWithoutWaitingForResponse("duel " +  rounds + " " + opponent);
+
         waitForGameResponse();
     }
 
@@ -44,6 +46,7 @@ public class LobbyController {
     }
 
     public void startTheGame(String serverResponse) {
-        //todo ooo
+        System.out.println("game is started!");
+        //todo
     }
 }
