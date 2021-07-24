@@ -70,7 +70,7 @@ public class SignUpMenu implements Screen {
                 try {
                     controller.createUser(usernameTextField.getText(), nicknameTextField.getText(),
                             passwordTextField.getText());
-                    mainClass.setScreen(new MainMenu(mainClass, User.getUserByName(usernameTextField.getText())));
+                    mainClass.setScreen(new MainMenu(mainClass, controller.user));
                 } catch (MyException | EmptyFieldException loginError) {
                     messageBar.setText(loginError.getMessage());
                     messageBar.setColor(Color.RED);

@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
 import com.mygdx.game.java.view.exceptions.LoginError;
+import com.mygdx.game.java.view.exceptions.MyException;
 
 
 public class LoginMenu extends ScreenAdapter {
@@ -64,7 +65,7 @@ public class LoginMenu extends ScreenAdapter {
                 try {
                     controller.login(usernameTextField.getText(), passwordTextField.getText());
                     mainClass.setScreen(new MainMenu(mainClass, controller.user));
-                } catch (LoginError loginError) {
+                } catch (MyException loginError) {
                     messageBar.setText(loginError.getMessage());
                     messageBar.setColor(Color.RED);
                 }
