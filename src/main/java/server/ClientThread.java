@@ -1,3 +1,5 @@
+package server;
+
 import menus.Menu;
 
 import java.io.DataInputStream;

@@ -2,24 +2,25 @@
 package model;
 
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import controller.FileHandler;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 @Setter
+@JsonFilter("clientFilter")
 public class User implements Comparable<User> {
     private final String username;
     private String password;
     private String nickName;
     private int score;
+    private int avatarNum;
+    private String activeDeck;
     private final HashMap<String, Integer> cardTreasury;   //shows how many cards do we have of each type
-//    private final ArrayList<Deck> decks; todo uncomment
+    //    private final ArrayList<Deck> decks; todo uncomment
     private int balance;
-//    private Deck activeDeck; todo uncomment
+    //    private Deck activeDeck; todo uncomment
     private static ArrayList<User> allUsers;
 
     static {
@@ -38,7 +39,7 @@ public class User implements Comparable<User> {
         this.score = 0;
         this.balance = 100000; //todo I'm not sure!
         allUsers.add(this);
-        FileHandler.saveUsers();
+//        FileHandler.saveUsers();
     }
 
     public static User getUserByName(String username) {

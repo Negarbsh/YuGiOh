@@ -24,7 +24,7 @@ public class Menu {
         this.dataInputStream = dataInputStream;
         this.dataOutputStream = dataOutputStream;
         while (!isProgramEnded) {
-            checkMenuCommands(dataInputStream.readUTF()); //todo we should get the token from the client
+                checkMenuCommands(dataInputStream.readUTF()); //todo we should get the token from the client
         }
     }
 
