@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.ScoreBoardMenuController;
+import com.mygdx.game.java.controller.servercommunication.CommunicateServer;
 import com.mygdx.game.java.model.forgraphic.ButtonUtils;
 import com.mygdx.game.java.model.forgraphic.Curtain;
 import com.mygdx.game.java.model.User;
@@ -22,6 +23,7 @@ public class ScoreboardMenu implements Screen {
     User user;
     Table scoreBoard;
     private TextButton refreshBtn;
+    private TextButton increaseScore;
 
     {
         stage = new Stage(new StretchViewport(400, 400));
@@ -37,6 +39,15 @@ public class ScoreboardMenu implements Screen {
         ButtonUtils.changeMouseCursor();
         refreshScoreBoard();
         createRefreshButton();
+
+        increaseScore = new TextButton("increase score", GameMainClass.orangeSkin2);
+        increaseScore.setBounds(1000, 10, 50, 20);
+        increaseScore.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                CommunicateServer.write("addScore10");
+            }
+        });
 
         ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
         back.setBounds(5, 370, 31, 23);
@@ -55,14 +66,14 @@ public class ScoreboardMenu implements Screen {
     }
 
     private void createRefreshButton() {
-        refreshBtn = new TextButton("refresh", mainClass.orangeSkin);
+        refreshBtn = new TextButton("refresh", GameMainClass.orangeSkin2);
         refreshBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 refreshScoreBoard();
             }
         });
-        refreshBtn.setBounds(50, 370, 31,23); //todo idk about the size :(
+        refreshBtn.setBounds(50, 370, 31, 23); //todo idk about the size :(
     }
 
     private void refreshScoreBoard() {

@@ -2,6 +2,7 @@ package com.mygdx.game.java.view.Menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -12,8 +13,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.GameMainClass;
 import com.mygdx.game.java.controller.LobbyController;
 import com.mygdx.game.java.model.forgraphic.Wallpaper;
-import com.mygdx.game.java.view.Constants;
-import org.w3c.dom.Text;
 
 public class LobbyScreen implements Screen {
     private final LobbyController controller;
@@ -48,13 +47,23 @@ public class LobbyScreen implements Screen {
         table.row();
         table.add(openChatBox).width(300).height(60);
 
+        ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
+        back.setBounds(25, 950, 70, 50);
+        back.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainClass.setScreen(new MainMenu(mainClass, controller.getCurrentUser()));
+            }
+        });
+
         stage.addActor(new Wallpaper(1, 0, 0, 1024, 1024));
+        stage.addActor(back);
         stage.addActor(table);
         Gdx.input.setInputProcessor(stage);
     }
 
     private void createOpenChatBox() {
-        openChatBox = new TextButton("open chatBox", GameMainClass.orangeSkin2);
+        openChatBox = new TextButton("Open ChatBox", GameMainClass.orangeSkin2);
         openChatBox.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -81,7 +90,7 @@ public class LobbyScreen implements Screen {
         SelectBox<Integer> numOfRounds = new SelectBox<>(GameMainClass.orangeSkin2);
         numOfRounds.setItems(numbers);
 
-        TextField rivalName = new TextField("", GameMainClass.orangeSkin2);
+        TextField rivalName = new TextField("random", GameMainClass.orangeSkin2);
 
         Dialog dialog = new Dialog("New Game", GameMainClass.orangeSkin2) {
             @Override
@@ -103,7 +112,11 @@ public class LobbyScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0.466f, 0.207f, 0.466f, 1f);
+        Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        stage.act();
+        stage.draw();
     }
 
     @Override

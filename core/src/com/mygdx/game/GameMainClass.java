@@ -39,6 +39,7 @@ public class GameMainClass extends Game {
         CommunicateServer.setSocket();
 
         FileHandler.loadThings();
+        CommunicateServer.setSocket();
         setScreen(new RelatedToMenu(this));
     }
 
