@@ -21,7 +21,7 @@ public class LobbyScreen implements Screen {
     private final Stage stage;
     private TextButton newGameButton;
     private TextButton openChatBox;
-    private Table table;
+    private  Table table;
 
 
     {
@@ -42,11 +42,20 @@ public class LobbyScreen implements Screen {
 
         createNewGameButton();
         createOpenChatBox();
+        ImageButton back = createBack();
 
         table.add(newGameButton).width(300).height(60);
         table.row();
         table.add(openChatBox).width(300).height(60);
 
+
+        stage.addActor(new Wallpaper(1, 0, 0, 1024, 1024));
+        stage.addActor(back);
+        stage.addActor(table);
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    private ImageButton createBack() {
         ImageButton back = new ImageButton(mainClass.orangeSkin, "left");
         back.setBounds(25, 950, 70, 50);
         back.addListener(new ClickListener() {
@@ -55,11 +64,7 @@ public class LobbyScreen implements Screen {
                 mainClass.setScreen(new MainMenu(mainClass, controller.getCurrentUser()));
             }
         });
-
-        stage.addActor(new Wallpaper(1, 0, 0, 1024, 1024));
-        stage.addActor(back);
-        stage.addActor(table);
-        Gdx.input.setInputProcessor(stage);
+        return back;
     }
 
     private void createOpenChatBox() {

@@ -15,9 +15,9 @@ import java.util.TimerTask;
 
 public class CommunicateServer {
 
-    static Socket socket;
-    static DataOutputStream dataOutputStream;
-    static DataInputStream dataInputStream;
+    public static Socket socket;
+    public static DataOutputStream dataOutputStream;
+    public static DataInputStream dataInputStream;
     static int port = 7776;
     static boolean connected = false;
     static Timer timer;
@@ -54,6 +54,17 @@ public class CommunicateServer {
         connected = true;
     }
 
+    public static void writeWithoutWaitingForResponse(String message) {
+        try {
+            dataOutputStream.writeUTF(message);
+            dataOutputStream.flush();
+        } catch (IOException e) {
+            if (!socket.isConnected()) {
+                //TODO we lost our connection, trying...
+            }
+        }
+    }
+
     public static String write(String message) {
         try {
             dataOutputStream.writeUTF(message);
@@ -81,7 +92,6 @@ public class CommunicateServer {
             }
             Constructor cons = clazz.getDeclaredConstructor(paramsTypeArray);
             cons.setAccessible(true);
-
             return (MyException) cons.newInstance(initials);
         } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();

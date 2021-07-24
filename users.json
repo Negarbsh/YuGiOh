@@ -1,1 +1,1116 @@
-[{"username":"akbar","password":"234","nickName":"Akbar","score":6000,"cardTreasury":{"Command Knight":5,"Yomi Ship":49,"Magic Cylinder":21,"Closed Forest":3,"Forest":3,"Man-Eater Bug":62,"Battle Ox":6,"Dark Hole":11},"decks":[{"name":"234","mainCards":[{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1000,"monsterCardType":"EFFECT","monsterType":"WARRIOR","attribute":"FIRE","name":"Command Knight","cardType":"MONSTER","description":"All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.","price":2100}},{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"NORMAL","name":"Dark Hole","cardType":"SPELL","description":"Destroy all monsters on the field.","price":2500}},{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"NORMAL","name":"Dark Hole","cardType":"SPELL","description":"Destroy all monsters on the field.","price":2500}},{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"NORMAL","name":"Magic Cylinder","cardType":"TRAP","description":"When an opponent\u0027s monster declares an attack: Target the attacking monster; negate the attack, and if you do, inflict damage to your opponent equal to its ATK.","price":2000}},{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"NORMAL","name":"Magic Cylinder","cardType":"TRAP","description":"When an opponent\u0027s monster declares an attack: Target the attacking monster; negate the attack, and if you do, inflict damage to your opponent equal to its ATK.","price":2000}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":2,"defense":600,"attack":450,"monsterCardType":"EFFECT","monsterType":"INSECT","attribute":"EARTH","name":"Man-Eater Bug","cardType":"MONSTER","description":"FLIP: Target 1 monster on the field; destroy that target.","price":600}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":3,"defense":1400,"attack":800,"monsterCardType":"EFFECT","monsterType":"AQUA","attribute":"WATER","name":"Yomi Ship","cardType":"MONSTER","description":"If this card is destroyed by battle and sent to the GY: Destroy the monster that destroyed this card.","price":1700}},{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"FIELD","name":"Forest","cardType":"SPELL","description":"All Insect, Beast, Plant, and Beast-Warrior monsters on the field gain 200 ATK/DEF.","price":4300}},{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"FIELD","name":"Closed Forest","cardType":"SPELL","description":"All Beast-Type monsters you control gain 100 ATK for each monster in your Graveyard. Field Spell Cards cannot be activated. Field Spell Cards cannot be activated during the turn this card is destroyed.","price":4300}}],"sideCards":[]},{"name":"akbars","mainCards":[],"sideCards":[]}],"balance":90300,"avatarNum":3,"activeDeck":"234"},{"username":"ali","password":"123","nickName":"Ali","score":4000,"cardTreasury":{"Yomi Ship":53,"Horn Imp":1,"Trap Hole":1,"Battle Ox":18,"Man-Eater Bug":64,"Time Seal":2,"Texchanger":5,"Dark Hole":2,"Suijin":3,"Battle Warrior":4,"Advanced Ritual Art":2,"Command Knight":13,"The Calculator":7,"Magic Cylinder":28,"Mind Crush":1,"Marshmallon":1,"Leotron":5,"Mirror Force":6,"Silver Fang":4,"Negate Attack":3,"Torrential Tribute":1,"Haniwa":1,"Forest":1,"Crab Turtle":2},"decks":[{"name":"234","mainCards":[{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1700,"monsterCardType":"NORMAL","monsterType":"BEAST_WARRIOR","attribute":"EARTH","name":"Battle Ox","cardType":"MONSTER","description":"A monster with tremendous power, it destroys enemies with a swing of its axe.","price":2900}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1700,"monsterCardType":"NORMAL","monsterType":"BEAST_WARRIOR","attribute":"EARTH","name":"Battle Ox","cardType":"MONSTER","description":"A monster with tremendous power, it destroys enemies with a swing of its axe.","price":2900}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1000,"monsterCardType":"EFFECT","monsterType":"WARRIOR","attribute":"FIRE","name":"Command Knight","cardType":"MONSTER","description":"All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.","price":2100}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1000,"monsterCardType":"EFFECT","monsterType":"WARRIOR","attribute":"FIRE","name":"Command Knight","cardType":"MONSTER","description":"All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.","price":2100}},{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"NORMAL","name":"Dark Hole","cardType":"SPELL","description":"Destroy all monsters on the field.","price":2500}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":2,"defense":500,"attack":500,"monsterCardType":"NORMAL","monsterType":"ROCK","attribute":"EARTH","name":"Haniwa","cardType":"MONSTER","description":"An earthen figure that protects the tomb of an ancient ruler.","price":600}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":2,"defense":0,"attack":0,"monsterCardType":"EFFECT","monsterType":"THUNDER","attribute":"LIGHT","name":"The Calculator","cardType":"MONSTER","description":"The ATK of this card is the combined Levels of all face-up monsters you control x 300.","price":8000}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":2,"defense":0,"attack":0,"monsterCardType":"EFFECT","monsterType":"THUNDER","attribute":"LIGHT","name":"The Calculator","cardType":"MONSTER","description":"The ATK of this card is the combined Levels of all face-up monsters you control x 300.","price":8000}}],"sideCards":[{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1000,"monsterCardType":"EFFECT","monsterType":"WARRIOR","attribute":"FIRE","name":"Command Knight","cardType":"MONSTER","description":"All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.","price":2100}},{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"NORMAL","name":"Dark Hole","cardType":"SPELL","description":"Destroy all monsters on the field.","price":2500}},{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"NORMAL","name":"Magic Cylinder","cardType":"TRAP","description":"When an opponent\u0027s monster declares an attack: Target the attacking monster; negate the attack, and if you do, inflict damage to your opponent equal to its ATK.","price":2000}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":2,"defense":600,"attack":450,"monsterCardType":"EFFECT","monsterType":"INSECT","attribute":"EARTH","name":"Man-Eater Bug","cardType":"MONSTER","description":"FLIP: Target 1 monster on the field; destroy that target.","price":600}}]},{"name":"alis","mainCards":[{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1000,"monsterCardType":"EFFECT","monsterType":"WARRIOR","attribute":"FIRE","name":"Command Knight","cardType":"MONSTER","description":"All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.","price":2100}},{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"NORMAL","name":"Dark Hole","cardType":"SPELL","description":"Destroy all monsters on the field.","price":2500}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":3,"defense":1400,"attack":800,"monsterCardType":"EFFECT","monsterType":"AQUA","attribute":"WATER","name":"Yomi Ship","cardType":"MONSTER","description":"If this card is destroyed by battle and sent to the GY: Destroy the monster that destroyed this card.","price":1700}}],"sideCards":[{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1000,"monsterCardType":"EFFECT","monsterType":"WARRIOR","attribute":"FIRE","name":"Command Knight","cardType":"MONSTER","description":"All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.","price":2100}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1000,"monsterCardType":"EFFECT","monsterType":"WARRIOR","attribute":"FIRE","name":"Command Knight","cardType":"MONSTER","description":"All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.","price":2100}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":3,"defense":1400,"attack":800,"monsterCardType":"EFFECT","monsterType":"AQUA","attribute":"WATER","name":"Yomi Ship","cardType":"MONSTER","description":"If this card is destroyed by battle and sent to the GY: Destroy the monster that destroyed this card.","price":1700}}]},{"name":"my deck","mainCards":[{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"RITUAL","name":"Advanced Ritual Art","cardType":"SPELL","description":"This card can be used to Ritual Summon any 1 Ritual Monster. You must also send Normal Monsters from your Deck to the Graveyard whose total Levels equal the Level of that Ritual Monster.","price":3000}},{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"RITUAL","name":"Advanced Ritual Art","cardType":"SPELL","description":"This card can be used to Ritual Summon any 1 Ritual Monster. You must also send Normal Monsters from your Deck to the Graveyard whose total Levels equal the Level of that Ritual Monster.","price":3000}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1700,"monsterCardType":"NORMAL","monsterType":"BEAST_WARRIOR","attribute":"EARTH","name":"Battle Ox","cardType":"MONSTER","description":"A monster with tremendous power, it destroys enemies with a swing of its axe.","price":2900}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":8,"defense":2500,"attack":2550,"monsterCardType":"RITUAL","monsterType":"AQUA","attribute":"WATER","name":"Crab Turtle","cardType":"MONSTER","description":"This monster can only be Ritual Summoned with the Ritual Spell Card, \"Turtle Oath\". You must also offer monsters whose total Level Stars equal 8 or more as a Tribute from the field or your hand.","price":10200}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":8,"defense":2500,"attack":2550,"monsterCardType":"RITUAL","monsterType":"AQUA","attribute":"WATER","name":"Crab Turtle","cardType":"MONSTER","description":"This monster can only be Ritual Summoned with the Ritual Spell Card, \"Turtle Oath\". You must also offer monsters whose total Level Stars equal 8 or more as a Tribute from the field or your hand.","price":10200}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":3,"defense":800,"attack":1200,"monsterCardType":"NORMAL","monsterType":"BEAST","attribute":"EARTH","name":"Silver Fang","cardType":"MONSTER","description":"A snow wolf that\u0027s beautiful to the eye, but absolutely vicious in battle.","price":1700}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":3,"defense":800,"attack":1200,"monsterCardType":"NORMAL","monsterType":"BEAST","attribute":"EARTH","name":"Silver Fang","cardType":"MONSTER","description":"A snow wolf that\u0027s beautiful to the eye, but absolutely vicious in battle.","price":1700}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1000,"monsterCardType":"EFFECT","monsterType":"WARRIOR","attribute":"FIRE","name":"Command Knight","cardType":"MONSTER","description":"All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.","price":2100}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1000,"monsterCardType":"EFFECT","monsterType":"WARRIOR","attribute":"FIRE","name":"Command Knight","cardType":"MONSTER","description":"All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.","price":2100}}],"sideCards":[{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"NORMAL","name":"Dark Hole","cardType":"SPELL","description":"Destroy all monsters on the field.","price":2500}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":3,"defense":1400,"attack":800,"monsterCardType":"EFFECT","monsterType":"AQUA","attribute":"WATER","name":"Yomi Ship","cardType":"MONSTER","description":"If this card is destroyed by battle and sent to the GY: Destroy the monster that destroyed this card.","price":1700}}]},{"name":"e","mainCards":[{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":8,"defense":2500,"attack":2550,"monsterCardType":"RITUAL","monsterType":"AQUA","attribute":"WATER","name":"Crab Turtle","cardType":"MONSTER","description":"This monster can only be Ritual Summoned with the Ritual Spell Card, \"Turtle Oath\". You must also offer monsters whose total Level Stars equal 8 or more as a Tribute from the field or your hand.","price":10200}},{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"RITUAL","name":"Advanced Ritual Art","cardType":"SPELL","description":"This card can be used to Ritual Summon any 1 Ritual Monster. You must also send Normal Monsters from your Deck to the Graveyard whose total Levels equal the Level of that Ritual Monster.","price":3000}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1000,"monsterCardType":"EFFECT","monsterType":"WARRIOR","attribute":"FIRE","name":"Command Knight","cardType":"MONSTER","description":"All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.","price":2100}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1000,"monsterCardType":"EFFECT","monsterType":"WARRIOR","attribute":"FIRE","name":"Command Knight","cardType":"MONSTER","description":"All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.","price":2100}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":2,"defense":0,"attack":0,"monsterCardType":"EFFECT","monsterType":"THUNDER","attribute":"LIGHT","name":"The Calculator","cardType":"MONSTER","description":"The ATK of this card is the combined Levels of all face-up monsters you control x 300.","price":8000}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":8,"defense":2500,"attack":2550,"monsterCardType":"RITUAL","monsterType":"AQUA","attribute":"WATER","name":"Crab Turtle","cardType":"MONSTER","description":"This monster can only be Ritual Summoned with the Ritual Spell Card, \"Turtle Oath\". You must also offer monsters whose total Level Stars equal 8 or more as a Tribute from the field or your hand.","price":10200}},{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"RITUAL","name":"Advanced Ritual Art","cardType":"SPELL","description":"This card can be used to Ritual Summon any 1 Ritual Monster. You must also send Normal Monsters from your Deck to the Graveyard whose total Levels equal the Level of that Ritual Monster.","price":3000}}],"sideCards":[]},{"name":"f","mainCards":[{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":1,"defense":100,"attack":100,"monsterCardType":"EFFECT","monsterType":"CYBERSE","attribute":"DARK","name":"Texchanger","cardType":"MONSTER","description":"Once per turn, when your monster is targeted for an attack: You can negate that attack, then Special Summon 1 Cyberse Normal Monster from your hand, Deck, or GY.","price":200}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":2,"defense":0,"attack":0,"monsterCardType":"EFFECT","monsterType":"THUNDER","attribute":"LIGHT","name":"The Calculator","cardType":"MONSTER","description":"The ATK of this card is the combined Levels of all face-up monsters you control x 300.","price":8000}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":0,"attack":2000,"monsterCardType":"NORMAL","monsterType":"CYBERSE","attribute":"EARTH","name":"Leotron","cardType":"MONSTER","description":"A territorial electronic monster that guards its own domain.","price":2500}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":1,"defense":100,"attack":100,"monsterCardType":"EFFECT","monsterType":"CYBERSE","attribute":"DARK","name":"Texchanger","cardType":"MONSTER","description":"Once per turn, when your monster is targeted for an attack: You can negate that attack, then Special Summon 1 Cyberse Normal Monster from your hand, Deck, or GY.","price":200}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1300,"monsterCardType":"NORMAL","monsterType":"FIEND","attribute":"DARK","name":"Horn Imp","cardType":"MONSTER","description":"A small fiend that dwells in the dark, its single horn makes it a formidable opponent.","price":2500}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1300,"monsterCardType":"NORMAL","monsterType":"FIEND","attribute":"DARK","name":"Horn Imp","cardType":"MONSTER","description":"A small fiend that dwells in the dark, its single horn makes it a formidable opponent.","price":2500}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":2,"defense":500,"attack":500,"monsterCardType":"NORMAL","monsterType":"ROCK","attribute":"EARTH","name":"Haniwa","cardType":"MONSTER","description":"An earthen figure that protects the tomb of an ancient ruler.","price":600}}],"sideCards":[]},{"name":"testEf","mainCards":[{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1700,"monsterCardType":"NORMAL","monsterType":"BEAST_WARRIOR","attribute":"EARTH","name":"Battle Ox","cardType":"MONSTER","description":"A monster with tremendous power, it destroys enemies with a swing of its axe.","price":2900}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1700,"monsterCardType":"NORMAL","monsterType":"BEAST_WARRIOR","attribute":"EARTH","name":"Battle Ox","cardType":"MONSTER","description":"A monster with tremendous power, it destroys enemies with a swing of its axe.","price":2900}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1000,"monsterCardType":"EFFECT","monsterType":"WARRIOR","attribute":"FIRE","name":"Command Knight","cardType":"MONSTER","description":"All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.","price":2100}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1000,"monsterCardType":"EFFECT","monsterType":"WARRIOR","attribute":"FIRE","name":"Command Knight","cardType":"MONSTER","description":"All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.","price":2100}},{"CLASSNAME":"com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard","INSTANCE":{"status":"UNLIMITED","icon":"NORMAL","name":"Dark Hole","cardType":"SPELL","description":"Destroy all monsters on the field.","price":2500}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1300,"monsterCardType":"NORMAL","monsterType":"FIEND","attribute":"DARK","name":"Horn Imp","cardType":"MONSTER","description":"A small fiend that dwells in the dark, its single horn makes it a formidable opponent.","price":2500}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":1,"defense":100,"attack":100,"monsterCardType":"EFFECT","monsterType":"CYBERSE","attribute":"DARK","name":"Texchanger","cardType":"MONSTER","description":"Once per turn, when your monster is targeted for an attack: You can negate that attack, then Special Summon 1 Cyberse Normal Monster from your hand, Deck, or GY.","price":200}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":2,"defense":0,"attack":0,"monsterCardType":"EFFECT","monsterType":"THUNDER","attribute":"LIGHT","name":"The Calculator","cardType":"MONSTER","description":"The ATK of this card is the combined Levels of all face-up monsters you control x 300.","price":8000}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":3,"defense":1400,"attack":800,"monsterCardType":"EFFECT","monsterType":"AQUA","attribute":"WATER","name":"Yomi Ship","cardType":"MONSTER","description":"If this card is destroyed by battle and sent to the GY: Destroy the monster that destroyed this card.","price":1700}}],"sideCards":[]},{"name":"u","mainCards":[],"sideCards":[]},{"name":"r","mainCards":[],"sideCards":[]}],"balance":93451,"avatarNum":13,"activeDeck":"234"},{"username":"hasti","password":"234","nickName":"hasti","score":0,"cardTreasury":{},"decks":[],"balance":10000,"avatarNum":40},{"username":"parisa","password":"12345","nickName":"pari","score":0,"cardTreasury":{"Haniwa":3,"Battle Ox":3},"decks":[{"name":"pariDeck","mainCards":[{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":2,"defense":500,"attack":500,"monsterCardType":"NORMAL","monsterType":"ROCK","attribute":"EARTH","name":"Haniwa","cardType":"MONSTER","description":"An earthen figure that protects the tomb of an ancient ruler.","price":600}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":2,"defense":500,"attack":500,"monsterCardType":"NORMAL","monsterType":"ROCK","attribute":"EARTH","name":"Haniwa","cardType":"MONSTER","description":"An earthen figure that protects the tomb of an ancient ruler.","price":600}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1700,"monsterCardType":"NORMAL","monsterType":"BEAST_WARRIOR","attribute":"EARTH","name":"Battle Ox","cardType":"MONSTER","description":"A monster with tremendous power, it destroys enemies with a swing of its axe.","price":2900}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1700,"monsterCardType":"NORMAL","monsterType":"BEAST_WARRIOR","attribute":"EARTH","name":"Battle Ox","cardType":"MONSTER","description":"A monster with tremendous power, it destroys enemies with a swing of its axe.","price":2900}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":4,"defense":1000,"attack":1700,"monsterCardType":"NORMAL","monsterType":"BEAST_WARRIOR","attribute":"EARTH","name":"Battle Ox","cardType":"MONSTER","description":"A monster with tremendous power, it destroys enemies with a swing of its axe.","price":2900}},{"CLASSNAME":"com.mygdx.game.java.model.card.monster.PreMonsterCard","INSTANCE":{"level":2,"defense":500,"attack":500,"monsterCardType":"NORMAL","monsterType":"ROCK","attribute":"EARTH","name":"Haniwa","cardType":"MONSTER","description":"An earthen figure that protects the tomb of an ancient ruler.","price":600}}],"sideCards":[]}],"balance":6500,"avatarNum":2},{"username":"raha","password":"123","nickName":"asal","score":0,"cardTreasury":{"Command Knight":1,"Haniwa":1,"Man-Eater Bug":1,"Mirage Dragon":1},"decks":[],"balance":4200,"avatarNum":0},{"username":"sdf","password":"sdf","nickName":"sdf","score":0,"cardTreasury":{},"decks":[],"balance":10000,"avatarNum":8}]
+[
+  {
+    "username": "akbar",
+    "password": "234",
+    "nickName": "Akbar",
+    "score": 6000,
+    "cardTreasury": {
+      "Command Knight": 5,
+      "Yomi Ship": 49,
+      "Magic Cylinder": 21,
+      "Closed Forest": 3,
+      "Forest": 3,
+      "Man-Eater Bug": 62,
+      "Battle Ox": 6,
+      "Dark Hole": 11
+    },
+    "decks": [
+      {
+        "name": "234",
+        "mainCards": [
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1000,
+              "monsterCardType": "EFFECT",
+              "monsterType": "WARRIOR",
+              "attribute": "FIRE",
+              "name": "Command Knight",
+              "cardType": "MONSTER",
+              "description": "All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.",
+              "price": 2100
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "NORMAL",
+              "name": "Dark Hole",
+              "cardType": "SPELL",
+              "description": "Destroy all monsters on the field.",
+              "price": 2500
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "NORMAL",
+              "name": "Dark Hole",
+              "cardType": "SPELL",
+              "description": "Destroy all monsters on the field.",
+              "price": 2500
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "NORMAL",
+              "name": "Magic Cylinder",
+              "cardType": "TRAP",
+              "description": "When an opponent\u0027s monster declares an attack: Target the attacking monster; negate the attack, and if you do, inflict damage to your opponent equal to its ATK.",
+              "price": 2000
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "NORMAL",
+              "name": "Magic Cylinder",
+              "cardType": "TRAP",
+              "description": "When an opponent\u0027s monster declares an attack: Target the attacking monster; negate the attack, and if you do, inflict damage to your opponent equal to its ATK.",
+              "price": 2000
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 2,
+              "defense": 600,
+              "attack": 450,
+              "monsterCardType": "EFFECT",
+              "monsterType": "INSECT",
+              "attribute": "EARTH",
+              "name": "Man-Eater Bug",
+              "cardType": "MONSTER",
+              "description": "FLIP: Target 1 monster on the field; destroy that target.",
+              "price": 600
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 3,
+              "defense": 1400,
+              "attack": 800,
+              "monsterCardType": "EFFECT",
+              "monsterType": "AQUA",
+              "attribute": "WATER",
+              "name": "Yomi Ship",
+              "cardType": "MONSTER",
+              "description": "If this card is destroyed by battle and sent to the GY: Destroy the monster that destroyed this card.",
+              "price": 1700
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "FIELD",
+              "name": "Forest",
+              "cardType": "SPELL",
+              "description": "All Insect, Beast, Plant, and Beast-Warrior monsters on the field gain 200 ATK/DEF.",
+              "price": 4300
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "FIELD",
+              "name": "Closed Forest",
+              "cardType": "SPELL",
+              "description": "All Beast-Type monsters you control gain 100 ATK for each monster in your Graveyard. Field Spell Cards cannot be activated. Field Spell Cards cannot be activated during the turn this card is destroyed.",
+              "price": 4300
+            }
+          }
+        ],
+        "sideCards": []
+      },
+      {
+        "name": "akbars",
+        "mainCards": [],
+        "sideCards": []
+      }
+    ],
+    "balance": 90300,
+    "avatarNum": 3,
+    "activeDeck": "234"
+  },
+  {
+    "username": "ali",
+    "password": "123",
+    "nickName": "Ali",
+    "score": 4000,
+    "cardTreasury": {
+      "Yomi Ship": 53,
+      "Horn Imp": 1,
+      "Trap Hole": 1,
+      "Battle Ox": 18,
+      "Man-Eater Bug": 64,
+      "Time Seal": 2,
+      "Texchanger": 5,
+      "Dark Hole": 2,
+      "Suijin": 3,
+      "Battle Warrior": 4,
+      "Advanced Ritual Art": 2,
+      "Command Knight": 13,
+      "The Calculator": 7,
+      "Magic Cylinder": 28,
+      "Mind Crush": 1,
+      "Marshmallon": 1,
+      "Leotron": 5,
+      "Mirror Force": 6,
+      "Silver Fang": 4,
+      "Negate Attack": 3,
+      "Torrential Tribute": 1,
+      "Haniwa": 1,
+      "Forest": 1,
+      "Crab Turtle": 2
+    },
+    "decks": [
+      {
+        "name": "234",
+        "mainCards": [
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1700,
+              "monsterCardType": "NORMAL",
+              "monsterType": "BEAST_WARRIOR",
+              "attribute": "EARTH",
+              "name": "Battle Ox",
+              "cardType": "MONSTER",
+              "description": "A monster with tremendous power, it destroys enemies with a swing of its axe.",
+              "price": 2900
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1700,
+              "monsterCardType": "NORMAL",
+              "monsterType": "BEAST_WARRIOR",
+              "attribute": "EARTH",
+              "name": "Battle Ox",
+              "cardType": "MONSTER",
+              "description": "A monster with tremendous power, it destroys enemies with a swing of its axe.",
+              "price": 2900
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1000,
+              "monsterCardType": "EFFECT",
+              "monsterType": "WARRIOR",
+              "attribute": "FIRE",
+              "name": "Command Knight",
+              "cardType": "MONSTER",
+              "description": "All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.",
+              "price": 2100
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1000,
+              "monsterCardType": "EFFECT",
+              "monsterType": "WARRIOR",
+              "attribute": "FIRE",
+              "name": "Command Knight",
+              "cardType": "MONSTER",
+              "description": "All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.",
+              "price": 2100
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "NORMAL",
+              "name": "Dark Hole",
+              "cardType": "SPELL",
+              "description": "Destroy all monsters on the field.",
+              "price": 2500
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 2,
+              "defense": 500,
+              "attack": 500,
+              "monsterCardType": "NORMAL",
+              "monsterType": "ROCK",
+              "attribute": "EARTH",
+              "name": "Haniwa",
+              "cardType": "MONSTER",
+              "description": "An earthen figure that protects the tomb of an ancient ruler.",
+              "price": 600
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 2,
+              "defense": 0,
+              "attack": 0,
+              "monsterCardType": "EFFECT",
+              "monsterType": "THUNDER",
+              "attribute": "LIGHT",
+              "name": "The Calculator",
+              "cardType": "MONSTER",
+              "description": "The ATK of this card is the combined Levels of all face-up monsters you control x 300.",
+              "price": 8000
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 2,
+              "defense": 0,
+              "attack": 0,
+              "monsterCardType": "EFFECT",
+              "monsterType": "THUNDER",
+              "attribute": "LIGHT",
+              "name": "The Calculator",
+              "cardType": "MONSTER",
+              "description": "The ATK of this card is the combined Levels of all face-up monsters you control x 300.",
+              "price": 8000
+            }
+          }
+        ],
+        "sideCards": [
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1000,
+              "monsterCardType": "EFFECT",
+              "monsterType": "WARRIOR",
+              "attribute": "FIRE",
+              "name": "Command Knight",
+              "cardType": "MONSTER",
+              "description": "All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.",
+              "price": 2100
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "NORMAL",
+              "name": "Dark Hole",
+              "cardType": "SPELL",
+              "description": "Destroy all monsters on the field.",
+              "price": 2500
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "NORMAL",
+              "name": "Magic Cylinder",
+              "cardType": "TRAP",
+              "description": "When an opponent\u0027s monster declares an attack: Target the attacking monster; negate the attack, and if you do, inflict damage to your opponent equal to its ATK.",
+              "price": 2000
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 2,
+              "defense": 600,
+              "attack": 450,
+              "monsterCardType": "EFFECT",
+              "monsterType": "INSECT",
+              "attribute": "EARTH",
+              "name": "Man-Eater Bug",
+              "cardType": "MONSTER",
+              "description": "FLIP: Target 1 monster on the field; destroy that target.",
+              "price": 600
+            }
+          }
+        ]
+      },
+      {
+        "name": "alis",
+        "mainCards": [
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1000,
+              "monsterCardType": "EFFECT",
+              "monsterType": "WARRIOR",
+              "attribute": "FIRE",
+              "name": "Command Knight",
+              "cardType": "MONSTER",
+              "description": "All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.",
+              "price": 2100
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "NORMAL",
+              "name": "Dark Hole",
+              "cardType": "SPELL",
+              "description": "Destroy all monsters on the field.",
+              "price": 2500
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 3,
+              "defense": 1400,
+              "attack": 800,
+              "monsterCardType": "EFFECT",
+              "monsterType": "AQUA",
+              "attribute": "WATER",
+              "name": "Yomi Ship",
+              "cardType": "MONSTER",
+              "description": "If this card is destroyed by battle and sent to the GY: Destroy the monster that destroyed this card.",
+              "price": 1700
+            }
+          }
+        ],
+        "sideCards": [
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1000,
+              "monsterCardType": "EFFECT",
+              "monsterType": "WARRIOR",
+              "attribute": "FIRE",
+              "name": "Command Knight",
+              "cardType": "MONSTER",
+              "description": "All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.",
+              "price": 2100
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1000,
+              "monsterCardType": "EFFECT",
+              "monsterType": "WARRIOR",
+              "attribute": "FIRE",
+              "name": "Command Knight",
+              "cardType": "MONSTER",
+              "description": "All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.",
+              "price": 2100
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 3,
+              "defense": 1400,
+              "attack": 800,
+              "monsterCardType": "EFFECT",
+              "monsterType": "AQUA",
+              "attribute": "WATER",
+              "name": "Yomi Ship",
+              "cardType": "MONSTER",
+              "description": "If this card is destroyed by battle and sent to the GY: Destroy the monster that destroyed this card.",
+              "price": 1700
+            }
+          }
+        ]
+      },
+      {
+        "name": "my deck",
+        "mainCards": [
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "RITUAL",
+              "name": "Advanced Ritual Art",
+              "cardType": "SPELL",
+              "description": "This card can be used to Ritual Summon any 1 Ritual Monster. You must also send Normal Monsters from your Deck to the Graveyard whose total Levels equal the Level of that Ritual Monster.",
+              "price": 3000
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "RITUAL",
+              "name": "Advanced Ritual Art",
+              "cardType": "SPELL",
+              "description": "This card can be used to Ritual Summon any 1 Ritual Monster. You must also send Normal Monsters from your Deck to the Graveyard whose total Levels equal the Level of that Ritual Monster.",
+              "price": 3000
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1700,
+              "monsterCardType": "NORMAL",
+              "monsterType": "BEAST_WARRIOR",
+              "attribute": "EARTH",
+              "name": "Battle Ox",
+              "cardType": "MONSTER",
+              "description": "A monster with tremendous power, it destroys enemies with a swing of its axe.",
+              "price": 2900
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 8,
+              "defense": 2500,
+              "attack": 2550,
+              "monsterCardType": "RITUAL",
+              "monsterType": "AQUA",
+              "attribute": "WATER",
+              "name": "Crab Turtle",
+              "cardType": "MONSTER",
+              "description": "This monster can only be Ritual Summoned with the Ritual Spell Card, \"Turtle Oath\". You must also offer monsters whose total Level Stars equal 8 or more as a Tribute from the field or your hand.",
+              "price": 10200
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 8,
+              "defense": 2500,
+              "attack": 2550,
+              "monsterCardType": "RITUAL",
+              "monsterType": "AQUA",
+              "attribute": "WATER",
+              "name": "Crab Turtle",
+              "cardType": "MONSTER",
+              "description": "This monster can only be Ritual Summoned with the Ritual Spell Card, \"Turtle Oath\". You must also offer monsters whose total Level Stars equal 8 or more as a Tribute from the field or your hand.",
+              "price": 10200
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 3,
+              "defense": 800,
+              "attack": 1200,
+              "monsterCardType": "NORMAL",
+              "monsterType": "BEAST",
+              "attribute": "EARTH",
+              "name": "Silver Fang",
+              "cardType": "MONSTER",
+              "description": "A snow wolf that\u0027s beautiful to the eye, but absolutely vicious in battle.",
+              "price": 1700
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 3,
+              "defense": 800,
+              "attack": 1200,
+              "monsterCardType": "NORMAL",
+              "monsterType": "BEAST",
+              "attribute": "EARTH",
+              "name": "Silver Fang",
+              "cardType": "MONSTER",
+              "description": "A snow wolf that\u0027s beautiful to the eye, but absolutely vicious in battle.",
+              "price": 1700
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1000,
+              "monsterCardType": "EFFECT",
+              "monsterType": "WARRIOR",
+              "attribute": "FIRE",
+              "name": "Command Knight",
+              "cardType": "MONSTER",
+              "description": "All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.",
+              "price": 2100
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1000,
+              "monsterCardType": "EFFECT",
+              "monsterType": "WARRIOR",
+              "attribute": "FIRE",
+              "name": "Command Knight",
+              "cardType": "MONSTER",
+              "description": "All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.",
+              "price": 2100
+            }
+          }
+        ],
+        "sideCards": [
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "NORMAL",
+              "name": "Dark Hole",
+              "cardType": "SPELL",
+              "description": "Destroy all monsters on the field.",
+              "price": 2500
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 3,
+              "defense": 1400,
+              "attack": 800,
+              "monsterCardType": "EFFECT",
+              "monsterType": "AQUA",
+              "attribute": "WATER",
+              "name": "Yomi Ship",
+              "cardType": "MONSTER",
+              "description": "If this card is destroyed by battle and sent to the GY: Destroy the monster that destroyed this card.",
+              "price": 1700
+            }
+          }
+        ]
+      },
+      {
+        "name": "e",
+        "mainCards": [
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 8,
+              "defense": 2500,
+              "attack": 2550,
+              "monsterCardType": "RITUAL",
+              "monsterType": "AQUA",
+              "attribute": "WATER",
+              "name": "Crab Turtle",
+              "cardType": "MONSTER",
+              "description": "This monster can only be Ritual Summoned with the Ritual Spell Card, \"Turtle Oath\". You must also offer monsters whose total Level Stars equal 8 or more as a Tribute from the field or your hand.",
+              "price": 10200
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "RITUAL",
+              "name": "Advanced Ritual Art",
+              "cardType": "SPELL",
+              "description": "This card can be used to Ritual Summon any 1 Ritual Monster. You must also send Normal Monsters from your Deck to the Graveyard whose total Levels equal the Level of that Ritual Monster.",
+              "price": 3000
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1000,
+              "monsterCardType": "EFFECT",
+              "monsterType": "WARRIOR",
+              "attribute": "FIRE",
+              "name": "Command Knight",
+              "cardType": "MONSTER",
+              "description": "All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.",
+              "price": 2100
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1000,
+              "monsterCardType": "EFFECT",
+              "monsterType": "WARRIOR",
+              "attribute": "FIRE",
+              "name": "Command Knight",
+              "cardType": "MONSTER",
+              "description": "All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.",
+              "price": 2100
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 2,
+              "defense": 0,
+              "attack": 0,
+              "monsterCardType": "EFFECT",
+              "monsterType": "THUNDER",
+              "attribute": "LIGHT",
+              "name": "The Calculator",
+              "cardType": "MONSTER",
+              "description": "The ATK of this card is the combined Levels of all face-up monsters you control x 300.",
+              "price": 8000
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 8,
+              "defense": 2500,
+              "attack": 2550,
+              "monsterCardType": "RITUAL",
+              "monsterType": "AQUA",
+              "attribute": "WATER",
+              "name": "Crab Turtle",
+              "cardType": "MONSTER",
+              "description": "This monster can only be Ritual Summoned with the Ritual Spell Card, \"Turtle Oath\". You must also offer monsters whose total Level Stars equal 8 or more as a Tribute from the field or your hand.",
+              "price": 10200
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "RITUAL",
+              "name": "Advanced Ritual Art",
+              "cardType": "SPELL",
+              "description": "This card can be used to Ritual Summon any 1 Ritual Monster. You must also send Normal Monsters from your Deck to the Graveyard whose total Levels equal the Level of that Ritual Monster.",
+              "price": 3000
+            }
+          }
+        ],
+        "sideCards": []
+      },
+      {
+        "name": "f",
+        "mainCards": [
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 1,
+              "defense": 100,
+              "attack": 100,
+              "monsterCardType": "EFFECT",
+              "monsterType": "CYBERSE",
+              "attribute": "DARK",
+              "name": "Texchanger",
+              "cardType": "MONSTER",
+              "description": "Once per turn, when your monster is targeted for an attack: You can negate that attack, then Special Summon 1 Cyberse Normal Monster from your hand, Deck, or GY.",
+              "price": 200
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 2,
+              "defense": 0,
+              "attack": 0,
+              "monsterCardType": "EFFECT",
+              "monsterType": "THUNDER",
+              "attribute": "LIGHT",
+              "name": "The Calculator",
+              "cardType": "MONSTER",
+              "description": "The ATK of this card is the combined Levels of all face-up monsters you control x 300.",
+              "price": 8000
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 0,
+              "attack": 2000,
+              "monsterCardType": "NORMAL",
+              "monsterType": "CYBERSE",
+              "attribute": "EARTH",
+              "name": "Leotron",
+              "cardType": "MONSTER",
+              "description": "A territorial electronic monster that guards its own domain.",
+              "price": 2500
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 1,
+              "defense": 100,
+              "attack": 100,
+              "monsterCardType": "EFFECT",
+              "monsterType": "CYBERSE",
+              "attribute": "DARK",
+              "name": "Texchanger",
+              "cardType": "MONSTER",
+              "description": "Once per turn, when your monster is targeted for an attack: You can negate that attack, then Special Summon 1 Cyberse Normal Monster from your hand, Deck, or GY.",
+              "price": 200
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1300,
+              "monsterCardType": "NORMAL",
+              "monsterType": "FIEND",
+              "attribute": "DARK",
+              "name": "Horn Imp",
+              "cardType": "MONSTER",
+              "description": "A small fiend that dwells in the dark, its single horn makes it a formidable opponent.",
+              "price": 2500
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1300,
+              "monsterCardType": "NORMAL",
+              "monsterType": "FIEND",
+              "attribute": "DARK",
+              "name": "Horn Imp",
+              "cardType": "MONSTER",
+              "description": "A small fiend that dwells in the dark, its single horn makes it a formidable opponent.",
+              "price": 2500
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 2,
+              "defense": 500,
+              "attack": 500,
+              "monsterCardType": "NORMAL",
+              "monsterType": "ROCK",
+              "attribute": "EARTH",
+              "name": "Haniwa",
+              "cardType": "MONSTER",
+              "description": "An earthen figure that protects the tomb of an ancient ruler.",
+              "price": 600
+            }
+          }
+        ],
+        "sideCards": []
+      },
+      {
+        "name": "testEf",
+        "mainCards": [
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1700,
+              "monsterCardType": "NORMAL",
+              "monsterType": "BEAST_WARRIOR",
+              "attribute": "EARTH",
+              "name": "Battle Ox",
+              "cardType": "MONSTER",
+              "description": "A monster with tremendous power, it destroys enemies with a swing of its axe.",
+              "price": 2900
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1700,
+              "monsterCardType": "NORMAL",
+              "monsterType": "BEAST_WARRIOR",
+              "attribute": "EARTH",
+              "name": "Battle Ox",
+              "cardType": "MONSTER",
+              "description": "A monster with tremendous power, it destroys enemies with a swing of its axe.",
+              "price": 2900
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1000,
+              "monsterCardType": "EFFECT",
+              "monsterType": "WARRIOR",
+              "attribute": "FIRE",
+              "name": "Command Knight",
+              "cardType": "MONSTER",
+              "description": "All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.",
+              "price": 2100
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1000,
+              "monsterCardType": "EFFECT",
+              "monsterType": "WARRIOR",
+              "attribute": "FIRE",
+              "name": "Command Knight",
+              "cardType": "MONSTER",
+              "description": "All Warrior-Type monsters you control gain 400 ATK. If you control another monster, monsters your opponent controls cannot target this card for an attack.",
+              "price": 2100
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.spelltrap.PreSpellTrapCard",
+            "INSTANCE": {
+              "status": "UNLIMITED",
+              "icon": "NORMAL",
+              "name": "Dark Hole",
+              "cardType": "SPELL",
+              "description": "Destroy all monsters on the field.",
+              "price": 2500
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1300,
+              "monsterCardType": "NORMAL",
+              "monsterType": "FIEND",
+              "attribute": "DARK",
+              "name": "Horn Imp",
+              "cardType": "MONSTER",
+              "description": "A small fiend that dwells in the dark, its single horn makes it a formidable opponent.",
+              "price": 2500
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 1,
+              "defense": 100,
+              "attack": 100,
+              "monsterCardType": "EFFECT",
+              "monsterType": "CYBERSE",
+              "attribute": "DARK",
+              "name": "Texchanger",
+              "cardType": "MONSTER",
+              "description": "Once per turn, when your monster is targeted for an attack: You can negate that attack, then Special Summon 1 Cyberse Normal Monster from your hand, Deck, or GY.",
+              "price": 200
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 2,
+              "defense": 0,
+              "attack": 0,
+              "monsterCardType": "EFFECT",
+              "monsterType": "THUNDER",
+              "attribute": "LIGHT",
+              "name": "The Calculator",
+              "cardType": "MONSTER",
+              "description": "The ATK of this card is the combined Levels of all face-up monsters you control x 300.",
+              "price": 8000
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 3,
+              "defense": 1400,
+              "attack": 800,
+              "monsterCardType": "EFFECT",
+              "monsterType": "AQUA",
+              "attribute": "WATER",
+              "name": "Yomi Ship",
+              "cardType": "MONSTER",
+              "description": "If this card is destroyed by battle and sent to the GY: Destroy the monster that destroyed this card.",
+              "price": 1700
+            }
+          }
+        ],
+        "sideCards": []
+      },
+      {
+        "name": "u",
+        "mainCards": [],
+        "sideCards": []
+      },
+      {
+        "name": "r",
+        "mainCards": [],
+        "sideCards": []
+      }
+    ],
+    "balance": 93451,
+    "avatarNum": 13,
+    "activeDeck": "234"
+  },
+  {
+    "username": "hasti",
+    "password": "234",
+    "nickName": "hasti",
+    "score": 0,
+    "cardTreasury": {},
+    "decks": [],
+    "balance": 10000,
+    "avatarNum": 40
+  },
+  {
+    "username": "parisa",
+    "password": "12345",
+    "nickName": "pari",
+    "score": 0,
+    "cardTreasury": {
+      "Haniwa": 3,
+      "Battle Ox": 3
+    },
+    "decks": [
+      {
+        "name": "pariDeck",
+        "mainCards": [
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 2,
+              "defense": 500,
+              "attack": 500,
+              "monsterCardType": "NORMAL",
+              "monsterType": "ROCK",
+              "attribute": "EARTH",
+              "name": "Haniwa",
+              "cardType": "MONSTER",
+              "description": "An earthen figure that protects the tomb of an ancient ruler.",
+              "price": 600
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 2,
+              "defense": 500,
+              "attack": 500,
+              "monsterCardType": "NORMAL",
+              "monsterType": "ROCK",
+              "attribute": "EARTH",
+              "name": "Haniwa",
+              "cardType": "MONSTER",
+              "description": "An earthen figure that protects the tomb of an ancient ruler.",
+              "price": 600
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1700,
+              "monsterCardType": "NORMAL",
+              "monsterType": "BEAST_WARRIOR",
+              "attribute": "EARTH",
+              "name": "Battle Ox",
+              "cardType": "MONSTER",
+              "description": "A monster with tremendous power, it destroys enemies with a swing of its axe.",
+              "price": 2900
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1700,
+              "monsterCardType": "NORMAL",
+              "monsterType": "BEAST_WARRIOR",
+              "attribute": "EARTH",
+              "name": "Battle Ox",
+              "cardType": "MONSTER",
+              "description": "A monster with tremendous power, it destroys enemies with a swing of its axe.",
+              "price": 2900
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 4,
+              "defense": 1000,
+              "attack": 1700,
+              "monsterCardType": "NORMAL",
+              "monsterType": "BEAST_WARRIOR",
+              "attribute": "EARTH",
+              "name": "Battle Ox",
+              "cardType": "MONSTER",
+              "description": "A monster with tremendous power, it destroys enemies with a swing of its axe.",
+              "price": 2900
+            }
+          },
+          {
+            "CLASSNAME": "com.mygdx.game.java.model.card.monster.PreMonsterCard",
+            "INSTANCE": {
+              "level": 2,
+              "defense": 500,
+              "attack": 500,
+              "monsterCardType": "NORMAL",
+              "monsterType": "ROCK",
+              "attribute": "EARTH",
+              "name": "Haniwa",
+              "cardType": "MONSTER",
+              "description": "An earthen figure that protects the tomb of an ancient ruler.",
+              "price": 600
+            }
+          }
+        ],
+        "sideCards": []
+      }
+    ],
+    "balance": 6500,
+    "avatarNum": 2
+  },
+  {
+    "username": "raha",
+    "password": "123",
+    "nickName": "asal",
+    "score": 0,
+    "cardTreasury": {
+      "Command Knight": 1,
+      "Haniwa": 1,
+      "Man-Eater Bug": 1,
+      "Mirage Dragon": 1
+    },
+    "decks": [],
+    "balance": 4200,
+    "avatarNum": 0
+  },
+  {
+    "username": "sdf",
+    "password": "sdf",
+    "nickName": "sdf",
+    "score": 0,
+    "cardTreasury": {},
+    "decks": [],
+    "balance": 10000,
+    "avatarNum": 8
+  }
+]
