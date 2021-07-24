@@ -13,9 +13,11 @@ import com.mygdx.game.java.view.SuccessMessages;
 
 import java.util.*;
 
+
 @Setter
 public class User implements Comparable<User> {
     private static Random random;
+    public String token;
     private final String username;
     private String password;
     private String nickName;
@@ -214,3 +216,20 @@ public class User implements Comparable<User> {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

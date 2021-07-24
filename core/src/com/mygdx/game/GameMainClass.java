@@ -36,6 +36,7 @@ public class GameMainClass extends Game {
         flatEarthSkin2 = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
         flatEarthSkin2.getFont("font").getData().setScale(1.5f);
         orangeSkin2 = new Skin(Gdx.files.internal("orange/skin/uiskin.json"));
+        CommunicateServer.setSocket();
 
         FileHandler.loadThings();
         CommunicateServer.setSocket();

@@ -39,6 +39,7 @@ public class CommunicateServer {
                         } catch (IOException ignored) {
                         }
                     }
+                    e.printStackTrace();
                 }
             }
         };
@@ -52,6 +53,7 @@ public class CommunicateServer {
         task.cancel();
         timer.cancel();
         connected = true;
+        System.out.println("connected");
     }
 
     public static void writeWithoutWaitingForResponse(String message) {
@@ -71,31 +73,11 @@ public class CommunicateServer {
             dataOutputStream.flush();
             return dataInputStream.readUTF();
         } catch (IOException e) {
+            e.printStackTrace();
             if (!socket.isConnected()) {
                 //TODO we lost our connection, trying...
             }
             return "";
-        }
-    }
-
-    //result[0] = success/ error - result[1] = exception name - exception inputs
-    public static MyException createANewObject(String[] result) {
-        String fullClassName = result[1];
-        Object[] initials = new Object[result.length - 2];
-        System.arraycopy(result, 2, initials, 0, result.length - 2);
-
-        try {
-            Class clazz = Class.forName(fullClassName);
-            Class[] paramsTypeArray = new Class[initials.length];
-            for (int i = 0; i < initials.length; i++) {
-                paramsTypeArray[i] = initials[i].getClass();
-            }
-            Constructor cons = clazz.getDeclaredConstructor(paramsTypeArray);
-            cons.setAccessible(true);
-            return (MyException) cons.newInstance(initials);
-        } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
         }
     }
 }
