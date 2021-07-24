@@ -28,7 +28,6 @@ public class Menu {
         }
     }
 
-    //    public void checkMenuCommands(String command) throws InvalidDeck, InvalidName, InvalidThing, NoActiveDeck, NumOfRounds, NotExisting, IOException {
     public void checkMenuCommands(String command) throws IOException {
         System.out.println("command : " + command);
 
@@ -44,8 +43,7 @@ public class Menu {
             ShopMenu.checkMenuCommands(command.substring(5));
         else if (command.startsWith("duel ")) {
             System.out.println(command);
-            //            DuelMenu.checkMenuCommands(command.substring(5));
-
+//            DuelMenu.checkMenuCommands(command.substring(5));
         } else if (command.equals("user logout")) {
 //            MainMenu.logout(); todo
         } else if (command.equals("exit program")) {
