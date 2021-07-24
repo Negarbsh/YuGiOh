@@ -3,6 +3,7 @@ package model;
 
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.google.gson.Gson;
 import controller.FileHandler;
 import lombok.Setter;
 
@@ -62,6 +63,12 @@ public class User implements Comparable<User> {
             }
         }
         return null;
+    }
+
+    public static String getSortedUsersJson() {
+        allUsers.sort(User::compareTo);
+        Gson gson = new Gson();
+        return gson.toJson(allUsers);
     }
 
     public static String showScoreBoard() {

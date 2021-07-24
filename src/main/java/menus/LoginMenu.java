@@ -53,8 +53,7 @@ public class LoginMenu {
             if (User.getUserByName(username) != null) {
                 menu.dataOutputStream.writeUTF("error com.mygdx.game.java.view.exceptions.AlreadyExistingError user username " + username);
                 menu.dataOutputStream.flush();
-            }
-            else if (User.getUserByNickName(nickname) != null) {
+            } else if (User.getUserByNickName(nickname) != null) {
                 menu.dataOutputStream.writeUTF("error com.mygdx.game.java.view.exceptions.AlreadyExistingError user nickname " + nickname);
                 menu.dataOutputStream.flush();
             } else {

@@ -1,5 +1,6 @@
 package menus;
 
+import controller.DuelRequestController;
 import model.User;
 
 import java.io.DataInputStream;
@@ -12,7 +13,7 @@ import java.util.regex.Pattern;
 public class Menu {
     protected static Scanner scanner;
     DataInputStream dataInputStream;
-    DataOutputStream dataOutputStream;
+    public DataOutputStream dataOutputStream;
     boolean isProgramEnded = false;
     User user;
 
@@ -24,7 +25,7 @@ public class Menu {
         this.dataInputStream = dataInputStream;
         this.dataOutputStream = dataOutputStream;
         while (!isProgramEnded) {
-                checkMenuCommands(dataInputStream.readUTF()); //todo we should get the token from the client
+            checkMenuCommands(dataInputStream.readUTF()); //todo we should get the token from the client
         }
     }
 
@@ -42,8 +43,14 @@ public class Menu {
         else if (command.startsWith("shop "))
             ShopMenu.checkMenuCommands(command.substring(5));
         else if (command.startsWith("duel ")) {
-            System.out.println(command);
-//            DuelMenu.checkMenuCommands(command.substring(5));
+            command = command.substring(5);
+            String[] parameters = command.split(" ");
+            try {
+                int rounds = Integer.parseInt(parameters[0]);
+                String opponent = parameters[1]; //todo felan ono ignore kardam :)
+                DuelRequestController.addRequest(user, rounds, this);
+            } catch (Exception e) {
+            }
         } else if (command.equals("user logout")) {
 //            MainMenu.logout(); todo
         } else if (command.equals("exit program")) {

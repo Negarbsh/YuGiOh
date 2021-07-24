@@ -17,7 +17,7 @@ public class ScoreboardMenu {
         DataOutputStream dataOutputStream = menu.dataOutputStream;
         if (command.contains("show")) {
             try {
-                dataOutputStream.writeUTF(User.showScoreBoard());
+                dataOutputStream.writeUTF(User.getSortedUsersJson());
                 dataOutputStream.flush();
             } catch (IOException e) {
                 e.printStackTrace();
